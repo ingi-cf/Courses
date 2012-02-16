@@ -17,9 +17,9 @@
 
 <class\_identifier> ::= `A..Z' \{ `a..z,A..Z,\_,0..9,'\} 
 
-<array> ::= `{'`}' \alt `{' <expression> \{`,' <expression>\}`}'
+<array> ::= `{'`}' \alt `{' <element> \{`,' <element>\}`}'
 
-<message> ::= `{'<identifier> \{`,' <expression>\}`}'
+<message> ::= `{'<identifier> \{`,' <element>\}`}'
 
 <message\_sending> ::= <element> `<-' <message>
 
@@ -27,19 +27,28 @@
 \alt<message\_sending>
 \alt<instantiation>
 \alt<digits>
-\alt true \alt false
+\alt true | false
+\alt <operation>
 \alt <message>
 \alt <array>
 
+<operation> ::= <element> <binary\_operator> <element>
+\alt <unary\_operator> <element>
+\alt (<operation>)
 
-<instantiation> ::= <class\_identifier> `<-' `{new' \{`,' <expression>\}`}'
+<binary\_operator> ::= `+' | `-' | `*' | `/' | `\%' 
+\alt `<=' | `=>' | `<' | `>'
+\alt `and' | `or'
+
+<unary\_operator> ::= !
+
+<instantiation> ::= <class\_identifier> `<-' `{new' \{`,' <element>\}`}'
 
 
 <assignment\_expression> ::= <identifier> `=' <element>
 
-<statement> ::= <message_sending> `;'
+<statement> ::= <message\_sending> `;'
 \alt <assignment\_expression>
-\alt <assignment expression> `;'
 \alt <while\_statement>
 \alt <if\_statement>
 
