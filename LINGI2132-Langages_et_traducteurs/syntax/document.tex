@@ -21,7 +21,7 @@
 
 <message> ::= `{'<identifier> \{`,' <expression>\}`}'
 
-<message\_sending> ::= <element> `\<-' <message>
+<message\_sending> ::= <element> `<-' <message>
 
 <element> ::= <identifier> 
 \alt<message\_sending>
@@ -32,7 +32,7 @@
 \alt <array>
 
 
-<instantiation> ::= <class\_identifier> `\<-' `{new' \{`,' <expression>\}`}'
+<instantiation> ::= <class\_identifier> `<-' `{new' \{`,' <expression>\}`}'
 
 
 <assignment\_expression> ::= <identifier> `=' <element>
