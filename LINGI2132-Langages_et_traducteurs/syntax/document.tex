@@ -23,11 +23,13 @@
 
 <message\_sending> ::= <element> `<-' <message>
 
+<boolean\_value> ::= true | false
+
 <element> ::= <identifier> 
 \alt<message\_sending>
 \alt<instantiation>
-\alt<digits>
-\alt true | false
+\alt \{<digits>\}
+\alt <boolean\_value>
 \alt <operation>
 \alt <message>
 \alt <array>
@@ -40,7 +42,7 @@
 \alt `<=' | `=>' | `<' | `>'
 \alt `and' | `or'
 
-<unary\_operator> ::= !
+<unary\_operator> ::= ! | - 
 
 <instantiation> ::= <class\_identifier> `<-' `{new' \{`,' <element>\}`}'
 
@@ -78,6 +80,17 @@
 
 
 \end{grammar}
+
+
+\section{Data types}
+
+We would define some basic classes to store data. 
+
+\begin{itemize}
+	\item \textbf{Integer} objects would represent real numbers. 
+	\item \textbf{Boolean} objects that would represent a <boolean\_value>.
+	\item \textbf{Array} 
+\end{itemize}
 
 
 \end{document}
