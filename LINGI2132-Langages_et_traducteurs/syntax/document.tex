@@ -13,25 +13,57 @@
 \newpage
 
 \begin{grammar}
-<identifier> ::= `a..z' \{ `a..z,\_,0..9,'\} 
+<identifier> ::= `a..z' \{ `a..z,A..Z,\_,0..9,'\} 
 
-<message> ::= <identifier>`{'(identifier `:' <object> \{`,' identifier `:' <object>\})?`}'
+<class\_identifier> ::= `A..Z' \{ `a..z,A..Z,\_,0..9,'\} 
 
-<message\_declaration> ::= <identifier>`{'<identifier> `:' <identifier> \{`,'<identifier> `:' <identifier>\}`}' `{'<code\_block>`}'
+<message> ::= `{'<identifier> \{`,' <expression>\}`}'
 
-<class> ::= `class' <identifier> `{' <class body> `}'
+<message\_sending> ::= <element> `-\>' <message>
 
-<message sending> ::= <object> `->' <message>
+<element> ::= <identifier> 
+\alt<message\_sending>
+\alt<instantiation>
+\alt<digits>
+\alt true \alt false
 
-<block code> ::= { <statement>? }
-<while statement> ::= `while' `(' <expression> `)'  `{'<block code>`}'
-<if statement> ::= `if' `(' <expression> `)'  `{'<block code>`}'
 
-<statement> ::= <expression>
-\alt <assignment expression>
+<instantiation> ::= <class\_identifier> `-\>' `{new' \{`,' <expression>\}`}'
 
-<assignment expression> ::= <identifier> `=' <expression>
-\alt {<digits>}
+
+<assignment\_expression> ::= <identifier> `=' <element>
+
+<statement> ::= <message_sending> `;'
+\alt <assignment\_expression>
+\alt <assignment expression> `;'
+\alt <while\_statement>
+\alt <if\_statement>
+
+<block code> ::= { <statement> }
+
+<while\_statement> ::= `while' `(' <expression> `)'  `{'<block code>`}'
+
+<if\_statement> ::= `if' `(' <expression> `)'  `{'<block code>`}'
+
+
+
+
+<class> ::= `class' <class\_identifier> `{' <class body> `}'
+
+<class\_body> ::= \{<attribute\_declaration>\} \{<message\_declaration>\}
+
+<message\_declaration> ::= `def'  `{'<identifier> \{`,' <identifier>\}`}' `\{'<code\_block>`\}'
+
+<attribute\_declaration> ::= <identifier> `;'
+
+
+
+
+
+
+
+
+
 \end{grammar}
 
 
