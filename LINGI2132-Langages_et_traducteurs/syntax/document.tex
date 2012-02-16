@@ -17,6 +17,8 @@
 
 <class\_identifier> ::= `A..Z' \{ `a..z,A..Z,\_,0..9,'\} 
 
+<array> ::= `{'\{`,' <expression>\}`}'
+
 <message> ::= `{'<identifier> \{`,' <expression>\}`}'
 
 <message\_sending> ::= <element> `\<-' <message>
@@ -26,6 +28,8 @@
 \alt<instantiation>
 \alt<digits>
 \alt true \alt false
+\alt <message>
+\alt <array>
 
 
 <instantiation> ::= <class\_identifier> `\<-' `{new' \{`,' <expression>\}`}'
