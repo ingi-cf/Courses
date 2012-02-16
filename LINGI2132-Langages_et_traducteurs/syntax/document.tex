@@ -20,6 +20,18 @@
 <message\_declaration> ::= <identifier>`{'<identifier> `:' <identifier> \{`,'<identifier> `:' <identifier>\}`}' `{'<code\_block>`}'
 
 <class> ::= `class' <identifier> `{' <class body> `}'
+
+<message sending> ::= <object> `->' <message>
+
+<block code> ::= { <statement>? }
+<while statement> ::= `while' `(' <expression> `)'  `{'<block code>`}'
+<if statement> ::= `if' `(' <expression> `)'  `{'<block code>`}'
+
+<statement> ::= <expression>
+\alt <assignment expression>
+
+<assignment expression> ::= <identifier> `=' <expression>
+\alt {<digits>}
 \end{grammar}
 
 
