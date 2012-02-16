@@ -12,6 +12,8 @@
 \maketitle
 \newpage
 
+\section{Syntax description}
+
 \begin{grammar}
 <identifier> ::= `a..z' \{ `a..z,A..Z,\_,0..9,'\} 
 
@@ -39,7 +41,7 @@
 \alt (<operation>)
 
 <binary\_operator> ::= `+' | `-' | `*' | `/' | `\%' 
-\alt `<=' | `=>' | `<' | `>'
+\alt `<=' | `=>' | `<' | `>' | `==' | `!=' 
 \alt `and' | `or'
 
 <unary\_operator> ::= ! | - 
@@ -50,7 +52,8 @@
 <assignment\_expression> ::= <identifier> `=' <element>
 
 <statement> ::= <message\_sending> `;'
-\alt <assignment\_expression>
+\alt <assignment\_expression> `;'
+\alt return <element> `;'
 \alt <while\_statement>
 \alt <if\_statement>
 
@@ -119,5 +122,45 @@ or & or \\
 \end{array}
 
 
+
+\section{Examples}
+class Point{
+    x;
+    y;
+
+    def {new, px, py}
+    {
+        x = px;
+        y = py;
+    }
+
+    def {add, px, py}
+    {
+        x = x + px;
+        y = y + py;
+    }
+
+    def {getX}
+    {
+        return x;    
+    }
+    
+    def {getY}
+    {
+        return y;    
+    }
+
+    def {gt, p2}
+    {
+        px = p2 <- getX;    
+        py = p2 <- getY;    
+        return (x*x + y*y) > (px*px + py*py)
+    }
+}
+
+p = Point <- {new, 12, 14}
+p2 = Point <- {new,13 ,28} + p
+
+stdout <- {print, p > p2}
 
 \end{document}
