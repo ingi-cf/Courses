@@ -93,4 +93,29 @@ We would define some basic classes to store data.
 \end{itemize}
 
 
+\{digits\} is translated in Integer$\leftarrow$(new, \{digits\}) \\
+4 + 2 is translated in Integer$\leftarrow$(new, 4)$\leftarrow$(add, Integer$\leftarrow$(new, 2)) \\
+The operator 'not' is a unary operator. Example: Integer$\leftarrow$(new, 2)$\leftarrow$leq(4)$\leftarrow$(not). Syntactic sugar: !(2 $<=$ 4)\\
+
+\begin{array}{|c|c|}
+\hline
++ & add \\
+- & minus \\
+* & times \\
+/ & div \\
+and & and \\
+or & or \\
+<= & leq \\
+>= & geq \\
+== & eq \\
+!= & neq \\
+< & lt \\
+> & gt \\
+\% & mod \\
+! & not \\
+\hline
+\end{array}
+
+
+
 \end{document}
