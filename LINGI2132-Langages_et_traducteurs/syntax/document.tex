@@ -1,0 +1,26 @@
+\documentclass{eplDoc}
+
+
+
+\newcommand{\docType}	{Définition de la syntaxe}
+\newcommand{\docDate}	{17/02/2012}
+\newcommand{\docAuthor}	{Mulders Corentin, Forêt Nicolas, Pelsser François}
+\newcommand{\courseCode}{LINGI2132}
+\newcommand{\courseName}{Langages et traducteurs}
+\usepackage{syntax}
+\begin{document}
+\maketitle
+\newpage
+
+\begin{grammar}
+<identifier> ::= `a..z' \{ `a..z,\_,0..9,'\} 
+
+<message> ::= <identifier>`{'(identifier `:' <object> \{`,' identifier `:' <object>\})?`}'
+
+<message\_declaration> ::= <identifier>`{'<identifier> `:' <identifier> \{`,'<identifier> `:' <identifier>\}`}' `{'<code\_block>`}'
+
+<class> ::= `class' <identifier> `{' <class body> `}'
+\end{grammar}
+
+
+\end{document}
