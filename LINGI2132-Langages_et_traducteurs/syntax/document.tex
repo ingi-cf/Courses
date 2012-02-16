@@ -17,7 +17,7 @@
 
 <class\_identifier> ::= `A..Z' \{ `a..z,A..Z,\_,0..9,'\} 
 
-<array> ::= `{'\{`,' <expression>\}`}'
+<array> ::= `{'`}' \alt `{'<expression>`}' \alt `{' <expression> \{`,' <expression>\}`}'
 
 <message> ::= `{'<identifier> \{`,' <expression>\}`}'
 
