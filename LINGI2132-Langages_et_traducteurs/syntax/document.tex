@@ -35,6 +35,7 @@
 \alt <operation>
 \alt <message>
 \alt <tuple>
+\alt #
 
 <operation> ::= <element> <binary\_operator> <element>
 \alt <unary\_operator> <element>
@@ -66,7 +67,7 @@
 
 
 
-<class> ::= `class' <class\_identifier> `{' <class body> `}'
+<class> ::= `class' <class\_identifier> (extends <identifier>)? `{' <class body> `}'
 
 <class\_body> ::= \{<attribute\_declaration>\} \{<message\_declaration>\}
 
