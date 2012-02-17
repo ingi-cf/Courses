@@ -58,7 +58,9 @@
 \alt <while\_statement>
 \alt <if\_statement>
 
-<block code> ::= { <statement> }
+<comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
+
+<block code> ::= { <statement> } { <comment> } 
 
 <while\_statement> ::= `while' `(' <expression> `)'  `{'<block code>`}'
 
@@ -124,8 +126,9 @@ or & or \\
 
 
 
-\section{Examples}
+\section{Code examples}
 
+\subsection{Definition of a new class}
 \begin{lstlisting}
 class Point{
     x;
@@ -167,4 +170,6 @@ p2 = Point <- {new,13 ,28} + p
 stdout <- {print, p > p2}
 
 \end{lstlisting}
+
+\subsection{}
 \end{document}
