@@ -58,7 +58,7 @@ solve<m> {
       //first assign the queens in the even columns and first try
       //to assign values that are less present in the domain of the other variables
       forall(i in S : !q[i].bound()) by (i%2) 
-        tryall<m>(p in S: q[i].memberOf(p)) //by ((sum b in S) q[b].memberOf(p))
+        tryall<m>(p in S: q[i].memberOf(p)) by (sum(b in S) q[b].memberOf(p))
           label(q[i], p);
 
       break;    
@@ -78,6 +78,15 @@ solve<m> {
       break;    
     case 6:
       //split (in 2) the domain of an unbound queen
+        Solver<CP> cp = q[q.getLow()].getSolver();
+        while (!bound(q)) {
+          selectMin (i in q.getRange() : !q[i].bound()) (q[i].getSize()) {
+            int mid = (q[i].getMin() + q[i].getMax()) / 2;
+            try<cp> cp.post(q[i] <= mid); | cp.post(q[i] > mid);
+          }
+        }
+        
+      
 
       break;    
   }
