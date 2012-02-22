@@ -1,0 +1,33 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+int t0 = System.getCPUTime();
+int n= 1000;
+range R = 0..n-1;
+// Create the variables and specify their domains
+var<CP>{int} q[i in R](cp,R);
+
+solve<cp>{
+  /*  
+  forall(a in R) 
+    cp.post((sum(r in R) (q[r]==a)) == q[a]);
+  */
+  forall(a in R : a != 0) 
+    cp.post(q[a] <= n/a);
+  
+  cp.post((sum(r in R) (q[r])) == n);
+
+  cp.post(cardinality(q,q));
+} using{
+  // Use a generic search procedure
+   label(cp);
+}
+
+
+// Print your solution
+cout << "Sequence : " << q << endl;
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;
