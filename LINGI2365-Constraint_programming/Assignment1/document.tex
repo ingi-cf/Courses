@@ -1,0 +1,31 @@
+\documentclass{eplDoc}
+
+
+
+\newcommand{\docType}	{Assignment 1}
+\newcommand{\docDate}	{24/02/2012}
+\newcommand{\docAuthor}	{Mulders Corentin, Pelsser Francois}
+\newcommand{\courseCode}{LINGI2365}
+\newcommand{\courseName}{Constraint programming}
+\usepackage{syntax}
+\begin{document}
+\maketitle
+\newpage
+
+\section{The rabbits and chicken problem}
+
+We simply had to post two constraints to make sure that the total number of feet and the total number of heads are correct. 
+
+\begin{lstlisting}
+cp.post(rabbits*feetPerRabbit+chicken*feetPerChicken == feet);
+cp.post(rabbits+chicken == heads);
+\end{lstlisting}
+
+The solution is that there are 28 rabbits and 44 chicken in the courtyard. 
+
+
+\section{Nightmare in INGI}
+
+
+
+\end{document}

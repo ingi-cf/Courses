@@ -1,0 +1,57 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+// enumerations are like ranges, but we use names instead of integers. this allows a better
+// clarity for some problems. We can thus create an array indexed by the names in an
+// enumeration. 
+enum Persons = {alice, bob, chuck};
+
+// variable that counts the number of solution found
+Integer ns(0);
+
+// Create the variables and specify their domains
+var<CP>{Persons} killer(cp, Persons);   
+var<CP>{int} taller[Persons,Persons](cp,0..1);
+var<CP>{int} hates[Persons,Persons](cp,0..1);
+
+solveall<cp>{
+
+   // Nobody is taller than himself
+   forall(p in Persons) cp.post(taller[p,p] != 1);
+
+   // If A is taller than B, then B is not taller than A
+   forall(a in Persons, b in Persons : a != b) cp.post(taller[a,b] != taller[b,a]);
+
+   // The killer hates his victim
+   cp.post(hates[killer,alice] == 1);
+
+  // Post you constraints here
+
+
+
+
+
+
+
+
+} using{
+  // Use a generic search procedure
+   label(cp);
+   ns := ns + 1;
+}
+
+// Print your solution
+cout << "The killer is : ";
+switch(killer){
+  case alice: cout << "Alice " << endl; break;
+  case bob: cout << "Bob " << endl; break;
+  case chuck: cout << "Chuck " << endl; break;
+  default : cout << " unknown" << endl;
+}
+
+cout << "#Solutions " << ns << endl;
+cout << "#Choices " << cp.getNChoice() << endl;
+cout << "#Failures " << cp.getNFail() << endl;

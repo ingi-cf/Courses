@@ -1,0 +1,31 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+int feet = 200; int heads = 72;
+int feetPerRabbit = 4;   // a rabbit has 4 feet
+int feetPerChicken = 2;  // a chicken has 2 feet  
+
+// Create the variables and specify their domains
+// since there are 72 heads there can be at most 72 rabbits or 72 chicken
+var<CP>{int} rabbits(cp, 0..72);   
+var<CP>{int} chicken(cp, 0..72);
+
+solve<cp>{
+  // Post you constraints here
+   cp.post(rabbits*feetPerRabbit+chicken*feetPerChicken == feet);
+   cp.post(rabbits+chicken == heads);
+
+
+
+} using{
+
+  // Use a generic search procedure
+   label(cp);
+}
+
+
+// Print your solution
+cout << "Rabbits : " << rabbits << " Chicken " << chicken << endl;
