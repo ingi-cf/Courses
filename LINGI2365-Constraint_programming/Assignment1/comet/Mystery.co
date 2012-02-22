@@ -18,15 +18,35 @@ var<CP>{int} taller[Persons,Persons](cp,0..1);
 var<CP>{int} hates[Persons,Persons](cp,0..1);
 
 solveall<cp>{
-
    // Nobody is taller than himself
    forall(p in Persons) cp.post(taller[p,p] != 1);
 
    // If A is taller than B, then B is not taller than A
    forall(a in Persons, b in Persons : a != b) cp.post(taller[a,b] != taller[b,a]);
-
+   
    // The killer hates his victim
    cp.post(hates[killer,alice] == 1);
+   
+   // Exactly three people were in INGI at the time of the murder: Alice, Bob and Chuck
+   cp.post((killer == alice) || (killer == bob) || killer == chuck);
+
+   // The killer is taller than his victim
+   cp.post( taller[killer,alice] ==1 );
+
+     
+   // Alice hates everybody except Bob
+   ///!\ means Alice hates herself...
+   forall(p in Persons : p != bob) cp.post(hates[alice,p] == 1);
+
+   // Bob hates everyone that Alice hates
+   forall(p in Persons) cp.post(hates[alice,p] != 1 || hates[bob,p] == 1);
+   
+
+   // Chuck hates no one that Alice hates
+   forall(p in Persons) cp.post(hates[alice,p] != 1 || hates[chuck,p] != 1);
+
+   //Nobody hates everyone
+   //Trouver un truc malin pour ici
 
   // Post you constraints here
 
@@ -42,7 +62,8 @@ solveall<cp>{
    label(cp);
    ns := ns + 1;
 }
-
+cout << killer <<endl;
+cout << hates <<endl;
 // Print your solution
 cout << "The killer is : ";
 switch(killer){

@@ -29,6 +29,35 @@ solve<m> {
   m.post(alldifferent(q),onBounds);
   
 } using {
+  switch(){
+    case 1:
+      //assign only values that are still in the domain of the variables.
+      forall(i in S : !q[i].bound())
+        tryall<m>(p in S: q[i] memberOf(p))
+          label(q[i], p)
+      break;
+    case 2:
+      //first assign the variables with the smallest number of values in their domains
+      
+      break;
+    case 3:
+      //first assign the queens in the even columns.
+      break;    
+    case 4:
+      //first assign the queens in the even columns and first try
+      //to assign values that are less present in the domain of the other variables
+
+      break;    
+    case 5:
+      //assign the queens from the sides to the center (so first
+      //the queen 1, then queen N , then queen 2,. . .)
+
+      break;    
+    case 6:
+      //split (in 2) the domain of an unbound queen
+
+      break;    
+  }
   label(q);
   c := c + 1;
 }
