@@ -46,16 +46,7 @@ solveall<cp>{
    forall(p in Persons) cp.post(hates[alice,p] != 1 || hates[chuck,p] != 1);
 
    //Nobody hates everyone
-   //Trouver un truc malin pour ici
-
-  // Post you constraints here
-
-
-
-
-
-
-
+   forall(p in Persons) cp.post( (sum(b in Persons) hates[p,b]) < Persons.getSize());
 
 } using{
   // Use a generic search procedure

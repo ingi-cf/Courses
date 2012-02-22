@@ -29,28 +29,51 @@ solve<m> {
   m.post(alldifferent(q),onBounds);
   
 } using {
-  switch(){
+
+  string optString = System.getArgs()[2];
+  cout << "option:" << optString.toInt() << endl;
+  switch(optString.toInt()){
+    case 0:
+      label(q);
+      break;
     case 1:
       //assign only values that are still in the domain of the variables.
       forall(i in S : !q[i].bound())
-        tryall<m>(p in S: q[i] memberOf(p))
-          label(q[i], p)
+        tryall<m>(p in S: q[i].memberOf(p))
+          label(q[i], p);
       break;
     case 2:
       //first assign the variables with the smallest number of values in their domains
-      
+      forall(i in S : !q[i].bound()) by (q[i].getSize())
+        tryall<m>(p in S: q[i].memberOf(p)) 
+          label(q[i], p);
       break;
     case 3:
       //first assign the queens in the even columns.
+      forall(i in S : !q[i].bound()) by (i%2) 
+        tryall<m>(p in S: q[i].memberOf(p)) 
+          label(q[i], p);
       break;    
     case 4:
       //first assign the queens in the even columns and first try
       //to assign values that are less present in the domain of the other variables
+      forall(i in S : !q[i].bound()) by (i%2) 
+        tryall<m>(p in S: q[i].memberOf(p)) //by ((sum b in S) q[b].memberOf(p))
+          label(q[i], p);
 
       break;    
     case 5:
       //assign the queens from the sides to the center (so first
       //the queen 1, then queen N , then queen 2,. . .)
+      forall(i in (1..4))
+      {
+        if(!q[i].bound()) 
+          tryall<m>(p in S: q[i].memberOf(p))
+            label(q[i], p);
+        if(!q[n-i].bound()) 
+          tryall<m>(p in S: q[n-i].memberOf(p))
+            label(q[n-i], p);
+       } 
 
       break;    
     case 6:
@@ -58,7 +81,6 @@ solve<m> {
 
       break;    
   }
-  label(q);
   c := c + 1;
 }
 cout << "Nb : " << c << endl;
