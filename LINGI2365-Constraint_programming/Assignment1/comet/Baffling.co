@@ -5,7 +5,7 @@ import cotfd;
 Solver<CP> cp();
 
 int t0 = System.getCPUTime();
-int n= 100;
+int n= 1000;
 range R = 0..n-1;
 // Create the variables and specify their domains
 var<CP>{int} q[i in R](cp,R);
