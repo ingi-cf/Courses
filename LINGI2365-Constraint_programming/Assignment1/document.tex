@@ -8,6 +8,9 @@
 \newcommand{\courseCode}{LINGI2365}
 \newcommand{\courseName}{Constraint programming}
 \usepackage{syntax}
+
+\lstset{breaklines=true, breakatwhitespace=false}
+
 \begin{document}
 \maketitle
 \newpage
@@ -15,7 +18,7 @@
 \section{The rabbits and chicken problem}
 
 We simply had to post two constraints to make sure that the total number of feet and the total number of heads are correct. 
-
+\lstset{breaklines=true, breakatwhitespace=false}
 \begin{lstlisting}
 cp.post(rabbits*feetPerRabbit+chicken*feetPerChicken == feet);
 cp.post(rabbits+chicken == heads);
@@ -25,7 +28,123 @@ The solution is that there are 28 rabbits and 44 chicken in the courtyard.
 
 
 \section{Nightmare in INGI}
+\subsection{Lines added to the program}
+\begin{lstlisting}
+
+   // Exactly three people were in INGI at the time of the murder: Alice, Bob and Chuck
+   cp.post((killer == alice) || (killer == bob) || killer == chuck);
+
+   // The killer is taller than his victim
+   cp.post( taller[killer,alice] ==1 );
+
+     
+   // Alice hates everybody except Bob
+   ///!\ means Alice hates herself...
+   forall(p in Persons : p != bob) cp.post(hates[alice,p] == 1);
+
+   // Bob hates everyone that Alice hates
+   forall(p in Persons) cp.post(hates[alice,p] != 1 || hates[bob,p] == 1);
+   
+
+   // Chuck hates no one that Alice hates
+   forall(p in Persons) cp.post(hates[alice,p] != 1 || hates[chuck,p] != 1);
+
+   //Nobody hates everyone
+   forall(p in Persons) cp.post( (sum(b in Persons) hates[p,b]) < Persons.getSize());
+\end{lstlisting}
+\subsection{Solution}
+The killer is Bob and there is no possible different killer. The code returned 8 solutions.   
 
 
 
+\section{NQueens}
+\subsection{Assign only values that are still in the domain}
+\begin{lstlisting}
+      forall(i in S : !q[i].bound())
+        tryall<m>(p in S: q[i].memberOf(p))
+          label(q[i], p);
+\end{lstlisting}
+\subsection{Assign variables with the smallest number of values in their domains first}
+\begin{lstlisting}
+      forall(i in S : !q[i].bound()) by (q[i].getSize())
+        tryall<m>(p in S: q[i].memberOf(p)) 
+          label(q[i], p);
+\end{lstlisting}
+\subsection{Assign queens in the even columns first}    
+\begin{lstlisting}  
+      forall(i in S : !q[i].bound()) by (i%2) 
+        tryall<m>(p in S: q[i].memberOf(p)) 
+          label(q[i], p);
+\end{lstlisting}          
+\subsection{Assign queens in the even columns first and try to assign values that are less present in the domains of other variables first}   
+\begin{lstlisting}  
+      forall(i in S : !q[i].bound()) by (i%2) 
+        tryall<m>(p in S: q[i].memberOf(p)) by (sum(b in S) q[b].memberOf(p))
+          label(q[i], p);
+\end{lstlisting}          
+\subsection{Assign queens from the sides to the center}     
+\begin{lstlisting}
+      forall(i in (1..4))
+      {
+        if(!q[i].bound()) 
+          tryall<m>(p in S: q[i].memberOf(p))
+            label(q[i], p);
+        if(!q[n-i].bound()) 
+          tryall<m>(p in S: q[n-i].memberOf(p))
+            label(q[n-i], p);
+       } 
+\end{lstlisting}
+\subsection{Split the domain of an unbound queen in 2}      
+\begin{lstlisting}
+        Solver<CP> cp = q[q.getLow()].getSolver();
+        while (!bound(q)) {
+          selectMin (i in q.getRange() : !q[i].bound()) (q[i].getSize()) {
+            int mid = (q[i].getMin() + q[i].getMax()) / 2;
+            try<cp> cp.post(q[i] <= mid); | cp.post(q[i] > mid);
+          }
+        }
+        
+      
+\end{lstlisting}
+
+\section{Baffling sequence}
+
+
+\subsection{Formulation as a CSP problem}
+A basic way of formulating this problem as a CSP problem would be with the following constraints : 
+\begin{lstlisting}
+forall(a in R) 
+    cp.post((sum(r in R) (q[r]==a)) == q[a]);
+\end{lstlisting}
+
+\subsection{Two redundant constraints}
+We can imagine the two following constraints on q for this problem. 
+\begin{lstlisting}
+forall(a in R : a != 0) 
+    cp.post(q[a] <= n/a);
+  
+cp.post((sum(r in R) (q[r])) == n);
+\end{lstlisting}
+
+\subsection{How can the cardinality global constraint be used to solve the problem}
+We can replace our basic constraint by : 
+\begin{lstlisting}
+cp.post(cardinality(q,q));
+\end{lstlisting}
+
+
+\subsection{Solutions}
+To find the example solutions we used our redundant constraints and the cardinality global constraint as CSP. 
+
+\subsubsection{Solution of size 100}
+A example solution of size 100 found by our program is : \\ 
+
+\begin{lstlisting}
+[96,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0]
+\end{lstlisting}
+\subsubsection{Solution of size 1000}
+A example solution of size 1000 found by our program in 11482 milliseconds is : \\
+\begin{lstlisting}
+[996,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0, 0,0]
+\end{lstlisting}
 \end{document}
