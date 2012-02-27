@@ -25,7 +25,7 @@ It is dynamically typed. %TODO typed?? not sure and increase the sentence qualit
 
 <class\_identifier> ::= `A..Z' \{ `a..z,A..Z,\_,0..9,'\} 
 
-<tuple> ::= `{'`}' \alt `{' <element> \{`,' <element>\}`}'
+<tuple> ::= `['`]' \alt `[' <element> \{`,' <element>\}`]'
 
 <message> ::= `{'<identifier> \{`,' <element>\}`}'
 
@@ -135,20 +135,46 @@ As there is no primitive types, we define a notation $<$Class value$>$ which rep
 \subsection{Basic classes}
 \subsubsection{Integer}
 The class integer represents all integer.\\
-Suites of digits are considered as an instance of the Integer class :\\
-eval(n) = eval(Integer$<$-\{new,n\}) = $<$Integer n$>$ Where n $\in \mathbb\{Z\}$\\
+Sequences of digits are considered as an instance of the Integer class :\\
+eval(n) = $<$Integer n$>$ Where n $\in \mathbb\{Z\}$\\
 Integer class respond to these messages :\\
 sum, difference, multiplication, division, mod, minus, leq, geq, eq, neq, lt, gt\\
 The first part (sum, difference, multiplication, division, mod, minus), return a new Integer that has as value the result of the operation\\
-Ex: eval($<$Integer 4$>$ + $<$Integer 2$>$) = eval($<$Integer 4$>$ $<$- \{add, $<$Integer 2$>$\}) \\= eval(Integer $<$- \{new 6\}) = $<$Integer 6$>$\\
+Ex: eval($<$Integer 4$>$ $<$- \{sum, $<$Integer 2$>$\}) = $<$Integer 6$>$\\
 The second part (leq, geq, eq, neq, lt, gt), return a new Boolean that also has as value the result of the operation\\
-Ex: eval($<$Integer 4$>$ $>$ $<$Integer 2$>$) =  eval($<$Integer 4$>$ $<$- \{lt, $<$Integer 2$>$\}) \\ = eval(Boolean $<$- \{new true\}) = $<$Boolean true$>$
+Ex: eval($<$Integer 4$>$ $<$- \{lt, $<$Integer 2$>$\}) = $<$Boolean true$>$
 
 \subsubsection{Boolean}
+This class represents the boolean values true and false.\\
+The literals true and false are considered as instance of the Boolean class:
+eval(true) = <Boolean true>\\
+eval(false) = <Boolean false>\\
+Boolean class respond to these messages by creating a new boolean instance with as value thhe result of the operation:\\
+not, and, or
+Ex : eval($<$Boolean true$>$ $<$- \{and $<$Boolean false$>$\}) = $<$Boolean false$>$
 
 \subsubsection{Tuple}
+The class tuple is used to keep collection of items.
+Elements separated by comas and surrounded by square brackets are considered as a tuple.
+eval([4, 3, true]) = $<$Tuple $<$Integer 4$>$,$<$Integer 3$>$,$<$Boolean true$>$$>$
+Tuples responses to messages :
+\begin{description}
+    \item[add, item] add item at the end of the tuple
+    \item[remove, i] remove the item at position i of the tuple
+    \item[itemAt, i] return the item at position i of the tuple
+\end{description}
+The position of the items are Integer instances incrementing of 1 for every item and beginning at 0.
+
+
 \subsubsection{Message}
+The class Message represents messages sends to objects.
+
+
 \subsubsection{Stdio}
+This class is used to print elements on an output.  There is a global constant "stdio" wich represent the standard output.  \\
+This class manages the \{print element\} message that print a representation of the element on the output.  
+
+
 
 \subsection{Operations and assignments}
 Let E represent the environment. \\ 
