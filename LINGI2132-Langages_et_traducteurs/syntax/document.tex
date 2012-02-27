@@ -12,6 +12,12 @@
 \maketitle
 \newpage
 
+\section{Introduction}
+Our langage is an oriented oriented langage that uses message passing.  
+Everything element is an object.  Basis classes are : Integer, Boolean, Tuple, 
+Stdio and Messages.  To communicate with an object, we send it messages the 
+object can then either manage the message or sent it to an other object.
+It is dynamically typed. %TODO typed?? not sure and increase the sentence quality 
 \section{Syntax description}
 
 \begin{grammar}
@@ -35,7 +41,7 @@
 \alt <operation>
 \alt <message>
 \alt <tuple>
-\alt # | self | super
+\alt \# | self | super
 
 <operation> ::= <element> <binary\_operator> <element>
 \alt <unary\_operator> <element>
@@ -77,14 +83,6 @@
 
 <attribute\_declaration> ::= <identifier> `;'
 
-
-
-
-
-
-
-
-
 \end{grammar}
 
 
@@ -93,14 +91,14 @@
 We would define some basic classes to store data. 
 
 \begin{itemize}
-	\item \textbf{Integer} represents real numbers. 
+	\item \textbf{Integer} represents real nu mbers. 
 	\item \textbf{Boolean} represents a $<$boolean\_value$>$.
 	\item \textbf{Tuple} represents a collection (a $<$tuple$>$ corresponds to a Tuple object).
 	\item \textbf{Message} is a subclass of Tuple and represents a $<$message$>$.
 	\item \textbf{Stdio} represents the standard input and output. 
 \end{itemize}
 
-
+\section{Syntaxic sugars}
 \{digits\} is translated in Integer$\leftarrow$(new, \{digits\}) \\
 4 + 2 is translated in Integer$\leftarrow$(new, 4)$\leftarrow$(add, Integer$\leftarrow$(new, 2)) \\
 The operator 'not' is a unary operator. Example: Integer$\leftarrow$(new, 2)$\leftarrow$leq(4)$\leftarrow$(not). Syntactic sugar: !(2 $<=$ 4)\\
@@ -124,7 +122,53 @@ or & or \\
 \hline
 \end{array}
 
+\section{Semantics}
+\subsection{Basic classes}
+\subsubsection{Integer}
+\subsubsection{Boolean}
+\subsubsection{Message}
+\subsubsection{Stdio}
 
+
+\subsection{Class definition}
+A class contains 4 informations : 
+\begin{itemize}
+    \item a name
+    \item a super class
+    \item attributes 
+    \item messages definitions
+\end{itemize}
+
+There are 2 predefined messages, "new" and "default".  The first one is called 
+to create an instance of a class.  The number of arguments depends of the 
+definition of the new message(s) in the class.  The second, "default", is called
+when the object received a message wich is not in its managed messages or in 
+managed messages of one of its parents, this method can get the message to send 
+it to another object with the caracter "\#". %TODO character caracter?
+
+
+Every class attribute of the class have to be declared at the beginning of this one.  
+They cannot be instanced during the declaration.
+
+To define the managed message we should define every of them.  This take place after the attributes declaration.  For every message we have to set the name as an identifier, then add an identifier for every parameter. The parameter's identifier can then be used to retriveve parameter's values. 
+The body can contain return statement that will define what will be returned.
+Ex : 
+\begin{lstlisting}
+    def {messageName, param1, param2}
+    {
+        return param1 + param2;
+    }
+\end{lstlisting}
+In this exemple we have a message named "messageName", it takes 2 parameters that can be used in the body of the message definition with identifier "param1" and "param2".  The message call return the sum of the 2 parameters.
+
+
+\subsection{Sending Messages}
+
+\subsection{Control Sequences} %TODO review the title
+
+\subsubsection{While loop}
+
+\subsubsection{Conditional executions}
 
 \section{Code examples}
 
@@ -161,7 +205,7 @@ class Point{
         px = p2 <- getX;    
         py = p2 <- getY;    
         return (x*x + y*y) > (px*px + py*py)
-    }
+     }
 }
 
 p = Point <- {new, 12, 14}
@@ -171,5 +215,4 @@ stdout <- {print, p > p2}
 
 \end{lstlisting}
 
-\subsection{}
 \end{document}
