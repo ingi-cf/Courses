@@ -111,6 +111,7 @@ Binary operators :
 - & difference \\
 * & multiplication \\
 / & division \\
+\% & mod \\
 and & and \\
 or & or \\
 <= & leq \\
@@ -119,7 +120,6 @@ or & or \\
 != & neq \\
 < & lt \\
 > & gt \\
-\% & mod \\
 \hline
 \end{array}
 Unary operators : 
@@ -131,9 +131,21 @@ Unary operators :
 \end{array}
 
 \section{Semantics}
+As there is no primitive types, we define a notation $<$Class value$>$ which represent an instance of the class "Class" wich has the value "value"
 \subsection{Basic classes}
 \subsubsection{Integer}
+The class integer represents all integer.\\
+Suites of digits are considered as an instance of the Integer class :\\
+eval(n) = eval(Integer$<$-\{new,n\}) = $<$Integer n$>$ Where n $\in \mathbb\{Z\}$\\
+Integer class respond to these messages :\\
+sum, difference, multiplication, division, mod, minus, leq, geq, eq, neq, lt, gt\\
+The first part (sum, difference, multiplication, division, mod, minus), return a new Integer that has as value the result of the operation\\
+Ex: eval($<$Integer 4$>$ + $<$Integer 2$>$) = eval($<$Integer 4$>$ $<$- \{add, $<$Integer 2$>$\}) \\= eval(Integer $<$- \{new 6\}) = $<$Integer 6$>$\\
+The second part (leq, geq, eq, neq, lt, gt), return a new Boolean that also has as value the result of the operation\\
+Ex: eval($<$Integer 4$>$ $>$ $<$Integer 2$>$) =  eval($<$Integer 4$>$ $<$- \{lt, $<$Integer 2$>$\}) \\ = eval(Boolean $<$- \{new true\}) = $<$Boolean true$>$
+
 \subsubsection{Boolean}
+
 \subsubsection{Tuple}
 \subsubsection{Message}
 \subsubsection{Stdio}
