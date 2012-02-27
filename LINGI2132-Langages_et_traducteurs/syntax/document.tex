@@ -13,7 +13,7 @@
 \newpage
 
 \section{Introduction}
-Our langage is an oriented oriented langage that uses message passing.  
+Our language is an oriented oriented language that uses message passing.  
 Everything element is an object.  Basis classes are : Integer, Boolean, Tuple, 
 Stdio and Messages.  To communicate with an object, we send it messages the 
 object can then either manage the message or sent it to an other object.
@@ -91,7 +91,7 @@ It is dynamically typed. %TODO typed?? not sure and increase the sentence qualit
 We would define some basic classes to store data. 
 
 \begin{itemize}
-	\item \textbf{Integer} represents real nu mbers. 
+	\item \textbf{Integer} represents integer numbers. 
 	\item \textbf{Boolean} represents a $<$boolean\_value$>$.
 	\item \textbf{Tuple} represents a collection (a $<$tuple$>$ corresponds to a Tuple object).
 	\item \textbf{Message} is a subclass of Tuple and represents a $<$message$>$.
@@ -99,16 +99,18 @@ We would define some basic classes to store data.
 \end{itemize}
 
 \section{Syntaxic sugars}
+\label{synt}
 \{digits\} is translated in Integer$\leftarrow$(new, \{digits\}) \\
 4 + 2 is translated in Integer$\leftarrow$(new, 4)$\leftarrow$(add, Integer$\leftarrow$(new, 2)) \\
 The operator 'not' is a unary operator. Example: Integer$\leftarrow$(new, 2)$\leftarrow$leq(4)$\leftarrow$(not). Syntactic sugar: !(2 $<=$ 4)\\
 
+Binary operators : 
 \begin{array}{|c|c|}
 \hline
-+ & add \\
-- & minus \\
-* & times \\
-/ & div \\
++ & sum \\
+- & difference \\
+* & multiplication \\
+/ & division \\
 and & and \\
 or & or \\
 <= & leq \\
@@ -118,7 +120,13 @@ or & or \\
 < & lt \\
 > & gt \\
 \% & mod \\
+\hline
+\end{array}
+Unary operators : 
+\begin{array}{|c|c|}
+\hline
 ! & not \\
+- & minus \\
 \hline
 \end{array}
 
@@ -126,8 +134,37 @@ or & or \\
 \subsection{Basic classes}
 \subsubsection{Integer}
 \subsubsection{Boolean}
+\subsubsection{Tuple}
 \subsubsection{Message}
 \subsubsection{Stdio}
+
+\subsection{Operations and assignments}
+Let E represent the environment. \\ 
+By default eval(expression) = F where F is a new Boolean in E and F as false as value. Else the value of the evaluations of expressions is defined by the following rules : 
+\begin{itemize}
+\item eval(n, E) = i where i is a new Integer in E and i has n as value if n $\in \mathbb{Z}$ 
+
+\item eval(b, E) = B where B is a new Boolean in E and B has b as value if b $\in$ \{true, false\} 
+
+\item eval(\{t1, t2, ... , tn\}, E) = T where T is a new tuple in E that contains eval(t1), eval(t2), ... , eval(tn) if eval(ti) is an Object $\forall i \in [1,n]$. 
+
+\item eval(\{id, t1, ... , tn\}, E) = M where M is a new message in E with id as identifier and that contains eval(t1), eval(t2), ... , eval(tn) if eval(ti) is an Object $\forall i \in [1,n]$. 
+
+\item eval(n1 + n2, E) = eval(n1 $<$-\{sum, n2\}) if eval(n1) is an Object and eval(n2) is an Object. \\
+\begin{center}
+\vdots  \\
+\end{center}
+ 
+The same is valid for syntaxic sugars for the other binary operators with the messages from section \ref{synt}.                      
+\begin{center}
+\vdots \\
+\end{center}
+  
+\item eval(!n1, E) = eval(n1 $<$-\{not\}) if eval(n1) is an Object. 
+\item eval(-n1, E) = eval(n1 $<$-\{minus\}) if eval(n1) is an Object. 
+
+\end{itemize}
+
 
 
 \subsection{Class definition}
@@ -175,21 +212,25 @@ In this exemple we have a message named "messageName", it takes 2 parameters tha
 \subsection{Definition of a new class}
 \begin{lstlisting}
 class Point{
+		// two instance variables x and y declared
     x;
     y;
 
+		// what to do when an instance is created
     def {new, px, py}
     {
         x = px;
         y = py;
     }
-
+		
+		//definition of an add message
     def {add, px, py}
     {
         x = x + px;
         y = y + py;
     }
 
+		// getters
     def {getX}
     {
         return x;    
@@ -199,7 +240,9 @@ class Point{
     {
         return y;    
     }
-
+		
+		
+		
     def {gt, p2}
     {
         px = p2 <- getX;    
