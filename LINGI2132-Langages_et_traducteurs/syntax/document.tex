@@ -188,7 +188,7 @@ By default eval(expression) = F where F is a new Boolean in E and F as false as 
 
 \item eval(\{id, t1, ... , tn\}, E) = M where M is a new message in E with id as identifier and that contains eval(t1), eval(t2), ... , eval(tn) if eval(ti) is an Object $\forall i \in [1,n]$. 
 
-\item eval(n1 + n2, E) = eval(n1 $<$-\{sum, n2\}) if eval(n1) is an Object and eval(n2) is an Object. \\
+\item eval(n1 + n2, E) = eval(n1) $<$-\{sum, eval(n2)\}) if eval(n1) is an Object and eval(n2) is an Object. \\
 \begin{center}
 \vdots  \\
 \end{center}
@@ -239,11 +239,22 @@ In this exemple we have a message named "messageName", it takes 2 parameters tha
 
 \subsection{Sending Messages}
 
-\subsection{Control Sequences} %TODO review the title
+\subsection{Control Sequences} 
+\subsubsection{Conditional execution}
+\begin{itemize}
+	\item instr(if(cond) \{block code, E\}) = instr(block code, E) if eval(cond, E) = $<$Boolean true$>$
+	\item instr(if(cond) \{block code 1, E\} else \{block code 2, E\}) = instr(block code 1, E) if eval(cond, E) = $<$Boolean true$>$  
+  \item instr(if(cond) \{block code 1, E\} else \{block code 2, E\}) = instr(block code 2, E) if eval(cond, E) = $<$Boolean false$>$           
+                       
+\end{itemize}
 
 \subsubsection{While loop}
 
-\subsubsection{Conditional executions}
+\begin{itemize}
+	\item instr(while(cond) \{block code, E\}) = instr(block code, E) while eval(cond, E) = $<$Boolean true$>$
+     
+                       
+\end{itemize}
 
 \section{Code examples}
 
