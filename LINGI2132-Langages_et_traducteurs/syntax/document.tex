@@ -42,6 +42,7 @@ It is dynamically typed. %TODO typed?? not sure and increase the sentence qualit
 \alt <message>
 \alt <tuple>
 \alt \# | self | super
+\alt <element>.<identifier> 
 
 <operation> ::= <element> <binary\_operator> <element>
 \alt <unary\_operator> <element>
@@ -188,6 +189,10 @@ By default eval(expression) = F where F is a new Boolean in E and F as false as 
 
 \item eval(b, E) = B where B is a new Boolean in E and B has b as value if b $\in$ \{true, false\} 
 
+\item eval(id, E) = O where O is the object in E referenced by the identifier id if id is a valid identifier.
+
+\item eval(id1.id2, E) = O where O is the Object referenced by id2 from the instance variable of the object referenced by id1 in E if id1 is a valid identifier and id2 is a valid identifier for a variable from the object of id1. 
+
 \item eval(\{t1, t2, ... , tn\}, E) = T where T is a new tuple in E that contains eval(t1), eval(t2), ... , eval(tn) if eval(ti) is an Object $\forall i \in [1,n]$. 
 
 \item eval(\{id, t1, ... , tn\}, E) = M where M is a new message in E with id as identifier and that contains eval(t1), eval(t2), ... , eval(tn) if eval(ti) is an Object $\forall i \in [1,n]$. 
@@ -243,10 +248,25 @@ In this exemple we have a message named "messageName", it takes 2 parameters tha
 
 \subsection{Sending Messages}
 
+\begin{itemize}
+	\item instr(o$<$-message, E) = instr(block code, E$\cup$ \{self$\rightarrow$ eval(o, E), \#$\rightarrow$ eval(message, E)) where block code is found as defined below if o is the identifier of an Object in E. 
+\end{itemize}
+
+\subsubsection{Block code executed when a message is sent}
+\begin{itemize}
+	\item If the identifier of the message corresponds to a message defined for the receiving object then the block code defined for this object is executed.
+	\item If none of the above, if the identifier of the message corresponds to a message defined for the receiving object's super class then the block code defined for this object's super class is executed.
+	\item If none of the above, if the identifier of the message corresponds to a message defined for the receiving object's default receiving class then the block code defined for this object's default class is executed.
+	\item If none of the above, if the identifier of the message corresponds to a message defined for the default receiving class of the the receiving object's super class then the block code defined for the default class of this object's super class is executed.
+	\item If none of the above, no code is executed. 
+\end{itemize}
+
+To summarize, the message is sent first to the destination object, if it can't do anything with it it tries it's super class messages, if no super class in the hierarchy knows this message then we try to send it to the destination object's default receiver (for example a method that prints an error message), if this receiver isn't defined we try to use one from the super class. 
+
 \subsection{Control Sequences} 
 \subsubsection{Conditional execution}
 \begin{itemize}
-	\item instr(if(cond) \{block code, E\}) = instr(block code, E) if eval(cond, E) = $<$Boolean true$>$
+	\item instr(if(cond) \{block code, E\}) = instr(block code, E) if eval(cond, E \}) = $<$Boolean true$>$
 	\item instr(if(cond) \{block code 1, E\} else \{block code 2, E\}) = instr(block code 1, E) if eval(cond, E) = $<$Boolean true$>$  
   \item instr(if(cond) \{block code 1, E\} else \{block code 2, E\}) = instr(block code 2, E) if eval(cond, E) = $<$Boolean false$>$           
                        
