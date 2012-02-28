@@ -156,18 +156,22 @@ Ex : eval($<$Boolean true$>$ $<$- \{and $<$Boolean false$>$\}) = $<$Boolean fals
 \subsubsection{Tuple}
 The class tuple is used to keep collection of items.
 Elements separated by comas and surrounded by square brackets are considered as a tuple.
-eval([4, 3, true]) = $<$Tuple $<$Integer 4$>$,$<$Integer 3$>$,$<$Boolean true$>$$>$
+eval([$<$Integer 4$>$,$<$Integer 3$>$,$<$Boolean true$>$]) = $<$Tuple $<$Integer 4$>$,$<$Integer 3$>$,$<$Boolean true$>$$>$
 Tuples responses to messages :
 \begin{description}
-    \item[add, item] add item at the end of the tuple
+    \item[add, item] a dd item at the end of the tuple
     \item[remove, i] remove the item at position i of the tuple
     \item[itemAt, i] return the item at position i of the tuple
 \end{description}
-The position of the items are Integer instances incrementing of 1 for every item and beginning at 0.
+The position of the items are Integer instances incrementing of 1 for every item and beginning at 0.\\
+
 
 
 \subsubsection{Message}
-The class Message represents messages sends to objects.
+The class Message represents messages sends to objects.\\
+Elements separated by comas and surrounded by curly brackets are considered as a message.\\
+The first element of the message is an identifier.  It has to be formatted as an identifier (see BNF).\\
+eval(\{messageName, param1, param2\}) = $<$Message messageName,param1,param2$>$
 
 
 \subsubsection{Stdio}
