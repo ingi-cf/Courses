@@ -292,35 +292,35 @@ class Point{
 		// what to do when an instance is created
     def {new, px, py}
     {
-        x = px;
-        y = py;
+        self.x = px;
+        self.y = py;
     }
 		
 		//definition of an add message
     def {add, px, py}
     {
-        x = x + px;
-        y = y + py;
+        self.x = self.x + px;
+        self.y = self.y + py;
     }
 
 		// getters
     def {getX}
     {
-        return x;    
+        return self.x;    
     }
     
     def {getY}
     {
-        return y;    
+        return self.y;    
     }
 		
 		
 		
     def {gt, p2}
     {
-        px = p2 <- getX;    
-        py = p2 <- getY;    
-        return (x*x + y*y) > (px*px + py*py)
+        px = p2 <-{getX};    
+        py = p2 <-{getY};    
+        return (self.x*self.x + self.y*self.y) > (px*px + py*py)
      }
 }
 
