@@ -25,6 +25,12 @@ class TaggedSample:
             for elem in elems:
                 self.values[tag].append(elem[len(tagStart):-len(tagEnd)])
 
+    def get(self,key):
+        if len(self.values[key]) == 0:
+            return None
+        else:
+            return self.values[-1]
+    
     def __repr__(self):
         ret = ""
         for tag in self.tags:
@@ -32,5 +38,12 @@ class TaggedSample:
             for val in self.values[tag]:
                 ret += "\t" + val + "\n"
 
+        return ret
+
+    def summary(self):
+        ret = ""
+        for tag in self.tags:
+            ret += tag + ":" + str(len(self.values[tag])) + "\t"
+        
         return ret
 

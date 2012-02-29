@@ -3,7 +3,7 @@ import re
 
 class SampleReader:
 
-    separator   = "hi"
+    separator   = "<separator>"
     stream      = None
 
     def __init__(self):
@@ -21,8 +21,7 @@ class SampleReader:
         for line in self.stream:
             buff += line
             matchingSeparator += line
-            match = re.match(matchingSeparator,self.separator)
-            if match:
+            if self.isPartialSeparator(matchingSeparator):
                 if re.match(self.separator+"$", matchingSeparator):
                     yield buff[:-len(matchingSeparator)]
                     buff = ""
@@ -31,3 +30,13 @@ class SampleReader:
                 matchingSeparator = ""
       
         yield buff
+
+    def isPartialSeparator(self, s_partial):
+        if(len(s_partial) > len(self.separator)):
+            return False
+
+        for i in range(len(s_partial)):
+            if self.separator[i] == s_partial[i]:
+                return False
+
+        return True
