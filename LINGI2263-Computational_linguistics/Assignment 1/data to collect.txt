@@ -9,7 +9,7 @@
 -temperature [°C] ==> {temperature_faren} or {temperature_celsius}  int or double
 -pulse [BPM] ==> {pulse} int
 -breathing frequency [breath per minute] ==> {bf} int 
--blood pressure (systolic and diastolic) [mmHg] ==> {blood_pressure} int/int and/or {systolic_bp} {diastolic_bp}
+-blood pressure (systolic and diastolic) [mmHg] ==> {blood_pressure} int/int and/or {systolic_bp} {diastolic_bp} that are either int or int-int
 -oxygen saturation (+condition of the measure) [%] ==> {oxygen} 
 
 optional : 
