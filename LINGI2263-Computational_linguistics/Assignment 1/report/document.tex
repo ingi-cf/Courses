@@ -27,8 +27,64 @@ Some of these graphs are very basic like the gender graph that simply looks for 
 
 \subsection{Context and other idiosyncrasies used in solution}
 
-\subsection{Advantages and shortcomings of our designs choices}
+We relied on different idiosyncrasies to single out the informations depending of what we were looking for. Here is a brief explanation of how we extracted data for each type of information: 
 
-\subsection{Possible ways to improve results}
+\subsubsection{gender}
+We simply looked for the "male" or "female" word. Most of the time if one of these words appears in a medical report it was to describe the patient's gender. 
+
+\subsubsection{age}
+
+We looked for numbers followed by the following keywords : -year-old, years old, y/o.
+
+\subsubsection{weight}
+
+We looked for some words (weight, weights, weight at discharge) followed by either is, of, :, =,... followed by any number followed by a weight unit. The tag used depends on the unit found. 
+
+\subsubsection{height}
+
+We looked for the height words followed by either is, of, :, =,... followed by any notation for a height found in the files (x cm, x m, x'y", x feet y inches,...) if the height is in feet and with a textual representation we convert it to a x'y" notation. 
+
+\subsubsection{body mass index}
+
+We looked for "bmi" or "body mass index" and used the value following. 
+
+\subsubsection{Temperature}
+
+We looked for temperature or temp keywords and detected the unit by looking for degrees celsius or C, we determined that by default the temperature was in fahrenheit if it isn't specified. 
+
+\subsubsection{Pulse}
+
+We looked for the "pulse" and "heart rate" keywords. 
+
+\subsubsection{Breathing frequency}
+
+We looked for "respiratory rate" and "RR" keywords. 
+
+\subsubsection{Blood pressure}
+
+We looked for the "blood pressure", "diastolic pressure", "systolic pressure" keywords.
+
+\subsubsection{Oxygen saturation}
+
+We looked for the "oxygen" and "O2" keywords. 
+
+
+
+\subsection{Advantages and shortcomings of our designs choices}
+\subsubsection{Advantages}
+\begin{itemize}
+	\item Our rules are quite flexible and would work even with files with slight differences.
+\end{itemize}
+\subsubsection{Shortcomings}
+\begin{itemize}
+	\item We weren't able to find the conditions for the oxygen saturation measure. 
+	\item The blood pressure measure  often appear more than one time for a given patient. Sometimes there is only mention of blood pressure, sometimes diastolic or systolic. We were not always able to select the actual blood pressure when there is more then one measure. 
+\end{itemize}
+
+
+
+%\subsection{Possible ways to improve results}
+
+%We made rules that only considered one appearance of any information at a time. If a given information appears more than one time with a different %value we simply chose the last one by using the hypothesis that the medical reports are redacted chronologically. We might have used broader patterns 
 
 \end{document}
