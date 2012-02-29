@@ -15,7 +15,32 @@ class Transcript:
         self.findBasic()
 
     def findBasic(self):
-        gender = self.tSVal.get('gender')
+        self.values['gender'] = self.tSVal.get('gender')
+        self.values['age'] = self.tSVal.get('age')
+
+        #weight
+        if(len(self.tSVal.get('weight_kg'))>0):
+            self.values['weight'] = self.tSVal.get('weight_kg')[-1]
+        elif(len(self.tSVal.get('weight_pounds'))>0):
+            self.values['weight'] = int(self.tSVal.get('weight_pounds')[-1])*0.45359237
+
+        #height
+        if(len(self.tSVal.get('height_cm'))>0):
+            self.values['height'] = float(self.tSVal.get('height_cm')[-1]) / 100
+        elif(len(self.tSVal.get('height_m'))>0):
+            self.values['height'] = self.tSVal.get('height_m')[-1]
+        elif(len(self.tSVal.get('height_feet'))>0):
+            feet,inches = re.match("(.*)\'(.*)\"",self.tSVal.get('height_feet')[-1]).groups()
+            self.values['height'] = float(feet)*0.3048 + float(feet)*0.0254
+
+        #bmi
+        if(len(self.tSVal.get('bmi'))>0):
+            self.values['bmi'] = self.tSVal.get('bmi')[-1]
+        elif(self.values['weight'] and self.values['height']):
+            self.values['bmi'] = float(self.values.get('weight')) / (float(self.values.get('height')))**2
+            
+
+
     
     def findVital(self):
         pass
@@ -28,7 +53,7 @@ class Transcript:
             ret += k + ":"
             if k in self.values:
                 ret += self.values[k]
-                ret += v 
+                ret += str(v) 
             else:
                 ret += "None"
             ret += ",\t"
