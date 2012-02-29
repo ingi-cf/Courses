@@ -1,0 +1,18 @@
+-gender
+-age
+-weight [kg]
+-height [m]
+-body mass index (mass/height²)
+
+-temperature [°C]
+-pulse [BPM]
+-breathing frequency [breath per minute]
+-blood pressure (systolic and diastolic) [mmHg]
+-oxygen saturation (+condition of the measure) [%]
+
+optional : 
+-drug doses
+-smoking status
+-allergies
+-family history
+-...
