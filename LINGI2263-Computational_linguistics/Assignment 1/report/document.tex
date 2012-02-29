@@ -66,7 +66,7 @@ We looked for the "blood pressure", "diastolic pressure", "systolic pressure" ke
 
 \subsubsection{Oxygen saturation}
 
-We looked for the "oxygen" and "O2" keywords. 
+We looked for the "oxygen" and "O2" keywords in association with "saturation". 
 
 
 
@@ -74,11 +74,13 @@ We looked for the "oxygen" and "O2" keywords.
 \subsubsection{Advantages}
 \begin{itemize}
 	\item Our rules are quite flexible and would work even with files with slight differences.
+	\item We can extract the height of patients even though there are some very different ways to express it.
 \end{itemize}
 \subsubsection{Shortcomings}
 \begin{itemize}
 	\item We weren't able to find the conditions for the oxygen saturation measure. 
 	\item The blood pressure measure  often appear more than one time for a given patient. Sometimes there is only mention of blood pressure, sometimes diastolic or systolic. We were not always able to select the actual blood pressure when there is more then one measure. 
+	\item We were not able to extract some informations for patients when it is expressed as a variation to a "normal" value. For example if a patient was said to have a slightly higher than average blood pressure we wouldn't get this information. 
 \end{itemize}
 
 
