@@ -1,14 +1,16 @@
--gender
--age
--weight [kg]
--height [m]
--body mass index (mass/height²)
 
--temperature [°C]
--pulse [BPM]
--breathing frequency [breath per minute]
--blood pressure (systolic and diastolic) [mmHg]
--oxygen saturation (+condition of the measure) [%]
+{sample_name} and {sample_type}
+-gender ==> {gender} string (male or female)
+-age ==> {age} int 
+-weight [kg] ==> {weight_kg} or {weight_pounds}
+-height [m] ==> {height_cm} int {height_m} int or double  {height_feet} int'int"
+-body mass index (mass/height²) ==> {bmi} int
+
+-temperature [°C] ==> {temperature_faren} or {temperature_celsius}  int or double
+-pulse [BPM] ==> {pulse} int
+-breathing frequency [breath per minute] ==> {bf} int 
+-blood pressure (systolic and diastolic) [mmHg] ==> {blood_pressure} int/int and/or {systolic_bp} {diastolic_bp}
+-oxygen saturation (+condition of the measure) [%] ==> {oxygen} 
 
 optional : 
 -drug doses
