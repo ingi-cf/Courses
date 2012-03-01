@@ -19,12 +19,12 @@ def execUnitex(src,unitexAppFolder):
     d_graph             = scriptDir + "/ressources/graphs"
 
     cmd = []
-    cmd.append(unitexToolLogger + " Normalize \"" + src + "\" \"-r" + u_norm + "\"")
+    cmd.append("\"" + unitexToolLogger + "\" Normalize \"" + src + "\" \"-r" + u_norm + "\"")
     cmd.append("mkdir \"" + d_snt + "\"")
-    cmd.append(unitexToolLogger + " Tokenize \"" + f_snt + "\" \"-a" + u_alphabet + "\"")
-    cmd.append(unitexToolLogger + " Grf2Fst2 \"" + d_graph + "/all.grf\" -y \"--alphabet=" + u_alphabet + "\"")
-    cmd.append(unitexToolLogger + " Locate \"-t" + f_snt + "\" \"" + d_graph + "/all.fst2\" \"-a" + u_alphabet + "\" -L -M --all -b -Y")
-    cmd.append(unitexToolLogger + " Concord \"" + d_snt + "/concord.ind\" \"-m" + dst + "\" ")
+    cmd.append("\"" + unitexToolLogger + "\" Tokenize \"" + f_snt + "\" \"-a" + u_alphabet + "\"")
+    cmd.append("\"" + unitexToolLogger + "\" Grf2Fst2 \"" + d_graph + "/all.grf\" -y \"--alphabet=" + u_alphabet + "\"")
+    cmd.append("\"" + unitexToolLogger + "\" Locate \"-t" + f_snt + "\" \"" + d_graph + "/all.fst2\" \"-a" + u_alphabet + "\" -L -M --all -b -Y")
+    cmd.append("\"" + unitexToolLogger + "\" Concord \"" + d_snt + "/concord.ind\" \"-m" + dst + "\" ")
     
     for c in cmd:
         os.system(c)
@@ -68,7 +68,7 @@ for f in os.listdir(inputDir):
 
         tmpF.close()
         output.close()
-        os.system("rm "+ tmpFile)
+        #os.system("rm "+ tmpFile)
     else:
         print(src + " not taken in charge : this is not a .txt file\n")
 
