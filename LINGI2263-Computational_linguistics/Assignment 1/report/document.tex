@@ -62,7 +62,8 @@ We looked for "respiratory rate" and "RR" keywords.
 
 \subsubsection{Blood pressure}
 
-We looked for the "blood pressure", "diastolic pressure", "systolic pressure" keywords.
+We looked for the "blood pressure", "diastolic pressure", "systolic pressure" keywords. We also detect the cases where the blood pressure is expressed as a range from diastolic pressure to systolic pressure by looking for the "from...to" keywords or a simpler expression "diastolic pressure/systolic pressure". \\ 
+
 
 \subsubsection{Oxygen saturation}
 
@@ -79,7 +80,6 @@ We looked for the "oxygen" and "O2" keywords in association with "saturation".
 \subsubsection{Shortcomings}
 \begin{itemize}
 	\item We weren't able to find the conditions for the oxygen saturation measure. 
-	\item The blood pressure measure  often appear more than one time for a given patient. Sometimes there is only mention of blood pressure, sometimes diastolic or systolic. We were not always able to select the actual blood pressure when there is more then one measure. 
 	\item We were not able to extract some informations for patients when it is expressed as a variation to a "normal" value. For example if a patient was said to have a slightly higher than average blood pressure we wouldn't get this information. 
 \end{itemize}
 
