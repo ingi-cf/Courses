@@ -1,5 +1,12 @@
 import re
 
+def toFloat(string):
+    try:
+        f = float(string)
+    except(ValueError):
+        f=0
+    return f
+
 class Transcript:
     s_name = None
     s_type = None
@@ -30,29 +37,29 @@ class Transcript:
         if(self.tSVal.get('weight_kg')):
             self.values['weight'] = self.tSVal.get('weight_kg')[-1]
         elif(self.tSVal.get('weight_pounds')):
-            self.values['weight'] = float(self.tSVal.get('weight_pounds')[-1])*0.45359237
+            self.values['weight'] = toFloat(self.tSVal.get('weight_pounds')[-1])*0.45359237
 
         #height
         if(self.tSVal.get('height_cm')):
-            self.values['height'] = float(self.tSVal.get('height_cm')[-1]) / 100
+            self.values['height'] = toFloat(self.tSVal.get('height_cm')[-1]) / 100
         elif(self.tSVal.get('height_m')):
             self.values['height'] = self.tSVal.get('height_m')[-1]
         elif(self.tSVal.get('height_feet')):
             feet,inches = re.match("(.*)\'(.*)\"",self.tSVal.get('height_feet')[-1]).groups()
-            self.values['height'] = float(feet)*0.3048 + float(inches)*0.0254
+            self.values['height'] = toFloat(feet)*0.3048 + toFloat(inches)*0.0254
 
 
         #bmi
         if(self.tSVal.get('bmi')):
             self.values['bmi'] = self.tSVal.get('bmi')[-1]
-        elif('weight' in self.values and 'height' in self.values):
-            self.values['bmi'] = float(self.values.get('weight')) / (float(self.values.get('height')))**2
+        elif('weight' in self.values and 'height' in self.values and toFloat(self.values.get('height')) != 0):
+            self.values['bmi'] = toFloat(self.values.get('weight')) / (toFloat(self.values.get('height')))**2
             
         #temperature
         if(self.tSVal.get('temperature_celsius')):
             self.values['temperature'] = self.tSVal.get('temperature_celsius')[-1]
         elif(self.tSVal.get('temperature_faren')):
-            self.values['temperature'] = (float(self.tSVal.get('temperature_faren')[-1])-32)/1.8
+            self.values['temperature'] = (toFloat(self.tSVal.get('temperature_faren')[-1])-32)/1.8
         
         #pulse
         if(self.tSVal.get('pulse')):
