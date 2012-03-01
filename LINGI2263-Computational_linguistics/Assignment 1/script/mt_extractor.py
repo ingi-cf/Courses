@@ -6,16 +6,16 @@ import sys,os
 
 tags        = ["sample_name","sample_type","gender","age","weight_kg","weight_pounds","height_cm","height_m","height_feet","bmi","temperature_faren","temperature_celsius","pulse","bf","blood_pressure","systolic_bp","diastolic_bp","oxygen"]
 separator   = "\|\n"
-tmpFile     = "/tmp/mt_extractor.txt"
 scriptDir = os.path.abspath(os.path.join(sys.argv[0], os.path.pardir))
 
-def execUnitex(src,dst,unitexAppFolder):
+def execUnitex(src,unitexAppFolder):
     base =  os.path.abspath(src)[:-4]
     unitexToolLogger    = unitexAppFolder + "UnitexToolLogger"
     u_norm              = scriptDir + "/ressources/Norm.txt"
     u_alphabet          = scriptDir + "/ressources/Alphabet.txt"
     d_snt               = base + "_snt"
     f_snt               = base + ".snt"
+    dst                 = base + ".tmp.txt"
     d_graph             = scriptDir + "/ressources/graphs"
 
     cmd = []
@@ -28,6 +28,8 @@ def execUnitex(src,dst,unitexAppFolder):
     
     for c in cmd:
         os.system(c)
+
+    return dst
 
 if len(sys.argv) < 3 :
     print("USAGE : python mt_extractor.py inputDir outputDir [pathToUnitexAppFolder]")
@@ -46,7 +48,7 @@ for f in os.listdir(inputDir):
     dst = outputDir + "/" + f
 
     if(not os.path.isdir(src) and src[-4:] == ".txt"):
-        execUnitex(src,tmpFile,unitexPath)
+        tmpFile = execUnitex(src,unitexPath)
 
         tmpF = open(tmpFile,"r",encoding="utf-16")
         output = open(dst,"w",encoding="utf-16")
