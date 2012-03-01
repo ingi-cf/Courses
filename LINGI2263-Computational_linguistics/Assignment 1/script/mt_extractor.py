@@ -85,7 +85,7 @@ for f in os.listdir(inputDir):
 
         tmpF.close()
         output.close()
-        #os.remove(tmpFile)
+        os.remove(tmpFile)
     else:
         print(src + " not taken in charge : this is not a .txt file\n")
 
