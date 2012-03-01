@@ -20,7 +20,7 @@ Our program is composed of three parts. The first and main part is a set of unit
 
 \subsection{Use of Unitex tools}
 
-We use unitex to perform the patterns matchings that allow us to find the informations in the text. What we did is that for each desired information (such as gender, age, height,...) we created a unitex graph file. This graph can be used to ad tags around the wanted values. For example the age graph would surround all occurences of a patients age with \{age\} and \{/age\} in the text file. \\ 
+We use unitex to perform the patterns matchings that allow us to find the informations in the text. What we did is that for each desired information (such as gender, age, height,...) we created a unitex graph file. This graph can be used to ad tags around the wanted values. For example the age graph would surround all occurrences of a patients age with \{age\} and \{/age\} in the text file. \\ 
 Some of these graphs are very basic like the gender graph that simply looks for occurrences of "male" or "female". Others are more complex like the height graph that needs to be able to transform a height in the form "5 feet 3 inches" to "5'3"" for example, as well as specify in the tag what the unit used is so that our python script can convert it later. 
 
 \section{Extraction patterns}

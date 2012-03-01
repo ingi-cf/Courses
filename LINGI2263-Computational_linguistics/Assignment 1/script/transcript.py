@@ -51,8 +51,30 @@ class Transcript:
             print('h' + str(self.values['height'])+"\n")
             self.values['bmi'] = float(self.values.get('weight')) / (float(self.values.get('height')))**2
             
-
-
+        #temperature
+        if(self.tSVal.get('temperature_celsius')):
+            self.values['temperature'] = self.tSVal.get('temperature_celsius')
+        elif(self.tSVal.get('temperature_faren')):)
+            self.values['temperature'] = (float(self.tSVal.get('temperature_faren'))-32)/1.8
+        
+        #pulse
+        self.values['pulse'] = self.tSVal.get('pulse')
+        
+        #breathing frequency
+        self.values['breathing frequency'] = self.tSVal.get('bf')
+        
+        #blood pressure
+        if(self.tSVal.get('blood_pressure')):
+            self.values['blood pressure'] = self.tSVal.get('blood_pressure')+"(diastolic/systolic)"
+        elif(self.tSVal.get('systolic_bp')):
+            self.values['blood pressure'] = "?/"+self.tSVal.get('systolic_bp')+"(diastolic/systolic)"
+        elif(self.tSVal.get('diastolic_bp')):
+            self.values['blood pressure'] = self.tSVal.get('diastolic_bp')+"/?"+"(diastolic/systolic)"
+            
+        #oxygen saturation
+        self.values['oxygen saturation'] = self.tSVal.get('oxygen')+"%"
+            
+        
     
     def findVital(self):
         pass
