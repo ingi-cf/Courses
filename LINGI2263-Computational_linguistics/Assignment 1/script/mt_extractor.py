@@ -8,8 +8,28 @@ tags        = ["sample_name","sample_type","gender","age","weight_kg","weight_po
 separator   = "\|\n"
 tmpFile     = "/tmp/mt_extractor.txt"
 
+def execUnitex(src,dst,unitexAppFolder):
+    base =  os.path.abspath(src)[:-4]
+    unitexToolLogger    = unitexAppFolder + "UnitexToolLogger"
+    u_norm              = "/home/frol/unitex/French/Norm.txt"
+    u_alphabet          = "/home/frol/unitex/French/Alphabet.txt"
+    d_snt               = base + "_snt"
+    f_snt               = base + ".snt"
+    d_graph             = "/home/frol/lexico/graph"
 
-if len(sys.argv) < 2 :
+    cmd = []
+    cmd.append(unitexToolLogger + " Normalize \"" + src + "\" \"-r" + u_norm + "\"")
+    cmd.append("mkdir \"" + d_snt + "\"")
+    cmd.append(unitexToolLogger + " Tokenize \"" + f_snt + "\" \"-a" + u_alphabet + "\"")
+    cmd.append(unitexToolLogger + " Grf2Fst2 \"" + d_graph + "/all.grf\" -y \"--alphabet=" + u_alphabet + "\"")
+    cmd.append(unitexToolLogger + " Locate \"-t" + f_snt + "\" \"" + d_graph + "/all.fst2\" \"-a" + u_alphabet + "\" -L -M --all -b -Y")
+    cmd.append(unitexToolLogger + " Concord \"" + d_snt + "/concord.ind\" \"-m" + dst + "\" ")
+    
+    for c in cmd:
+        os.system(c)
+
+print(os.path.abspath(os.path.join(sys.argv[0], os.path.pardir)))
+if len(sys.argv) < 3 :
     print("USAGE : python mt_extractor.py inputDir outputDir [pathToUnitexAppFolder]")
     exit()
 
@@ -17,17 +37,16 @@ inputDir = sys.argv[1]
 outputDir = sys.argv[2]
 
 if len(sys.argv) > 3:
-    unitexPath = sys.argv[2]
+    unitexPath = sys.argv[3] + "/"
 else:
     unitexPath = "" 
 
 for f in os.listdir(inputDir):
     src = inputDir + "/" + f
     dst = outputDir + "/" + f
-    if(not os.path.isdir(src)):
-        tmpFile = src
-        print(f+"\n")
-        
+
+    if(not os.path.isdir(src) and src[-4:] == ".txt"):
+        execUnitex(src,tmpFile,unitexPath)
 
         tmpF = open(tmpFile,"r",encoding="utf-16")
         output = open(dst,"w",encoding="utf-16")
@@ -38,7 +57,6 @@ for f in os.listdir(inputDir):
         i=0
 
         for sample in sr.getSample():
-            print("sample :"+str(i))
             ts = TaggedSample(tags)
             ts.parse(sample)
             transcript = Transcript(ts)
@@ -48,4 +66,8 @@ for f in os.listdir(inputDir):
 
         tmpF.close()
         output.close()
+        os.system("rm "+ tmpFile)
+    else:
+        print(src + " not taken in charge : this is not a .txt file\n")
+
 

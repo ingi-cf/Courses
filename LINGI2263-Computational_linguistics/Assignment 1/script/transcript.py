@@ -7,7 +7,7 @@ class Transcript:
     tSVal  = None
 
     units = {'gender':'', 'age':'', 'weight':'kg', 'height':'m', 'bmi':''
-            ,'temperature':'°C', 'pulse':'BPM', 'breathing frequency':'breadth per minute','blood pressure':'mmHg','oxygen saturation':'%'}
+            ,'temperature':'°C', 'pulse':'BPM', 'breathing frequency':' breadth per minute','blood pressure':'mmHg','oxygen saturation':'%'}
     values = None
 
     def __init__(self,taggedSample):
@@ -35,46 +35,44 @@ class Transcript:
         #height
         if(self.tSVal.get('height_cm')):
             self.values['height'] = float(self.tSVal.get('height_cm')[-1]) / 100
-            print("a" + str(self.values['height'])+"\n")
         elif(self.tSVal.get('height_m')):
             self.values['height'] = self.tSVal.get('height_m')[-1]
-            print("b" + str(self.values['height'])+"\n")
         elif(self.tSVal.get('height_feet')):
             feet,inches = re.match("(.*)\'(.*)\"",self.tSVal.get('height_feet')[-1]).groups()
             self.values['height'] = float(feet)*0.3048 + float(inches)*0.0254
-            print(feet + " - " +inches + "\n")
-            print("c" + str(self.values['height'])+"\n")
 
 
         #bmi
         if(self.tSVal.get('bmi')):
             self.values['bmi'] = self.tSVal.get('bmi')[-1]
         elif('weight' in self.values and 'height' in self.values):
-            print('h' + str(self.values['height'])+"\n")
             self.values['bmi'] = float(self.values.get('weight')) / (float(self.values.get('height')))**2
             
         #temperature
-        if(self.tSVal.get('temperature_celsius')[-1]):
+        if(self.tSVal.get('temperature_celsius')):
             self.values['temperature'] = self.tSVal.get('temperature_celsius')[-1]
-        elif(self.tSVal.get('temperature_faren')[-1]):
+        elif(self.tSVal.get('temperature_faren')):
             self.values['temperature'] = (float(self.tSVal.get('temperature_faren')[-1])-32)/1.8
         
         #pulse
-        self.values['pulse'] = self.tSVal.get('pulse')[-1]
+        if(self.tSVal.get('pulse')):
+            self.values['pulse'] = self.tSVal.get('pulse')[-1]
         
         #breathing frequency
-        self.values['breathing frequency'] = self.tSVal.get('bf')[-1]
+        if(self.tSVal.get('bf')):
+            self.values['breathing frequency'] = self.tSVal.get('bf')[-1]
         
         #blood pressure
-        if(self.tSVal.get('blood_pressure')[-1]):
+        if(self.tSVal.get('blood_pressure')):
             self.values['blood pressure'] = self.tSVal.get('blood_pressure')[-1]+"(diastolic/systolic)"
-        elif(self.tSVal.get('systolic_bp')[-1]):
+        elif(self.tSVal.get('systolic_bp')):
             self.values['blood pressure'] = "?/"+self.tSVal.get('systolic_bp')[-1]+"(diastolic/systolic)"
-        elif(self.tSVal.get('diastolic_bp')[-1]):
+        elif(self.tSVal.get('diastolic_bp')):
             self.values['blood pressure'] = self.tSVal.get('diastolic_bp')[-1]+"/?"+"(diastolic/systolic)"
             
         #oxygen saturation
-        self.values['oxygen saturation'] = self.tSVal.get('oxygen')[-1]+"%"
+        if(self.tSVal.get('oxygen')):
+            self.values['oxygen saturation'] = self.tSVal.get('oxygen')[-1]+"%"
             
         
     
