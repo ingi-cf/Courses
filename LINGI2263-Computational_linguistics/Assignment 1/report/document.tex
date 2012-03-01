@@ -1,5 +1,5 @@
 \documentclass{eplDoc}
-
+\usepackage{placeins}
 
 
 \newcommand{\docType}	{Assignment 1 : Corpus Processing}
@@ -16,12 +16,12 @@
 
 \subsection{Program architecture}
 
-Our program is composed of three parts. The first and main part is a set of unitex graphs that are used to single out the desired data with tags. The second part is a python script that applies these graphs to the files to get tagged files. The last one parses the tagged files to create a cleaned up results file. 
+Our program is composed of three parts. The first and main part is a set of unitex graphs that are used to single out the desired data with tags. The second part is a python script that applies these graphs to the files to get tagged files. The last one is a other python script that parses the tagged files to create a cleaned up results file. 
 
 \subsection{Use of Unitex tools}
 
 We use unitex to perform the patterns matchings that allow us to find the informations in the text. What we did is that for each desired information (such as gender, age, height,...) we created a unitex graph file. This graph can be used to ad tags around the wanted values. For example the age graph would surround all occurrences of a patients age with \{age\} and \{/age\} in the text file. \\ 
-Some of these graphs are very basic like the gender graph that simply looks for occurrences of "male" or "female". Others are more complex like the height graph that needs to be able to transform a height in the form "5 feet 3 inches" to "5'3"" for example, as well as specify in the tag what the unit used is so that our python script can convert it later. 
+Some of these graphs are very basic like the gender graph that simply looks for occurrences of "male" or "female". Others are more complex like the height graph that needs to be able to transform a height in the form "5 feet 3 inches" to "5'3"" for example, as well as specify in the tag what the unit used is so that our python script can convert it later. \\ 
 
 \section{Extraction patterns}
 
@@ -42,8 +42,15 @@ We looked for some words (weight, weights, weight at discharge) followed by eith
 
 \subsubsection{height}
 
-We looked for the height words followed by either is, of, :, =,... followed by any notation for a height found in the files (x cm, x m, x'y", x feet y inches,...) if the height is in feet and with a textual representation we convert it to a x'y" notation. 
-
+We looked for the height words followed by either is, of, :, =,... followed by any notation for a height found in the files (x cm, x m, x'y", x feet y inches,...) if the height is in feet and with a textual representation we convert it to a x'y" notation using variable sin the unitex graph. \\ 
+The graph used to put tags around the values of the heights of the patients can be seen in Figure \ref{gr} as an example to show how we used variables to change the notation.
+\FloatBarrier
+\begin{figure}%
+\includegraphics[width=\columnwidth]{heightgraph.png}%
+\caption{Set height tags}%
+\label{gr}%
+\end{figure}
+\FloatBarrier
 \subsubsection{body mass index}
 
 We looked for "bmi" or "body mass index" and used the value following. 
