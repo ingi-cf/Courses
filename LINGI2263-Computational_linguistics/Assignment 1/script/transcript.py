@@ -54,27 +54,27 @@ class Transcript:
             self.values['bmi'] = float(self.values.get('weight')) / (float(self.values.get('height')))**2
             
         #temperature
-        if(self.tSVal.get('temperature_celsius')):
-            self.values['temperature'] = self.tSVal.get('temperature_celsius')
-        elif(self.tSVal.get('temperature_faren')):)
-            self.values['temperature'] = (float(self.tSVal.get('temperature_faren'))-32)/1.8
+        if(self.tSVal.get('temperature_celsius')[-1]):
+            self.values['temperature'] = self.tSVal.get('temperature_celsius')[-1]
+        elif(self.tSVal.get('temperature_faren')[-1]):
+            self.values['temperature'] = (float(self.tSVal.get('temperature_faren')[-1])-32)/1.8
         
         #pulse
-        self.values['pulse'] = self.tSVal.get('pulse')
+        self.values['pulse'] = self.tSVal.get('pulse')[-1]
         
         #breathing frequency
-        self.values['breathing frequency'] = self.tSVal.get('bf')
+        self.values['breathing frequency'] = self.tSVal.get('bf')[-1]
         
         #blood pressure
-        if(self.tSVal.get('blood_pressure')):
-            self.values['blood pressure'] = self.tSVal.get('blood_pressure')+"(diastolic/systolic)"
-        elif(self.tSVal.get('systolic_bp')):
-            self.values['blood pressure'] = "?/"+self.tSVal.get('systolic_bp')+"(diastolic/systolic)"
-        elif(self.tSVal.get('diastolic_bp')):
-            self.values['blood pressure'] = self.tSVal.get('diastolic_bp')+"/?"+"(diastolic/systolic)"
+        if(self.tSVal.get('blood_pressure')[-1]):
+            self.values['blood pressure'] = self.tSVal.get('blood_pressure')[-1]+"(diastolic/systolic)"
+        elif(self.tSVal.get('systolic_bp')[-1]):
+            self.values['blood pressure'] = "?/"+self.tSVal.get('systolic_bp')[-1]+"(diastolic/systolic)"
+        elif(self.tSVal.get('diastolic_bp')[-1]):
+            self.values['blood pressure'] = self.tSVal.get('diastolic_bp')[-1]+"/?"+"(diastolic/systolic)"
             
         #oxygen saturation
-        self.values['oxygen saturation'] = self.tSVal.get('oxygen')+"%"
+        self.values['oxygen saturation'] = self.tSVal.get('oxygen')[-1]+"%"
             
         
     
