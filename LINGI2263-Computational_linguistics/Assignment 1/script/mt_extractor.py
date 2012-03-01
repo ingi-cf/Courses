@@ -25,7 +25,7 @@ def execUnitex(src,unitexAppFolder):
 
     cmd = []
     cmd.append("\"" + unitexToolLogger + "\" Normalize \"" + src + "\" \"-r" + u_norm + "\"")
-    cmd.append("mkdir \"" + d_snt + "\"")
+    os.mkdir(d_snt)
     cmd.append("\"" + unitexToolLogger + "\" Tokenize \"" + f_snt + "\" \"-a" + u_alphabet + "\"")
     cmd.append("\"" + unitexToolLogger + "\" Grf2Fst2 \"" + u_graph + "\" -y \"--alphabet=" + u_alphabet + "\"")
     cmd.append("\"" + unitexToolLogger + "\" Locate \"-t" + f_snt + "\" \"" + u_graph2 + "\" \"-a" + u_alphabet + "\" -L -M --all -b -Y")
