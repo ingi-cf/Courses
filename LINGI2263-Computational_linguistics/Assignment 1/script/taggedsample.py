@@ -20,7 +20,7 @@ class TaggedSample:
         for tag in self.tags:
             tagStart    = '{' + tag + '}'
             tagEnd      = '{/' + tag + '}'
-            exp = tagStart + '.*' + tagEnd
+            exp = tagStart + '[^{]*' + tagEnd
             elems = re.findall(exp, sample)
             for elem in elems:
                 self.values[tag].append(elem[len(tagStart):-len(tagEnd)])
@@ -29,7 +29,7 @@ class TaggedSample:
         if len(self.values[key]) == 0:
             return None
         else:
-            return self.values[-1]
+            return self.values[key]
     
     def __repr__(self):
         ret = ""
