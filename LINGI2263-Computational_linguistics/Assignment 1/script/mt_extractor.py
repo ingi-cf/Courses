@@ -2,7 +2,7 @@
 from samplereader import SampleReader
 from taggedsample import TaggedSample
 from transcript import Transcript
-import sys,os
+import sys,os,shutil
 
 tags        = ["sample_name","sample_type","gender","age","weight_kg","weight_pounds","height_cm","height_m","height_feet","bmi","temperature_faren","temperature_celsius","pulse","bf","blood_pressure","systolic_bp","diastolic_bp","oxygen"]
 separator   = "\|\n"
@@ -33,6 +33,10 @@ def execUnitex(src,unitexAppFolder):
     
     for c in cmd:
         os.system(c)
+    
+    shutil.rmtree(d_snt)
+    os.remove(f_snt)
+    os.remove(u_graph2)
 
     return dst
 
@@ -73,7 +77,7 @@ for f in os.listdir(inputDir):
 
         tmpF.close()
         output.close()
-        #os.system("rm "+ tmpFile)
+        os.remove(tmpFile)
     else:
         print(src + " not taken in charge : this is not a .txt file\n")
 
