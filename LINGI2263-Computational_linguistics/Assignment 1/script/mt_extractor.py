@@ -3,6 +3,7 @@ from samplereader import SampleReader
 from taggedsample import TaggedSample
 from transcript import Transcript
 import sys,os,shutil
+import subprocess
 
 tags        = ["sample_name","sample_type","gender","age","weight_kg","weight_pounds","height_cm","height_m","height_feet","bmi","temperature_faren","temperature_celsius","pulse","bf","blood_pressure","systolic_bp","diastolic_bp","oxygen"]
 separator   = "\|\n"
@@ -32,7 +33,9 @@ def execUnitex(src,unitexAppFolder):
     cmd.append("\"" + unitexToolLogger + "\" Concord \"" + u_concord + "\" \"-m" + dst + "\" ")
     
     for c in cmd:
-        os.system(c)
+        #os.system(c)
+        print(c)
+        subprocess.call(c)
     
     shutil.rmtree(d_snt)
     os.remove(f_snt)
