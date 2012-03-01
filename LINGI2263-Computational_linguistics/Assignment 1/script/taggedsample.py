@@ -21,6 +21,7 @@ class TaggedSample:
             tagStart    = '{' + tag + '}'
             tagEnd      = '{/' + tag + '}'
             exp = tagStart + '[^{]*' + tagEnd
+
             elems = re.findall(exp, sample)
             for elem in elems:
                 self.values[tag].append(elem[len(tagStart):-len(tagEnd)])

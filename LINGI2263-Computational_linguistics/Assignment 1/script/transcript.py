@@ -13,8 +13,10 @@ class Transcript:
     def __init__(self,taggedSample):
         self.values={}
         self.tSVal = taggedSample
-        s_name = self.tSVal.get('sample_name')
-        s_type = self.tSVal.get('sample_type')
+        if self.tSVal.get('sample_name'):
+            self.s_name = self.tSVal.get('sample_name')[-1]
+        if self.tSVal.get('sample_type'):
+            self.s_type = self.tSVal.get('sample_type')[-1]
         self.findBasic()
 
 
@@ -83,18 +85,18 @@ class Transcript:
         ret = ""
         ret += 'sample name:' 
         if self.s_name:
-            ret += s_name 
+            ret += self.s_name 
+        ret+= ",\t"
         ret += 'sample type:' 
         if self.s_type:
-            ret += s_type 
+            ret += self.s_type 
+        ret+= ",\t"
 
         for (k,v) in self.units.items():
-            ret += k + ":"
             if k in self.values and self.values[k]:
+                ret += k + ":"
                 ret += str(self.values[k])
                 ret += str(v) 
-            else:
-                ret += "None"
-            ret += ",\t"
+                ret += ",\t"
 
         return ret[:-2]
