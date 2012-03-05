@@ -1,0 +1,28 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+
+int n = 1;                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 1..n;                //Weeks
+range S = 1..(G.getUp()/4);    //Slots
+
+
+var<CP>{int} GPlanning[G,W](cp, S);   
+
+solve<cp>{
+    cp.post(GPlanning[4,1]==1);
+    forall(w in W)
+        forall(s in S)
+            cp.post((sum(g in G) (GPlanning[g,w] == s)) == 4);
+
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+}
+
+cout << GPlanning << endl;
