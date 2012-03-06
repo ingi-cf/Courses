@@ -5,7 +5,7 @@ import cotfd;
 Solver<CP> cp();
 
 
-int n = 1;                   //Number of weeks
+int n = 2;                   //Number of weeks
 range G = 1..32;               //Golfers
 range W = 1..n;
 range WE = 0..n;                //Weeks
@@ -15,8 +15,6 @@ range S = 1..(G.getUp()/4);    //Slots
 var<CP>{int} GAgainst[G,G](cp, WE);   
 
 solve<cp>{
-  //  forall(w in W)
-  //      cp.post(((sum(g1 in G, g2 in G) GAgainst[g1,g2] == w) == (G.getSize() * 2)));
     
     forall(g1 in G, g2 in G)
         cp.post(GAgainst[g1,g2] == GAgainst[g2,g1]);
