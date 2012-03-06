@@ -1,0 +1,50 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+
+int n = 1;                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 0..n;                //Weeks
+range S = 1..(G.getUp()/4);    //Slots
+
+
+var<CP>{int} GAgainst[G,G](cp, W);   
+
+solve<cp>{
+  //  forall(w in W: w != 0)
+  //      cp.post(((sum(g1 in G, g2 in G) GAgainst[g1,g2] == w) == (G.getSize() * 2)));
+    
+    forall(g1 in G, g2 in G)
+        cp.post(GAgainst[g1,g2] == GAgainst[g2,g1]);
+
+    forall(g in G)
+        cp.post(GAgainst[g,g] == 0);
+
+    forall(g1 in G, w in W:w != 0)
+        cp.post((sum(g2 in G: g2 != g1) (GAgainst[g1,g2] == w)) == 3);
+    
+    forall(w in W : w != 0, g1 in G, g2 in G, g3 in G)
+        cp.post((GAgainst[g2,g3] != w) || ((GAgainst[g1,g2] == w) && GAgainst[g1,g3] == w)   );
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+}
+
+cout << GAgainst << endl;
+
+forall(g1 in G)
+{
+    cout << g1 << ":";
+    forall(w in W : w != 0)
+    {
+        forall(g2 in G :g1 != g2 && GAgainst[g1,g2].bound()  && GAgainst[g1,g2] == w)
+            cout << g2 << ",";
+        cout << ";";
+    }
+    cout << endl;
+ }   
+      

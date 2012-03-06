@@ -1,0 +1,44 @@
+// import the CP library
+import cotfd;
+
+// create the CP Solver 
+Solver<CP> cp();
+
+
+int n = 2;                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 1..n;                //Weeks
+range S = 1..(G.getUp()/4);    //Slots
+range P = 1..4;
+
+var<CP>{int} GPlanning[W,S,P](cp, G);   
+
+solve<cp>{
+    forall(w in W)
+        cp.post(alldifferent(all(s in S, p in P)GPlanning[w,s,p]));
+    
+    
+ //  forall(g1 in G, g2 in G: g1 != g2)
+ //       cp.post((sum(w in W, s in S, p1 in P, p2 in P) (GPlanning[w,s,p1] == g1 && GPlanning[w,s,p2]==g2)) <= 1);
+
+   forall(g in G, w0 in W,p0 in P, s0 in S: GPlanning[w0,s0,p0].bound() && GPlanning[w0,w0,p0] == g)
+       cp.post(alldifferent(all(w in W,s in S, p1 in P, p2 in P: GPlanning[w,s,p2].bound()
+            && (GPlanning[w,s,p2] == g )
+            && (GPlanning[w,s,p1] != g || w == w0)
+            ) 
+        GPlanning[w,s,p1]));
+
+
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+}
+
+cout << GPlanning << endl;
+forall(g in G, w0 in W,p0 in P, s0 in S: GPlanning[w0,s0,p0].bound() && GPlanning[w0,w0,p0] == g)
+    cout << all(w in W,s in S, p1 in P, p2 in P: GPlanning[w,s,p1].bound() && GPlanning[w,s,p2].bound()
+        && (GPlanning[w,s,p2] == g )
+        && (GPlanning[w,s,p1] != g || w == w0)
+        ) 
+    GPlanning[w,s,p1] << endl;
