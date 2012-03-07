@@ -1,11 +1,14 @@
 // import the CP library
 import cotfd;
 
+
+int t0 = System.getCPUTime();
+
 // create the CP Solver 
 Solver<CP> cp();
 
 
-int n = 2;                   //Number of weeks
+int n = 3;                   //Number of weeks
 range G = 1..32;               //Golfers
 range W = 1..n;
 range WE = 0..n;                //Weeks
@@ -21,12 +24,15 @@ solve<cp>{
 
     forall(g in G)
         cp.post(GAgainst[g,g] == 0);
-
-    forall(g1 in G, w in W)
-        cp.post((sum(g2 in G: g2 != g1) (GAgainst[g1,g2] == w)) == 3);
     
     forall(w in W, g1 in G, g2 in G, g3 in G : g3 != g2 && g2 != g1 && g1 != g3)
         cp.post(((GAgainst[g1,g2] != w) || (GAgainst[g1,g3] != w)) || (GAgainst[g2,g3] == w));
+    
+    forall(g in G)
+        cp.post(cardinality(all(w in W) 3 , all(g2 in G) GAgainst[g,g2]));
+
+    forall(g in G)
+        cp.post(sum(g2 in G)(GAgainst[g,g2]) == (sum(w in W)(3*w)));
 } using{
 
     // Use a generic search procedure
@@ -47,3 +53,5 @@ forall(g1 in G)
     cout << endl;
  }   
       
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;

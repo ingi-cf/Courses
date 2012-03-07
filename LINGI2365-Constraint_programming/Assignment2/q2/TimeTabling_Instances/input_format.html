@@ -1,0 +1,802 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002 (1.62)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./node7_files/filelist.xml">
+<link rel=Edit-Time-Data href="./node7_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Input Format</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>oliviar</o:Author>
+  <o:LastAuthor>oliviar</o:LastAuthor>
+  <o:Revision>7</o:Revision>
+  <o:TotalTime>4</o:TotalTime>
+  <o:Created>2002-09-27T15:42:00Z</o:Created>
+  <o:LastSaved>2002-09-30T09:41:00Z</o:LastSaved>
+  <o:Pages>3</o:Pages>
+  <o:Words>601</o:Words>
+  <o:Characters>3431</o:Characters>
+  <o:Company>Napier University</o:Company>
+  <o:Lines>28</o:Lines>
+  <o:Paragraphs>6</o:Paragraphs>
+  <o:CharactersWithSpaces>4213</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel=Stylesheet type="text/css" media=all href="IC_Problem.css">
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:475799076;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-133932466 -474050670 1935802886 -300282666 -864497894 -1334814174 1264740338 1257945420 1354236014 -1067549128;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<meta name=description content="Input Format">
+<meta name=keywords content="IC_Problem">
+<meta name=resource-type content=document>
+<meta name=distribution content=global>
+<meta http-equiv=Content-Style-Type content="text/css">
+<link rel=next href=node8.html>
+<link rel=previous href=node6.html>
+<link rel=up href="..\index.html">
+<link rel=next href=node8.html>
+</head>
+
+<body lang=EN-GB link=blue vlink=blue style='tab-interval:36.0pt'>
+<div class=Section1> 
+  <h1><span style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'><span
+style='mso-bookmark:SECTION00070000000000000000'><font face="Arial, Helvetica, sans-serif">Input 
+    Format</font></span> </span></span></span></span></span></span></h1>
+  <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>The problem 
+    instance files have the following format (all numbers are integers, all intra-line 
+    separators are spaces): </span></span></span></span></span></span></font></p>
+  <ul type=disc>
+    <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo3;tab-stops:list 36.0pt'> 
+      <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:
+     tex2html72'><span style='mso-bookmark:tex2html80'><span style='mso-bookmark:
+     tex2html78'><span style='mso-bookmark:tex2html81'><span style='mso-bookmark:
+     tex2html79'><span style='mso-bookmark:tex2html73'><b>First line:</b> <br>
+        Number of events, number of rooms, number of features, number of students. 
+        </span></span></span></span></span></span></font></p>
+    </li>
+    <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo3;tab-stops:list 36.0pt'> 
+      <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:
+     tex2html72'><span style='mso-bookmark:tex2html80'><span style='mso-bookmark:
+     tex2html78'><span style='mso-bookmark:tex2html81'><span style='mso-bookmark:
+     tex2html79'><span style='mso-bookmark:tex2html73'><b>One line for each room:</b> 
+        <br>
+        Roomsize. </span></span></span></span></span></span></font></p>
+    </li>
+    <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l0 level1 lfo3;tab-stops:list 36.0pt'> 
+      <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:
+     tex2html72'><span style='mso-bookmark:tex2html80'><span style='mso-bookmark:
+     tex2html78'><span style='mso-bookmark:tex2html81'><span style='mso-bookmark:
+     tex2html79'><span style='mso-bookmark:tex2html73'><b>One line for each student/event:</b> 
+        <br>
+        A zero or one. Zero means that the student does NOT attend the event, 
+        one means that he DOES attend the event. <br>
+        In the order of these the event changes more quickly. <br>
+        For example, if there were 3 students and 4 events then the following: </span></span></span></span></span></span></font></p>
+    </li>
+  </ul>
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </span>would give this <i>attends</i> matrix: </span></span></span></span></span></span></font></p>
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>event</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>student</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'><span
+style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;</span>Meaning: </span></span></span></span></span></span></font></p>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the first student attends the 
+    second event <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    second student attends the first and second events <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    third student attends the third event </span></span></span></span></span></span></font></p>
+</div>
+<ul>
+  <li> 
+    <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><b>One line for each room/feature:</b> <br>
+      A zero if the room does NOT satisfy the feature, or a one if the room DOES 
+      satisfy the feature. <br>
+      In the order of these the feature changes more quickly. <br>
+      For example, if there were 3 rooms and 4 features then 
+      the following: </span></span></span></span></span></span></font></p>
+  </li>
+</ul>
+<div class=Section1> 
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>would give this <i>roomfeatures</i> 
+    matrix: </span></span></span></span></span></span></font></p>
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>feature</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>room</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Meaning: </span></span></span></span></span></span></font></p>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the first room satisfies the 
+    second feature <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    second room satisfies the first and second features <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    third room satisfies the third feature </span></span></span></span></span></span></font></p>
+</div>
+<ul>
+  <li> 
+    <p><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><b>One line for each event/feature:</b> <br>
+      A zero if the event does NOT require the feature, or a one if it DOES. <br>
+      In the order of these the feature changes more quickly. <br>
+      For example, if there were 3 events and 4 features then 
+      the following: </span></span></span></span></span></span></font></p>
+  </li>
+</ul>
+<div class=Section1> 
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>would give this <i>eventfeatures</i> 
+    matrix: </span></span></span></span></span></span></font></p>
+  <table border=0 cellpadding=0 style='mso-cellspacing:1.5pt;margin-left:36.0pt;
+ mso-padding-alt:2.25pt 2.25pt 2.25pt 2.25pt'>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>feature</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>event</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+    <tr> 
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+  style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+  style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+  style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>&nbsp;</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>1</span></span></span></span></span></span></font></p></td>
+      <td style='padding:2.25pt 2.25pt 2.25pt 2.25pt'> <p class=MsoNormal align=center style='text-align:center'><font face="Arial, Helvetica, sans-serif"><span
+  style='mso-bookmark:tex2html72'><span style='mso-bookmark:tex2html80'><span
+  style='mso-bookmark:tex2html78'><span style='mso-bookmark:tex2html81'><span
+  style='mso-bookmark:tex2html79'><span style='mso-bookmark:tex2html73'>0</span></span></span></span></span></span></font></p></td>
+    </tr>
+  </table>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Meaning: </span></span></span></span></span></span></font></p>
+  <p style='margin-left:18.0pt'><font face="Arial, Helvetica, sans-serif"><span style='mso-bookmark:tex2html72'><span
+style='mso-bookmark:tex2html80'><span style='mso-bookmark:tex2html78'><span
+style='mso-bookmark:tex2html81'><span style='mso-bookmark:tex2html79'><span
+style='mso-bookmark:tex2html73'><span style="mso-spacerun:
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the first event requires the 
+    second feature <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    second event requires the first and second features <br>
+    <span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the 
+    third event requires the third feature </span></span></span></span></span></span></font></p>
+</div>
+
+</body>
+
+</html>
