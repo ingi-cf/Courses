@@ -110,6 +110,9 @@ solve<cp>{
 //    forall(e1 in E)
 //        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
 
+    forall(e1 in E,r1 in R , r2 in R, t in T)
+        forall(e2 in eventNotWhen[e1])
+            cp.post(!((eventAt[r1,t] == e1) && ((eventAt[r2,t] == e2))));
 
     forall(e in E)
     {
