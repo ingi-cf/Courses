@@ -69,7 +69,7 @@ forall(e in E)
     }
 }
 
-
+//events that cannot have the same time slot
 set{int} eventNotWhen[E];
 forall(e1 in E,e2 in E: e2> e1)
 {
@@ -86,6 +86,7 @@ forall(e1 in E,e2 in E: e2> e1)
     }
 }
 
+//link room slot with an id
 tuple triple{int r; int t; int i;}
 
 set{triple} Triples();
@@ -98,6 +99,8 @@ var<CP>{int} roomForEvent[E](cp, R);
 var<CP>{int} schedule[E](cp, 1..((nbRooms*nbSlots)+100));
 Table<CP> t(all(e in Triples) e.r, all(e in Triples) e.t, all(e in Triples) e.i);
 
+
+//remove all room that cannot hold an event from the domain
 forall(e in E)
 {
     inSet(roomForEvent[e],roomsForEvent[e]);
@@ -107,52 +110,31 @@ forall(e in E)
 solve<cp>{
    
     //verify that each student has not multiple events at the same time
-//    forall(e1 in E)
-//        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
-    
     forall(e1 in E, e2 in eventNotWhen[e1])
         cp.post(slotForEvent[e1] != slotForEvent[e2]);
 
+    //redundant constraint to speed up the process
     forall(e in E)
     {
         cp.post((sum(t in T)(slotForEvent[e] == t)) <= nbRooms);
         cp.post((sum(r in R)(roomForEvent[e] == r)) <= nbSlots);
     }
 
+    //avoid having 2 events on the same time slot in the same room
     cp.post(alldifferent(all(e in E)schedule[e]),onDomains);
 
+    //link id to room and slots
     forall(e in E)
         cp.post(table(roomForEvent[e],slotForEvent[e], schedule[e], t));
 
 
 } using{
-   // forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
-   //     tryall<cp>(s in S: slotForEvent[e].memberOf(s)) by (1000-(sum(e1 in E)(slotForEvent[e1].memberOf(s))))
-   //     {
-   //         label(slotForEvent[e], s);
-   //         cout << s << "#fail    = " << cp.getNFail() << endl;
-   //     }
-      
-//  forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
-//    tryall<cp>(t in T: slotForEvent[e].memberOf(t)) 
-//      label(slotForEvent[e], t);
-
-//  forall(e in E : !roomForEvent[e].bound()) by (roomForEvent[e].getSize())
-//    tryall<cp>(r in R: roomForEvent[e].memberOf(r)) 
-//      label(roomForEvent[e], r);
-
     label(cp);
 }
 
 
-//verify that each room has no event at the same time
 
-cout << "eventForRoom" << endl;
-cout << slotForEvent << endl;
-cout << roomForEvent << endl;
-cout << schedule << endl;
-
-
+cout << "event for a room" << endl;
 forall(r in R)
 {
     cout << r << ":" ;
