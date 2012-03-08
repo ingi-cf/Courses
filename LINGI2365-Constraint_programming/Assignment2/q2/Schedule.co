@@ -15,7 +15,7 @@ int nbEvents    = file.getInt();
 int nbRooms     = file.getInt();
 int nbFeatures  = file.getInt();
 int nbStudents  = file.getInt();
-int nbSlots     = 80;
+int nbSlots     = 45;
 
 range R     = 1..nbRooms;
 range E     = 1..nbEvents;
@@ -129,6 +129,12 @@ solve<cp>{
 
 
 } using{
+    forall (e in E: !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
+        tryall<cp>(t in T: slotForEvent[e].memberOf(t))
+        {
+            label(slotForEvent[e], t);
+        }
+    
     label(cp);
 }
 
