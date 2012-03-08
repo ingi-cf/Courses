@@ -102,8 +102,8 @@ solve<cp>{
     forall(e1 in E,e2 in eventNotWhen[e1])
         cp.post(slotForEvent[e1] != slotForEvent[e2]);
 
-    forall(e1 in E)
-        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
+//    forall(e1 in E)
+//        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
 
     //verify that 2 event are not taking place in the same room at the same time
     forall(e1 in E, e2 in E: e1 != e2)
