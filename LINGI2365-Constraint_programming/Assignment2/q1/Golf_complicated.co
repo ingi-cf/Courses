@@ -7,10 +7,10 @@ int t0 = System.getCPUTime();
 // create the CP Solver 
 Solver<CP> cp();
 
-string nString = System.getArgs()[2];
+//string nString = System.getArgs()[2];
  
 
-int n = nString.toInt();                   //Number of weeks
+int n = 4;                   //Number of weeks
 range G = 1..32;               //Golfers
 range W = 1..n;                //Weeks
 range S = 1..(G.getUp()/4);    //Slots
