@@ -1,0 +1,163 @@
+// import the CP library
+import cotfd;
+
+int t0 = System.getCPUTime();
+
+
+// create the CP Solver 
+Solver<CP> cp();
+
+string fString = System.getArgs()[2];
+
+ifstream file(fString);
+
+int nbEvents    = file.getInt();
+int nbRooms     = file.getInt();
+int nbFeatures  = file.getInt();
+int nbStudents  = file.getInt();
+int nbSlots     = 45;
+
+range R     = 1..nbRooms;
+range E     = 1..nbEvents;
+range F     = 1..nbFeatures;
+range S     = 1..nbStudents;
+range T     = 1..nbSlots;
+
+int roomsSizes[R];
+int sAttends[S,E];
+int rFeatures[R,F];
+int eFeatures[E,F];
+
+
+// Begin read file
+forall(r in R)
+    roomsSizes[r] = file.getInt();
+
+forall(s in S)
+    forall(e in E)
+        sAttends[s,e] = file.getInt();
+
+forall(r in R)
+    forall(f in F)
+        rFeatures[r,f] = file.getInt();
+
+forall(e in E)
+    forall(f in F)
+        eFeatures[e,f] = file.getInt();
+
+//end readfile
+
+
+//size min in a room for an event
+int eRoomSizeMin[E];
+forall(e in E)
+    eRoomSizeMin[e] = sum(s in S)(sAttends[s,e]);
+
+
+//for every events what room can be used
+set{int} roomsForEvent[E];
+forall(e in E)
+{
+    forall(r in R : eRoomSizeMin[e] <= roomsSizes[r])
+    {
+        boolean roomOk = true;
+        forall(f in F)
+            if(eFeatures[e,f] == 1 && rFeatures[r,f] != 1)
+                roomOk = false;
+        if(roomOk)
+            roomsForEvent[r].insert(r);
+    }
+}
+
+
+set{int} eventNotWhen[E];
+forall(e1 in E,e2 in E: e2> e1)
+{
+    int i = 1;
+    boolean endLoop = false;
+    while(i<=nbStudents && !endLoop)
+    {
+        if((sAttends[i,e1] == 1) && (sAttends[i,e2] == 1))
+        {
+            eventNotWhen[e1].insert(e2);
+            endLoop = true;
+        }
+        i++;
+    }
+}
+
+
+var<CP>{int} slotForEvent[E](cp, T);
+var<CP>{int} roomForEvent[E](cp, R);
+
+
+forall(e in E)
+{
+    inSet(roomForEvent[e],roomsForEvent[e]);
+}
+
+
+solve<cp>{
+    //verify that each student has not multiple events at the same time
+    forall(e1 in E,e2 in eventNotWhen[e1])
+        cp.post(slotForEvent[e1] != slotForEvent[e2]);
+
+    forall(e1 in E)
+        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
+
+    //verify that 2 event are not taking place in the same room at the same time
+    forall(e1 in E, e2 in E: e1 != e2)
+        cp.post((slotForEvent[e1] != slotForEvent[e2]) || (roomForEvent[e1] != roomForEvent[e2]));
+
+    
+
+} using{
+   // forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
+   //     tryall<cp>(s in S: slotForEvent[e].memberOf(s)) by (1000-(sum(e1 in E)(slotForEvent[e1].memberOf(s))))
+   //     {
+   //         label(slotForEvent[e], s);
+   //         cout << s << "#fail    = " << cp.getNFail() << endl;
+   //     }
+      
+//  forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
+//    tryall<cp>(t in T: slotForEvent[e].memberOf(t)) 
+//      label(slotForEvent[e], t);
+
+//  forall(e in E : !roomForEvent[e].bound()) by (roomForEvent[e].getSize())
+//    tryall<cp>(r in R: roomForEvent[e].memberOf(r)) 
+//      label(roomForEvent[e], r);
+
+labelFF(cp);
+}
+
+
+//verify that each room has no event at the same time
+
+cout << "eventForRoom" << endl;
+cout << slotForEvent << endl;
+cout << roomForEvent << endl;
+
+
+forall(r in R)
+{
+    cout << r << ":" ;
+    forall(e in E: roomForEvent[e]==r)
+        cout << e << ",";
+    cout << endl;
+}
+
+
+cout << "slots when room is used" << endl;
+forall(r in R)
+{
+    cout << r << "     :" ;
+    forall(e in E:(roomForEvent[e] == r))
+        cout << slotForEvent[e] << " ";
+    cout << endl;
+}
+
+
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;
+cout << "#choices = " << cp.getNChoice() << endl;
+cout << "#fail    = " << cp.getNFail() << endl;
