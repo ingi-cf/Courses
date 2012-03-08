@@ -86,12 +86,16 @@ forall(e1 in E,e2 in E: e2> e1)
     }
 }
 
-tuple triple{int r; int s; int i}
+tuple triple{int r; int t; int i}
+
+set{triple} Triples();
+forall(r in R, t in T)
+   Triples.insert(triples(r, t, ((r-1)*(T.getSize()) + t) ));
 
 
 var<CP>{int} slotForEvent[E](cp, T);
 var<CP>{int} roomForEvent[E](cp, R);
-Table<CP> t();
+Table<CP> t(all(e in Triples) e.r, all(e in Triples) e.t, all(e in Triples) e.i);
 
 forall(e in E)
 {
