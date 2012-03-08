@@ -86,10 +86,12 @@ forall(e1 in E,e2 in E: e2> e1)
     }
 }
 
+tuple triple{int r; int s; int i}
+
 
 var<CP>{int} slotForEvent[E](cp, T);
 var<CP>{int} roomForEvent[E](cp, R);
-
+Table<CP> t();
 
 forall(e in E)
 {
