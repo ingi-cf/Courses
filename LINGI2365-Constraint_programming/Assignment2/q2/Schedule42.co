@@ -15,7 +15,7 @@ int nbEvents    = file.getInt();
 int nbRooms     = file.getInt();
 int nbFeatures  = file.getInt();
 int nbStudents  = file.getInt();
-int nbSlots     = 45;
+int nbSlots     = 80;
 
 range R     = 1..nbRooms;
 range E     = 1..nbEvents;
@@ -95,7 +95,7 @@ forall(r in R, t in T)
 
 var<CP>{int} slotForEvent[E](cp, T);
 var<CP>{int} roomForEvent[E](cp, R);
-var<CP>{int} schedule[E](cp, 1..nbRooms*nbSlots);
+var<CP>{int} schedule[E](cp, 1..((nbRooms*nbSlots)+100));
 Table<CP> t(all(e in Triples) e.r, all(e in Triples) e.t, all(e in Triples) e.i);
 
 forall(e in E)
@@ -105,10 +105,10 @@ forall(e in E)
 
 
 solve<cp>{
- /*   
+   
     //verify that each student has not multiple events at the same time
-    forall(e1 in E)
-        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
+//    forall(e1 in E)
+//        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
 
 
     forall(e in E)
@@ -116,11 +116,11 @@ solve<cp>{
         cp.post((sum(t in T)(slotForEvent[e] == t)) <= nbRooms);
         cp.post((sum(r in R)(roomForEvent[e] == r)) <= nbSlots);
     }
-*/
+
     cp.post(alldifferent(all(e in E)schedule[e]),onDomains);
 
     forall(e in E)
-        cp.post(table(slotForEvent[e], roomForEvent[e], schedule[e], t));
+        cp.post(table(roomForEvent[e],slotForEvent[e], schedule[e], t));
 
 
 } using{
@@ -139,7 +139,7 @@ solve<cp>{
 //    tryall<cp>(r in R: roomForEvent[e].memberOf(r)) 
 //      label(roomForEvent[e], r);
 
-    labelFF(cp);
+    label(cp);
 }
 
 
@@ -148,6 +148,7 @@ solve<cp>{
 cout << "eventForRoom" << endl;
 cout << slotForEvent << endl;
 cout << roomForEvent << endl;
+cout << schedule << endl;
 
 
 forall(r in R)
