@@ -24,9 +24,9 @@ range S     = 1..nbStudents;
 range T     = 1..nbSlots;
 
 int roomsSizes[R];
-int sAttends[S,E];
-int rFeatures[R,F];
-int eFeatures[E,F];
+int sAttends[S,E];  //1 if s attends to e
+int rFeatures[R,F]; //1 if the room has the feature
+int eFeatures[E,F]; //1 if the event need the feature
 
 
 // Begin read file
@@ -135,7 +135,11 @@ solve<cp>{
             label(slotForEvent[e], t);
         }
     
-    label(cp);
+    forall (e in E: !roomForEvent[e].bound()) by (roomForEvent[e].getSize())
+        tryall<cp>(r in R: roomForEvent[e].memberOf(r))
+        {
+            label(roomForEvent[e], r);
+        }
 }
 
 

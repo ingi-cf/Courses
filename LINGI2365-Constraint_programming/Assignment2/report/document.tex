@@ -185,9 +185,137 @@ These are results obtained with our first model since it's the most efficient on
 \section{The time tabling problem} 
 
 \subsection{Model for the problem}
+The first idea was to uses two variables.  The first is an array linking each event to a room and the second is an array linking each event to a time slot.  For speed sakes, we then added two other variables, first a Table linking each room at each time slot with an identifier, the second is an array linking each event to identifier. 
 \subsubsection{Description}
+In addition to this model we also precalculated some values.  We created for every event a set of room that can hold it (has enough place and all the features) and a set containing all the other event that couldn't take place during the same time slot (because a student go to the 2 events).  This allow to easier and with less computation express the constraints, this also allow to work with fewer start domains for the rooms.
+\\\\
+We also added two redundant constraints to reduce the domains of the rooms and the time slots for the events.
+\newpage
+Here is the what we had :
+\begin{lstlisting}
+/*
+    INIT and read file
+*/
+
+range R     = 1..nbRooms;
+range E     = 1..nbEvents;
+range F     = 1..nbFeatures;
+range S     = 1..nbStudents;
+range T     = 1..nbSlots;
+
+int roomsSizes[R];
+int sAttends[S,E];  //1 if s attends to e
+int rFeatures[R,F]; //1 if the room has the feature
+int eFeatures[E,F]; //1 if the event need the feature
+
+
+/*
+    read file
+*/
+
+
+//size min in a room for an event
+int eRoomSizeMin[E];
+forall(e in E)
+    eRoomSizeMin[e] = (sum(s in S)(sAttends[s,e] == 1));
+
+
+//for every events what room can be used
+set{int} roomsForEvent[E];
+forall(e in E)
+{
+    forall(r in R : eRoomSizeMin[e] <= roomsSizes[r])
+    {
+        boolean roomOk = true;
+        forall(f in F)
+            if((eFeatures[e,f] == 1) && (rFeatures[r,f] != 1))
+                roomOk = false;
+        if(roomOk)
+            roomsForEvent[e].insert(r);
+    }
+}
+
+//events that cannot have the same time slot
+set{int} eventNotWhen[E];
+forall(e1 in E,e2 in E: e2> e1)
+{
+    int i = 1;
+    boolean endLoop = false;
+    while(i<=nbStudents && !endLoop)
+    {
+        if((sAttends[i,e1] == 1) && (sAttends[i,e2] == 1))
+        {
+            eventNotWhen[e1].insert(e2);
+            endLoop = true;
+        }
+        i++;
+    }
+}
+
+//link room slot with an id
+tuple triple{int r; int t; int i;}
+
+set{triple} Triples();
+forall(r in R, t in T)
+   Triples.insert(triple(r, t, ((r-1)*(T.getSize()) + t) ));
+
+
+var<CP>{int} slotForEvent[E](cp, T);
+var<CP>{int} roomForEvent[E](cp, R);
+var<CP>{int} schedule[E](cp, 1..((nbRooms*nbSlots)+100));
+Table<CP> t(all(e in Triples) e.r, all(e in Triples) e.t, all(e in Triples) e.i);
+
+
+//remove all room that cannot hold an event from the domain
+forall(e in E)
+{
+    inSet(roomForEvent[e],roomsForEvent[e]);
+}
+
+
+solve<cp>{
+    //verify that each student has not multiple events at the same time
+    forall(e1 in E, e2 in eventNotWhen[e1])
+        cp.post(slotForEvent[e1] != slotForEvent[e2]);
+
+    //redundant constraint to speed up the process
+    forall(e in E)
+    {
+        cp.post((sum(t in T)(slotForEvent[e] == t)) <= nbRooms);
+        cp.post((sum(r in R)(roomForEvent[e] == r)) <= nbSlots);
+    }
+
+    //avoid having 2 events on the same time slot in the same room
+    cp.post(alldifferent(all(e in E)schedule[e]),onDomains);
+
+    //link id to room and slots
+    forall(e in E)
+        cp.post(table(roomForEvent[e],slotForEvent[e], schedule[e], t));
+
+
+} using{
+    forall (e in E: !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
+        tryall<cp>(t in T: slotForEvent[e].memberOf(t))
+        {
+            label(slotForEvent[e], t);
+        }
+    
+    forall (e in E: !roomForEvent[e].bound()) by (roomForEvent[e].getSize())
+        tryall<cp>(r in R: roomForEvent[e].memberOf(r))
+        {
+            label(roomForEvent[e], r);
+        }
+    
+}
+
+/*
+    print solution
+*/
+\end{lstlisting}
+
 \subsubsection{Advantages and disadvantages}
 \subsubsection{Alternative models}
+We tought to a model when we had an array with two 
 
 \subsection{Symmetries}
 
