@@ -19,7 +19,7 @@
 
 \subsection{Different possible models for the problem}
 \subsubsection{First model}
-Our first model uses the slot number in wich a players plays for each week as variable. The constraints are then easy to express : 
+Our first model uses a slot (each slot represents a group) number in wich a players plays for each week as variable. The constraints are then easy to express : 
 \begin{lstlisting}
 Solver<CP> cp();
 
@@ -193,6 +193,38 @@ These are results obtained with our first model since it's the most efficient on
 
 \subsection{Results on test files}
 
+As we can see in the next section, our program found a solution in around 4s for most of the provided test files. The exception are the instances 04, 09 and 19 for wich our solver seems to have more difficulties. \\ 
+
+
 \subsection{Time needed, number of failures and number of choices for each instance}
+\begin{center}
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			Instance & Time needed [ms] & Number of failures & Number of choices \\ 
+			\hline
+			01 & 4149 & 0 & 415 \\ 
+			02 & 4041 & 0 & 415 \\ 
+			03 & 4258 & 0 & 464 \\ 
+			04 & ? & ? & ? \\ 
+			05 & 4119 & 0 & 383 \\ 
+			06 & 4493 & 0 & 445 \\ 
+			07 & 4742 & 0 & 374 \\ 
+			08 & 5070 & 0 & 440 \\ 
+			09 & ? & ? & ? \\ 
+			10 & 4805 & 0 & 509 \\ 
+			11 & 4602 & 0 & 414 \\ 
+			12 & 4040 & 0 & 410 \\ 
+			13 & 4977 & 0 & 436 \\ 
+			14 & 5257 & 0 & 384 \\ 
+			15 & 4243 & 0 & 360 \\ 
+			16 & 5726 & 0 & 517 \\ 
+			17 & 3868 & 0 & 351 \\ 
+			18 & 4166 & 0 & 409 \\ 
+			19 & ? & ? & ? \\ 
+			20 & 4930 & 0 & 456 \\
+			\hline
+		\end{tabular}
+\end{center}
+
 
 \end{document}
