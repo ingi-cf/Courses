@@ -18,19 +18,23 @@ range S = 1..(G.getUp()/4);    //Slots
 var<CP>{int} GAgainst[G,G](cp, WE);   
 
 solve<cp>{
-    
+    //if p1 plays against p2 at some time then p2 plays against p1 at the same time
     forall(g1 in G, g2 in G)
         cp.post(GAgainst[g1,g2] == GAgainst[g2,g1]);
 
+    //a player doesn't play against himself
     forall(g in G)
         cp.post(GAgainst[g,g] == 0);
     
+    //players from a group play with every member of the group
     forall(w in W, g1 in G, g2 in G, g3 in G : g3 != g2 && g2 != g1 && g1 != g3)
         cp.post(((GAgainst[g1,g2] != w) || (GAgainst[g1,g3] != w)) || (GAgainst[g2,g3] == w));
     
+    //each player has 3 opponents each week 
     forall(g in G)
         cp.post(cardinality(all(w in W) 3 , all(g2 in G) GAgainst[g,g2]));
 
+    //each player plays every week
     forall(g in G)
         cp.post(sum(g2 in G)(GAgainst[g,g2]) == (sum(w in W)(3*w)));
 } using{

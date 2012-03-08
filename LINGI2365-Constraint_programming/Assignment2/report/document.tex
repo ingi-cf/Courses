@@ -1,0 +1,169 @@
+\documentclass{eplDoc}
+
+
+
+\newcommand{\docType}	{Assignment 2}
+\newcommand{\docDate}	{09/03/2012}
+\newcommand{\docAuthor}	{gr16 : Mulders Corentin, Pelsser Francois}
+\newcommand{\courseCode}{LINGI2365}
+\newcommand{\courseName}{Constraint programming}
+\usepackage{syntax}
+
+\lstset{breaklines=true, breakatwhitespace=false}
+
+\begin{document}
+\maketitle
+\newpage
+
+\section{The social golfer problem}
+
+\subsection{Different possible models for the problem}
+\subsubsection{First model}
+Our first model uses the slot number in wich a players plays for each week as variable. The constraints are then easy to express : 
+\begin{lstlisting}
+Solver<CP> cp();
+
+int n = 1;                   //Number of weeks
+range G = 1..32;               //Golfers ids
+range W = 1..n;                //Weeks ids
+range S = 1..(G.getUp()/4);    //Slots ids
+
+
+var<CP>{int} GPlanning[G,W](cp, S);   
+
+solve<cp>{
+     // each group contains 4 golfers
+    forall(w in W,s in S)
+            cp.post((sum(g in G) (GPlanning[g,w] == s)) == 4);
+
+    //each pair of golfers plays at most one time together
+    forall(g1 in G, g2 in G: g1 != g2)
+        cp.post(sum(w in W)(GPlanning[g1,w] == GPlanning[g2,w]) <= 1);
+
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+
+}
+\end{lstlisting}
+
+The advantage of this model is that the decision variable is well chosen for the problem since there will be only one group chosen each week for each golfer. \\ 
+This variable also allows to write simple constraints.  
+\subsubsection{Second model}
+For our second model we considered using a different variable. The variable used is the golfer number that is playing in a given place in a group. \\ 
+Then we have to write constraints so that each player can be placed in only one place each week and that a golfer has different opponents each week. 
+
+\begin{lstlisting}
+Solver<CP> cp();
+
+int n = 6;                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 1..n;                //Weeks
+range S = 1..(G.getUp()/4);    //groups
+range P = 1..4;								 //places
+
+var<CP>{int} GPlanning[W,S,P](cp, G);   
+
+solve<cp>{
+   //not the same golfer in more than one place each week
+    forall(w in W)
+        cp.post(alldifferent(all(s in S, p in P)GPlanning[w,s,p]));
+    
+   //a golfer does not play more than once against another golfer
+   forall(g1 in G, g2 in G: g1 != g2)
+        cp.post((sum(w in W, s in S, p1 in P, p2 in P) (GPlanning[w,s,p1] == g1 && GPlanning[w,s,p2]==g2)) <= 1); 
+
+
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+}
+\end{lstlisting}
+
+The main disadvantage with this model is that the variable used is not practical to express our constraints, especially the second one wich is very heavy to compute. \\ 
+Moreove we add a "place" element that wasn't in the first model while it is something that is not needed for the problem since the position of a player in a group is irrelevent. \\ 
+The decisionv ariable size is also bigger than the one used for our model 1. 
+
+\subsubsection{Third model}
+
+Our third idea was to use a variable representing the week in wich any couple of golfers plays together. To make it work we have to write a little bit more constraints than for the two previous models :  
+
+\begin{lstlisting}
+Solver<CP> cp();
+
+
+int n = 2;                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 1..n;
+range WE = 0..n;                //Weeks
+range S = 1..(G.getUp()/4);    //Slots
+
+
+var<CP>{int} GAgainst[G,G](cp, WE);   
+
+solve<cp>{
+    //if p1 plays against p2 at some time then p2 plays against p1 at the same time
+    forall(g1 in G, g2 in G)
+        cp.post(GAgainst[g1,g2] == GAgainst[g2,g1]);
+
+    //a player doesn't play against himself
+    forall(g in G)
+        cp.post(GAgainst[g,g] == 0);
+    
+    //players from a group play with every member of the group
+    forall(w in W, g1 in G, g2 in G, g3 in G : g3 != g2 && g2 != g1 && g1 != g3)
+        cp.post(((GAgainst[g1,g2] != w) || (GAgainst[g1,g3] != w)) || (GAgainst[g2,g3] == w));
+    
+    //each player has 3 opponents each week 
+    forall(g in G)
+        cp.post(cardinality(all(w in W) 3 , all(g2 in G) GAgainst[g,g2]));
+
+    //each player plays every week
+    forall(g in G)
+        cp.post(sum(g2 in G)(GAgainst[g,g2]) == (sum(w in W)(3*w)));
+} using{
+
+    // Use a generic search procedure
+    label(cp);
+}
+\end{lstlisting}
+
+This model presents a few disadvantages. \\ 
+The decision variable size is as big as in our second model. \\ 
+We also need to apply a lot of constraints because of this choice of variable. 
+
+\subsection{Symmetries in the problem}
+
+\subsection{Maximum number of weeks identified in a reasonable time limit}
+The maximum number of weeks we could identify in a reasonable time limit is 9 weeks using our first model. It took around 100ms to find a solution for 9 weeks but when searching for a solution for 10 weeks we kill the program after 2min. \\ 
+To compare with our other models, the second model  And the third found a solution for 3 weeks in around 14s and was killed after 2min when trying to find one for 4 weeks.
+
+\subsection{Time needed, number of failures and number of choices for each number of weeks}
+These are the results obtained with our first model since it's the most efficient one. 
+
+
+\begin{center}
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			Number of weeks & Time needed [ms] & Number of failures & Number of choices \\ 
+			\hline
+			1 & 15 & 0 & 28 \\ 
+			2 & 47 & 0 & 56 \\ 
+			3 & 62 & 0 & 79 \\ 
+			4 & 47 & 0 & 99 \\ 
+			5 & 109 & 0 & 118 \\ 
+			6 & 78 & 8 & 147 \\ 
+			7 & 63 & 8 & 160 \\ 
+			8 & 109 & 34 & 195 \\ 
+			9 & 109 & 34 & 202 \\ 
+			\hline
+		\end{tabular}
+\end{center}
+
+
+
+\section{The time tabling problem} 
+
+\end{document}

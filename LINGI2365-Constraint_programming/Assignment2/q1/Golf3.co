@@ -6,7 +6,7 @@ Solver<CP> cp();
 
 int t0 = System.getCPUTime();
 
-int n = 2;                   //Number of weeks
+int n = 3;                   //Number of weeks
 range G = 1..32;               //Golfers
 range W = 1..n; 
 range WE = 0..n;                //Weeks
