@@ -1,0 +1,76 @@
+// import the CP library
+import cotfd;
+
+int t0 = System.getCPUTime();
+
+
+// create the CP Solver 
+Solver<CP> cp();
+
+string nString = System.getArgs()[2];
+ 
+
+int n = nString.toInt();                   //Number of weeks
+range G = 1..32;               //Golfers
+range W = 1..n;                //Weeks
+range S = 1..(G.getUp()/4);    //Slots
+
+
+var<CP>{int} GPlanning[G,W](cp, S);   
+var<CP>{int} GPlanningSMin[W,S](cp, G);   
+var<CP>{int} GPlanningWMin[W](cp, 1..(32*32));   
+
+solve<cp>{
+    //there always is 4 persons by slots
+    forall(w in W,s in S)
+            cp.post((sum(g in G) (GPlanning[g,w] == s)) == 4);
+    
+    //every player plays together only once
+    forall(g1 in G, g2 in G: g1 != g2)
+        cp.post(sum(w in W)(GPlanning[g1,w] == GPlanning[g2,w]) <= 1);
+    
+    forall(w in W, g in G)
+        cp.post(GPlanningSMin[w,GPlanning[g,w]] <= g);
+
+    forall(w in W, s in S)
+        cp.post(GPlanning[GPlanningSMin[w,s], w] == s);
+
+    forall(w in W, s in S : s!= 1)
+        cp.post(GPlanningSMin[w,s] > GPlanningSMin[w,s-1]);
+
+    forall(w in W)
+        cp.post(GPlanningWMin[w] == (sum(g in G) (g*GPlanning[g,w])));
+
+//    forall(w in W : w != 1)
+//        cp.post(GPlanningWMin[w] > GPlanningWMin[w-1]);
+
+} using{
+
+  //assign only values that are still in the domain of the variables.
+  forall(w in W,g in G  : !GPlanning[g,w].bound())
+    tryall<cp>(s in S: GPlanning[g,w].memberOf(s))
+      label(GPlanning[g,w], s);
+    // Use a generic search procedure
+    //label(cp);
+}
+
+forall(w in W)
+{
+    cout << w << ":";
+    forall(s in S)
+    {
+        forall(g in G :GPlanning[g,w] == s)
+            cout << g << ",";
+        cout << ";";
+    }
+    cout << endl;
+ }   
+forall(w in W)
+{
+    cout << w << " : ";
+    forall(s in S)
+        cout << GPlanningSMin[w,s] << "," ;
+    cout << endl;
+}
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;

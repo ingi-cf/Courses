@@ -1,14 +1,16 @@
 // import the CP library
 import cotfd;
 
-// create the CP Solver 
-Solver<CP> cp();
 
 int t0 = System.getCPUTime();
 
-int n = 2;                   //Number of weeks
+// create the CP Solver 
+Solver<CP> cp();
+
+
+int n = 3;                   //Number of weeks
 range G = 1..32;               //Golfers
-range W = 1..n; 
+range W = 1..n;
 range WE = 0..n;                //Weeks
 range S = 1..(G.getUp()/4);    //Slots
 
@@ -16,21 +18,21 @@ range S = 1..(G.getUp()/4);    //Slots
 var<CP>{int} GAgainst[G,G](cp, WE);   
 
 solve<cp>{
-    //if p1 plays against p2 at some time then p2 plays against p1 at the same time
+    
     forall(g1 in G, g2 in G)
         cp.post(GAgainst[g1,g2] == GAgainst[g2,g1]);
 
-    //a player doesn't play against himself
     forall(g in G)
         cp.post(GAgainst[g,g] == 0);
-   
-    //each player has 3 opponents each week 
-    forall(g1 in G, w in W)
-        cp.post((sum(g2 in G: g2 != g1) (GAgainst[g1,g2] == w)) == 3);
-
-    //players from a group play with every member of the group
+    
     forall(w in W, g1 in G, g2 in G, g3 in G : g3 != g2 && g2 != g1 && g1 != g3)
         cp.post(((GAgainst[g1,g2] != w) || (GAgainst[g1,g3] != w)) || (GAgainst[g2,g3] == w));
+    
+    forall(g in G)
+        cp.post(cardinality(all(w in W) 3 , all(g2 in G) GAgainst[g,g2]));
+
+    forall(g in G)
+        cp.post(sum(g2 in G)(GAgainst[g,g2]) == (sum(w in W)(3*w)));
 } using{
 
     // Use a generic search procedure
@@ -50,7 +52,6 @@ forall(g1 in G)
     }
     cout << endl;
  }   
-
-int t1 = System.getCPUTime();
-cout << "time taken: " << t1 - t0 << "ms"<<endl;
       
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;
