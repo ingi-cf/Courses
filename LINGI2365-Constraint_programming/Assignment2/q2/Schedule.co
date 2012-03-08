@@ -20,7 +20,7 @@ range R     = 1..nbRooms;
 range E     = 1..nbEvents;
 range F     = 1..nbFeatures;
 range S     = 1..nbStudents;
-range T     = 1..300;
+range T     = 1..45;
 
 int roomsSizes[R];
 int sAttends[S,E];
@@ -107,8 +107,8 @@ solve<cp>{
         cp.post(slotForEvent[e1] != slotForEvent[e2]);
     
     //verify that each room has not multiple events at the same time
-    forall(r in R, t in T)
-        cp.post((sum(e in E)(roomForEvent[e] == r && slotForEvent[e] == t)) == 1);
+ //   forall(r in R, t in T)
+ //       cp.post((sum(e in E)(roomForEvent[e] == r && slotForEvent[e] == t)) == 1);
         //cp.post(alldifferent(all(e in E:roomForEvent[e].bound() && roomForEvent[e] == r)(slotForEvent[e])));
 
 
@@ -118,12 +118,11 @@ solve<cp>{
         tryall<cp>(r in R: roomForEvent[e].memberOf(r) && roomsForEvent[e,r] == 1) by (rNFeatures[r])
         {
             label(roomForEvent[e], r);
-            cout << "event " << e << endl;
             forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
                 tryall<cp>(t in T: slotForEvent[e].memberOf(t)) 
                 {
-                    label(slotForEvent[e], t);
                     cout << "#fail    = " << cp.getNFail() << endl;
+                    label(slotForEvent[e], t);
                 }
         
         }

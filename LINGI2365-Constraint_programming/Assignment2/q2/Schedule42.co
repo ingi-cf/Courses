@@ -99,17 +99,21 @@ forall(e in E)
 
 solve<cp>{
     //verify that each student has not multiple events at the same time
-    forall(e1 in E,e2 in eventNotWhen[e1])
-        cp.post(slotForEvent[e1] != slotForEvent[e2]);
+//    forall(e1 in E,e2 in eventNotWhen[e1])
+//        cp.post(slotForEvent[e1] != slotForEvent[e2]);
 
-    forall(e1 in E)
-        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
+//    forall(e1 in E)
+//        cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
 
     //verify that 2 event are not taking place in the same room at the same time
     forall(e1 in E, e2 in E: e1 != e2)
         cp.post((slotForEvent[e1] != slotForEvent[e2]) || (roomForEvent[e1] != roomForEvent[e2]));
 
-    
+    forall(e in E)
+    {
+        cp.post((sum(s in S)(slotForEvent[e] == s)) <= nbRooms);
+        cp.post((sum(r in R)(roomForEvent[e] == e)) <= nbSlots);
+    }
 
 } using{
    // forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
@@ -119,7 +123,7 @@ solve<cp>{
    //         cout << s << "#fail    = " << cp.getNFail() << endl;
    //     }
       
-//  forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
+  forall(e in E : !slotForEvent[e].bound()) by (slotForEvent[e].getSize())
 //    tryall<cp>(t in T: slotForEvent[e].memberOf(t)) 
 //      label(slotForEvent[e], t);
 
