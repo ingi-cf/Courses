@@ -23,7 +23,7 @@ Our first model uses a slot (each slot represents a group) number in wich a play
 \begin{lstlisting}
 Solver<CP> cp();
 
-int n = 1;                   //Number of weeks
+int n = 9;                   //Number of weeks
 range G = 1..32;               //Golfers ids
 range W = 1..n;                //Weeks ids
 range S = 1..(G.getUp()/4);    //Slots ids
@@ -307,10 +307,6 @@ solve<cp>{
         }
     
 }
-
-/*
-    print solution
-*/
 \end{lstlisting}
 
 \subsubsection{Advantages and disadvantages}
@@ -323,7 +319,7 @@ A possible symetry in this problem would be that every time slots pair can be ex
 
 \subsection{Results on test files}
 
-As we can see in the next section, our program found a solution in around 4s for most of the provided test files. The exception are the instances 04, 09 and 19 for wich our solver seems to have more difficulties. \\ 
+As we can see in the next section, our program found a solution in around 4s for most of the provided test files. The exceptions are the instances 04, 09 and 19 for wich our solver doesn't find any solution in less than 2min after wich we killed the program. \\ 
 
 
 \subsection{Time needed, number of failures and number of choices for each instance}
