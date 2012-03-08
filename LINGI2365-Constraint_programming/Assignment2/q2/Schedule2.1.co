@@ -93,12 +93,12 @@ forall(e1 in E)
 
 
 
-var<CP>{int} slotForEvent[E](cp, T);
-var<CP>{int} roomForEvent[E](cp, R);
+var<CP>{int} eventAt[R,T](cp, E);
 
 solve<cp>{
-    forall(e in E, r in R)
-        cp.post((roomForEvent[e] != r) || roomsForEvent[e,r] == 1);
+    //an event is in an accessible room
+        forall(t in T, r in R)
+        cp.post((evenAt[r,t] == e) || roomsForEvent[e,r] == 1);
 
     //verify that each student has not multiple events at the same time
  //   forall(s in S)
