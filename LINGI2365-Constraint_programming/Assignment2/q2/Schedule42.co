@@ -105,13 +105,13 @@ forall(e in E)
 
 
 solve<cp>{
-    
+ /*   
     //verify that each student has not multiple events at the same time
     forall(e1 in E)
         cp.post(alldifferent(all(e2 in eventNotWhen[e1])(slotForEvent[e2])), onDomains);
 
 
-/*    forall(e in E)
+    forall(e in E)
     {
         cp.post((sum(t in T)(slotForEvent[e] == t)) <= nbRooms);
         cp.post((sum(r in R)(roomForEvent[e] == r)) <= nbSlots);
