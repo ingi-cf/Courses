@@ -1,0 +1,11 @@
+Blind SQL injection
+
+First thing is to notice that the field where we type the login to get an email with the password is not secure, we can view this because with some content we get an error.  First thing to do is to find the name of the user database and the name.  This is done by hit-and-miss ( ' or password in (Select password from user)-- by instance returning no error guarantee that there is a table user and a field password).  Next we use union to replace the mysql response with what we want.  In this case a answer with 2 field, bill's password and our email address.  We type in the login field of the forgot password page  :
+
+notALogin' UNION select 'francois.pelsser@student.uclouvain.be',password from user where username='bill'--
+
+Advanced session hijacking
+
+Here the idea is to get the session id of another user connected.  First we have to understand how the session id is computed.  In this purpose I wrote a script that connect 2 times secubob and alice every 10 minutes and that save informations like the user the time the session id in a log file.  After some entries it is clear that the session id is string representing a number in hexadecimal format.  The 2 first digit are user identification digit and the others digit represent a number wich is incremented by 1 at every connexion.  So if we observe a jump from one number we know that someone has connected.  We then know that if we replace the two first digit by the id of the user that has connected and we had to this digit the missing number we have the user session id.  We can then try all the 16*16  - 2 (the id corresponding to alice and secubob) id.
+
+
