@@ -17,6 +17,10 @@ function [r] = snake(traps)
             0 0 0 0 0 0 0 0 0 0 1 0 0 0 0];
     
     rproba = riskyDiceProb(map,traps)
+
+    sproba = securityDiceProb(map);
+
+    
     r = 1;
 endfunction
 function probas = securityDiceProb(map)
