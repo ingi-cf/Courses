@@ -1,5 +1,4 @@
-function [r] = snake(traps)
-
+function [p,v] = snake(traps)
     map = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
             0 0 1 0 0 0 0 0 0 0 0 0 0 0 0;
             0 0 0 1 0 0 0 0 0 0 0 2 0 0 0;
@@ -16,12 +15,27 @@ function [r] = snake(traps)
             0 0 0 0 0 0 0 0 0 0 0 0 0 0 1;
             0 0 0 0 0 0 0 0 0 0 1 0 0 0 0];
     
-    rproba = riskyDiceProb(map,traps)
-
+    mapSize = size(map,2)
+    goal    = 11
+    rproba = riskyDiceProb(map,traps);
     sproba = securityDiceProb(map);
 
-    
-    r = 1;
+    v = ones(1,mapSize);
+    p = ones(1,mapSize);
+    c = ones(1,mapSize);
+    v(goal) = 0;
+    for i=1:100
+        %todo add a smart thing here
+        for i = 1:mapSize
+            if i != goal
+                v(i) = min([(c(i) + sproba(i,:) * v'), (c(i) + rproba(i,:) * v')]);
+            end
+        end
+        for i = 1:mapSize
+            [ans p(i)] = min([(sproba(i,:) * (v + ones(1,mapSize)*c(i))') (c(i) + rproba(i,:) * v')]);
+        end
+    end
+       
 endfunction
 function probas = securityDiceProb(map)
     probas = zeros(size(map));
