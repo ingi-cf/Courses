@@ -23,9 +23,10 @@ function [p,v] = snake(traps)
     v = ones(1,mapSize);
     p = ones(1,mapSize);
     c = ones(1,mapSize);
+    vold=v;
     v(goal) = 0;
-    for i=1:100
-        %todo add a smart thing here
+    while(abs(vold*vold' - v*v') > 1e-5)
+        vold = v;
         for i = 1:mapSize
             if i != goal
                 v(i) = min([(c(i) + sproba(i,:) * v'), (c(i) + rproba(i,:) * v')]);
