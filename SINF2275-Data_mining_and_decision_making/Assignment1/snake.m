@@ -68,12 +68,4 @@ function probas = riskyDiceProb(map,traps)
     end
 endfunction
 
-function [path] = next_primary(i,map)
-%return the only next state
-    path = find(map(i,:) == 1);
-endfunction
 
-function [paths] = next_paths(i,map)
-%return a line matrix with all paths
-    paths = find(map(i,:) > 0);
-endfunction
