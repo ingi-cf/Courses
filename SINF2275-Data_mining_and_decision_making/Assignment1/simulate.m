@@ -1,6 +1,6 @@
 function stats = simulate()
 
-repeat = 5;
+repeat = 1;
 maps.s0     = 1;
 maps.d      = 11;
 maps.links  = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -56,13 +56,14 @@ complextraps(26) = 1;
 
 maps(3).traps = complextraps;
 
-stats = zeros(3,3, length(maps))
+stats = zeros(4,3, length(maps));
 
 for m=1:size(maps,2)
     policy = 0;
     policy.p = ones(size(maps(m).traps));
     policy(2).p = ones(size(maps(m).traps))*2;
-    policy(3).p = snake(maps(m));
+    policy(3).p = randomPolicy(maps(m).traps);
+    policy(4).p = snake(maps(m));
 
     policy_stats = zeros(size(policy,2),3);
 
