@@ -1,7 +1,7 @@
 function [Expec, Dice] = markovDec(List)
 %MARKOVDEC outputs the decisions from the markov process 
 %   List represent the traps types
-%   The board used is the basic board with stop on arrival
+%   The board used is the basic board with no loop (passing arrival=win)
 
 map.s0     = 1;
 map.d      = 11;
