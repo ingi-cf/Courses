@@ -1,20 +1,28 @@
-function [play h] = simul(map,traps,policy)
+function [play h] = simul(m,policy)
     h = [1];
     s = 1;
     play = 0;
-    while(s != 11)
+    while(s ~= m.d)
         diceT = policy(s);
         diceR = dice(diceT);
         if(diceR == 0)
             sr = s;
         else
-            p = next_paths(s,map);
+            p = next_paths(s,m);
             sr = p(floor(rand() * (size(p,2)))+1);
             if(diceR == 2)
-                sr = next_primary(sr,map);
+                sr = next_primary(sr,m);
             end
         end
-        if diceT == 2 && traps(sr) == 1
+        if diceT == 2 && m.traps(sr) == 1
+            %back to init case
+            s = m.s0;
+        elseif diceT == 2 && m.traps(sr) == 2
+            %prison
+            s = sr;
+            play += 1;
+        elseif diceT == 2 && m.traps(sr) == 3
+            %retreat
             s = 1;
         else
             s = sr;

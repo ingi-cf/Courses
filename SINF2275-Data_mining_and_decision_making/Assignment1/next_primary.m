@@ -1,4 +1,4 @@
-function [path] = next_primary(i,map)
+function [path] = next_primary(i,m)
 %return the only next state
-    path = find(map(i,:) == 1);
+    path = find(m.links(i,:) == 1);
 endfunction

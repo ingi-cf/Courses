@@ -1,4 +1,4 @@
-function [paths] = next_paths(i,map)
+function [paths] = next_paths(i,m)
 %return a line matrix with all paths
-    paths = find(map(i,:) > 0);
+    paths = find(m.links(i,:) > 0);
 endfunction
