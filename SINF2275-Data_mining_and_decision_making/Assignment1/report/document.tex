@@ -58,9 +58,9 @@ As an example of this functionality we designed a more complex game board and us
 
 \FloatBarrier
 \begin{figure}%
-\includegraphics[width=\columnwidth]{newboard.png}%
-\caption{Complex board}%
-\label{newboard}%
+	\includegraphics[width=\columnwidth]{newboard.png}%
+	\caption{Complex board}%
+	\label{newboard}%
 \end{figure}
 \FloatBarrier
  \ \\ 
@@ -71,7 +71,13 @@ As an example of this functionality we designed a more complex game board and us
 
 \section{Results obtained with our implementation}
 
-We used octave to write our implementation of \textbf{[Expec, Dice] = markovDec(list)}. %todo tests
+We used octave to write our implementation of \textbf{[Expec, Dice] = markovDec(list)}. We compare our decision process with three naive policies :
+ 
+\begin{description}
+	\item[Security] always plays the security dice.
+	\item[Risky] always plays the risky dice.
+	\item[Random] has a $50\%$ probability to play either of the dices.
+\end{description}
 
 
 \end{document}
