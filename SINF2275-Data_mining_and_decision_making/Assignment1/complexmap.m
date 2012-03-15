@@ -4,8 +4,8 @@ function map = complexmap()
 
 map.s0      = 1;
 map.d       = 30;
-map.links   = zeros(30)
-for i=1:length(map.links)
+map.links   = zeros(30);
+for i=1:(length(map.links)-1)
     map.links(i,i+1) = 1;
 end
 

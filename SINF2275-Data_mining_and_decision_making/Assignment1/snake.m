@@ -3,20 +3,26 @@ function [p,v] = snake(m)
     rproba = riskyDiceProb(m);
     sproba = securityDiceProb(m);
 
-    v = ones(1,mapSize);
-    p = ones(1,mapSize);
-    c = ones(1,mapSize);
+    v   = ones(1,mapSize);
+    p   = ones(1,mapSize);
+    cs  = ones(1,mapSize);
+    cr  = ones(1,mapSize);
+    for i=1:mapSize
+        if(m.traps(i) == 2)
+            cr(i) = 2;
+        end
+    end
     vold=v;
-    v(m.d) = 0;
+    v(m.d) = 10;
     while(abs(vold*vold' - v*v') > 1e-5)
         vold = v;
         for i = 1:mapSize
             if i ~= m.d
-                v(i) = min([(c(i) + sproba(i,:) * v'), (c(i) + rproba(i,:) * v')]);
+                v(i) = min([(cs(i) + sproba(i,:) * v'), (cr(i) + rproba(i,:) * v')]);
              end
         end
         for i = 1:mapSize
-            [ans p(i)] = min([(sproba(i,:) * (v + ones(1,mapSize)*c(i))') (c(i) + rproba(i,:) * v')]);
+            [ans p(i)] = min([(sproba(i,:) * (v + ones(1,mapSize)*cs(i))') (rproba(i,:) * (v + ones(1,mapSize)*cr(i))')]);
         end 
     end
        
@@ -58,6 +64,9 @@ function pline = trap(s,m,prob)
     pline = zeros(1,size(m.links,2));
     if m.traps(s) == 1
         pline(m.s0) = pline(m.s0)+prob;
+    elseif m.traps(s) == 3
+        sr = retreat(s,m);
+        pline(sr) = pline(sr)+prob;
     else
         pline(s) = pline(s) + prob;
     end

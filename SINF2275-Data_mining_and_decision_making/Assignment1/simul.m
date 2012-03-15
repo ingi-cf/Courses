@@ -2,7 +2,11 @@ function [play h] = simul(m,policy)
     h = [1];
     s = 1;
     play = 0;
+        policy
     while(s ~= m.d)
+        if play > 1000
+            return
+        end
         diceT = policy(s);
         diceR = dice(diceT);
         if(diceR == 0)
@@ -23,7 +27,7 @@ function [play h] = simul(m,policy)
             play = play+ 1;
         elseif diceT == 2 && m.traps(sr) == 3
             %retreat
-            s = 1;
+            s = retreat(sr,m);
         else
             s = sr;
         end

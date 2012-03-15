@@ -1,6 +1,6 @@
 function  simulate()
 
-repeat = 10;
+repeat = 1;
 maps.s0     = 1;
 maps.d      = 11;
 maps.links  = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -43,32 +43,33 @@ maps(3) = complexmap();
 
 traps = zeros(1,15);
 traps(4) = 1;
-traps(6) = 1;
-traps(8) = 1;
+traps(6) = 2;
+traps(8) = 3;
 maps(1).traps = traps;
 maps(2).traps = traps;
 
 complextraps = zeros(1,30);
-complextraps(11) = 1
-complextraps(15) = 1
-complextraps(25) = 1
-complextraps(26) = 1
+complextraps(11) = 1;
+complextraps(15) = 1;
+complextraps(25) = 1;
+complextraps(26) = 1;
 
 maps(3).traps = complextraps;
 
 
-for m=1:size(maps,2)
-    policy(1,:) = ones(1,15);
-    policy(2,:) = ones(1,15)*2;
-    policy(3,:) = snake(maps(m));
+for m=3:size(maps,2)
+    policy = 0
+    policy.p = ones(size(maps(m).traps));
+    policy(2).p = ones(size(maps(m).traps))*2;
+    policy(3).p = snake(maps(m));
 
-    policy_stats = zeros(size(policy,1),3);
+    policy_stats = zeros(size(policy,2),3);
 
 
-    for p=1:size(policy,1)
+    for p=1:size(policy,2)
         plays=0;
         for i =1:repeat
-            play = simul(maps(m),policy(p,:));
+            play = simul(maps(m),policy(p).p);
             plays = plays + play;
             if policy_stats(p,1) == 0 || policy_stats(p,1) > play
                 policy_stats(p,1) = play;
@@ -78,6 +79,6 @@ for m=1:size(maps,2)
             end
         end
         policy_stats(p,3) = (plays) / repeat;
-       % printf('maps:%d policy %d : %d %d %f \n',m,p,policy_stats(p,1), policy_stats(p,2), policy_stats(p,3));
+        printf('maps:%d policy %d : %d %d %f \n',m,p,policy_stats(p,1), policy_stats(p,2), policy_stats(p,3));
     end
 end
