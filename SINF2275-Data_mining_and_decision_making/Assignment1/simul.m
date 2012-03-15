@@ -2,7 +2,7 @@ function [play h] = simul(m,policy)
     h = [1];
     s = 1;
     play = 0;
-        policy
+       
     while(s ~= m.d)
         if play > 1000
             return

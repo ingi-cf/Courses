@@ -1,6 +1,6 @@
 function [s] = retreat(i,m)
     s = back(back(i,m),m);
-endfunction
+end
 
 function [s] = back(i,m)
     if(i ~= m.s0)
@@ -15,4 +15,4 @@ function [s] = back(i,m)
     else
         s = m.s0;
     end
-endfunction
+end

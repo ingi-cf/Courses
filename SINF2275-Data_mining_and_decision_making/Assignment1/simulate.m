@@ -1,6 +1,6 @@
-function  simulate()
+function stats = simulate()
 
-repeat = 1;
+repeat = 5;
 maps.s0     = 1;
 maps.d      = 11;
 maps.links  = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -56,8 +56,9 @@ complextraps(26) = 1;
 
 maps(3).traps = complextraps;
 
+stats = zeros(3,3, length(maps))
 
-for m=3:size(maps,2)
+for m=1:size(maps,2)
     policy = 0;
     policy.p = ones(size(maps(m).traps));
     policy(2).p = ones(size(maps(m).traps))*2;
@@ -79,6 +80,7 @@ for m=3:size(maps,2)
             end
         end
         policy_stats(p,3) = (plays) / repeat;
-        printf('maps:%d policy %d : %d %d %f \n',m,p,policy_stats(p,1), policy_stats(p,2), policy_stats(p,3));
+        stats(:,:,m) = policy_stats;
+        %printf('maps:%d policy %d : %d %d %f \n',m,p,policy_stats(p,1), policy_stats(p,2), policy_stats(p,3));
     end
 end
