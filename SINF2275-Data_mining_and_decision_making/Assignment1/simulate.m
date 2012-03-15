@@ -58,7 +58,7 @@ maps(3).traps = complextraps;
 
 
 for m=3:size(maps,2)
-    policy = 0
+    policy = 0;
     policy.p = ones(size(maps(m).traps));
     policy(2).p = ones(size(maps(m).traps))*2;
     policy(3).p = snake(maps(m));
