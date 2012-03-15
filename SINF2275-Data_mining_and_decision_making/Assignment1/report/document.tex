@@ -42,7 +42,7 @@ the probability to go from the case $i$ to the case $j$ by playing the dice rela
 Computing the first matrix is pretty straightforward.  We first set every $a_{i,i}$ to $0.5$, then we count the number of element bigger than $0$ in the line $i$ and for all theses elements we add a probability of $O.5$ over the number of element. \\
 Ex : if the case $1$ is the junction of 2 path and the next cases are $2$ $4$ we have the $i th$ line of the probability matrix that start with : $[0.5\  0.25\ 0\ 0.25\ 0\ 0\ ...]$\\
 For the second dice, the principle is the same, except that all values are not $0.5$ but $1/3$ (1/3 for 0,  1/3 divided by the number of path and the case next to the current case in the path and the last third (also divided by the number of paht) for every cases 2 cases away from the current cases in every pahts.)\\
-For this dice, we also have to consider traps, this is done just before adding the probability to a case, we check if it is a trap, and if it is, we add this probability to the case where the trap leads us instead.\\
+For this dice, we also have to consider traps, this is done just before adding the probability to a case. We check if it is a trap, and if it is, we set this probability to the case where the trap leads instead.\\
 Then we compute the costs.  Costs for the first dice are always 1 but for de risky dice the cost is set to 2 for the cases with a prison.\\
 Then we apply the iteration algorithm and we stop when the absolute value of the difference of the norm of the vector V and the norm of the old vector V is below a threshold (we use $10^-5$).\\
 After that we can compute the policy and return it.
@@ -133,7 +133,7 @@ Here are the number of turns needed to finish for the \textbf{complexBoard} :
 
 \begin{center}
 		\begin{tabular}{|r|ccc|}
-			\hline
+			\hline  
 			policy & minimum & maximum & mean \\ 
 			\hline
 			 Security &                            24          &             788         &           154.78 \\
