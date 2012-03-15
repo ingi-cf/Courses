@@ -1,6 +1,6 @@
 function stats = simulate()
 
-repeat = 20;
+repeat = 50;
 maps.s0     = 1;
 maps.d      = 11;
 maps.links  = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;

@@ -8,7 +8,7 @@ map.links   = zeros(30);
 for i=1:(length(map.links)-1)
     map.links(i,i+1) = 1;
 end
-
+map.links(30,30) = 1;
 map.links(4,16) = 2;
 map.links(14,6) = 2;
 map.links(18,2) = 2;
