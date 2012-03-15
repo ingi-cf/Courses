@@ -20,17 +20,17 @@ function [play h] = simul(m,policy)
         elseif diceT == 2 && m.traps(sr) == 2
             %prison
             s = sr;
-            play += 1;
+            play = play+ 1;
         elseif diceT == 2 && m.traps(sr) == 3
             %retreat
             s = 1;
         else
             s = sr;
         end
-        play +=1;
+        play = play+1;
         h(end+1) = s;
     end
-endfunction
+end
 
 function result = dice(type)
     maxval = 0;
@@ -40,4 +40,4 @@ function result = dice(type)
         maxval = 2;
     end
     result = floor(rand()*(maxval+1));
-
+end

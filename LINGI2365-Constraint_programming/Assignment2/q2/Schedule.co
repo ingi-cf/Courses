@@ -9,6 +9,7 @@ Solver<CP> cp();
 
 string fString = System.getArgs()[2];
 
+
 ifstream file(fString);
 
 int nbEvents    = file.getInt();

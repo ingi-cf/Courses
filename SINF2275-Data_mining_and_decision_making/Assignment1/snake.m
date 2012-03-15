@@ -20,45 +20,45 @@ function [p,v] = snake(m)
         end 
     end
        
-endfunction
+end
 function probas = securityDiceProb(m)
     probas = zeros(size(m.links));
-    for i = 1:size(m.links)(1)
+    for i = 1:size(m.links,1)
         probas(i,i) = 0.5; 
         np = next_paths(i,m);
         for j = np
-            probas(i,j)+= 0.5/size(np,2);
+            probas(i,j)= probas(i,j) + 0.5/size(np,2);
         end
     end
-endfunction
+end
 
 function probas = riskyDiceProb(m)
     probas = zeros(size(m.links));
     for i = 1:size(m.links,1)
         %if the dice is 0
-        probas(i,:) += trap(i,m,(1/3));
+        probas(i,:) = probas(i,:) + trap(i,m,(1/3));
 
         %if the dice is not 0
         np = next_paths(i,m);
         for j = np
             %if the dice is 1
-            probas(i,:) += trap(j,m,(1/3)/size(np,2));
+            probas(i,:) = probas(i,:) + trap(j,m,(1/3)/size(np,2));
             
 
             %if the dice is 2
             %we go in the primary state after j
             k = next_primary(j,m);
-            probas(i,:) += trap(k,m,(1/3)/size(np,2));
+            probas(i,:) = probas(i,:) + trap(k,m,(1/3)/size(np,2));
 
         end
     end
-endfunction
+end
 
 function pline = trap(s,m,prob)
     pline = zeros(1,size(m.links,2));
     if m.traps(s) == 1
-        pline(m.s0)+= prob;
+        pline(m.s0) = pline(m.s0)+prob;
     else
-        pline(s)+= prob;
+        pline(s) = pline(s) + prob;
     end
 end
