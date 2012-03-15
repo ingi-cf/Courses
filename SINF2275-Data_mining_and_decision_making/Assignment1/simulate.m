@@ -38,7 +38,7 @@ maps(2).links   = [ 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
                     0 0 0 0 0 0 0 0 0 0 1 0 0 0 0];
                 
 
-                
+maps(3) = complexmap();
 
 
 traps = zeros(1,15);
@@ -47,6 +47,15 @@ traps(6) = 1;
 traps(8) = 1;
 maps(1).traps = traps;
 maps(2).traps = traps;
+
+complextraps = zeros(1,30);
+complextraps(11) = 1
+complextraps(15) = 1
+complextraps(25) = 1
+complextraps(26) = 1
+
+maps(3).traps = complextraps;
+
 
 for m=1:size(maps,2)
     policy(1,:) = ones(1,15);
