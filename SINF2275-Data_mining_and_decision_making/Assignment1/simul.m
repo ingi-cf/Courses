@@ -18,6 +18,7 @@ function [play h] = simul(m,policy)
                 sr = next_primary(sr,m);
             end
         end
+
         if diceT == 2 && m.traps(sr) == 1
             %back to init case
             s = m.s0;
@@ -31,6 +32,7 @@ function [play h] = simul(m,policy)
         else
             s = sr;
         end
+        play
         play = play+1;
         h(end+1) = s;
     end
