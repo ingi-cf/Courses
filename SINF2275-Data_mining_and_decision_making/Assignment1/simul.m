@@ -4,7 +4,7 @@ function [play h] = simul(m,policy)
     play = 0;
        
     while(s ~= m.d)
-        if play > 1000
+        if play >= 1000
             return
         end
         diceT = policy(s);
@@ -32,7 +32,6 @@ function [play h] = simul(m,policy)
         else
             s = sr;
         end
-        play
         play = play+1;
         h(end+1) = s;
     end

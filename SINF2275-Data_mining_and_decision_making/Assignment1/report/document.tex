@@ -91,22 +91,19 @@ We used octave to write our implementation of \textbf{[Expec, Dice] = markovDec(
 	\item[Random] has a $50\%$ probability to play either of the dices.
 \end{description}
  
-We test each of these policies on three different boards. The two first are the variants of the basic board from the assignment instructions. The first one when the game stops whenever a player goes through the arrival square, we will call it the \textbf{simpleBoard1}. And the second one when the game only stops if the player stops on the arrival, we will call it the \textbf{simpleBoard2}. \\ 
-The third board used is our example of complex board represented in figure \ref{newboard}, we will call it the \textbf{complexBoard}. \\ \\ 
-For each of these boards we used differents traps sets. And for each trap set we simulated 50 games to collect statistics. \\ \\ 
+We test each of these policies on 8 different boards. The two first are the variants of the basic board from the assignment instructions. The first one when the game stops whenever a player goes through the arrival square, we will call it the \textbf{simpleBoard1}. And the second one when the game only stops if the player stops on the arrival, we will call it the \textbf{simpleBoard2}. \\ 
+We also tried boards with the 2 first boards but other traps positions.  And then the 3 last boards are the same as the first board \textbf{simpleBoard1} but only with traps of type 1 then traps of type 2 and traps of type 3.\\\\
+The last board used is our example of complex board represented in figure \ref{newboard}, we will call it the \textbf{complexBoard}. \\ 
+For each of these boards we used differents traps sets. And for each trap set we simulated 500 games to collect statistics. Simulations are automatically stopped after 1000 steps. \\ \\ 
 
 Here are the number of turns needed to finish for the \textbf{simpleBoard1} : 
-
 
 \begin{center}
 		\begin{tabular}{|r|ccc|}
 			\hline
 			policy & minimum & maximum & mean \\ 
 			\hline
-			 Security & 8.0000 &  46.0000 &  17.5000 \\
-     	Risky & 5.0000  & 42.0000  & 12.4800 \\ 
-    	Random & 4.0000 &  49.0000  & 14.2000 \\ 
-   		markovDec & 5.0000 &  20.0000 &  10.6800 \\ 
+            \input{../map1-tex.txt}
    		\hline
 		\end{tabular}
 \end{center}
@@ -120,33 +117,100 @@ Here are the number of turns needed to finish for the \textbf{simpleBoard2} :
 			\hline
 			policy & minimum & maximum & mean \\ 
 			\hline
-			 Security &     9.0000  & 28.0000  & 16.8800 \\
-    Risky & 4.0000  & 78.0000 &  18.4200 \\ 
-    Random & 5.0000  & 84.0000 &  27.5400 \\ 
-    markovDec & 4.0000 &  26.0000  & 11.2000  \\ 
+            \input{../map2-tex.txt}
+   		\hline
+		\end{tabular}
+\end{center}
+
+Here are the number of turns needed to finish for the \textbf{simpleBoard1} with the second set of traps : 
+
+\begin{center}
+		\begin{tabular}{|r|ccc|}
+			\hline
+			policy & minimum & maximum & mean \\ 
+			\hline
+            \input{../map4-tex.txt}
+   		\hline
+		\end{tabular}
+\end{center}
+
+Here are the number of turns needed to finish for the \textbf{simpleBoard2} with the second set of traps : 
+
+\begin{center}
+		\begin{tabular}{|r|ccc|}
+			\hline
+			policy & minimum & maximum & mean \\ 
+			\hline
+            \input{../map5-tex.txt}
+   		\hline
+		\end{tabular}
+\end{center}
+
+Here are the number of turns needed to finish for the \textbf{simpleBoard1} with only traps of type 1 : 
+
+\begin{center}
+		\begin{tabular}{|r|ccc|}
+			\hline
+			policy & minimum & maximum & mean \\ 
+			\hline
+            \input{../map6-tex.txt}
+   		\hline
+		\end{tabular}
+\end{center}
+Here are the number of turns needed to finish for the \textbf{simpleBoard1} with only traps of type 2 : 
+
+\begin{center}
+		\begin{tabular}{|r|ccc|}
+			\hline
+			policy & minimum & maximum & mean \\ 
+			\hline
+            \input{../map7-tex.txt}
+   		\hline
+		\end{tabular}
+\end{center}
+Here are the number of turns needed to finish for the \textbf{simpleBoard1} with only traps of type 3 : 
+
+\begin{center}
+		\begin{tabular}{|r|ccc|}
+			\hline
+			policy & minimum & maximum & mean \\ 
+			\hline
+            \input{../map8-tex.txt}
    		\hline
 		\end{tabular}
 \end{center}
 
 Here are the number of turns needed to finish for the \textbf{complexBoard} : 
 
-
 \begin{center}
 		\begin{tabular}{|r|ccc|}
-			\hline  
+			\hline
 			policy & minimum & maximum & mean \\ 
 			\hline
-			 Security &                            24          &             788         &           154.78 \\
-       Risky &               1001           &           1001          &            1001 \\ 
-       Random &               1001        &             1001             &         1001 \\ 
-       markovDec &                 17         &              249             &         62.6 \\ 
- 
+            \input{../map3-tex.txt}
    		\hline
 		\end{tabular}
 \end{center}
 
-As we can see our markov decision process yields better mean results on every board. However the improvement is most visible on our complex board where the risky and random policies are very bad (the $1001$ number of turns means our program stopped playing without reaching the goal since it took too much turns) and our policy is more than two times better than the default security strategy. 
+Here are graphical representations of these datas that allow a better view of theses datas.
+\begin{center}
+    \begin{tabular}{cc}
+            \includegraphics[width=9cm]{../map1.png}&
+            \includegraphics[width=9cm]{../map2.png}\\
+            \includegraphics[width=9cm]{../map4.png}&
+            \includegraphics[width=9cm]{../map5.png}\\
+    \end{tabular}
+    \begin{tabular}{cc}
+            \includegraphics[width=9cm]{../map6.png}&
+            \includegraphics[width=9cm]{../map7.png}\\
+            \includegraphics[width=9cm]{../map8.png}&
+            \includegraphics[width=9cm]{../map3.png}\\
+    \end{tabular}
+\end{center}
 
+
+As we can see our markov decision process yields better mean results on almost every board. However the improvement is most visible on our complex board where the risky and random policies are very bad (the $1000$ number of turns means our program stopped playing without reaching the goal since it took too much turns) and our policy is more than two times better than the default security strategy. \\
+The markov decision process is just slightly less interessant with boards that only have traps of type prison.  It seams that being prudent around these traps is not very efficient. 
 \section{Components of our implementation}
 
 We split our solution in many files. Here is a brief description of the main ones. \\ 
