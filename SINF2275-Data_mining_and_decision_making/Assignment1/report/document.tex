@@ -147,6 +147,13 @@ Here are the number of turns needed to finish for the \textbf{complexBoard} :
 
 As we can see our markov decision process yields better mean results on every board. However the improvement is most visible on our complex board where the risky and random policies are very bad (the $1001$ number of turns means our program stopped playing without reaching the goal since it took too much turns) and our policy is more than two times better than the default security strategy. 
 
+\section{Components of our implementation}
+
+We split our solution in many files. Here is a brief description of the main ones. \\ 
+The core file is "snake.m" that takes a map as input (we define the map as the affinity matrix, the initial square, the goal square and the traps vector, for more details on this representation see "markovDec.m" as example since one is defined in it). It is our implementation of the markov decision process.  \\ 
+Then there are the "simulate.m" that we used to generate several games for each board and "simul.m" that is used to simulate a game. \\ 
+The last part are "markovDec.m" and "markovDevLoop.m" that are the functions specified in the instruction as \textbf{[Expec, Dice] = markovDec(list)}. These allow to find a policy for the board from the instructions document without having to define the board manually. "markovDec.m" concerns the case where you don't need to stop on the goal square to win. "markovDevLoop.m" is the case when going over the goal square without stopping on it results in starting over on the initial square. 
+
 
 
 
