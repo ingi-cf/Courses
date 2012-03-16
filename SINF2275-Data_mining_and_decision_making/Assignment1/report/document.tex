@@ -69,7 +69,7 @@ Since the game board is represented as an affinity matrix it is very easy to use
 As an example of this functionality we designed a more complex game board and used it with our program. A representation of this new game board is shown below (arrows with interrupted lines represent secondary paths): 
 
 \FloatBarrier
-\begin{figure}%
+\begin{figure}[h]%
 	\includegraphics[width=\columnwidth]{newboard.png}%
 	\caption{Complex board}%
 	\label{newboard}%
@@ -145,7 +145,7 @@ Here are the number of turns needed to finish for the \textbf{complexBoard} :
 		\end{tabular}
 \end{center}
 
-As we can see our markov decision process yields better mean results on every board. However the improvement is most visible on our complex board where the risky and random policies are very bad (the $1001$ number of turns means our program stoped playing without reaching the goal sinc eit took too much turns) and our policy is still nearly two times better than the default security strategy. 
+As we can see our markov decision process yields better mean results on every board. However the improvement is most visible on our complex board where the risky and random policies are very bad (the $1001$ number of turns means our program stopped playing without reaching the goal since it took too much turns) and our policy is more than two times better than the default security strategy. 
 
 
 
