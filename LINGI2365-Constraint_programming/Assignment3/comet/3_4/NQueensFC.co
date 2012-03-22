@@ -11,6 +11,7 @@
   DYNADEC TM and COMET TM are trademarks of Dynamic Decision Technologies, Inc.
   ********************************************************************************/
 import cotfd;
+include "AllDiffFC";
 
 Solver<CP> m();
 int t0 = System.getCPUTime();
@@ -18,16 +19,25 @@ string optString = System.getArgs()[System.getArgs().getRange().getUp()];
 int n = optString.toInt();
 if(n == 0) n=8;
 range S = 1..n;
+range S2 = -n..(2*n);
 var<CP>{int} q[i in S](m,S);
+var<CP>{int} r[i in S](m,S2);
+var<CP>{int} s[i in S](m,S2);
 
 Integer np(m.getNPropag());
 
 Integer c(0);
 solve<m> {
+   
+  forall(i in S)
+  {
+      m.post(r[i] ==(q[i] + i));
+      m.post(s[i] ==(q[i] - i));
+  }
+  m.post(AllDiffFC(q),onDomains);
+  m.post(AllDiffFC(r),onDomains);
+  m.post(AllDiffFC(s),onDomains);
 
-  m.post(alldifferent(all(i in S) q[i] + i),onDomains);
-  m.post(alldifferent(all(i in S) q[i] - i),onDomains);
-  m.post(alldifferent(q),onDomains);
   
 } using {
   label(q);
@@ -36,10 +46,11 @@ solve<m> {
 //cout << "Nb : " << c << endl;
 //int t1 = System.getCPUTime();
 //cout << "Solution = " << q << endl;
+//cout << "Solution = " << r << endl;
+//cout << "Solution = " << s << endl;
 //cout << "time: " << t1 - t0 << endl;
 //cout << "#choices = " << m.getNChoice() << endl;
 //cout << "#fail    = " << m.getNFail() << endl;
 //cout << "#propag  = " << m.getNPropag() - np << endl;
-
 
 cout << n << " & "  << m.getNFail() << " & " << m.getNChoice() << " & " << endl;
