@@ -1,0 +1,52 @@
+import cotfd;
+class AllDiffFC extends UserConstraint<CP> {
+    var<CP>{int}[]   _x;    
+    trail{int}       nbInstVar;
+
+    AllDiffFC(var<CP>{int}[] x) : UserConstraint<CP>(){
+        _x =  x;
+    }
+
+    Outcome<CP> post(Consistency<CP> cl){
+        Solver<CP> cp= _x[_x.getRange().getLow()].getSolver();
+        nbInstVar = new trail{int}(cp,0);
+
+        forall(i in _x.getRange()){
+            if(_x[i].bound()){
+               Outcome<CP> res = propagate();
+               if (res==Failure||res==Success) return res;
+            } else
+               _x[i].addBind(this);
+        }
+        return Suspend;
+         
+    }
+
+    Outcome<CP> propagate(){
+        cout << _x << endl;
+        nbInstVar := nbInstVar +1;
+        if(nbInstVar == _x.getSize()-1)
+        {
+            cout << "AllDiffFC all bound but one" << endl;
+            int k = _x.getLow();
+            int[] v = new int[_x.getRange()];
+            forall(i in _x.getRange())
+               if(_x[i].bound())
+                  if(_x[k].removeValue(_x[i]) == Failure) return Failure;
+
+//                    v[i] = _x[i].getMin();
+//               else k=1;
+//            forall(a in _x[k].getMin().._x[k].getMax():_x[k].memberOf(a))
+//            {
+//               v[k] = a;
+//               if(!check(v))
+//                   if(_x[k].removeValue(a) == Failure) return Failure;
+//
+//            }
+            return Success;
+        }
+        return Suspend;
+
+    }
+    
+}
