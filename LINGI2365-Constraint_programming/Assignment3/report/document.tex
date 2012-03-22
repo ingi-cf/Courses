@@ -81,7 +81,15 @@ Since the bound consistency guarantees the domain consistency for this constrain
 \subsubsection{Implementation of a constraint-based propagator in comet}
 %TODO faut peut etre rien mettre dans le rapport en fait
 \subsection{The channeling constraint : Channeling.co} %4.5 pt
-\subsubsection{Definition of domain consistency}
+\subsubsection{Definition of domain consistency for this constraint}
+The set of inconsistent values for X and Y is defined as follow : 
+
+\begin{align*}
+Inc(c) = & \{(X[], x[i])|x[i] \in D(X[]) \wedge \forall y \in D(Y) : \neg(x[i]=(y==i))\} \\
+ & \cup \{(Y, y)|y \in D(Y) \wedge \forall x[i] \in D(X[]) : \neg(x[i]=(y==i))\} 
+\end{align*}
+
+The constraint is domain consistent with regard to D(X) and D(Y) iff $Inc(c) = \emptyset$. 
 \subsubsection{Comet implementation}
 
 \subsection{AC2001 propagator} %4.5 pt
@@ -108,6 +116,6 @@ Since the bound consistency guarantees the domain consistency for this constrain
 
 \subsubsection{Test both implementations of alldifferent}
 
-\subsubsection{What did you nd in your comparative study?}
+\subsubsection{What did you find in your comparative study?}
 
 \end{document}
