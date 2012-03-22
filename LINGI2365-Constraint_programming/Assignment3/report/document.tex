@@ -36,7 +36,16 @@ If this check was removed the algorithm would still work, the $nbSupport[x,a,c]-
 The time complexity of AC4 wouldn't change without this check. It would still be $O(ed^2)$. This is because the worst case scenario is unaffected by the removal of this check. The check only improves performance in some cases but not in worst case. 
 
 \subsection{Domain and bound consistency} % 0? pt
-
+\subsubsection{Definition of domain consistency }
+The set of inconsistent values for X and Y would be defined as follow : 
+$$Inc(c) = \{(X, x)|x \in D(X) \wedge \forall y \in D(Y) : \neg(x+y= a)\} \cup \{(Y, y)|y \in D(Y) \wedge \forall x \in D(X) : \neg(x+y = a)\}$$
+The constraint is domain consistent with regard to D(X) and D(Y) iff $Inc(c) = \emptyset$. 
+\subsubsection{Definition of bound consistency}
+The constraint is bound consistent with regard to D(X) and D(Y) iff : 
+$$\forall x \in D(X) : x \in [a- max(D(Y)), a- min(D(Y))]$$
+ and $$\forall y \in D(Y) : y \in [a- max(D(X)), a- min(D(X))]$$
+\subsubsection{Is the constraint automaticaly bound consistent if domain consistent}
+Yes, the domain consistency definition of the constraint is more restrictive than the bound consistency one. If $Inc(c) = \emptyset$ for the domain consistency then the conditiosn for bound consistency are guaranteed to be met. 
 
 
 \section{Problems}
