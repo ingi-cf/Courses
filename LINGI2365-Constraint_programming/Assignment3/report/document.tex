@@ -187,12 +187,15 @@ Here are our implementations of the post, valremove and valBind methods :
 \subsubsection{Generic constraint}
 
 \paragraph{Adding the first support data structure}
+ \  \\ 
 We stored the first support in $trail{int}$.  We had 2 arrays of theses, one for x and one for y.  Each array store as much trail as there are values in the domains of the variable it represents.  The goal of theses elements is to keep track, for each values still in the domains, of the value of the other variable wich the constraint was verified.  Then in a later execution, verifying that this value is still in the domain suffice to verify the constraint.
 Moreover, as we take the values in a defined order, we know that previous values will no more verify the constraints, so we have less values to test. 
 \paragraph{Body of the constructor}
+ \  \\ 
 The constructor is straightforward it just store the constraints parameters.
 
 \paragraph{Body of the post method}
+ \  \\ 
 The post is the place where we initialize the support vectors.
 \begin{lstlisting}
   Solver<CP>cp = _x.getSolver();
@@ -214,7 +217,8 @@ The last thing to do is to register to the domains changes and to return Suspend
   return Suspend;
 \end{lstlisting}
 
-\paragraph{Body of the propagate method}
+\paragraph{Body of the propagate method} 
+ \ \\ 
 The propagate method only call updateSupport for every values still in the domain with a support that is no more in the domain.\\
 The updateSupport method act in multiple phases.\\ 
 First it get elements needed : 
@@ -256,8 +260,36 @@ Then, if we didn't find any support anymore we try to remove the value
       return Suspend ;
     
 \end{lstlisting}
-\subsubsection{Specific constraints}
 
+\subsubsection{Specific constraints}
+\begin{itemize}
+\item AC2001DoubleModulo check method  
+
+\begin{lstlisting}
+boolean check(int a, int b)
+    {
+        return (a%_k) == (b%_k);
+    }
+\end{lstlisting}
+
+\item AC2001Sum check method  
+
+\begin{lstlisting}
+boolean check(int a, int b)
+    {
+        return (a+b) == _k;
+    }
+  \end{lstlisting}
+  
+\item AC2001Dist check method 
+
+\begin{lstlisting}
+boolean check(int a, int b)
+    { 
+        return abs(a-b) == _k;
+    }
+    \end{lstlisting}
+\end{itemize}
 \subsection{The AllDifferent constraint : AllDiffFC.co} %6 pt
 
 \subsubsection{Forward-checking consistency}
@@ -269,5 +301,36 @@ Then, if we didn't find any support anymore we try to remove the value
 \subsubsection{Test both implementations of alldifferent}
 
 \subsubsection{What did you find in your comparative study?}
+Here are the obtained numbers of failures and choices for the problems for each value of n. 
+\begin{center}
+\begin{tabular}{|r|cc|cc|}
+\hline
+ & \multicolumn{2}{c}{NQueens} & \multicolumn{2}{|c|}{NQueensFC} \\
+ n & Failures & Choices & Failures & Choices \\ 
+\hline
+12 & 39 & 20 &               64 & 34 \\ 
+13 & 13 & 11 &               16 & 12 \\ 
+14 & 270 & 117 &             423 & 208 \\ 
+15 & 176 & 79 &              290 & 143 \\ 
+16 & 1358 & 597 &            2305 & 1123 \\ 
+17 & 714 & 327 &             1561 & 752 \\ 
+18 & 4540 & 1936 &           9557 & 4508 \\ 
+19 & 172 & 71 &              742 & 381 \\ 
+20 & 17921 & 7341 &          48059 & 22220 \\ 
+21 & 399 & 160 &             1959 & 943 \\ 
+22 & 135923 & 57834 &        343151 & 162268 \\ 
+23 & 847 & 339 &             5193 & 2510 \\ 
+24 & 19603 & 8203 &          81171 & 38902 \\ 
+25 & 1150 & 455 &            9149 & 4507 \\ 
+26 & 12032 & 5138 &          69903 & 34458 \\ 
+27 & 12211 & 4649 &          84175 & 39943 \\ 
+28 & 89509 & 36342 &         523005 & 252503 \\ 
+29 & 35369 & 13672 &         266235 & 126158 \\ 
+30 & 1837227 & 758650 &      9374708 & 4574951 \\ 
+31 & 288305 & 112867 &       2250869 & 1087399 \\ 
+32 & 2057346 & 826632 &      14336324 & 7040698 \\ 
+\hline
+\end{tabular}
+\end{center}
 
 \end{document}

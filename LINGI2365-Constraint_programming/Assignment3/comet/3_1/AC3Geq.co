@@ -14,7 +14,7 @@ class Geq extends UserConstraint<CP> {
     Outcome<CP> post(Consistency<CP> cl){
         //first propagation
         Outcome<CP> propag = propagate();
-        //TODO check if not better with min max
+        
         _x.addMin(this);
         _y.addMax(this);
 
