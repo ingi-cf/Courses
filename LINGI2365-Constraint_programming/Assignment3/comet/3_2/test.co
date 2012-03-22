@@ -1,0 +1,21 @@
+
+include "Channeling";
+
+Solver<CP> cp();
+
+var<CP>{int}    x[1..6](cp,0..1);
+var<CP>{int}    y(cp,4..4);
+int a = 2;
+solve<cp>{
+  //
+  cp.post(Channel(x,y));
+}using{
+  label(cp);
+
+  cout << x <<endl;
+  cout << y <<endl;
+}
+cout << "final"<< endl;
+cout << x <<endl;
+cout << y <<endl;
+

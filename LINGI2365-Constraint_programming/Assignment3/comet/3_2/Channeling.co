@@ -1,0 +1,75 @@
+
+import cotfd;
+class Channel extends UserConstraint<CP> {
+    var<CP>{int}[]  _x;    
+    var<CP>{int}    _y;    
+    
+    Channel(var<CP>{int}[] x,var<CP>{int} y) : UserConstraint<CP>(){
+        _x = x;
+        _y = y;
+    }
+
+    Outcome<CP> post(Consistency<CP> cl){
+        //remove from Y all that is not in the range 
+        if (_y.updateMin(_x.getLow()) == Failure) return Failure;
+        if (_y.updateMax(_x.getUp()) == Failure) return Failure;
+
+        //remove from X all element not in Y
+        forall(ix in _x.getLow().._x.getUp() : !_y.memberOf(ix))
+        {
+            if (_x[ix].bindValue(0) == Failure) return Failure;
+   
+        }
+
+        _y.addAC5(this);
+        _y.addAC5Bind(this);
+        
+        forall(ix in _x.getLow().._x.getUp() : !_x[ix].bound())
+            _x[ix].addAC5Bind(this);
+
+        return Suspend;
+    }
+    
+    Outcome<CP> valRemove(var<CP>{int} z, int val)
+    {
+        if(_x[val].bindValue(0) == Failure) return Failure;
+        return Suspend;
+    }
+    
+    Outcome<CP> valBind(var<CP>{int} z, int val)
+    {
+        if(z.getId() == _y.getId())
+        {
+
+            forall(ix in _x.getLow().._x.getUp() : ! _x[ix].bound())
+            {
+                if(val == ix)
+                {
+                    if(_x[val].bindValue(1) == Failure) return Failure;
+                }
+                else 
+                {
+                    if(_x[val].bindValue(0) == Failure) return Failure;
+                }
+            }
+            return Success;
+        } else {
+            forall(ix in _x.getLow().._x.getUp() : _x[ix].getId() == z.getId())
+            {
+                if (val == 0)
+                { 
+                    if (_y.removeValue(ix) == Failure) return Failure;
+                }
+                else
+                {
+                    if(_y.bindValue(ix) == Failure) return Failure;
+                    else return Success;
+                }
+                
+
+            }
+        }
+        return Suspend;
+    }
+    
+}
