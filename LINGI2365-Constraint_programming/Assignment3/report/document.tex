@@ -16,33 +16,34 @@
 \newpage
 
 \section{Questions}
-\subsection{DC3}
+\subsection{DC3} %1.5 pt
 To express the complexity values we use the following notations from the course : $e$ is the number of constraints, $d$ is the size of the domain of the variable with the greatest domain, $r$ is the greatest arity amongst the constraints.
 \subsubsection{Time complexity}
 The time complexity for DC3 is $O(er^3d^{r+1})$ (if all constraints are binary then $r=2$ and the complexity becomes $O(ed^3)$). \\ 
-This is because propagate can be called up to $ed$ times in propagateQueueCDC if every constraints are added to Q for every value removed from the domain of the variable with the greatest domain size. And the complexity of propagateDC3 is $O(r^3d^r)$.
-%TODO explain complexity of propagateDC3...from slide 3.34 it should be O(rd^{R+1}) and its troublesome
+This is because propagate can be called up to $ed$ times in propagateQueueCDC if every constraints are added to Q for every value removed from the domain of the variable with the greatest domain size. And the complexity of propagateDC3 is $O(r^2d^r)$. That is because the two forall make it so the constraint check is executed $rd$ times. And the check itself needs to try the constraint, which can be done with an $O(r)$ time complexity, on all the combinations of values for the variables and there are $d^{r-1}$ possible combinatiosn since one variable already has its value fixed.
+
 
 \subsubsection{Space complexity}
 The space complexity for DC3 is $O(e)$ because of the queue Q that contains the constraints for which the domain consistency is not guaranteed.  
 
 \subsubsection{Time complexity if all constraints are domain consistent on call}
 
-The complexity if all constraints are domain consistent at the beginning would be $O(er^3d^r)$. The complexity of the propagateDC3 function doesn't change since it still has to check the constraints to make sure they are domain consistent. However in propagateQueueCDC we will only call propagate up to $e$ times and not $ed$ since there will never be any constraint added to Q since the domains won't change. 
+The complexity if all constraints are domain consistent at the beginning would be $O(er^3d^r)$. The complexity of the propagateDC3 function doesn't change since it still has to check the constraints to make sure they are domain consistent. However in propagateQueueCDC we will only call propagate up to $e$ times and not $ed$ since there will never be any constraint added to Q because the domains won't change. 
 
-\subsection{ valRemoveAC4}
+\subsection{ valRemoveAC4} %1 pt
 
-\subsection{ Domain and bound consistency}
+
+\subsection{ Domain and bound consistency} % 0? pt
 
 \section{Problems}
 
-\subsection{AC3 propagator : AC3Geq.co}
+\subsection{AC3 propagator : AC3Geq.co} %2.5 pt
 
-\subsection{The channeling constraint : Channeling.co}
+\subsection{The channeling constraint : Channeling.co} %4.5 pt
 
-\subsection{AC2001 propagator}
+\subsection{AC2001 propagator} %4.5 pt
 
-\subsection{The AllDifferent constraint : AllDiffFC.co}
+\subsection{The AllDifferent constraint : AllDiffFC.co} %6 pt
 
 
 
