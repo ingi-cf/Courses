@@ -187,13 +187,75 @@ Here are our implementations of the post, valremove and valBind methods :
 \subsubsection{Generic constraint}
 
 \paragraph{Adding the first support data structure}
-
+We stored the first support in $trail{int}$.  We had 2 arrays of theses, one for x and one for y.  Each array store as much trail as there are values in the domains of the variable it represents.  The goal of theses elements is to keep track, for each values still in the domains, of the value of the other variable wich the constraint was verified.  Then in a later execution, verifying that this value is still in the domain suffice to verify the constraint.
+Moreover, as we take the values in a defined order, we know that previous values will no more verify the constraints, so we have less values to test. 
 \paragraph{Body of the constructor}
+The constructor is straightforward it just store the constraints parameters.
 
 \paragraph{Body of the post method}
+The post is the place where we initialize the support vectors.
+\begin{lstlisting}
+  Solver<CP>cp = _x.getSolver();
+  _supportx = new trail{int}[_x.getMin().._x.getMax()](cp);
+  _supporty = new trail{int}[_y.getMin().._y.getMax()](cp);
+\end{lstlisting}
+We then initialized all the support to the smallest value of x or y, then we call the functions that update the support (here is what we do for x but we do the same for y). The updateSupport method updates the support and remove a value from the domain of a variable if it has to, it then return failure if the remove of the value cause a failure.  This method will be explained next.
+\begin{lstlisting}
+  forall(valx in _x.getMin().._x.getMax() : _x.memberOf(valx))
+  {
+     _supportx[valx] := _y.getMin();
+     if(updateSupport(_x,valx) == Failure) return Failure;
+  }
+\end{lstlisting}
+The last thing to do is to register to the domains changes and to return Suspend
+\begin{lstlisting}
+  _x.addDomain(this);
+  _y.addDomain(this);
+  return Suspend;
+\end{lstlisting}
 
 \paragraph{Body of the propagate method}
+The propagate method only call updateSupport for every values still in the domain with a support that is no more in the domain.\\
+The updateSupport method act in multiple phases.\\ 
+First it get elements needed : 
+\begin{lstlisting}
+  // get  some useful elements
+  var<CP>{int}   varSupporter;
+  boolean        reverseCheck;
+  trail{int}     supportTrail;
+  if(varToSupport.getId() == _x.getId())
+  { 
+      varSupporter = _y;
+     reverseCheck = false;
+     supportTrail = _supportx[valToSupport];
+  } else { 
+     varSupporter = _x;
+     reverseCheck = true;
+      supportTrail = _supporty[valToSupport];
+  }
+    
+\end{lstlisting}
 
+Then we try to find the next support.  We first try the actual value (we have to do that at the initialisation).
+\begin{lstlisting}
+      //we recheck for the actual value so if still ok, keeps it
+      forall(valSupporter in supportTrail..varSupporter.getMax() : 
+            varSupporter.memberOf(valSupporter) && checkInOrder(valToSupport,valSupporter,reverseCheck))
+      {
+         //we found a support we can stop
+         supportTrail := valSupporter;
+         return Suspend;
+      }  
+    
+\end{lstlisting}
+Then, if we didn't find any support anymore we try to remove the value 
+\begin{lstlisting}
+      //support not found try to remove valx
+      if(varToSupport.removeValue(valToSupport) == Failure) return Failure;
+      
+      return Suspend ;
+    
+\end{lstlisting}
 \subsubsection{Specific constraints}
 
 \subsection{The AllDifferent constraint : AllDiffFC.co} %6 pt
