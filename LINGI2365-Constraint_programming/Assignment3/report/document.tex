@@ -293,10 +293,57 @@ boolean check(int a, int b)
 \subsection{The AllDifferent constraint : AllDiffFC.co} %6 pt
 
 \subsubsection{Forward-checking consistency}
+Forward checking consistency is the domain consistency with all variables instantiated except one.  Here in the decomposition of AllDiff all constraints are binary, so as soon as a variable of the constraint is bound, all constraint containing this variable have to be domain consistant.
 
 \subsubsection{Propagator ensuring forward-checking consistency}
+To implement our propagator, we used value-based consistency. We first subscribe to events
+\begin{lstlisting}
+        forall(i in _x.getRange()){
+            if(!_x[i].bound()){
+               _x[i].addAC5Bind(this);
+        }
+        return Suspend;
+\end{lstlisting}
+Then, every time a variable is bound, we only have to remove this value of every other variables in valbind:
+ \begin{lstlisting}
+      forall(k in _x.getRange() : z.getId()!=_x[k].getId() )
+      {
+          if(_x[k].removeValue(val) == Failure) return Failure;
+      }
+      return Suspend;
+     
+ \end{lstlisting}
+
 
 \subsubsection{Modification of the NqueensFC.co to use our implementation of alldifferent.}
+One difference between the comet's alldifferent and ours is that the comet one also has this signature :
+\begin{lstlisting}
+    Constraint<CP> alldifferent(expr<CP>{int}[] x)
+\end{lstlisting}
+Which allow to write constraints as :
+\begin{lstlisting}
+  m.post(alldifferent(all(i in S) q[i] + i),onDomains);
+\end{lstlisting}
+To have similar constraints we had to creates two other arrays of constraints :
+ \begin{lstlisting}
+    var<CP>{int} r[i in S](m,S2);
+    var<CP>{int} s[i in S](m,S2);
+ \end{lstlisting}
+The domain is bigger because of the way we will connect it with q.
+\begin{lstlisting}
+  forall(i in S)
+  {
+      m.post(r[i] ==(q[i] + i));
+      m.post(s[i] ==(q[i] - i));
+  } 
+\end{lstlisting}
+Then the constraints
+\begin{lstlisting}
+  m.post(alldifffc(q),ondomains);
+  m.post(alldifffc(r),ondomains);
+  m.post(alldifffc(s),ondomains);
+\end{lstlisting}
+Represents the sames constraints as in the original version.  We do not set precisely the domains of r and s elements, the constraints that linked them to q will do it at the first pass.
 
 \subsubsection{Test both implementations of alldifferent}
 
@@ -335,4 +382,5 @@ Here are the obtained numbers of failures and choices for the problems for each 
 \end{tabular}
 \end{center}
 
+We can see that even if the NQueensFC is not so bad, it is not as good as the original one.  We always have more fail before finding the solution.  This mean that the consistency is stronger with the comet's alldifferent.  In our implementation the domains of variables are just different two by two.  We simplify a lot the computation of consistency by splitting the alldifferent constraint in binaries constraints but what we gain in consistency computation cost we lost in consistency quality and then the comet's alldifferent better prunes the domains and made less failures.
 \end{document}
