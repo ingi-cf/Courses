@@ -1,0 +1,42 @@
+/********************************************************************************
+  COPYRIGHTS AND TRADEMARKS
+  Copyright (c) 2007, 2008 Dynamic Decision Technologies, Inc.  All rights reserved.  
+
+  Portions of this product are copyright of, and licensed from, Brown University 
+  or the University of Connecticut.  This product also includes open source software 
+  developed by the OpenSSL Project, Free Software Foundation, Inc., the Regents 
+  of the University of California and NetBSD Foundation, Inc.  See copyright notice 
+  included with the software for additional copyright information.
+
+  DYNADEC TM and COMET TM are trademarks of Dynamic Decision Technologies, Inc.
+  ********************************************************************************/
+import cotfd;
+
+Solver<CP> m();
+int t0 = System.getCPUTime();
+int n = 8;
+range S = 1..n;
+var<CP>{int} q[i in S](m,S);
+
+Integer np(m.getNPropag());
+
+cout << "Initiating search..." << endl;
+Integer c(0);
+solve<m> {
+
+  m.post(alldifferent(all(i in S) q[i] + i),onDomains);
+  m.post(alldifferent(all(i in S) q[i] - i),onDomains);
+  m.post(alldifferent(q),onDomains);
+  
+} using {
+  label(q);
+  c := c + 1;
+}
+cout << "Nb : " << c << endl;
+int t1 = System.getCPUTime();
+cout << "Solution = " << q << endl;
+cout << "time: " << t1 - t0 << endl;
+cout << "#choices = " << m.getNChoice() << endl;
+cout << "#fail    = " << m.getNFail() << endl;
+cout << "#propag  = " << m.getNPropag() - np << endl;
+

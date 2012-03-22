@@ -1,0 +1,105 @@
+include "AC2001Constraint";
+
+// You've got three constraints to implement here below
+
+
+//doubleModulo Constraint : x mod k = y mod k (k is a constant)
+class AC2001DoubleModulo extends AC2001Constraint{
+    int _k;
+    AC2001DoubleModulo(var<CP>{int} x, var<CP>{int} y,int k) : AC2001Constraint(x,y){
+        _k = k;
+    }
+    boolean check(int a, int b);
+}
+
+//sum cstr //  x+y= k  (k is a constant)
+class AC2001Sum extends AC2001Constraint{
+    int _k;
+    
+    AC2001Sum(var<CP>{int} x,var<CP>{int} y,int k) : AC2001Constraint(x,y){
+        _k=k;   
+    }
+    boolean check(int a, int b);
+}
+
+//distance positive |x-y| = k
+class  AC2001Dist  extends  AC2001Constraint {
+  int _k;
+  AC2001Dist(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b);
+}
+
+
+
+
+//---------------------------------------------------------------------------------
+
+// Some examples of constraints to be used with AC2001
+// you do not have anything to do here below. Play with it.
+
+
+//Modulo cstr //  x= y mod k  (k is a constant)
+class  AC2001Modulo  extends  AC2001Constraint {
+  int _k;
+  AC2001Modulo(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a== (b%_k)); }
+}
+
+
+
+//absolute value cstr  x= |y - k|  (k is a constant)
+class  AC2001Abs  extends  AC2001Constraint {
+  int _k;
+  AC2001Abs(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a== abs(b-_k)); }
+}
+
+
+
+//congruence positive   (x+y) mod k = 0
+class  AC2001Cong  extends  AC2001Constraint {
+  int _k;
+  AC2001Cong(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a+b)%_k==0; }
+}
+
+//Modulo cstr x!= y mod k  (k is a constant)
+class  AC2001ModuloNeq  extends  AC2001Constraint {
+  int _k;
+  AC2001ModuloNeq(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a!= (b%_k)); }
+}
+
+
+
+//absolute value cstr  x!= |y - k|  (k is a constant)
+class  AC2001AbsNeq  extends  AC2001Constraint {
+  int _k;
+  AC2001AbsNeq(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a!= abs(b-_k)); }
+}
+
+
+//congruence negative  (x+y) mod k != 0
+class  AC2001CongNeq  extends  AC2001Constraint {
+  int _k;
+  AC2001CongNeq(var<CP>{int} x, var<CP>{int} y, int k) : AC2001Constraint(x,y) {
+     _k = k;  
+  }
+  boolean check(int a, int b){ return (a+b)%_k!=0; }
+}
+
+
+

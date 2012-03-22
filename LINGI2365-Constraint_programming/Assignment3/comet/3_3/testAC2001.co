@@ -1,0 +1,24 @@
+
+include "AllConstraints";
+
+Solver<CP> cp();
+
+var<CP>{int} w(cp,1..4);
+var<CP>{int} x(cp,1..4);
+var<CP>{int} y(cp,1..4);
+var<CP>{int} z(cp,3..3);
+
+solve<cp>{
+  //
+  cp.post(AC2001Sum(x,w,5));
+  cp.post(AC2001Dist(x,y,3));
+  cp.post(AC2001DoubleModulo(y,z,2));
+}using{
+  label(cp);
+
+  cout << w <<endl;
+  cout << x <<endl;
+  cout << y <<endl;
+  cout << z <<endl;
+}
+
