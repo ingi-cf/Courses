@@ -30,10 +30,14 @@ The space complexity for DC3 is $O(e)$ because of the queue Q that contains the 
 
 The complexity if all constraints are domain consistent at the beginning would be $O(er^3d^r)$. The complexity of the propagateDC3 function doesn't change since it still has to check the constraints to make sure they are domain consistent. However in propagateQueueCDC we will only call propagate up to $e$ times and not $ed$ since there will never be any constraint added to Q because the domains won't change. 
 
-\subsection{ valRemoveAC4} %1 pt
+\subsection{valRemoveAC4} %1 pt
+We test that $a \in D(x)$ because the data structure $S$ is not updated when the domains are pruned. So it is necessary to verify that $a$ is still in the domain of $x$. \\ 
+If this check was removed the algorithm would still work, the $nbSupport[x,a,c]--;$ and adding $(x,a)$ to $\Delta$ wouldn't change anything since $a$ isn't in the domain of $x$ anymore already. \\ 
+The time complexity of AC4 wouldn't change without this check. It would still be $O(ed^2)$. This is because the worst case scenario is unaffected by the removal of this check. The check only improves performance in some cases but not in worst case. 
+
+\subsection{Domain and bound consistency} % 0? pt
 
 
-\subsection{ Domain and bound consistency} % 0? pt
 
 \section{Problems}
 
