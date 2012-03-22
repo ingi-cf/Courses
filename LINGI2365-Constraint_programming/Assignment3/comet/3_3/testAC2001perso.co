@@ -1,0 +1,22 @@
+
+include "AllConstraints";
+
+Solver<CP> cp();
+
+var<CP>{int} x(cp,1..20);
+var<CP>{int} y(cp,1..20);
+
+solve<cp>{
+  //
+  cp.post(AC2001Cong(x,y,5));
+  cp.post(AC2001Abs(x,y,6));
+  cp.post(x+y > 10);
+}using{
+  label(cp);
+
+  cout << x <<endl;
+  cout << y <<endl;
+}
+cout << "final" << endl;
+cout << x <<endl;
+cout << y <<endl;

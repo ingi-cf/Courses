@@ -1,27 +1,111 @@
 import cotfd;
 
 abstract class AC2001Constraint extends UserConstraint<CP> {
-// constraint variables
-// support structures
-
+   var<CP>{int}   _x;
+   var<CP>{int}   _y;
+   trail{int}[]   _supportx;
+   trail{int}[]   _supporty;
     
-   AC2001Constraint(var<CP>{int} x, var<CP>{int} Y) : UserConstraint<CP>() {
+   AC2001Constraint(var<CP>{int} x, var<CP>{int} y) : UserConstraint<CP>() {
       // assign constraint variables
       // create support structures
+       _x = x;
+       _y = y;
    }
-  
+
 
    // the postAC2001 method
    Outcome<CP> post(Consistency<CP> cl) { 
        // initialize support structures
        // do initial propagation
        // subscribe your constraint to some events
+      Solver<CP>cp = _x.getSolver();
+      _supportx = new trail{int}[_x.getMin().._x.getMax()](cp);
+      _supporty = new trail{int}[_y.getMin().._y.getMax()](cp);
+      
+      forall(valx in _x.getMin().._x.getMax() : _x.memberOf(valx))
+      {
+         _supportx[valx] := _y.getMin();
+         if(updateSupport(_x,valx) == Failure) return Failure;
+      }
+      forall(valy in _y.getMin().._y.getMax() : _y.memberOf(valy))
+      {
+         _supporty[valy] := _x.getMin();
+         if(updateSupport(_y,valy) == Failure) return Failure;
+      }
+
+      _x.addDomain(this);
+      _y.addDomain(this);
+      return Suspend;
+
    }
+
+
+   Outcome<CP> updateSupport(var<CP>{int} varToSupport, int valToSupport)
+   {
+      // get some useful elements
+      var<CP>{int}   varSupporter;
+      boolean        reverseCheck;
+      trail{int}     supportTrail;
+      if(varToSupport.getId() == _x.getId())
+      {
+         varSupporter = _y;
+         reverseCheck = false;
+         supportTrail = _supportx[valToSupport];
+      } else {
+         varSupporter = _x;
+         reverseCheck = true;
+         supportTrail = _supporty[valToSupport];
+      }
+      //we recheck for the actual value so if still ok, keeps it
+      forall(valSupporter in supportTrail..varSupporter.getMax() : 
+            varSupporter.memberOf(valSupporter) && checkInOrder(valToSupport,valSupporter,reverseCheck))
+      {
+         //we found a support we can stop
+         supportTrail := valSupporter;
+         return Suspend;
+      }  
+      //support not found try to remove valx
+      if(varToSupport.removeValue(valToSupport) == Failure) return Failure;
+      
+      return Suspend ;
+   }
+
+   Outcome<CP> updateSupports(var<CP>{int} varToSupport)
+   {
+      // get some useful elements 
+      var<CP>{int}   varSupporter;
+      trail{int}[]     support;
+      if(varToSupport.getId() == _x.getId())
+      {
+         varSupporter = _y;
+         support = _supportx;
+      } else {
+         varSupporter = _x;
+         support = _supporty;
+      }
+      forall(valToSupport in varToSupport.getMin()..varToSupport.getMax() : 
+            varToSupport.memberOf(valToSupport) && !varSupporter.memberOf(support[valToSupport]))
+         if(updateSupport(varToSupport,valToSupport) == Failure) return Failure;
+
+      return Suspend;
+   }
+
+
+   boolean checkInOrder(int valSupporter, int valToSupport, boolean reverseCheck)
+   {
+      if(reverseCheck)
+          return check(valToSupport, valSupporter);   
+      else 
+          return check(valSupporter, valToSupport);    
+   }
+
     
    // the propagateAC2001 method   
    Outcome<CP> propagate(){     
-      //propagate_varAC2001 for X
-      //propagate_varAC2001 for Y
+       if(updateSupports(_x) == Failure) return Failure;
+       if(updateSupports(_y) == Failure) return Failure;
+       return Suspend;
    }  
 
 
@@ -29,6 +113,8 @@ abstract class AC2001Constraint extends UserConstraint<CP> {
    bool addInDelta(var<CP>{int} z, int v){
       return z.removeValue(v) != Failure;
    }
+
+   
 
    // the abstract method to be implemented by
    // a sepcific constraint class extending this abstract class
