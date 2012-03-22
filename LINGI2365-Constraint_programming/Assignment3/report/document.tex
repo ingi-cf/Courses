@@ -73,7 +73,7 @@ And if something is true $\forall x\in D(X)$ then it is also true for $x \in \{ 
 We now need to prove that the bound consistency also guarantees the domain consistency for this constraint. Since the constraint is made of a "`greater or equal"' relation we can simplify the domain consistency to verify the constraint for the worst case only instead of on all values from the domains. This leads to the following requirements for domain consistency : 
 $$ \exists y \in D(Y) : min(D(X)) \geq y+a$$ and
 $$ \exists x \in D(X) : x \geq max(D(Y))+a$$
-And if we have bound consistency by its definition we know that for $x=min(D(X)) : \exists y \in [min(D(Y)), max(D(Y))] : x \geq y+a$ once again since we have a "`greater or equal"' then if $\exists y \in [min(D(Y)), max(D(Y))]: x \geq y+a$ we know that $x \geq max(D(Y))+a$ and obviously $max(D(Y))\in D(Y)$. The same is true for Y by smmetry so our new requirement for domain consistency are sure to be met if we have bound consistency. \\ 
+And if we have bound consistency by its definition we know that for $x=min(D(X)) : \exists y \in [min(D(Y)), max(D(Y))] : x \geq y+a$ once again since we have a "`greater or equal"' then if $\exists y \in [min(D(Y)), max(D(Y))]: x \geq y+a$ we know that $x \geq min(D(Y))+a$ and obviously $min(D(Y))\in D(Y)$. The same is true for Y by smmetry so our new requirement for domain consistency are sure to be met if we have bound consistency. \\ 
 Since the bound consistency guarantees the domain consistency for this constraint and the domain consistency guarantees the bound consistency, the two are equivalents.  
 
 
@@ -81,8 +81,11 @@ Since the bound consistency guarantees the domain consistency for this constrain
 \subsubsection{Implementation of a constraint-based propagator in comet}
 %TODO faut peut etre rien mettre dans le rapport en fait
 \subsection{The channeling constraint : Channeling.co} %4.5 pt
+\subsubsection{Definition of domain consistency}
+\subsubsection{Comet implementation}
 
 \subsection{AC2001 propagator} %4.5 pt
+
 
 \subsection{The AllDifferent constraint : AllDiffFC.co} %6 pt
 
