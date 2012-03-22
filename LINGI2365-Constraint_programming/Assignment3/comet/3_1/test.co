@@ -1,0 +1,19 @@
+
+include "AC3Geq";
+
+Solver<CP> cp();
+
+var<CP>{int} x(cp,1..4);
+var<CP>{int} y(cp,1..4);
+int a = 4;
+solve<cp>{
+  //
+  cp.post(Geq(a,x,y));
+}using{
+  label(cp);
+
+  cout << x <<endl;
+  cout << y <<endl;
+}
+
+

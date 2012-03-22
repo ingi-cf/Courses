@@ -1,0 +1,31 @@
+import cotfd;
+class Geq extends UserConstraint<cp>{
+    var<CP>{int}    _x;    
+    var<CP>{int}    _y;    
+    int             _a;
+    
+    Geq(int a, var<CP>{int} x,var<CP>{int} y) : UserConstraint<CP>(){
+        _x = x;
+        _y = y;
+        _a = a;
+    
+    }
+
+    Outcome<CP> post(Consistency<CP> cl){
+        //first propagation
+        Outcome<CP> propag = propagate();
+        //TODO check if not better with min max
+        _x.addMin(this);
+        _y.addMax(this);
+
+        return propag;
+    }
+
+    Outcome<CP> propagate(){
+        int xmin = _y.getMin() + a;
+        int ymax = _x.getMax() - a;
+        if (_x.updateMin(xmin) == Failure) return Failure;
+        if (_y.updateMax(ymax) == Failure) return Failure;
+    }
+    
+}
