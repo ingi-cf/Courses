@@ -1,20 +1,15 @@
 import cotfd;
 class AllDiffFC extends UserConstraint<CP> {
     var<CP>{int}[]   _x;    
-    trail{int}       nbInstVar;
 
     AllDiffFC(var<CP>{int}[] x) : UserConstraint<CP>(){
         _x =  x;
     }
 
     Outcome<CP> post(Consistency<CP> cl){
-        Solver<CP> cp= _x[_x.getRange().getLow()].getSolver();
-        nbInstVar = new trail{int}(cp,0);
 
         forall(i in _x.getRange()){
-            if(_x[i].bound()){
-                cout << "arf" << endl;
-            } else
+            if(!_x[i].bound()){
                _x[i].addAC5Bind(this);
         }
         return Suspend;

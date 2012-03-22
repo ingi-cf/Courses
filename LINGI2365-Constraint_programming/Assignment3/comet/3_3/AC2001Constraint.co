@@ -7,8 +7,6 @@ abstract class AC2001Constraint extends UserConstraint<CP> {
    trail{int}[]   _supporty;
     
    AC2001Constraint(var<CP>{int} x, var<CP>{int} y) : UserConstraint<CP>() {
-      // assign constraint variables
-      // create support structures
        _x = x;
        _y = y;
    }
