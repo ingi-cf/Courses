@@ -42,8 +42,10 @@ $$Inc(c) = \{(X, x)|x \in D(X) \wedge \forall y \in D(Y) : \neg(x+y= a)\} \cup \
 The constraint is domain consistent with regard to D(X) and D(Y) iff $Inc(c) = \emptyset$. 
 \subsubsection{Definition of bound consistency}
 The constraint is bound consistent with regard to D(X) and D(Y) iff : 
-$$\forall x \in D(X) : x \in [a- max(D(Y)), a- min(D(Y))]$$
- and $$\forall y \in D(Y) : y \in [a- max(D(X)), a- min(D(X))]$$
+$$\forall x \in \{ min(D(X)), max(D(X))\} : \exists y \in [min(D(Y)), max(D(Y))] : x+y=a$$ and
+$$\forall y \in \{ min(D(Y)), max(D(Y))\} : \exists x \in [min(D(X)), max(D(X))] : x+y=a$$
+%$$\forall x \in D(X) : x \in [a- max(D(Y)), a- min(D(Y))]$$
+% and $$\forall y \in D(Y) : y \in [a- max(D(X)), a- min(D(X))]$$
 \subsubsection{Is the constraint automaticaly bound consistent if domain consistent}
 Yes, the domain consistency definition of the constraint is more restrictive than the bound consistency one. If $Inc(c) = \emptyset$ for the domain consistency then the conditiosn for bound consistency are guaranteed to be met. 
 
@@ -52,6 +54,32 @@ Yes, the domain consistency definition of the constraint is more restrictive tha
 
 \subsection{AC3 propagator : AC3Geq.co} %2.5 pt
 
+\subsubsection{Definition of domain consistency}
+The set of inconsistent values for X and Y is defined as follow : 
+$$Inc(c) = \{(X, x)|x \in D(X) \wedge \forall y \in D(Y) : \neg(x\geq y+a)\} \cup \{(Y, y)|y \in D(Y) \wedge \forall x \in D(X) : \neg(x\geq y+a)\}$$
+The constraint is domain consistent with regard to D(X) and D(Y) iff $Inc(c) = \emptyset$. 
+
+\subsubsection{Equivalence of domain consistency and bound consistency}
+The domain consistency and bound consistency are equivalent for this constraint. To prove this we must prove that if it is domain consistent then it is also bound consistent as well as the opposite. \\ \\ 
+First let's define the bound consistency for this constraint, it is bound consistent with regard to D(X) and D(Y) iff :
+$$\forall x \in \{ min(D(X)), max(D(X))\} : \exists y \in [min(D(Y)), max(D(Y))] : x \geq y+a$$ and
+$$\forall y \in \{ min(D(Y)), max(D(Y))\} : \exists x \in [min(D(X)), max(D(X))] : x \geq y+a$$
+Now let's go back to the domain consistency definition. We notice from our definition $Inc(c)$ that the elements that are not in $Inc(c)$ are : 
+$$\{(X, x)|x \in D(X) : \exists y \in D(Y) : x \geq y+a\} \cup \{(Y, y)|y \in D(Y) : \exists x \in D(X) : x \geq y+a\}$$
+So if the constraint is domain consistent then :
+$$\forall x \in D(X) : \exists y \in D(Y) : x \geq y+a$$ and
+$$\forall y \in D(Y) : \exists x \in D(X) : x \geq y+a$$
+And if something is true $\forall x\in D(X)$ then it is also true for $x \in \{ min(D(X)), max(D(X))\}$ and if $x \in D(X)$ then $x \in [min(D(X)), max(D(X))]$, the same holds for y. By replacing these in the previous expressions we obtain a weaker version of the domain consistency definition that matches the bound consistency definition. So the domain consistency guarantees the bound consistency. \\ 
+We now need to prove that the bound consistency also guarantees the domain consistency for this constraint. Since the constraint is made of a "`greater or equal"' relation we can simplify the domain consistency to verify the constraint for the worst case only instead of on all values from the domains. This leads to the following requirements for domain consistency : 
+$$ \exists y \in D(Y) : min(D(X)) \geq y+a$$ and
+$$ \exists x \in D(X) : x \geq max(D(Y))+a$$
+And if we have bound consistency by its definition we know that for $x=min(D(X)) : \exists y \in [min(D(Y)), max(D(Y))] : x \geq y+a$ once again since we have a "`greater or equal"' then if $\exists y \in [min(D(Y)), max(D(Y))]: x \geq y+a$ we know that $x \geq max(D(Y))+a$ and obviously $max(D(Y))\in D(Y)$. The same is true for Y by smmetry so our new requirement for domain consistency are sure to be met if we have bound consistency. \\ 
+Since the bound consistency guarantees the domain consistency for this constraint and the domain consistency guarantees the bound consistency, the two are equivalents.  
+
+
+
+\subsubsection{Implementation of a constraint-based propagator in comet}
+%TODO faut peut etre rien mettre dans le rapport en fait
 \subsection{The channeling constraint : Channeling.co} %4.5 pt
 
 \subsection{AC2001 propagator} %4.5 pt
