@@ -1,5 +1,5 @@
 import cotfd;
-class Geq extends UserConstraint<cp>{
+class Geq extends UserConstraint<CP> {
     var<CP>{int}    _x;    
     var<CP>{int}    _y;    
     int             _a;
@@ -22,10 +22,12 @@ class Geq extends UserConstraint<cp>{
     }
 
     Outcome<CP> propagate(){
-        int xmin = _y.getMin() + a;
-        int ymax = _x.getMax() - a;
+        int xmin = _y.getMin() + _a;
+        int ymax = _x.getMax() - _a;
         if (_x.updateMin(xmin) == Failure) return Failure;
         if (_y.updateMax(ymax) == Failure) return Failure;
+        if(_x.getMin() >= _y.getMax() + _a) return Success;
+        return Suspend;
     }
     
 }
