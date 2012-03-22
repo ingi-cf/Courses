@@ -11,7 +11,7 @@ class AC2001DoubleModulo extends AC2001Constraint{
     }
     boolean check(int a, int b)
     {
-        return true;
+        return (a%_k) == (b%_k);
     }
 }
 
@@ -24,7 +24,7 @@ class AC2001Sum extends AC2001Constraint{
     }
     boolean check(int a, int b)
     {
-        return true;
+        return (a+b) == _k;
     }
 }
 
@@ -36,7 +36,7 @@ class  AC2001Dist  extends  AC2001Constraint {
     }
     boolean check(int a, int b)
     { 
-        return true;
+        return abs(a-b) == _k;
     }
 }
 
