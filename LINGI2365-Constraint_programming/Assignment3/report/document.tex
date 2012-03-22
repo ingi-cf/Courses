@@ -79,6 +79,31 @@ Since the bound consistency guarantees the domain consistency for this constrain
 
 
 \subsubsection{Implementation of a constraint-based propagator in comet}
+Here is our implementations of post and propagate. The _x, _y and _a variables are the class variables initialized from the constructor arguments. We used bound consistency since it's faster and it is equivalent to domain consistency for this constraint. 
+
+\begin{lstlisting}
+    Outcome<CP> post(Consistency<CP> cl){
+        //first propagation
+        Outcome<CP> propag = propagate();
+        
+        _x.addMin(this);
+        _y.addMax(this);
+
+        return propag;
+    }
+
+    Outcome<CP> propagate(){
+        int xmin = _y.getMin() + _a;
+        int ymax = _x.getMax() - _a;
+        if (_x.updateMin(xmin) == Failure) return Failure;
+        if (_y.updateMax(ymax) == Failure) return Failure;
+        if(_x.getMin() >= _y.getMax() + _a) return Success;
+        return Suspend;
+    }
+\end{lstlisting}
+
+
+
 %TODO faut peut etre rien mettre dans le rapport en fait
 \subsection{The channeling constraint : Channeling.co} %4.5 pt
 \subsubsection{Definition of domain consistency for this constraint}
@@ -91,6 +116,71 @@ Inc(c) = & \{(X[], x[i])|x[i] \in D(X[]) \wedge \forall y \in D(Y) : \neg(x[i]=(
 
 The constraint is domain consistent with regard to D(X) and D(Y) iff $Inc(c) = \emptyset$. 
 \subsubsection{Comet implementation}
+Here are our implementations of the post, valremove and valBind methods : 
+\begin{lstlisting}
+ Outcome<CP> post(Consistency<CP> cl){
+        //remove from Y all that is not in the range 
+        if (_y.updateMin(_x.getLow()) == Failure) return Failure;
+        if (_y.updateMax(_x.getUp()) == Failure) return Failure;
+
+        //remove from X all element not in Y
+        forall(ix in _x.getLow().._x.getUp() : !_y.memberOf(ix))
+        {
+            if (_x[ix].bindValue(0) == Failure) return Failure;
+   
+        }
+
+        _y.addAC5(this);
+        _y.addAC5Bind(this);
+        
+        forall(ix in _x.getLow().._x.getUp() : !_x[ix].bound())
+            _x[ix].addAC5Bind(this);
+
+        return Suspend;
+    }
+    
+    Outcome<CP> valRemove(var<CP>{int} z, int val)
+    {
+        if(_x[val].bindValue(0) == Failure) return Failure;
+        return Suspend;
+    }
+    
+    Outcome<CP> valBind(var<CP>{int} z, int val)
+    {
+        if(z.getId() == _y.getId())
+        {
+
+            forall(ix in _x.getLow().._x.getUp() : ! _x[ix].bound())
+            {
+                if(val == ix)
+                {
+                    if(_x[val].bindValue(1) == Failure) return Failure;
+                }
+                else 
+                {
+                    if(_x[val].bindValue(0) == Failure) return Failure;
+                }
+            }
+            return Success;
+        } else {
+            forall(ix in _x.getLow().._x.getUp() : _x[ix].getId() == z.getId())
+            {
+                if (val == 0)
+                { 
+                    if (_y.removeValue(ix) == Failure) return Failure;
+                }
+                else
+                {
+                    if(_y.bindValue(ix) == Failure) return Failure;
+                    else return Success;
+                }
+                
+
+            }
+        }
+        return Suspend;
+    }
+\end{lstlisting}
 
 \subsection{AC2001 propagator} %4.5 pt
 
