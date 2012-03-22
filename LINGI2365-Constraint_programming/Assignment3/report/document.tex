@@ -28,7 +28,7 @@ The space complexity for DC3 is $O(e)$ because of the queue Q that contains the 
 
 \subsubsection{Time complexity if all constraints are domain consistent on call}
 
-The complexity if all constraints are domain consistent at the beginning would be $O(er^3d^r)$. The complexity of the propagateDC3 function doesn't change since it still has to check the constraints to make sure they are domain consistent. However in propagateQueueCDC we will only call propagate up to $e$ times and not $ed$ since there will never be any constraint added to Q because the domains won't change. 
+The complexity if all constraints are domain consistent at the beginning would be $O(er^3d^r)$. The complexity of the propagateDC3 function doesn't change since it still has to check the constraints to make sure they are domain consistent. However in propagateQueueCDC we will only call propagate up to $e$ times and not $ed$ since there will never be any constraint added to Q because the domains won't change, wich is why the complexity is divided by $d$. 
 
 \subsection{valRemoveAC4} %1 pt
 We test that $a \in D(x)$ because the data structure $S$ is not updated when the domains are pruned. So it is necessary to verify that $a$ is still in the domain of $x$. \\ 
