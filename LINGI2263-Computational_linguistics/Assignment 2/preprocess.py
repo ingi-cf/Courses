@@ -18,6 +18,8 @@ def tokenize(string):
     patterns.append("[:()@pPDdxXsS-_^\[\]]{2,3}") #smileys
     patterns.append("[0-9=\-*\/+%()^]{3,}") #mathematical exp or date
     patterns.append("[a-z._]+@[a-z.]+.[a-z]{2,3}") #mail adress
+    patterns.append("\.(?= )|\.\n") #end of sentence
+    patterns.append("(?<=\.) (?=[A-Z])") #new sentence
     return re.findall("|".join(patterns),string)
 
 
