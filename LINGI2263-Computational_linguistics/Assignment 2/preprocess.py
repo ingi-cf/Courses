@@ -14,9 +14,9 @@ if(len(sys.argv)>2):
 def tokenize(string):
     patterns = []
     patterns.append("[\w\-]+") #any word
-    patterns.append("\'s|\'t|\'m") #is (or gen), not and am
+    patterns.append("\'s|\'m") #is and am
     patterns.append("[:()@pPDdxXsS-_^\[\]]{2,3}") #smileys
-    patterns.append("[0-9=\-*\/+%()^]+") #mathematical exp or date
+    patterns.append("[0-9=\-*\/+%()^]{3,}") #mathematical exp or date
     patterns.append("[a-z._]+@[a-z.]+.[a-z]{2,3}") #mail adress
     return re.findall("|".join(patterns),string)
 
@@ -56,4 +56,13 @@ for filename in glob.glob( os.path.join(input, '*train.txt')):
 
 #obtain 20 most used tokens
 lexicon_sorted = sorted(lexicon.items(), key=lambda pair:pair[1], reverse=True)
-print(lexicon_sorted[0:20])
+
+print("lexicon size : "+str(len(lexicon_sorted)) + " tokens")
+print("top 20 tokens : ")
+for lex in lexicon_sorted[0:20]:
+    print(str(lex[0]) + "  :  " +str(lex[1]))
+
+outfile = open(output+"/lexicon.txt", "w")
+for tok in lexicon_sorted:
+    outfile.write(str(tok[0])+"\n")
+outfile.close()
