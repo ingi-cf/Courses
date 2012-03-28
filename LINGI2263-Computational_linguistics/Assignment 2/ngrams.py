@@ -14,7 +14,7 @@ tokens = []
 for filename in glob.glob( os.path.join(input, '*.txt')):
     file = open(filename, "r")
     for line in file:
-        for tok in line.rsplit(" "):
+        for tok in re.findall("</?\w+>|[\w\-'\\\']+",line):
             tokens.append(tok)
     file.close()
 
