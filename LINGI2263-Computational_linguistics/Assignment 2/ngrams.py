@@ -9,21 +9,21 @@ if(len(sys.argv)>1):
     input = sys.argv[1]
     
 tokens = []
-
+filen = 0
 #get tokens from file
-for filename in glob.glob( os.path.join(input, '*.txt')):
+for filename in glob.glob( os.path.join(input, '*train.txt')):
+    filen = filen +1
     file = open(filename, "r")
     for line in file:
         for tok in re.findall("</?\w+>|[\w\-'\\\']+",line):
             tokens.append(tok)
     file.close()
+print(str(filen)+" files read")
 
 def countNgrams(tokens, n):
     lexicon = {}
-    for t in range(n-1,len(tokens)):
-        gram = tokens[t]
-        for i in range(1,n):
-            gram = tokens[t-i]+ " " +gram
+    for t in range(n,len(tokens)+1):
+        gram = " ".join(tokens[t-n:t])
         if(gram in lexicon):
             lexicon[gram] = lexicon[gram] +1
         else:
