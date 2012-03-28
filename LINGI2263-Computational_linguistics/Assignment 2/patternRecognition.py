@@ -5,7 +5,11 @@ regexTypes = {
             "EMAIL":r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
             ,"DATE":r"(([0-9]{1,4})[-\\\/.]?){3}"
             ,"HUGSKISS":r"([xX][.-_]?[oO][.-_]?)+"
-
+            ,"is":"\'s"
+            ,"am":"\'s"
+            ,"SMILEY":"[:()@pPDdxXsS-_^\[\]]{2,3}"
+            ,"MATH":"[0-9=\-*\/+%()^]{3,}"
+            ,"PUNCTUATIONFREAK":r"[?!]{2,}"
             }
 
 def isCapsWeird(token):
@@ -52,7 +56,7 @@ def findType(token):
             return k
     return token
 
-tokens = ["HelloOoo", "Hello", "Marie-Claire", "hellooooooooo", "foot", "12/2/2012", "10-10-23","prive@frol.be","X.O.X.O","XoXo"];
+tokens = ["HelloOoo", "Hello", "Marie-Claire", "hellooooooooo", "foot", "12/2/2012", "10-10-23","prive@frol.be","X.O.X.O","XoXo","?!?","test","??"];
 
 
 for token in tokens:
