@@ -36,7 +36,7 @@ def countNgrams(tokens, n):
 counts = {}
 for i in range(0,3):
     lexicon_sorted = countNgrams(tokens,i+1)
-    print("top 20 "+str(i)+"-grams : ")
+    print("top 20 "+str(i+1)+"-grams : ")
     
     for lex in lexicon_sorted[0:20]:
         print(str(lex[0]) + "  :  " +str(lex[1]))

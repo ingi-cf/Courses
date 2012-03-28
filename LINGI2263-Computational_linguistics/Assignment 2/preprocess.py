@@ -25,15 +25,12 @@ def tokenize(string):
     #replace types
     string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
-    patterns.append("<s>|<\/s>")
-    patterns.append("[\w\-]+") #any word
-    patterns.append("\'s|\'m") #is and am
-    patterns.append("[:()@pPDdxXsS-_^\[\]]{2,3}") #smileys
-    patterns.append("[0-9=\-*\/+%()^]{3,}") #mathematical exp 
+    patterns.append("</?\w+>")
+    patterns.append("[\w\-']+") #any word or type
     #get tokens list
-    return re.findall("|".join(patterns),string)
+    return  re.findall("|".join(patterns),string)
     
-
+   
 
 
 lexicon={}
