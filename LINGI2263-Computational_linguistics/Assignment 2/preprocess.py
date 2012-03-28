@@ -2,6 +2,8 @@ import re
 import os
 import glob
 import sys
+from patternRecognition import getTypesRegex
+from patternRecognition import findType
 
 #get source files folder
 input = "blogs"
@@ -11,16 +13,26 @@ if(len(sys.argv)>1):
 if(len(sys.argv)>2):
     output = sys.argv[2]
     
+def matchingType(matchobj):
+    return findType(matchobj.group(0))
+    
 def tokenize(string):
+    #replace start and enf of sentence
+    string = re.sub("^","<s>",string)
+    string = re.sub("$","</s>",string)
+    string = re.sub("(?<=\.|\n) ?(?=[A-Z].+\.|[A-Z].+\n|[A-Z].+</s>)","<s>",string)    
+    string = re.sub("(?<=\.) |(?<=\.)(?=<s>)","</s>",string)
+    #replace types
+    string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
+    patterns.append("<s>|<\/s>")
     patterns.append("[\w\-]+") #any word
     patterns.append("\'s|\'m") #is and am
     patterns.append("[:()@pPDdxXsS-_^\[\]]{2,3}") #smileys
-    patterns.append("[0-9=\-*\/+%()^]{3,}") #mathematical exp or date
-    patterns.append("[a-z._]+@[a-z.]+.[a-z]{2,3}") #mail adress
-    patterns.append("\.(?= )|\.\n") #end of sentence
-    patterns.append("(?<=\.) (?=[A-Z])") #new sentence
+    patterns.append("[0-9=\-*\/+%()^]{3,}") #mathematical exp 
+    #get tokens list
     return re.findall("|".join(patterns),string)
+    
 
 
 
