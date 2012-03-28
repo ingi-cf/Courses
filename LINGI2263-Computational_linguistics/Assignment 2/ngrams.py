@@ -20,12 +20,12 @@ class ngram:
     def getCount(self, str):
         return self.lexicon[str]
         
-    def __init__(self, folder, n):
+    def __init__(self, folder, n, mask = '*train.txt'):
         tokens = []
-        filen = 0
+        
         #get tokens from file
-        for filename in glob.glob( os.path.join(folder, '*train.txt')):
-            filen = filen +1
+        for filename in glob.glob( os.path.join(folder, mask)):
+            
             file = open(filename, "r")
             for line in file:
                 for tok in line.rstrip('\n ').rsplit(" "):
