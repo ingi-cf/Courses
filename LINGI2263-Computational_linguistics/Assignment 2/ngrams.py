@@ -15,7 +15,7 @@ for filename in glob.glob( os.path.join(input, '*train.txt')):
     filen = filen +1
     file = open(filename, "r")
     for line in file:
-        for tok in re.findall("</?\w+>|[\w\-'\\\']+",line):
+        for tok in line.rstrip('\n ').rsplit(" "):
             tokens.append(tok)
     file.close()
 print(str(filen)+" files read")
