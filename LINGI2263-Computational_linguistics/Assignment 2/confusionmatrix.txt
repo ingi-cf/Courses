@@ -1,3 +1,18 @@
-with laplace : 
-382 & 289 \ 
-196 & 348 \ 
+1-grams with laplace smoothing : 
+599 & 75 \ 
+345 & 202 \ 
+1-grams with linear smoothing : 
+326 & 348 \ 
+92 & 455 \ 
+3-grams with laplace smoothing : 
+381 & 293 \ 
+149 & 398 \ 
+3-grams with linear smoothing : 
+395 & 279 \ 
+147 & 400 \ 
+5-grams with laplace smoothing : 
+408 & 266 \ 
+200 & 347 \ 
+5-grams with linear smoothing : 
+398 & 276 \ 
+162 & 385 \ 

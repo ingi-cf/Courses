@@ -4,8 +4,11 @@ import glob
 import sys
 from ngram_estimator import *
 
+
+
+smooth = 'linear'
 #get models, can take some time
-testE = NgramEstimator("tokenized",5)
+testE = NgramEstimator("tokenized",3, smoothing = smooth)
 
 #testE.computeLambdas()
 """
@@ -19,11 +22,11 @@ if testE.consistencyLap('female',5):
 """
 
 #read test file and classifies lines
-filename = "tokenized/Blogs_F_test.txt"
+filename = "tokenized/Blogs_M_test.txt"
 file = open(filename, "r")
-for i in range(0,15):
+for i in range(0,10):
     line = file.readline().rstrip('\n ')
     
-    print("perplexM "+str(testE.perplexity(line, 'male'))+"perplexF "+str(testE.perplexity(line, 'female'))+" from "+filename+" as "+testE.predictLap(line))
+    print("perplexM "+str(testE.perplexity(line, 'male', smoothing = smooth))+"perplexF "+str(testE.perplexity(line, 'female', smoothing = smooth))+" from "+filename+" as "+testE.predict(line, smoothing = smooth))
 
 file.close()
