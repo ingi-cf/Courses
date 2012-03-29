@@ -19,11 +19,12 @@ def matchingType(matchobj):
 def tokenize(string):
     #replace start and en of sentence
     string = re.sub("^","<s>",string)
-    #string = re.sub("$","</s>",string)
+    string = re.sub("$","</s>",string)
     string = re.sub("(?<=\.|\n) ?(?=[A-Z].+\.|[A-Z].+\n|[A-Z].+</s>)","<s>",string)    
+    string = re.sub("(?<=\.) |(?<=\.)(?=<s>)","</s>",string)
     #remove nbsp
     string = re.sub("nbsp","",string)
-    #string = re.sub("(?<=\.) |(?<=\.)(?=<s>)","</s>",string)
+    
     #replace types
     string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
