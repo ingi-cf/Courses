@@ -1,12 +1,15 @@
+
+package postal.objects;
+
 public class BooleanObject extends PostalObject
 {
     boolean value;
-    BooleanObject(boolean b)
+    public BooleanObject(boolean b)
     {
         this.value = b;
     }
 
-    boolean booleanValue()
+    public boolean booleanValue()
     {
         return value;
     }
