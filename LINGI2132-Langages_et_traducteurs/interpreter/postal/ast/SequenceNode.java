@@ -9,7 +9,7 @@ public class SequenceNode extends PostalNode
     LinkedList<PostalNode>    statements;
     SequenceNode()
     {
-        statements = new LinkedList<PostalObject>();
+        statements = new LinkedList<PostalNode>();
     }
     public void addStatement(PostalNode statement)
     {

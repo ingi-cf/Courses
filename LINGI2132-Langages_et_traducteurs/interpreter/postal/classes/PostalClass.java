@@ -1,6 +1,7 @@
 package postal.classes;
+import postal.objects.MessageObject;
 import postal.objects.PostalObject;
-public class PostalClass
+public abstract class PostalClass
 {       
     PostalClass()
     {

@@ -7,7 +7,7 @@ public class PostalObject implements ElementNode
         
     }
 
-    PostalObject resolve()
+    public PostalObject resolve()
     {
         return this;
     }

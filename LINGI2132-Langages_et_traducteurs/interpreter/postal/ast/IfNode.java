@@ -1,15 +1,16 @@
 
 package postal.ast;
-import java.util.LinkedList;
+
 
 import postal.objects.BooleanObject;
+import postal.objects.PostalObject;
 import postal.exceptions.TypeException;
 
 public class IfNode extends PostalNode
 {
     ElementNode   condition;
     SequenceNode  body;
-    IfNode(PostalElement e, SequenceNode s)
+    IfNode(ElementNode e, SequenceNode s)
     {   
         this.condition = e;
         this.body = s;
@@ -22,5 +23,6 @@ public class IfNode extends PostalNode
         {
             body.execute();
         } else throw new TypeException("Error, the condition is not a boolean");
+        return null;
     }
 }

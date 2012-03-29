@@ -6,4 +6,5 @@
 *.aux
 *.class
 *.out
+*.swo
 *.o
