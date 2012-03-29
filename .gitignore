@@ -1,0 +1,9 @@
+*.pyc
+*.aux
+*.toc
+*.swp
+*.log
+*.aux
+*.class
+*.out
+*.o
