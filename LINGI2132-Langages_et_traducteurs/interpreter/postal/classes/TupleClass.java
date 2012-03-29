@@ -16,7 +16,7 @@ public class TupleClass extends PostalClass
         {
             PostalObject o2 = m.param(0);
             o1.addElement(o2);
-            return o2;
+            return null;
         }
         else if(m.name().equals("remove"))
         {
