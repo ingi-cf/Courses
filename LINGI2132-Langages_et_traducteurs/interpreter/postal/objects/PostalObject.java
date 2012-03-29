@@ -1,8 +1,11 @@
 package postal.objects;
 import postal.ast.ElementNode;
+import postal.classes.PostalClass;
 public class PostalObject implements ElementNode
 {
-    PostalObject()
+    private PostalClass postalClass;
+
+	PostalObject()
     {
         
     }
@@ -11,5 +14,10 @@ public class PostalObject implements ElementNode
     {
         return this;
     }
+
+	public PostalClass getPostalClass() {
+		return postalClass;
+	}
+    
     
 }
