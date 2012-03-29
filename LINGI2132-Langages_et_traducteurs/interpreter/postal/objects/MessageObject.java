@@ -15,4 +15,12 @@ public class MessageObject extends PostalObject
     {
         parameters.add(o);
     }
+	public String name() {
+		return messagename;
+	}
+	
+	public PostalObject param(int i)
+	{
+		return parameters.get(i);
+	}
 }
