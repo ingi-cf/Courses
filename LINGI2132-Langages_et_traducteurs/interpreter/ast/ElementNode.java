@@ -1,6 +1,9 @@
 package postal.ast;
-import postal.objects.PostalObject();
-public interface ElementNode
+import postal.objects.PostalObject;
+public interface ElementNode extends PostalNode
 {
-    public PostalObject resolve();
+    public PostalObject resolve()
+    {
+        return null;
+    }
 }

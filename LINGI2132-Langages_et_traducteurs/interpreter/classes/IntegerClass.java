@@ -1,11 +1,11 @@
+package postal.classes;
+import postal.objects.IntegerObject;
 public class IntegerClass extends PostalClass
 {
     
-    public abstract messageReceived(MessageObjyect m);
+    public PostalObject messageReceived(PostalObject o, MessageObject m);
     {
-        if(m.name().equals("sum"))
-            return new IntegerObject(m.param(0) + m.param(1));
-     
+        assert (o instanceof IntegerObject);
     }
     
 }

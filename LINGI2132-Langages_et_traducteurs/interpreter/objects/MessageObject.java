@@ -1,8 +1,12 @@
+
+package postal.objects;
+import java.util.LinkedList;
+
 public class MessageObject extends PostalObject
 {
     String                      messagename;
     LinkedList<PostalObject>    parameters;
-    NodeMessage(String messagename)
+    MessageObject(String messagename)
     {
         this.messagename = messagename;
         parameters = new LinkedList<PostalObject>();

@@ -4,7 +4,7 @@ import postal.objects.PostalObject;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class SequenceNode
+public class SequenceNode extends PostalNode
 {
     LinkedList<PostalNode>    statements;
     SequenceNode()
@@ -15,9 +15,9 @@ public class SequenceNode
     {
         statements.add(statement);
     }
-    public ElementNode execute()
+    public PostalObject execute()
     {
-        itr = statements.listIterator();
+        ListIterator<PostalNode> itr = statements.listIterator();
         while(itr.hasNext())
             itr.next().execute();
         return null;

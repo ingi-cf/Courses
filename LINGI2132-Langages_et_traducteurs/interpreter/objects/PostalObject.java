@@ -1,5 +1,5 @@
 package postal.objects;
-import postal.node.ElementNode;
+import postal.ast.ElementNode;
 public class PostalObject implements ElementNode
 {
     PostalObject()
@@ -12,5 +12,4 @@ public class PostalObject implements ElementNode
         return this;
     }
     
-    public abstract PostalObject resolve();
 }

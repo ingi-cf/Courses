@@ -1,3 +1,6 @@
+
+package postal.objects;
+
 public class BooleanObject extends PostalObject
 {
     boolean value;

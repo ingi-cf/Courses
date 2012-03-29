@@ -1,13 +1,12 @@
-public class BooleanObject extends PostalObject
+
+package postal.objects;
+
+public class IntegerObject extends PostalObject
 {
-    boolean value;
-    BooleanObject(boolean b)
+    int value; 
+    IntegerObject(int v)
     {
-        this.boolean = boolean;
+        this.value = v;
     }
 
-    boolean booleanValue()
-    {
-        return value;
-    }
 }

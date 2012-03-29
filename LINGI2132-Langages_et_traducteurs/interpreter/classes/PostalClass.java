@@ -7,5 +7,5 @@ public class PostalClass
         
     }
 
-    public abstract messageReceived(MessageObject m);
+    public abstract PostalObject messageReceived(PostalObject o, MessageObject m);
 }

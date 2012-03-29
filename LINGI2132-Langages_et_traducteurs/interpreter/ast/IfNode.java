@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import postal.objects.BooleanObject;
 import postal.exceptions.TypeException;
 
-public class IfNode
+public class IfNode extends PostalNode
 {
     ElementNode   condition;
     SequenceNode  body;
     IfNode(PostalElement e, SequenceNode s)
     {   
-        this.e = e;
-        this.s = s;
+        this.condition = e;
+        this.body = s;
     }
     public PostalObject execute()
     {
