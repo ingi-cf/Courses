@@ -1,22 +1,21 @@
 package postal.ast;
+import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import java.util.LinkedList;
 
 public class SendNode extends PostalNode
 {
-    String                      messagename;
-    LinkedList<PostalObject>    parameters;
-    SendNode(String messagename)
+    
+    private MessageObject message;
+	private PostalObject src;
+	SendNode(PostalObject src, MessageObject m)
     {
-        this.messagename = messagename;
-        parameters = new LinkedList<PostalObject>();
+		this.src = src;
+        this.message = m;
     }
-    public void addParameter(PostalObject o)
-    {
-        parameters.add(o);
-    }
+
     public PostalObject execute()
     {
-        return null;
+		return src.getPostalClass().messageReceived(src,message);
     }
 }
