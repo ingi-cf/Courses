@@ -1,5 +1,6 @@
 
 package postal.ast;
+import postal.environment.PostalEnvironment;
 import postal.objects.PostalObject;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -15,11 +16,11 @@ public class SequenceNode extends PostalNode
     {
         statements.add(statement);
     }
-    public PostalObject execute()
+    public PostalObject execute(PostalEnvironment e)
     {
         ListIterator<PostalNode> itr = statements.listIterator();
         while(itr.hasNext())
-            itr.next().execute();
+            itr.next().execute(e);
         return null;
     }
 }

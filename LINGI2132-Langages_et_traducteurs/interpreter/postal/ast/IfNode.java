@@ -4,6 +4,7 @@ package postal.ast;
 
 import postal.objects.BooleanObject;
 import postal.objects.PostalObject;
+import postal.environment.PostalEnvironment;
 import postal.exceptions.TypeException;
 
 public class IfNode extends PostalNode
@@ -15,13 +16,13 @@ public class IfNode extends PostalNode
         this.condition = e;
         this.body = s;
     }
-    public PostalObject execute()
+    public PostalObject execute(PostalEnvironment e)
     {
-        PostalObject o = condition.resolve();
+        PostalObject o = condition.resolve(e);
 
         if(o instanceof BooleanObject)
         {
-            body.execute();
+            body.execute(e);
         } else throw new TypeException("Error, the condition is not a boolean");
         return null;
     }

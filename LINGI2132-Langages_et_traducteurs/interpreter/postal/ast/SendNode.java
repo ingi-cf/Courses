@@ -1,4 +1,5 @@
 package postal.ast;
+import postal.environment.PostalEnvironment;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ public class SendNode extends PostalNode
         this.message = m;
     }
 
-    public PostalObject execute()
+    public PostalObject execute(PostalEnvironment e)
     {
 		return src.getPostalClass().messageReceived(src,message);
     }
