@@ -1,18 +1,54 @@
-1-grams with laplace smoothing : 
-599 & 75 \ 
-345 & 202 \ 
-1-grams with linear smoothing : 
-326 & 348 \ 
-92 & 455 \ 
-3-grams with laplace smoothing : 
-381 & 293 \ 
-149 & 398 \ 
-3-grams with linear smoothing : 
-395 & 279 \ 
-147 & 400 \ 
-5-grams with laplace smoothing : 
-408 & 266 \ 
-200 & 347 \ 
-5-grams with linear smoothing : 
-398 & 276 \ 
-162 & 385 \ 
+\subsection{1-grams with laplace smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 596 & 78 \\ 
+female & 342 & 205 \\ 
+\hline 
+\end{tabular} 
+\subsection{1-grams with linear smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 326 & 348 \\ 
+female & 93 & 454 \\ 
+\hline 
+\end{tabular} 
+\subsection{3-grams with laplace smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 382 & 292 \\ 
+female & 151 & 396 \\ 
+\hline 
+\end{tabular} 
+\subsection{3-grams with linear smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 402 & 272 \\ 
+female & 148 & 399 \\ 
+\hline 
+\end{tabular} 
+\subsection{5-grams with laplace smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 411 & 263 \\ 
+female & 198 & 349 \\ 
+\hline 
+\end{tabular} 
+\subsection{5-grams with linear smoothing :} 
+\begin{tabular}{|r|c|c|} 
+\hline 
+ & male & female \\ 
+\hline 
+male & 399 & 275 \\ 
+female & 164 & 383 \\ 
+\hline 
+\end{tabular} 

@@ -23,6 +23,10 @@ public class TupleObject extends PostalObject
     	return elements.get(i);
     }
     
+    public BooleanObject isEmpty() {
+    	return new BooleanObject(elements.isEmpty());
+    }
+    
     public LinkedList<PostalObject> elements()
     {
     	return elements;

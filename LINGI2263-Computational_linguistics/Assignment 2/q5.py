@@ -17,7 +17,7 @@ for order in [1,3,5]:
         filename = "tokenized/Blogs_F_test.txt"
         file = open(filename, "r")
         for line in file:
-            result = testE.predict(line, smoothing = smooth)
+            result = testE.predict(line)
             if result == 'male':
                 female[0] = female[0] + 1
             elif result == 'female':
@@ -28,7 +28,7 @@ for order in [1,3,5]:
         filename = "tokenized/Blogs_M_test.txt"
         file = open(filename, "r")
         for line in file:
-            result = testE.predict(line, smoothing = smooth)
+            result = testE.predict(line)
             if result == 'male':
                 male[0] = male[0] + 1
             elif result == 'female':
@@ -41,7 +41,13 @@ for order in [1,3,5]:
 
 
 
-        output.write(str(order)+"-grams with "+smooth+" smoothing : \n")
-        output.write(str(male[0])+" & "+str(male[1])+" \\\\ \n" )
-        output.write(str(female[0])+" & "+str(female[1])+" \\\\ \n" )
+        output.write("\\subsection{"+str(order)+"-grams with "+smooth+" smoothing :} \n")
+        output.write("\\begin{tabular}{|r|c|c|} \n")
+        output.write("\hline \n")
+        output.write(" & male & female \\\\ \n")
+        output.write("\hline \n")
+        output.write("male & "+str(male[0])+" & "+str(male[1])+" \\\\ \n" )
+        output.write("female & "+str(female[0])+" & "+str(female[1])+" \\\\ \n" )
+        output.write("\hline \n")
+        output.write("\\end{tabular} \n")
 output.close()

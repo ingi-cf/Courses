@@ -29,7 +29,8 @@ def tokenize(string):
     string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
     patterns.append("</?\w+>")
-    patterns.append(r"[\w\-'\\\']+") #any word or type
+    #patterns.append(r"[\w\-'\\\']+") #any word or type
+    patterns.append(r"[\w\-]+\\'t|[\w\-]+")
     #get tokens list
     return  re.findall("|".join(patterns),string)
     
