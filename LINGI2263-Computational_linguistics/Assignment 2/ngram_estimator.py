@@ -25,6 +25,8 @@ class NgramEstimator:
                 self.fngr[-1].countNhists()
         if smoothing == 'linear':
             self.computeLambdas()
+            
+        self.smoothing = smoothing
         
             
     def history(self, sent, k):
@@ -43,7 +45,8 @@ class NgramEstimator:
                 for tok in line.rstrip('\n ').rsplit(" "):
                     self.lexicon.append(tok)
             file.close()
-    #maximum likelyhood
+            
+    #maximum likelyhood with h-i
     def P(self, i, w, h, gender):
             if gender == 'male':
                 ngr = self.mngr
@@ -57,15 +60,15 @@ class NgramEstimator:
                 l = len(h)
             if l>0 and l+1<=self.n:
                 D = ngr[l].getCount(" ".join(h))
-                N = ngr[l+1].getCount(" ".join(h)+" "+w)
+                N = ngr[l+1].getCount(" ".join(h)+" "+w) +1 #+1 de triche
             else:
                 D = len(ngr[1].tokens)
-                N = ngr[1].getCount(w)
+                N = ngr[1].getCount(w) +1 #+1 de triche
                 
-            if D>0:
-                return (N+1)/D #+1 de triche
-            else:
-                return 0
+            if D>0 and N>0:
+                return N/D 
+            else: #unknown word
+                return 1/len(self.lexicon)
             
     def computeLambdas(self):
         self.mlambdas = []
@@ -164,6 +167,7 @@ class NgramEstimator:
         for word in ngr[1].lexicon.keys():
             sum = sum + count(word)
         return C/sum
+            
     def pkneser(self, w, h, gender):
         if gender == 'male':
             ngr = self.mngr
@@ -221,6 +225,7 @@ class NgramEstimator:
         h = h.rstrip('\n ')
         N=0
         D=0
+        
         if l<=0:
             N = (ngr[1].getCount(w)+1)
             D = len(self.lexicon)
@@ -232,8 +237,10 @@ class NgramEstimator:
         else :
             #print(h+" "+w+" l ="+str(l)+": "+str(N/D))
             return N/D
+
     
-    def consistency(self, gender, max=50, smoothing = 'laplace'):
+    def consistency(self, gender, max=10):
+        smoothing = self.smoothing
         if gender == 'male':
             ngr = self.mngr[self.n]
         else :
@@ -250,16 +257,20 @@ class NgramEstimator:
                 else:
                     print("error : unknown smoothing")
                 sum = sum + p
-            if abs(1-sum)>pow(10,-9):
+            if abs(1-sum)>pow(10,-6):
                 print("consistency error on "+gender+" model : sum="+str(sum))
                 return False
         return True
     
-    def perplexity(self, sent, gender, smoothing = 'laplace'):
+    def perplexity(self, sent, gender):
+        smoothing = self.smoothing
         sum = 0
         sent = sent.rstrip('\n ').rsplit(" ")
+        oov = 0
         M = len(sent)
         for i in range(0,M):
+            if sent[i] not in self.lexicon:
+                oov = oov + 1
             h = self.history(sent, i)
             if smoothing == 'laplace':
                 p = self.plaplace(sent[i], h, gender)
@@ -272,10 +283,11 @@ class NgramEstimator:
                 
             sum = sum + log(p,2)
         sum = -sum/M
-        return pow(2,sum)
+        #print("oov/M : "+str(oov/M))
+        return (oov/M, pow(2,sum))
     
-    def predict(self, text, smoothing = 'laplace'):
-        
+    def predict(self, text):
+        smoothing = self.smoothing
         genders = ['male', 'female']
         #compute probabilities product for each gender
         probs = [0, 0]

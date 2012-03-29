@@ -57,6 +57,10 @@ class ngram:
         c = 0
         for i in range(0,len(self.tokens)):
                 ret.append(" ".join(self.tokens[i-self.n+1:i]))
+                for j in range(0, len(ret[-1])):
+                    if ret[-1][j] == '</s>':                
+                        ret[-1] = ret[-1][j+1:]
+                        j = 99
                 c = c+1
                 if c == max:
                     return ret  
