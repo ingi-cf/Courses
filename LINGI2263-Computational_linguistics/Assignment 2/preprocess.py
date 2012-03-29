@@ -19,11 +19,12 @@ def matchingType(matchobj):
 def tokenize(string):
     #replace start and en of sentence
     string = re.sub("^","<s>",string)
-    #string = re.sub("$","</s>",string)
+    string = re.sub("$","</s>",string)
     string = re.sub("(?<=\.|\n) ?(?=[A-Z].+\.|[A-Z].+\n|[A-Z].+</s>)","<s>",string)    
+    string = re.sub("(?<=\.) |(?<=\.)(?=<s>)","</s>",string)
     #remove nbsp
     string = re.sub("nbsp","",string)
-    #string = re.sub("(?<=\.) |(?<=\.)(?=<s>)","</s>",string)
+    
     #replace types
     string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
@@ -51,6 +52,28 @@ for filename in glob.glob( os.path.join(input, '*train.txt')):
                 lexicon[t] = lexicon[t] +1
             else:
                 lexicon[t] = 1
+    file.close()
+    
+    #write tokenized sentences to another file
+    m = re.search("(?<="+input+").+",filename)
+    outfilename = output+m.group()
+    outfile = open(outfilename, "w")
+    
+    for line in tokenized_file:
+        for tok in line:
+            outfile.write(str(tok)+" ")
+        outfile.write("\n")
+    
+    outfile.close()
+    
+#read all test files doesn't work!
+for filename in glob.glob( os.path.join(input, '*test.txt')):
+    file = open(filename, "r", encoding = 'latin1')
+    tokenized_file = []
+    #tokenize each line
+    for line in file:
+        tokens = tokenize(line)
+        tokenized_file.append(tokens)
     file.close()
     
     #write tokenized sentences to another file
