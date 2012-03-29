@@ -14,7 +14,7 @@ if(len(sys.argv)>1):
 #make counts for log log graph
 counts = {}
 for i in range(0,3):
-    ngr = ngram(input, i+1)
+    ngr = ngram(input, i+1, "*train.txt")
     lexicon_sorted = ngr.getOrderedGrams()
     print("top 20 "+str(i+1)+"-grams : ")
     

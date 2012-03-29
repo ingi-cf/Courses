@@ -42,6 +42,6 @@ for order in [1,3,5]:
 
 
         output.write(str(order)+"-grams with "+smooth+" smoothing : \n")
-        output.write(str(male[0])+" & "+str(male[1])+" \\ \n" )
-        output.write(str(female[0])+" & "+str(female[1])+" \\ \n" )
+        output.write(str(male[0])+" & "+str(male[1])+" \\\\ \n" )
+        output.write(str(female[0])+" & "+str(female[1])+" \\\\ \n" )
 output.close()

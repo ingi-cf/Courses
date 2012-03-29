@@ -29,7 +29,7 @@ def tokenize(string):
     string = re.sub("|".join(getTypesRegex()), matchingType, string)
     patterns = []
     patterns.append("</?\w+>")
-    patterns.append("[\w\-'\\\']+") #any word or type
+    patterns.append(r"[\w\-'\\\']+") #any word or type
     #get tokens list
     return  re.findall("|".join(patterns),string)
     
@@ -92,12 +92,14 @@ for filename in glob.glob( os.path.join(input, '*test.txt')):
 
 #obtain 20 most used tokens
 lexicon_sorted = sorted(lexicon.items(), key=lambda pair:pair[1], reverse=True)
-
+outfile = open(output+"/toptokens.txt", "w")
 print("lexicon size : "+str(len(lexicon_sorted)) + " tokens")
 print("top 20 tokens : ")
-for lex in lexicon_sorted[0:20]:
+outfile.write("top 20 tokens : \n")
+for lex in lexicon_sorted[2:22]:
     print(str(lex[0]) + "  :  " +str(lex[1]))
-
+    outfile.write(str(lex[0]) + "  &  " +str(lex[1])+ " \\\\ \n")
+outfile.close()
 outfile = open(output+"/lexicon.txt", "w")
 for tok in lexicon_sorted:
     outfile.write(str(tok[0])+"\n")
