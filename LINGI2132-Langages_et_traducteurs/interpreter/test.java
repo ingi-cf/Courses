@@ -14,9 +14,9 @@ public class test
     	System.out.println("start some tests on postal");
     	
     	/*
-    	 * simple print of 42 
+    	 *  stdio<-{print, 42}
     	 */
-    	System.out.println("Test of print : Try to print 42 : ");
+    	System.out.println("Test of print : stdio<-{print, 42} : ");
     	//build ast 	
     	MessageObject message = new MessageObject("print");
     	message.addParameter(new IntegerObject(42));
@@ -29,9 +29,9 @@ public class test
     	sen.execute(e);
     	
     	/*
-    	 * print of 84 with use of a variable and the env stdio
+    	 * out = 84; stdio<-{print, out}
     	 */
-    	System.out.println("Test of variables : Try to print 84 from a variable : ");
+    	System.out.println("Test of variables : out = 84; stdio<-{print, out} : ");
     	//build ast
     	SequenceNode seq = new SequenceNode();
     	seq.addStatement(new AssignNode("out", new IntegerObject(84)));
@@ -49,9 +49,9 @@ public class test
     	seq.execute(e);
     	
     	/*
-    	 * print of 2*84+1 with use of variables and the env stdio
+    	 * stdio<-{print, 1<-{sum, 2<-{multiplication, 84}}}
     	 */
-    	System.out.println("Test of arithmetics : Try to print 2*84+1="+(2*84+1)+" from a variable : ");
+    	System.out.println("Test of arithmetics : stdio<-{print, 1<-{sum, 2<-{multiplication, 84}}} : ");
     	
     	//build ast
     	seq = new SequenceNode(); //sequence node as root
@@ -81,9 +81,9 @@ public class test
     	seq.execute(e);
     	
     	/*
-    	 * print 8 if 2>1 and print 9 if 2<1
+    	 * if(2<-{gt, 1}){ stdio<-{print, 8};} else{ stdio<-{print, 9};}  
     	 */
-    	System.out.println("Test of if and booleans : if(2>1) prints 8 else prints 9  ");
+    	System.out.println("Test of if and booleans : if(2<-{gt, 1}){ stdio<-{print, 8};} else{ stdio<-{print, 9};}  ");
     	
     	//build ast
     	seq = new SequenceNode(); //sequence node as root
@@ -114,9 +114,9 @@ public class test
     	
     	
     	/*
-    	 * while(i<10) print(i); i++;
+    	 * while(i<-{lt, 10}){ stdio<-{print, i}; i = i<-{sum,1};}
     	 */
-    	System.out.println("Test of while : while(i<6){ print(i); i++;}  ");
+    	System.out.println("Test of while : while(i<-{lt, 10}){ stdio<-{print, i}; i = i<-{sum,1};}  ");
     	
     	//build ast
     	seq = new SequenceNode(); //sequence node as root
