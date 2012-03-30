@@ -1,6 +1,8 @@
 package postal.objects;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
+import postal.ast.ElementNode;
 import postal.classes.*;
 public class TupleObject extends PostalObject
 {
@@ -38,4 +40,13 @@ public class TupleObject extends PostalObject
     {
     	return elements;
     }
+    
+	public String toString()
+	{
+		String ret = "";
+		ListIterator<PostalObject> itr = elements.listIterator();
+        while(itr.hasNext())
+        	ret = ret+" , "+itr.next().toString();
+        return ret;
+	}
 }

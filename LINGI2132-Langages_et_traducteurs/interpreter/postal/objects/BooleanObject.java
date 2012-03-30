@@ -16,4 +16,9 @@ public class BooleanObject extends PostalObject
     {
         return value;
     }
+    
+	public String toString()
+	{
+		return ""+value;
+	}
 }

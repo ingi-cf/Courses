@@ -11,7 +11,7 @@ public class VariableNode extends PostalNode implements ElementNode{
 	 * Accessing a variable from the local environment
 	 * @param identifier
 	 */
-	VariableNode (String identifier)
+	public VariableNode (String identifier)
 	{
 		//TODO verify identifier to see if well formated
 		this.identifier = identifier;
