@@ -18,9 +18,9 @@ public class PostalEnvironment {
 		
 	}
 	
-	public PostalObject newObject(String className, MessageObject newMessage)
+	public PostalObject newObject(String className, PostalObject newMessage)
 	{
-		return cc.getClasse(className).messageReceived(null, newMessage);
+		return cc.getClasse(className).messageReceived((PostalObject)null, newMessage);
 	}
 
 }
