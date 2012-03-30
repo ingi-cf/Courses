@@ -10,10 +10,17 @@ import postal.classes.PostalClass;
 import postal.environment.MessageImplementation;
 import postal.environment.PostalEnvironment;
 
+/*
+ * represents a message
+ */
 public class MessageObject extends PostalObject
 {
     String                      messagename;
     LinkedList<ElementNode>    parameters;
+    
+    /*
+     * create a message with messagename as name and no parameter
+     */
     public MessageObject(String messagename)
     {
     	super(null);
@@ -21,7 +28,8 @@ public class MessageObject extends PostalObject
         parameters = new LinkedList<ElementNode>();
     }
     /*
-     * siplified constructor for binary operations
+     * simplified constructor for binary operations :
+     * create a message with messagename as name and o as parameter
      */
     public MessageObject(String messagename, ElementNode o)
     {
@@ -31,19 +39,32 @@ public class MessageObject extends PostalObject
         addParameter(o);
     }
 
+    /*
+     * add o to the message parameters
+     */
     public void addParameter(ElementNode o)
     {
         parameters.add(o);
     }
+    
+    /*
+     * get message name
+     */
 	public String getName() {
 		return messagename;
 	}
 	
+	/*
+	 * get ith parameter
+	 */
 	public PostalObject param(int i)
 	{
 		return (PostalObject)parameters.get(i);
 	}
 	
+	/*
+	 * resolve the parameter to objects in the environment e
+	 */
 	public PostalObject resolve(PostalEnvironment e)
     {
 		MessageObject resolvedmsg = new MessageObject(messagename);
@@ -53,6 +74,9 @@ public class MessageObject extends PostalObject
         return resolvedmsg;
     }
 	
+	/*
+	 * string representation for printing
+	 */
 	public String toString()
 	{
 		String ret = messagename;

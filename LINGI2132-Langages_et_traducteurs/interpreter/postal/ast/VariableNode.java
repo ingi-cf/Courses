@@ -3,6 +3,9 @@ package postal.ast;
 import postal.environment.PostalEnvironment;
 import postal.objects.PostalObject;
 
+/*
+ * Variable access
+ */
 public class VariableNode extends PostalNode implements ElementNode{
 
 	private String identifier;
@@ -27,6 +30,10 @@ public class VariableNode extends PostalNode implements ElementNode{
 		this.identifier = identifier;
 		this.element = e;
 	}
+	
+	/*
+	 * Get the object referenced by the variable identifier in e
+	 */
 	public PostalObject resolve(PostalEnvironment e) {
 		//TODO add error if the variable doesn't exists (here or in getEnvironment
 		if (element == null)

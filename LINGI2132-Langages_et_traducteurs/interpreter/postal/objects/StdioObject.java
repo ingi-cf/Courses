@@ -3,6 +3,9 @@ package postal.objects;
 
 import postal.classes.*;
 
+/*
+ * Stdio object, empty object used only to access the Stdio class for printing
+ */
 public class StdioObject extends PostalObject
 {
 

@@ -3,6 +3,9 @@ package postal.objects;
 
 import postal.classes.*;
 
+/*
+ * represents an integer
+ */
 public class IntegerObject extends PostalObject
 {
     int value; 
