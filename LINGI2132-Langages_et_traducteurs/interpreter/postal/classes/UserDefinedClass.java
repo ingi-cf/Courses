@@ -17,13 +17,12 @@ public class UserDefinedClass extends PostalClass {
 	PostalEnvironment e; //the environment in wich the class is defined
 	Hashtable<String,MessageImplementation> messagesImplementations;
 	LinkedList<String> attributes;
-	private String name;
 	
 	
 	public UserDefinedClass(String className,
 			Hashtable<String, MessageImplementation> messagesImplementations,
 			LinkedList<String> attributes) {
-		this.name = name;
+		super.name = name;
 		this.messagesImplementations = messagesImplementations;
 		this.attributes = attributes;
 	}

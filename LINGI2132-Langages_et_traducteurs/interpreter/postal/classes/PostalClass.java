@@ -6,6 +6,7 @@ import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 public abstract class PostalClass
 {       
+	String name;
 	protected PostalClass postalSuper;
     PostalClass()
     {
@@ -29,5 +30,9 @@ public abstract class PostalClass
     		throw new TypeException("Trying to send an object that is not a message");
     		
     }
+
+	public String getName() {
+		return name;
+	}
 
 }
