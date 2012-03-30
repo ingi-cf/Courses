@@ -10,7 +10,6 @@ public class SendNode extends PostalNode implements ElementNode
     private MessageObject message;
 	private ElementNode src;
 
-	SendNode(ElementNode src, MessageObject m)
 	private PostalObject dst;
 	SendNode(PostalObject dst, MessageObject m)
     {
