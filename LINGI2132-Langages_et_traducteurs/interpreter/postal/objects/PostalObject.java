@@ -23,6 +23,10 @@ public class PostalObject implements ElementNode
 	public PostalEnvironment getEnvironment() {
 		return environment;
 	}
+
+	public void print(PostalObject param) {
+		// TODO Auto-generated method stub
+	}
     
     
 }

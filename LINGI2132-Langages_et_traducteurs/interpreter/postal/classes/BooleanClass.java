@@ -14,7 +14,7 @@ public class BooleanClass extends PostalClass
         // UNARY OPERATOR
         if(m.name().equals("not"))
         {
-            return new BooleanObject(!o1.booleanValue());
+            return new BooleanObject(!o1.booleanValue(), this);
         }
         // BINARY OPERATOR
         else
@@ -24,7 +24,7 @@ public class BooleanClass extends PostalClass
             {
                 if(o2 instanceof BooleanObject)
                 {
-                   return new BooleanObject(o1.booleanValue() && ((BooleanObject) o2).booleanValue());
+                   return new BooleanObject(o1.booleanValue() && ((BooleanObject) o2).booleanValue(), this);
                 }
                 else 
                 {
@@ -35,7 +35,7 @@ public class BooleanClass extends PostalClass
             {
                 if(o2 instanceof BooleanObject)
                 {
-                   return new BooleanObject(o1.booleanValue() || ((BooleanObject) o2).booleanValue());
+                   return new BooleanObject(o1.booleanValue() || ((BooleanObject) o2).booleanValue(), this);
                 }
                 else 
                 {
