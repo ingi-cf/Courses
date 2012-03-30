@@ -6,9 +6,9 @@ public class PostalObject implements ElementNode
 {
     private PostalClass postalClass;
     PostalEnvironment environment;
-	PostalObject()
-    {
-        
+	PostalObject(PostalClass c)
+	{
+		this.postalClass = c;
     }
 
     public PostalObject resolve(PostalEnvironment e)

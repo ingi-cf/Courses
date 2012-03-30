@@ -1,11 +1,14 @@
 package postal.objects;
 import java.util.LinkedList;
+
+import postal.classes.PostalClass;
 public class TupleObject extends PostalObject
 {
     LinkedList<PostalObject>    elements;
     
-    TupleObject()
+    TupleObject(PostalClass c)
     {
+    	super(c);
         elements = new LinkedList<PostalObject>();
     }
     
