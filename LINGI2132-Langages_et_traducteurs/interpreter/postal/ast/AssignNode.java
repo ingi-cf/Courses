@@ -8,7 +8,7 @@ public class AssignNode extends PostalNode{
 	private ElementNode element;
 	private ElementNode src;
 	
-	AssignNode (String identifier,ElementNode src, ElementNode e)
+	public AssignNode (String identifier,ElementNode src, ElementNode e)
 	{
 		//TODO verify identifier to see if well formated
 		this.identifier = identifier;
@@ -16,7 +16,7 @@ public class AssignNode extends PostalNode{
 		this. src = src;
 	}
 	
-	AssignNode (String identifier, ElementNode e)
+	public AssignNode (String identifier, ElementNode e)
 	{
 		//TODO verify identifier to see if well formated
 		this.identifier = identifier;

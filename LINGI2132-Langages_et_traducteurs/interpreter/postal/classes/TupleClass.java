@@ -12,7 +12,7 @@ public class TupleClass extends PostalClass
 	
 	public PostalObject postalNew()
 	{
-		return new TupleObject(this);
+		return new TupleObject();
 	}
 	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
@@ -39,11 +39,11 @@ public class TupleClass extends PostalClass
         }
         else if(m.name().equals("size"))
         {
-        	return new IntegerObject(o1.size(), null);
+        	return new IntegerObject(o1.size());
         }
         else if(m.name().equals("isEmpty"))
         {
-        	return new BooleanObject(o1.isEmpty(), null);
+        	return new BooleanObject(o1.isEmpty());
         }
         else
         {

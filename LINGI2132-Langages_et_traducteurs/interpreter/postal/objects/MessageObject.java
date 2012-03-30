@@ -8,19 +8,21 @@ public class MessageObject extends PostalObject
 {
     String                      messagename;
     LinkedList<PostalObject>    parameters;
-    MessageObject(String messagename, PostalClass c)
+    public MessageObject(String messagename)
     {
-    	super(c);
+    	super(null);
         this.messagename = messagename;
         parameters = new LinkedList<PostalObject>();
     }
     /*
      * Simplified constructor for binary operations messages
      */
-    MessageObject(String messagename, PostalClass c, PostalObject o)
+    public MessageObject(String messagename, PostalObject o)
     {
-    	MessageObject(messagename,  c);
-    	addParameter(o);
+    	super(null);
+        this.messagename = messagename;
+        parameters = new LinkedList<PostalObject>();
+        addParameter(o);
     }
     public void addParameter(PostalObject o)
     {

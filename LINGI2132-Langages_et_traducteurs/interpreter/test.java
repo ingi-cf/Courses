@@ -1,5 +1,7 @@
 import postal.ast.*;
-import postal.environment.PostalEnvironment;
+import postal.classes.*;
+import postal.environment.*;
+import postal.objects.*;
 
 public class test
 {
@@ -16,9 +18,11 @@ public class test
     	 */
     	//build ast
     	SequenceNode seq = new SequenceNode();
-    	seq.addStatement(new AssignNode("out", "ELEMENT CLASS IS EMPTY"));
-    	VariableNode stdio = new VariableNode("stdio")
-    	seq.addStatement(new SendNode(stdio, new MessageObject("print", "TODO", "SACRE ELEMENT")));
+    	seq.addStatement(new AssignNode("out", new IntegerObject(42, new IntegerClass())));
+    	
+    	VariableNode stdio = new VariableNode("stdio");
+    	
+    	seq.addStatement(new SendNode(stdio, );
     	
     	PostalEnvironment e = new PostalEnvironment();
     	
