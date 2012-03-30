@@ -14,12 +14,15 @@ public class test
     	/*
     	 * simple print of 42 
     	 */
+    	//build ast
     	SequenceNode seq = new SequenceNode();
     	seq.addStatement(new AssignNode("out", "ELEMENT CLASS IS EMPTY"));
-    	seq.addStatement(new SendNode("HOW THE FUCK CAN I HAVE A POSTALOBJECT HERE", new MessageObject("print", "TODO", "SACRE ELEMENT")));
+    	VariableNode stdio = new VariableNode("stdio")
+    	seq.addStatement(new SendNode(stdio, new MessageObject("print", "TODO", "SACRE ELEMENT")));
     	
     	PostalEnvironment e = new PostalEnvironment();
     	
+    	//interpret ast
     	seq.execute(e);
     	
     	/*
