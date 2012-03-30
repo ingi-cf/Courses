@@ -39,28 +39,11 @@ public class UserDefinedClass extends PostalClass {
 		//find the message implementation 
 		MessageImplementation impl= getMessageImplementation(m.getName());
 		
-		//create the environment
-		PostalEnvironment e = new PostalEnvironment();
 		
-		// add self super # and params values in the environment
-		e.setVariable("self", o);
-		e.setVariable("super", o.getSuperObject());
-		e.setVariable("#",m);
-		//add params
-		if (impl.getParametersIdentifiers().size() != m.getParameters().size())
-			
-			throw new MessageDefinitionException("The message " +m.getName() + " take " +
-					impl.getParametersIdentifiers().size() + "parameters but "			
-					+  m.getParameters().size() + "given");
-		else
-		{
-			for(int i =0; i<m.getParameters().size() ;i++)
-				e.setVariable(impl.getParametersIdentifiers().get(i)
-						,m.getParameters().get(i));
-		}
 	
 		if(impl == null)
 		{
+			
 			PostalClass p = getRootClass();
 			if (!(p instanceof UserDefinedClass))
 				return p.messageReceived(o, m);
@@ -70,8 +53,29 @@ public class UserDefinedClass extends PostalClass {
 				throw new MessageDefinitionException("Cannot find message implementation : " + m.getName() + " in class " + this.name); 
 
 		} else
-			return impl.getBody().execute(e);
+		{
+			//create the environment
+			PostalEnvironment e = new PostalEnvironment();
 			
+			// add self super # and params values in the environment
+			e.setVariable("self", o);
+			e.setVariable("super", o.getSuperObject());
+			e.setVariable("#",m);
+			//add params
+			if (impl.getParametersIdentifiers().size() != m.getParameters().size())
+				
+				throw new MessageDefinitionException("The message " +m.getName() + " take " +
+						impl.getParametersIdentifiers().size() + "parameters but "			
+						+  m.getParameters().size() + "given");
+			else
+			{
+				for(int i =0; i<m.getParameters().size() ;i++)
+					e.setVariable(impl.getParametersIdentifiers().get(i)
+							,m.param(i));
+			}
+			
+			return impl.getBody().execute(e);
+		}	
 		
 		
 		return null;
