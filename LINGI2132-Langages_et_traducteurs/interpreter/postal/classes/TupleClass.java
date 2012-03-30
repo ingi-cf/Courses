@@ -39,11 +39,11 @@ public class TupleClass extends PostalClass
         }
         else if(m.name().equals("size"))
         {
-        	return new IntegerObject(o1.size(), this);
+        	return new IntegerObject(o1.size(), null);
         }
         else if(m.name().equals("isEmpty"))
         {
-        	return new BooleanObject(o1.isEmpty(), this);
+        	return new BooleanObject(o1.isEmpty(), null);
         }
         else
         {
