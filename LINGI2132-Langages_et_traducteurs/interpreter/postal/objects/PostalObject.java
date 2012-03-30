@@ -19,6 +19,10 @@ public class PostalObject implements ElementNode
 	public PostalClass getPostalClass() {
 		return postalClass;
 	}
+
+	public PostalEnvironment getEnvironment() {
+		return environment;
+	}
     
     
 }

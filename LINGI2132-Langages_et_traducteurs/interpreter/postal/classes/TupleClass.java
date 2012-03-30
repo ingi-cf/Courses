@@ -1,6 +1,5 @@
 package postal.classes;
 
-import postal.environment.PostalEnvironment;
 import postal.exceptions.TypeException;
 import postal.objects.IntegerObject;
 import postal.objects.MessageObject;
