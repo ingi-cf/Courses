@@ -7,9 +7,15 @@ public class UserDefinedObject extends PostalObject {
 	
 	//object attributes
 	PostalEnvironment attributes;
+	PostalObject superObject;
 	public UserDefinedObject(PostalClass c,PostalEnvironment a) {
 		super(c);
 		attributes = a;
+		superObject = c.getSuperClass().postalNew();
 	}
+	public PostalObject getSuperObject() {
+		return superObject;
+	}
+    
 
 }

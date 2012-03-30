@@ -29,6 +29,10 @@ public class MessageImplementation {
 	public String getName() {
 		return messageName;
 	}
+
+	public LinkedList<String> getParametersIdentifiers() {
+		return parametersIdentifier;
+	}
 	
 	
 }

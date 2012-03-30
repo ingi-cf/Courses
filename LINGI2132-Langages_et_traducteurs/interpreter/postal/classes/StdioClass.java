@@ -17,7 +17,7 @@ public class StdioClass extends PostalClass
     {
     	assert(o instanceof StdioObject);
     	StdioObject o1 = (StdioObject) o;
-        if(m.name().equals("print"))
+        if(m.getName().equals("print"))
         {
         	o1.postalPrint(m.param(0));
         	return null;        	

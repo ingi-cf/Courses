@@ -1,11 +1,13 @@
 
 package postal.objects;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 import postal.ast.ElementNode;
 import postal.ast.PostalNode;
 import postal.classes.PostalClass;
+import postal.environment.MessageImplementation;
 import postal.environment.PostalEnvironment;
 
 public class MessageObject extends PostalObject
@@ -23,7 +25,7 @@ public class MessageObject extends PostalObject
     {
         parameters.add(o);
     }
-	public String name() {
+	public String getName() {
 		return messagename;
 	}
 	
@@ -48,5 +50,10 @@ public class MessageObject extends PostalObject
         while(itr.hasNext())
         	ret = ret+" , "+itr.next().toString();
         return ret;
+	}
+
+	public LinkedList<ElementNode> getParameters() {
+		// TODO Auto-generated method stub
+		return parameters;
 	}
 }
