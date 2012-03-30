@@ -19,12 +19,15 @@ public class UserDefinedClass extends PostalClass {
 	LinkedList<String> attributes;
 	private String name;
 	
-	public UserDefinedClass(String name)
-	{
-		this.name = name;
-		messagesImplementations = new Hashtable<String,MessageImplementation>();
-	}
 	
+	public UserDefinedClass(String className,
+			Hashtable<String, MessageImplementation> messagesImplementations,
+			LinkedList<String> attributes) {
+		this.name = name;
+		this.messagesImplementations = messagesImplementations;
+		this.attributes = attributes;
+	}
+
 	public PostalObject messageReceived(PostalObject o, MessageObject m) {
 		//if the message is new
 		if(o == null && m.name().equals("new"))
