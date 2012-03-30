@@ -8,7 +8,7 @@ import java.util.ListIterator;
 public class SequenceNode extends PostalNode
 {
     LinkedList<PostalNode>    statements;
-    SequenceNode()
+    public SequenceNode()
     {
         statements = new LinkedList<PostalNode>();
     }

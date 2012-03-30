@@ -11,8 +11,10 @@ public class SendNode extends PostalNode implements ElementNode
 	private ElementNode src;
 
 	SendNode(ElementNode src, MessageObject m)
+	private PostalObject dst;
+	SendNode(PostalObject dst, MessageObject m)
     {
-		this.src = src;
+		this.dst = dst;
         this.message = m;
     }
 
@@ -23,6 +25,6 @@ public class SendNode extends PostalNode implements ElementNode
 
 	
 	public PostalObject resolve(PostalEnvironment e) {
-		return src.resolve(e).getPostalClass().messageReceived(src.resolve(e),message);
+		return dst.resolve(e).getPostalClass().messageReceived(src.resolve(e),message);
 	}
 }
