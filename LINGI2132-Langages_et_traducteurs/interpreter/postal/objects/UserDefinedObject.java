@@ -1,12 +1,15 @@
 package postal.objects;
 
 import postal.classes.PostalClass;
+import postal.environment.PostalEnvironment;
 
 public class UserDefinedObject extends PostalObject {
-
-	public UserDefinedObject(PostalClass c) {
+	
+	//object attributes
+	PostalEnvironment attributes;
+	public UserDefinedObject(PostalClass c,PostalEnvironment a) {
 		super(c);
-		// TODO Auto-generated constructor stub
+		attributes = a;
 	}
 
 }

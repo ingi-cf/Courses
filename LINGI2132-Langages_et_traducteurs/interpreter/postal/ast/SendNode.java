@@ -4,12 +4,13 @@ import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import java.util.LinkedList;
 
-public class SendNode extends PostalNode
+public class SendNode extends PostalNode implements ElementNode
 {
     
     private MessageObject message;
-	private PostalObject src;
-	SendNode(PostalObject src, MessageObject m)
+	private ElementNode src;
+
+	SendNode(ElementNode src, MessageObject m)
     {
 		this.src = src;
         this.message = m;
@@ -17,6 +18,11 @@ public class SendNode extends PostalNode
 
     public PostalObject execute(PostalEnvironment e)
     {
-		return src.getPostalClass().messageReceived(src,message);
+		return resolve(e);
     }
+
+	
+	public PostalObject resolve(PostalEnvironment e) {
+		return src.resolve(e).getPostalClass().messageReceived(src.resolve(e),message);
+	}
 }
