@@ -25,6 +25,10 @@ public class MessageImplementation {
 	{
 		return body;
 	}
+
+	public String getName() {
+		return messageName;
+	}
 	
 	
 }

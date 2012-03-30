@@ -13,9 +13,12 @@ public class ClassDeclarationNode extends PostalNode {
 	Hashtable<String,MessageImplementation> messagesImplementations;
 	LinkedList<String> attributes;
 	
-	public ElementNode execute(PostalEnvironment e,String className) {
+	
+	
+	public ClassDeclarationNode(String className) {
 		this.className = className;
-		return null;
+		this.messagesImplementations = new Hashtable<String,MessageImplementation>();
+		this.attributes = new LinkedList<String>();
 	}
 	public void addArgument(String argumentName)
 	{
@@ -24,12 +27,12 @@ public class ClassDeclarationNode extends PostalNode {
 	
 	public void addMessageImplementation(MessageImplementation mi)
 	{
-		
+		messagesImplementations.put(mi.getName(), mi);
 	}
 	
 	public ElementNode execute(PostalEnvironment e) {
-		UserDefinedClass c = new UserDefinedClass(className);
-		
+		UserDefinedClass c = new UserDefinedClass(className, messagesImplementations, attributes);
+		e.insertClass(c);
 		return null;
 	}
 
