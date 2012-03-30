@@ -11,7 +11,7 @@ public class IntegerClass extends PostalClass
 	
 	public PostalObject postalNew(int value)
 	{
-		return new IntegerObject(value, this);
+		return new IntegerObject(value);
 	}
 	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
@@ -21,7 +21,7 @@ public class IntegerClass extends PostalClass
         // UNARY OPERATOR
     	if(m.name().equals("minus"))
         {
-            return new IntegerObject(-o1.value(), this);
+            return new IntegerObject(-o1.value());
         }
         // BINARY OPERATOR
         else
@@ -31,7 +31,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() + ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() + ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -42,7 +42,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() - ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() - ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -53,7 +53,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() * ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() * ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -64,7 +64,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() / ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() / ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -75,7 +75,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() % ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() % ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -86,7 +86,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() <= ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() <= ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -97,7 +97,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() >= ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() >= ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -108,7 +108,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() == ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() == ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -119,7 +119,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() != ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() != ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -130,7 +130,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() < ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() < ((IntegerObject) o2).value());
                 }
                 else 
                 {
@@ -141,7 +141,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new BooleanObject(o1.value() > ((IntegerObject) o2).value(), this);
+                   return new BooleanObject(o1.value() > ((IntegerObject) o2).value());
                 }
                 else 
                 {

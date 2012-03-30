@@ -1,13 +1,13 @@
 
 package postal.objects;
 
-import postal.classes.PostalClass;
+import postal.classes.*;
 
 public class StdioObject extends PostalObject
 {
 
-	public StdioObject(PostalClass c) {
-		super(c);
+	public StdioObject() {
+		super(new StdioClass());
 	}
 
 	public void postalPrint(PostalObject toPrint) {

@@ -10,7 +10,7 @@ public class StdioClass extends PostalClass
 	
 	public PostalObject postalNew()
 	{
-		return new StdioObject(this);
+		return new StdioObject();
 	}
 	
     public PostalObject messageReceived(PostalObject o, MessageObject m)

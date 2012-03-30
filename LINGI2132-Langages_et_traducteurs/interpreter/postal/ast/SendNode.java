@@ -1,4 +1,5 @@
 package postal.ast;
+import postal.ast.ElementNode;
 import postal.environment.PostalEnvironment;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;

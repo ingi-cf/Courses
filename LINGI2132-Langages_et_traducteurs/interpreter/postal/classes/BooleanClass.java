@@ -10,7 +10,7 @@ public class BooleanClass extends PostalClass
 	
 	public PostalObject postalNew(boolean value)
 	{
-		return new BooleanObject(value, this);
+		return new BooleanObject(value);
 	}
 	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
@@ -20,7 +20,7 @@ public class BooleanClass extends PostalClass
         // UNARY OPERATOR
         if(m.name().equals("not"))
         {
-            return new BooleanObject(!o1.booleanValue(), this);
+            return new BooleanObject(!o1.booleanValue());
         }
         // BINARY OPERATOR
         else
@@ -30,7 +30,7 @@ public class BooleanClass extends PostalClass
             {
                 if(o2 instanceof BooleanObject)
                 {
-                   return new BooleanObject(o1.booleanValue() && ((BooleanObject) o2).booleanValue(), this);
+                   return new BooleanObject(o1.booleanValue() && ((BooleanObject) o2).booleanValue());
                 }
                 else 
                 {
@@ -41,7 +41,7 @@ public class BooleanClass extends PostalClass
             {
                 if(o2 instanceof BooleanObject)
                 {
-                   return new BooleanObject(o1.booleanValue() || ((BooleanObject) o2).booleanValue(), this);
+                   return new BooleanObject(o1.booleanValue() || ((BooleanObject) o2).booleanValue());
                 }
                 else 
                 {
