@@ -5,6 +5,9 @@ import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import postal.objects.StdioObject;
 
+/*
+ * class with the implementation of messages for stdio
+ */
 public class StdioClass extends PostalClass
 {
 	

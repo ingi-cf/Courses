@@ -4,6 +4,9 @@ import java.util.LinkedList;
 
 import postal.ast.SequenceNode;
 
+/*
+ * used to store the implementations for user defined classes in the environment
+ */
 public class MessageImplementation {
 	String 				messageName;
 	SequenceNode		body;

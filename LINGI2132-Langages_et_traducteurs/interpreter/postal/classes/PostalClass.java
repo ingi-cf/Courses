@@ -4,6 +4,10 @@ import postal.environment.PostalEnvironment;
 import postal.exceptions.TypeException;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;
+
+/*
+ * Classes used to store the message simplementations
+ */
 public abstract class PostalClass
 {       
 	String name;
