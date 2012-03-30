@@ -18,6 +18,16 @@ public class MessageObject extends PostalObject
         this.messagename = messagename;
         parameters = new LinkedList<ElementNode>();
     }
+    /*
+     * siplified constructor for binary operations
+     */
+    public MessageObject(String messagename, ElementNode o)
+    {
+    	super(null);
+        this.messagename = messagename;
+        parameters = new LinkedList<ElementNode>();
+        addParameter(o);
+    }
 
     public void addParameter(ElementNode o)
     {

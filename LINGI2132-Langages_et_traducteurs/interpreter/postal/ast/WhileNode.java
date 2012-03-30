@@ -11,7 +11,7 @@ public class WhileNode extends PostalNode
 {
     ElementNode   condition;
     SequenceNode  body;
-    WhileNode(ElementNode e, SequenceNode s)
+    public WhileNode(ElementNode e, SequenceNode s)
     {   
         this.condition = e;
         this.body = s;

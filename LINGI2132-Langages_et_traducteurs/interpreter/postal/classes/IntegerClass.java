@@ -141,6 +141,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
+                	
                    return new BooleanObject(o1.value() > ((IntegerObject) o2).value());
                 }
                 else 

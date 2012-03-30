@@ -8,7 +8,8 @@ public class BooleanObject extends PostalObject
     boolean value;
     public BooleanObject(boolean b)
     {
-    	super(new BooleanClass());
+    	
+    	super(new BooleanClass());    	
         this.value = b;
     }
 
