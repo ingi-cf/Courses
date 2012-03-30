@@ -7,6 +7,12 @@ import postal.objects.PostalObject;
 
 public class BooleanClass extends PostalClass
 {
+	
+	public PostalObject postalNew(boolean value)
+	{
+		return new BooleanObject(value, this);
+	}
+	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
     {
     	assert(o instanceof BooleanObject);

@@ -7,13 +7,19 @@ import postal.objects.StdioObject;
 
 public class StdioClass extends PostalClass
 {
+	
+	public PostalObject postalNew()
+	{
+		return new StdioObject(this);
+	}
+	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
     {
     	assert(o instanceof StdioObject);
     	StdioObject o1 = (StdioObject) o;
         if(m.name().equals("print"))
         {
-        	o1.print(m.param(0));
+        	o1.postalPrint(m.param(0));
         	return null;        	
         }
         else

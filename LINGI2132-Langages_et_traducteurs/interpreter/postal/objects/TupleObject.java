@@ -6,7 +6,7 @@ public class TupleObject extends PostalObject
 {
     LinkedList<PostalObject>    elements;
     
-    TupleObject(PostalClass c)
+    public TupleObject(PostalClass c)
     {
     	super(c);
         elements = new LinkedList<PostalObject>();
@@ -28,6 +28,10 @@ public class TupleObject extends PostalObject
     
     public boolean isEmpty() {
     	return elements.isEmpty();
+    }
+    
+    public int size() {
+    	return elements.size();
     }
     
     public LinkedList<PostalObject> elements()

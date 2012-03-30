@@ -6,8 +6,12 @@ import postal.classes.PostalClass;
 public class StdioObject extends PostalObject
 {
 
-	StdioObject(PostalClass c) {
+	public StdioObject(PostalClass c) {
 		super(c);
-	}	
+	}
+
+	public void postalPrint(PostalObject param) {
+		// TODO Auto-generated method stub
+	}
 	
 }

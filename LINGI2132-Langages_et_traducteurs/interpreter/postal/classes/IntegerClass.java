@@ -8,12 +8,18 @@ import postal.objects.PostalObject;
 
 public class IntegerClass extends PostalClass
 {
+	
+	public PostalObject postalNew(int value)
+	{
+		return new IntegerObject(value, this);
+	}
+	
     public PostalObject messageReceived(PostalObject o, MessageObject m)
     {
     	assert(o instanceof IntegerObject);
-    	IntegerObject o1 = (IntegerObject) o; 
+    	IntegerObject o1 = (IntegerObject) o;
         // UNARY OPERATOR
-        if(m.name().equals("minus"))
+    	if(m.name().equals("minus"))
         {
             return new IntegerObject(-o1.value(), this);
         }
