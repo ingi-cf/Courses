@@ -25,9 +25,9 @@ public class AssignNode extends PostalNode{
 	
 	public ElementNode execute(PostalEnvironment e) {
 		if(src == null)
-			e.setVariable(identifier,element);
+			e.setVariable(identifier,element.resolve(e));
 		else
-			src.resolve(e).getEnvironment().setVariable(identifier,element);
+			src.resolve(e).getEnvironment().setVariable(identifier,element.resolve(e));
 		return null;
 	}
 	
