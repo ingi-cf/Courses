@@ -10,7 +10,7 @@ public class StdioObject extends PostalObject
 		super(c);
 	}
 
-	public void postalPrint(PostalObject param) {
+	public void postalPrint(PostalObject toPrint) {
 		// TODO Auto-generated method stub
 	}
 	
