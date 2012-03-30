@@ -4,11 +4,20 @@ import java.util.Hashtable;
 
 import postal.classes.PostalClass;
 import postal.objects.PostalObject;
+import postal.objects.StdioObject;
 
 public class PostalEnvironment {
 	
 	Hashtable<String,PostalObject> vc;
 	Hashtable<String,PostalClass> cc;
+	
+	public PostalEnvironment()
+	{
+		vc = new Hashtable<String,PostalObject>();
+		cc = new Hashtable<String,PostalClass>();
+		
+		setVariable("stdio", new StdioObject()); 
+	}
 
 	public PostalObject getVariable(String identifier) 
 	{

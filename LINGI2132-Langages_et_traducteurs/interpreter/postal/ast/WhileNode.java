@@ -7,11 +7,11 @@ import postal.objects.PostalObject;
 import postal.environment.PostalEnvironment;
 import postal.exceptions.TypeException;
 
-public class IfNode extends PostalNode
+public class WhileNode extends PostalNode
 {
     ElementNode   condition;
     SequenceNode  body;
-    IfNode(ElementNode e, SequenceNode s)
+    WhileNode(ElementNode e, SequenceNode s)
     {   
         this.condition = e;
         this.body = s;
@@ -23,8 +23,13 @@ public class IfNode extends PostalNode
         	throw new TypeException("Error, the condition is not a boolean");
 
         
-    	if(((BooleanObject)o).booleanValue())
+    	while(((BooleanObject)o).booleanValue())
+    	{
         	body.execute(e);
+        	o = condition.resolve(e);
+            if(!(o instanceof BooleanObject))
+            	throw new TypeException("Error, the condition is not a boolean");
+    	}
         	
 
         return null;
