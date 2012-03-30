@@ -1,30 +1,25 @@
 
 package postal.objects;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
+import postal.ast.ElementNode;
+import postal.ast.PostalNode;
 import postal.classes.PostalClass;
+import postal.environment.PostalEnvironment;
 
 public class MessageObject extends PostalObject
 {
     String                      messagename;
-    LinkedList<PostalObject>    parameters;
+    LinkedList<ElementNode>    parameters;
     public MessageObject(String messagename)
     {
     	super(null);
         this.messagename = messagename;
-        parameters = new LinkedList<PostalObject>();
+        parameters = new LinkedList<ElementNode>();
     }
-    /*
-     * Simplified constructor for binary operations messages
-     */
-    public MessageObject(String messagename, PostalObject o)
-    {
-    	super(null);
-        this.messagename = messagename;
-        parameters = new LinkedList<PostalObject>();
-        addParameter(o);
-    }
-    public void addParameter(PostalObject o)
+
+    public void addParameter(ElementNode o)
     {
         parameters.add(o);
     }
@@ -34,6 +29,24 @@ public class MessageObject extends PostalObject
 	
 	public PostalObject param(int i)
 	{
-		return parameters.get(i);
+		return (PostalObject)parameters.get(i);
+	}
+	
+	public PostalObject resolve(PostalEnvironment e)
+    {
+		MessageObject resolvedmsg = new MessageObject(messagename);
+		ListIterator<ElementNode> itr = parameters.listIterator();
+        while(itr.hasNext())
+        	resolvedmsg.addParameter(itr.next().resolve(e));
+        return resolvedmsg;
+    }
+	
+	public String toString()
+	{
+		String ret = messagename;
+		ListIterator<ElementNode> itr = parameters.listIterator();
+        while(itr.hasNext())
+        	ret = ret+" , "+itr.next().toString();
+        return ret;
 	}
 }

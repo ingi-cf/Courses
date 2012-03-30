@@ -14,5 +14,10 @@ public class IntegerObject extends PostalObject
 	public int value() {
 		return value;
 	}
+	
+	public String toString()
+	{
+		return ""+value;
+	}
     
 }
