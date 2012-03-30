@@ -125,7 +125,7 @@ public class test
     	VariableNode iNode = new VariableNode("i");
     	message = new MessageObject("print",iNode); //build print i message
     	
-    	 comp = new MessageObject("lt", new IntegerObject(6)); //comparison message <10
+    	 comp = new MessageObject("lt", new IntegerObject(6)); //comparison message <6
     	
     	
     	SequenceNode body = new SequenceNode();

@@ -1,0 +1,58 @@
+\documentclass{eplDoc}
+
+
+
+\newcommand{\docType}	{Interpreter for Postal AST}
+\newcommand{\docDate}	{30/03/2012}
+\newcommand{\docAuthor}	{gr10 : Mulders Corentin, Foret Nicolas, Pelsser Francois}
+\newcommand{\courseCode}{LINGI2132}
+\newcommand{\courseName}{Langages et traducteurs}
+\usepackage{syntax}
+\begin{document}
+\maketitle
+\newpage
+
+\section{Introduction}
+First of all as it is said in the title we decided to implement an interpreter for our language.  \\
+We realised that we had to settle for a name for our language when we started naming our implementation classes. We chose the name "postal" because our languages uses messages sent to the objects, and we don't have much imagination. \\ 
+In this document we will try to explain our most important implementation choices for the interpreter. We will also briefly explain the tests we conducted and how to run our interpreter with these handmade syntaxic trees. 
+
+\section{Interpreter Implementation}
+We decided to write the interpreter in java since we are used to this language. 
+
+\subsection{Implementation organization}
+
+We split the interpreter source code in 4 main java packages : 
+\begin{description}
+	\item[AST] Contains the classes related to the AST storage and execution. 
+	\item[classes] Contains classes used to represent the classes from our language, one for each system defined class and one for user defined classes. 
+	\item[objects] Contains classes used to represent objects from our language, one for each system defined class and one for user defined classes. 
+	\item[environment] Contains classes used to store a representation of the variables set during an execution. 
+\end{description}
+There is also a smaller package containing the exceptions that we defined. 
+
+\subsection{AST representation}
+The AST package is the core of our interpreter. It contains classes to represent sequences of instructions, variables assignment and access, conditions, while loops, class definitions and messages sending. Together these classes allow us to build syntaxic trees for our language that can be executed with a given environment. \\ 
+For example the "SequenceNode" class stores a list of other nodes and when executed with an environment, it executes every node in his list within this environment. \\ 
+Each of the classes from AST contains an "execute" method to execute the code in a given environment. The ones that represent elements form our syntax also have a "resolve" method called when executed that returns the PostalObject returned by the evaluation of the expression in the ElementNode. 
+
+\subsection{Environment}
+
+In the environment implementation we use two Hashmaps, one for storing Objects with their identifiers as keys, the other for storing classes with their names as keys. \\ 
+
+
+\subsection{Objects and classes representation}
+
+Our representations of objects store two things : 
+\begin{itemize}
+	\item The values of the the postal object represented.
+	\item An instance of the java class representing the class corresponding to the postal object represented.
+\end{itemize}
+What we did is that the postal obbjects data si stored in e java PostalObject whereas the postal instruction for each message received by postal message are stored in e java PostalClass. This allows for all the interpreted objects of a same class to share the messages instructions vut not the instance variables values. 
+
+\section{Tests}
+
+We have built some basic syntaxics trees of shorts programs. Going from an "hello world" equivalent in our language (wich prints 42 instead of "hello world" since we only have numeric values at this point) to a basic while loop incrementing an integer and printing the values. \\ 
+These tests trees are built and executed in the "test.java" file. For each we print the corresponding program then the result of the execution of the syntexic tree. 
+
+\end{document}
