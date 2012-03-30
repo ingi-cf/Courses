@@ -21,44 +21,61 @@ public class UserDefinedClass extends PostalClass {
 	
 	public UserDefinedClass(String className,
 			Hashtable<String, MessageImplementation> messagesImplementations,
-			LinkedList<String> attributes) {
+			LinkedList<String> attributes,
+			PostalClass superClass) {
 		super.name = name;
+		super.superClass = superClass;
 		this.messagesImplementations = messagesImplementations;
 		this.attributes = attributes;
 	}
 
 	public PostalObject messageReceived(PostalObject o, MessageObject m) {
 		//if the message is new
-		if(o == null && m.name().equals("new"))
+		if(o == null && m.getName().equals("new"))
 		{
-			//create the environment with the attributes
-			PostalEnvironment e = new PostalEnvironment();
-			//fill the environment with defined attributes
-			ListIterator<String> itr = attributes.listIterator();
-			while(itr.hasNext())
-				e.setVariable(itr.next(), null);
-			return messageReceived(new UserDefinedObject(this, e), m);
+			return messageReceived(postalNew(), m);
 		}
-		//create the environment
-		PostalEnvironment e = new PostalEnvironment();
-		MessageImplementation impl = getMessageImplementation(m.name());
 		
-		//TODO add self super # and params values in the environment
+		//find the message implementation 
+		MessageImplementation impl= getMessageImplementation(m.getName());
+		
 		
 	
 		if(impl == null)
 		{
+			
 			PostalClass p = getRootClass();
 			if (!(p instanceof UserDefinedClass))
 				return p.messageReceived(o, m);
 				
 				
-			if(impl == null && (postalSuper == null || !(postalSuper instanceof UserDefinedClass)))
-				throw new MessageDefinitionException("Cannot find message implementation : " + m.name() + " in class " + this.name); 
+			if(impl == null && (superClass == null || !(superClass instanceof UserDefinedClass)))
+				throw new MessageDefinitionException("Cannot find message implementation : " + m.getName() + " in class " + this.name); 
 
 		} else
-			return impl.getBody().execute(e);
+		{
+			//create the environment
+			PostalEnvironment e = new PostalEnvironment();
 			
+			// add self super # and params values in the environment
+			e.setVariable("self", o);
+			e.setVariable("super", o.getSuperObject());
+			e.setVariable("#",m);
+			//add params
+			if (impl.getParametersIdentifiers().size() != m.getParameters().size())
+				
+				throw new MessageDefinitionException("The message " +m.getName() + " take " +
+						impl.getParametersIdentifiers().size() + "parameters but "			
+						+  m.getParameters().size() + "given");
+			else
+			{
+				for(int i =0; i<m.getParameters().size() ;i++)
+					e.setVariable(impl.getParametersIdentifiers().get(i)
+							,m.param(i));
+			}
+			
+			return impl.getBody().execute(e);
+		}	
 		
 		
 		return null;
@@ -68,11 +85,27 @@ public class UserDefinedClass extends PostalClass {
 
 	private MessageImplementation getMessageImplementation(String messageName) {
 		MessageImplementation impl = messagesImplementations.get(messageName);
-		if(impl == null && postalSuper != null && postalSuper instanceof UserDefinedClass)
-			impl = ((UserDefinedClass) postalSuper).getMessageImplementation(messageName);
+		if(impl == null && superClass != null && superClass instanceof UserDefinedClass)
+			impl = ((UserDefinedClass) superClass).getMessageImplementation(messageName);
 		
 		return impl;
 		
 	}
+	
+	public PostalClass getSuperClass() {
+		return superClass;
+	}
+
+	public PostalObject postalNew() {
+		//create the environment with the attributes
+		PostalEnvironment e = new PostalEnvironment();
+		//fill the environment with defined attributes
+		ListIterator<String> itr = attributes.listIterator();
+		while(itr.hasNext())
+			e.setVariable(itr.next(), null);
+		return new UserDefinedObject(this, e);
+		
+	}
+
 
 }

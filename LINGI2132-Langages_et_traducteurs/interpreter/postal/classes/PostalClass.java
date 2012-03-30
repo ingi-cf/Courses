@@ -7,17 +7,20 @@ import postal.objects.PostalObject;
 public abstract class PostalClass
 {       
 	String name;
-	protected PostalClass postalSuper;
+	protected PostalClass superClass;
+	
     PostalClass()
     {
         
     }
 
+    public abstract PostalObject postalNew();
+    
 	protected PostalClass getRootClass() {
-		if(postalSuper == null)
+		if(superClass == null)
 			return this;
 		else
-			return postalSuper.getRootClass();
+			return superClass.getRootClass();
 	}
     
     public abstract PostalObject messageReceived(PostalObject o, MessageObject mess);
@@ -33,6 +36,10 @@ public abstract class PostalClass
 
 	public String getName() {
 		return name;
+	}
+
+	public PostalClass getSuperClass() {
+		return superClass;
 	}
 
 }

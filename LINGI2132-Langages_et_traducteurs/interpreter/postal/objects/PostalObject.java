@@ -27,6 +27,10 @@ public class PostalObject implements ElementNode
 	public void print(PostalObject param) {
 		// TODO Auto-generated method stub
 	}
+
+	public PostalObject getSuperObject() {
+		return null;
+	}
     
     
 }

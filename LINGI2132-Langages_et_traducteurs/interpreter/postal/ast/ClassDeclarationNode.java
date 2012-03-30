@@ -12,11 +12,13 @@ public class ClassDeclarationNode extends PostalNode {
 	private String className;
 	Hashtable<String,MessageImplementation> messagesImplementations;
 	LinkedList<String> attributes;
+	private String superClassName;
 	
 	
 	
-	public ClassDeclarationNode(String className) {
+	public ClassDeclarationNode(String className, String superClassName) {
 		this.className = className;
+		this.superClassName = superClassName;
 		this.messagesImplementations = new Hashtable<String,MessageImplementation>();
 		this.attributes = new LinkedList<String>();
 	}
@@ -31,7 +33,7 @@ public class ClassDeclarationNode extends PostalNode {
 	}
 	
 	public ElementNode execute(PostalEnvironment e) {
-		UserDefinedClass c = new UserDefinedClass(className, messagesImplementations, attributes);
+		UserDefinedClass c = new UserDefinedClass(className, messagesImplementations, attributes,e.getClass(superClassName));
 		e.insertClass(c);
 		return null;
 	}

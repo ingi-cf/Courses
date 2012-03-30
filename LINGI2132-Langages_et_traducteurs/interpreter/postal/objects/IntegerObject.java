@@ -11,6 +11,7 @@ public class IntegerObject extends PostalObject
     	super(new IntegerClass());
         this.value = v;
     }
+    
 	public int value() {
 		return value;
 	}

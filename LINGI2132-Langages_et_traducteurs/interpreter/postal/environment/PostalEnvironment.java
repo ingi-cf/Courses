@@ -37,5 +37,9 @@ public class PostalEnvironment {
 	public void insertClass(PostalClass c) {
 		cc.put(c.getName(), c);
 	}
+	
+	public PostalClass getClass(String cn) {
+		return cc.get(cn);
+	}
 
 }
