@@ -9,3 +9,8 @@ When sending a message the environment is a new environment(local to the message
 	+ the parameters (the objects in the message are added in the local environment )
 	+ the class environment stored in the PostaObject (where we cannot add others varibles that the one defined before) (add a flag to the environment)
 		
+		
+		
+things to do : 
+- environment : when initialized create a stdio object with stdio as id...
+- messageClass should exist even if it doesn't do anything right now...

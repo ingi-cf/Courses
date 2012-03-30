@@ -14,6 +14,14 @@ public class MessageObject extends PostalObject
         this.messagename = messagename;
         parameters = new LinkedList<PostalObject>();
     }
+    /*
+     * Simplified constructor for binary operations messages
+     */
+    MessageObject(String messagename, PostalClass c, PostalObject o)
+    {
+    	MessageObject(messagename,  c);
+    	addParameter(o);
+    }
     public void addParameter(PostalObject o)
     {
         parameters.add(o);

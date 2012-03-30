@@ -8,15 +8,15 @@ public class SendNode extends PostalNode
 {
     
     private MessageObject message;
-	private PostalObject src;
-	SendNode(PostalObject src, MessageObject m)
+	private PostalObject dst;
+	SendNode(PostalObject dst, MessageObject m)
     {
-		this.src = src;
+		this.dst = dst;
         this.message = m;
     }
 
     public PostalObject execute(PostalEnvironment e)
     {
-		return src.getPostalClass().messageReceived(src,message);
+		return dst.getPostalClass().messageReceived(dst,message);
     }
 }
