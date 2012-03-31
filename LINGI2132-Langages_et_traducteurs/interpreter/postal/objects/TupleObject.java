@@ -4,6 +4,9 @@ import java.util.ListIterator;
 
 import postal.ast.ElementNode;
 import postal.classes.*;
+/*
+ * tuple representation for collections of data
+ */
 public class TupleObject extends PostalObject
 {
     LinkedList<PostalObject>    elements;

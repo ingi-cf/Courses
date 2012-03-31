@@ -5,6 +5,9 @@ import postal.objects.BooleanObject;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 
+/*
+ * class with the implemenattion of messages for booleans
+ */
 public class BooleanClass extends PostalClass
 {
 	

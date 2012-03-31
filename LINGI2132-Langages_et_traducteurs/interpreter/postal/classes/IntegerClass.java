@@ -6,6 +6,9 @@ import postal.objects.IntegerObject;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 
+/*
+ * class with the implementation of messages for integers
+ */
 public class IntegerClass extends PostalClass
 {
 	

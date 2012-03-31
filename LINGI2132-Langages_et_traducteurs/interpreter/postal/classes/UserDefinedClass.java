@@ -13,6 +13,9 @@ import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import postal.objects.UserDefinedObject;
 
+/*
+ * class with the implementation of messages for user defined classes
+ */
 public class UserDefinedClass extends PostalClass {
 
 	PostalEnvironment e; //the environment in wich the class is defined

@@ -7,6 +7,9 @@ import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 import postal.objects.TupleObject;
 
+/*
+ * class with the implementation of messages for tuples
+ */
 public class TupleClass extends PostalClass
 {
 	

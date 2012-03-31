@@ -3,6 +3,9 @@ package postal.objects;
 import postal.classes.PostalClass;
 import postal.environment.PostalEnvironment;
 
+/*
+ * representation of objects defined within postal
+ */
 public class UserDefinedObject extends PostalObject {
 	
 	//object attributes

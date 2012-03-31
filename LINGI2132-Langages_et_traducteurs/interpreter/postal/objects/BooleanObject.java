@@ -3,6 +3,9 @@ package postal.objects;
 
 import postal.classes.*;
 
+/*
+ * represents a boolean
+ */
 public class BooleanObject extends PostalObject
 {
     boolean value;

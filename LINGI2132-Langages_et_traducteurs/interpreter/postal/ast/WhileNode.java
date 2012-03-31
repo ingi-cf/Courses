@@ -7,15 +7,26 @@ import postal.objects.PostalObject;
 import postal.environment.PostalEnvironment;
 import postal.exceptions.TypeException;
 
+/*
+ * Node representin a while condition and body
+ */
 public class WhileNode extends PostalNode
 {
     ElementNode   condition;
     SequenceNode  body;
+    
+    /*
+     * Builds the node with condition evaluated frome and with s as body
+     */
     public WhileNode(ElementNode e, SequenceNode s)
     {   
         this.condition = e;
         this.body = s;
     }
+    
+    /*
+     * execute s while e
+     */
     public PostalObject execute(PostalEnvironment e)
     {
         PostalObject o = condition.resolve(e);
