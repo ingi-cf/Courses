@@ -9,3 +9,6 @@ what if we send a object that is a son of the MessageObject
 idem check if inheritence works
 
 add errors when sending message to Integer(maybe others) with an anormal amount of parameters
+
+
+Return Node

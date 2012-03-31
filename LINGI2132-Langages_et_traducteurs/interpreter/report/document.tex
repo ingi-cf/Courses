@@ -48,11 +48,34 @@ Our representations of objects store two things :
 	\item The values of the the postal object represented.
 	\item An instance of the java class representing the class corresponding to the postal object represented.
 \end{itemize}
-What we did is that the postal obbjects data si stored in e java PostalObject whereas the postal instruction for each message received by postal message are stored in e java PostalClass. This allows for all the interpreted objects of a same class to share the messages instructions vut not the instance variables values. 
+What we did is that the postal objects data is stored in a java PostalObject whereas the postal instruction for each message received by postal message are stored in a java PostalClass. This allows for all the interpreted objects of a same class to share the messages instructions but not the instance variables values. 
+
+\subsection{User Defined Classes}
+The user can define class, on this purpose we have a special node (ClassDeclarationNode). This node take 4 types of elements.  
+\begin{itemize}
+	\item the class name
+	\item the super class name
+	\item the name of the objects attributes
+	\item the messages implementations
+\end{itemize}
+
+The messages implementations are objects of the class MessageImplementation.  They contain the message name, a list of the identifiers of the parameters and a PostalNode reprensenting the body of the message.
+\\
+Finally, the UserDefinedObject represents a instance of the class.  It contains an environment containing the objects attributess.
+
+\subsection{Message sending}
+All our langage is based on messages.  To send a message we will call the messageReceived function of the PostalClass corresponding to the object (the object contain a link to it).  This function contain 2 parameters, the object that received the message and the message.  In prmitives classes the operations correspinding to the message are then executed.  For user defined classes we do it in multiple steps.
+\begin{itemize}
+	\item Find the message implementation.  We first look for the message implementation in this class then it all its super classes.  If no implementation is found for this message, we look for a primitive class at the root of the inheritence tree and if it is we send it the message, if not we throw an exception.
+	\item We create a new environment and we add in it self, super and # (representing the message)
+	\item we add all parameters to the environment with their defined identifiers in the environment.
+	\item we execute de root node of the body with the made environment
+\end{itemize}
+
 
 \section{Tests}
 
-We have built some basic syntaxics trees of shorts programs. Going from an "hello world" equivalent in our language (wich prints 42 instead of "hello world" since we only have numeric values at this point) to a basic while loop incrementing an integer and printing the values. \\ 
+We have built some basic syntaxics trees of shorts programs. Going from an "hello world" equivalent in our language (wich prints 42 instead of "hello world" since we only have numeric values at this point) to a basic while loop incrementing an integer and printing the values and a test where we define a class Point with 2 messages implementations and we instantiate this class send it some messages.\\ 
 These tests trees are built and executed in the "test.java" file. For each we print the corresponding program then the result of the execution of the syntexic tree. \\ 
 For ease of use, the "test.java" is available with the other needed classes in a execuatable jar file. To run it simply use "java -jar postalTest.jar".
 
