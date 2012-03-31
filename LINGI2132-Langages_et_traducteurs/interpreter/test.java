@@ -11,7 +11,7 @@ public class test
     }
     public static void main (String [] args)
     {
-    	System.out.println("start some tests on postal");
+    	System.out.println("Basic tests on postal");
     	
     	/*
     	 *  stdio<-{print, 42}
@@ -150,14 +150,14 @@ public class test
     	 * 
     	 */
     	
-        System.out.println("end of the tests");
+        //System.out.println("end of the basic tests");
         
         testRapport();
     }
     
     public static void testRapport()
     {
-    	System.out.println("testRapport");
+    	System.out.println("Sample code from the syntax report execution : ");
     	SequenceNode rootS = new SequenceNode();
     	
     	ClassDeclarationNode c = new ClassDeclarationNode("Point", null);
@@ -221,7 +221,7 @@ public class test
     	SendNode snp1 = new SendNode(new VariableNode("stdio"), snmp1);
     	rootS.addStatement(snp1);
     	
-    	//message to print p1.x
+    	//message to print p1.y
     	MessageObject snmp2 = new MessageObject("print");
     	snmp2.addParameter(	new VariableNode(new VariableNode("p1"),"y"));
     	SendNode snp2 = new SendNode(new VariableNode("stdio"), snmp2);
@@ -230,7 +230,7 @@ public class test
     	PostalEnvironment pe = new PostalEnvironment();
     	rootS.execute(pe);
     	
-    	System.out.println("pe state:");
+    	System.out.println("Environment after code execution :");
     	System.out.println(pe);
     	
     	
