@@ -76,6 +76,49 @@ All our langage is based on messages.  To send a message we will call the messag
 \section{Tests}
 
 We have built some basic syntaxics trees of shorts programs. Going from an "hello world" equivalent in our language (wich prints 42 instead of "hello world" since we only have numeric values at this point) to a basic while loop incrementing an integer and printing the values and a test where we define a class Point with 2 messages implementations and we instantiate this class send it some messages.\\ 
+An ast roughly corresponding to the example of code from our syntax report wich uses intern class definition is also tested :  
+
+\begin{lstlisting}
+class Point{
+		// two instance variables x and y declared
+    x;
+    y;
+
+		// what to do when an instance is created
+    def {new, px, py}
+    {
+        self.x = px;
+        self.y = py;
+    }
+		
+		//definition of an add message
+    def {add, px, py}
+    {
+        self.x = self.x + px;
+        self.y = self.y + py;
+    }
+
+		// getters
+    def {getX}
+    {
+        return self.x;    
+    }
+    
+    def {getY}
+    {
+        return self.y;    
+    }
+		
+		
+}
+
+p = Point <- {new, 1, 4}
+p2 = Point <- {new, 42 ,69} + p
+
+stdio <- {print, p2.x}
+stdio <- {print, p2.y}
+
+\end{lstlisting}
 These tests trees are built and executed in the "test.java" file. For each we print the corresponding program then the result of the execution of the syntexic tree. \\ 
 For ease of use, the "test.java" is available with the other needed classes in a execuatable jar file. To run it simply use "java -jar postalTest.jar".
 

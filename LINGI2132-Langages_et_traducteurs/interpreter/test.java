@@ -157,7 +157,7 @@ public class test
     
     public static void testRapport()
     {
-    	System.out.println("Sample code from the syntax report execution : ");
+    	System.out.println("Execution of a sum of vectors with a user-defined Point class (code available in the report) : ");
     	SequenceNode rootS = new SequenceNode();
     	
     	ClassDeclarationNode c = new ClassDeclarationNode("Point", null);
@@ -189,7 +189,7 @@ public class test
     	bodyadd.addStatement(new AssignNode("x", new VariableNode("self"), snsm1));
     	bodyadd.addStatement(new AssignNode("y", new VariableNode("self"), snsm2));
     	
-    	//Define the new message
+    	//Define the add message
     	MessageImplementation miadd = new MessageImplementation("add",bodyadd);
     	miadd.addParameter("px");
     	miadd.addParameter("py");
@@ -230,8 +230,8 @@ public class test
     	PostalEnvironment pe = new PostalEnvironment();
     	rootS.execute(pe);
     	
-    	System.out.println("Environment after code execution :");
-    	System.out.println(pe);
+    	//System.out.println("Environment after code execution :");
+    	//System.out.println(pe);
     	
     	
     	
