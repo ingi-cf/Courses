@@ -52,8 +52,7 @@ public class UserDefinedClass extends PostalClass {
 			PostalClass p = getRootClass();
 			if (!(p instanceof UserDefinedClass))
 			{
-				p.messageReceived(o, m);
-				return o;
+				return p.messageReceived(o, m);
 			}
 				
 			if(impl == null && (superClass == null || !(superClass instanceof UserDefinedClass)))
@@ -81,10 +80,12 @@ public class UserDefinedClass extends PostalClass {
 					e.setVariable(impl.getParametersIdentifiers().get(i)
 							,m.param(i));
 			}
-			
-			
-			impl.getBody().execute(e);
-			return o;
+			if(m.getName().equals("new"))
+			{
+				impl.getBody().execute(e);
+				return o;
+			} else
+				return impl.getBody().execute(e);
 		}	
 		
 		

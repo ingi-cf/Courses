@@ -67,7 +67,7 @@ Finally, the UserDefinedObject represents a instance of the class.  It contains 
 All our langage is based on messages.  To send a message we will call the messageReceived function of the PostalClass corresponding to the object (the object contain a link to it).  This function contain 2 parameters, the object that received the message and the message.  In prmitives classes the operations correspinding to the message are then executed.  For user defined classes we do it in multiple steps.
 \begin{itemize}
 	\item Find the message implementation.  We first look for the message implementation in this class then it all its super classes.  If no implementation is found for this message, we look for a primitive class at the root of the inheritence tree and if it is we send it the message, if not we throw an exception.
-	\item We create a new environment and we add in it self, super and # (representing the message)
+	\item We create a new environment and we add in it self, super and \# (representing the message)
 	\item we add all parameters to the environment with their defined identifiers in the environment.
 	\item we execute de root node of the body with the made environment
 \end{itemize}
