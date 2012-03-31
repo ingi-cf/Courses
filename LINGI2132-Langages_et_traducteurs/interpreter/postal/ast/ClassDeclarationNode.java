@@ -29,6 +29,7 @@ public class ClassDeclarationNode extends PostalNode {
 	
 	public void addMessageImplementation(MessageImplementation mi)
 	{
+		
 		messagesImplementations.put(mi.getName(), mi);
 	}
 	

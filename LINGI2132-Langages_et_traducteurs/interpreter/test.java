@@ -151,5 +151,89 @@ public class test
     	 */
     	
         System.out.println("end of the tests");
+        
+        testRapport();
+    }
+    
+    public static void testRapport()
+    {
+    	System.out.println("testRapport");
+    	SequenceNode rootS = new SequenceNode();
+    	
+    	ClassDeclarationNode c = new ClassDeclarationNode("Point", null);
+    	c.addArgument("x");
+    	c.addArgument("y");
+    	
+    	SequenceNode bodynew = new SequenceNode();
+    	bodynew.addStatement(new AssignNode("x", new VariableNode("self"), new VariableNode("px")));
+    	bodynew.addStatement(new AssignNode("y", new VariableNode("self"), new VariableNode("py")));
+    	
+    	//Define the new message
+    	MessageImplementation minew = new MessageImplementation("new",bodynew);
+    	minew.addParameter("px");
+    	minew.addParameter("py");
+    	
+    	//add the message inplementation to the class declaration
+    	c.addMessageImplementation(minew);
+    	
+    	
+    	//Add message implementation to add a point to another
+    	
+    	SequenceNode bodyadd = new SequenceNode();
+    	MessageObject sum1 = new MessageObject("sum");
+    	sum1.addParameter(new VariableNode("px"));
+    	MessageObject sum2 = new MessageObject("sum");
+    	sum2.addParameter(new VariableNode("py"));
+    	SendNode snsm1 = new SendNode(new VariableNode(new VariableNode("self"),"x"), sum1);
+    	SendNode snsm2 = new SendNode(new VariableNode(new VariableNode("self"),"y"), sum2);
+    	bodyadd.addStatement(new AssignNode("x", new VariableNode("self"), snsm1));
+    	bodyadd.addStatement(new AssignNode("y", new VariableNode("self"), snsm2));
+    	
+    	//Define the new message
+    	MessageImplementation miadd = new MessageImplementation("add",bodyadd);
+    	miadd.addParameter("px");
+    	miadd.addParameter("py");
+    	
+    	//add the message inplementation to the class declaration
+    	c.addMessageImplementation(miadd);
+    	
+    	
+    	rootS.addStatement(c);
+    	
+    	//add a message to instantiate Point
+    	//create the message
+    	MessageObject snm1 = new MessageObject("new");
+    	snm1.addParameter(new IntegerObject(1));
+    	snm1.addParameter(new IntegerObject(4));
+    	InstantiateClassNode sn1 = new InstantiateClassNode("Point", snm1);
+    	rootS.addStatement(new AssignNode("p1",sn1));
+    	
+    	//add (42,69) to the Point
+    	MessageObject snm2 = new MessageObject("add");
+    	snm2.addParameter(new IntegerObject(42));
+    	snm2.addParameter(new IntegerObject(69));
+    	SendNode sn2 = new SendNode(new VariableNode("p1"), snm2);
+    	rootS.addStatement(sn2);
+    	
+    	//message to print p1.x
+    	MessageObject snmp1 = new MessageObject("print");
+    	snmp1.addParameter(	new VariableNode(new VariableNode("p1"),"x"));
+    	SendNode snp1 = new SendNode(new VariableNode("stdio"), snmp1);
+    	rootS.addStatement(snp1);
+    	
+    	//message to print p1.x
+    	MessageObject snmp2 = new MessageObject("print");
+    	snmp2.addParameter(	new VariableNode(new VariableNode("p1"),"y"));
+    	SendNode snp2 = new SendNode(new VariableNode("stdio"), snmp2);
+    	rootS.addStatement(snp2);
+    	
+    	PostalEnvironment pe = new PostalEnvironment();
+    	rootS.execute(pe);
+    	
+    	System.out.println("pe state:");
+    	System.out.println(pe);
+    	
+    	
+    	
     }
 }

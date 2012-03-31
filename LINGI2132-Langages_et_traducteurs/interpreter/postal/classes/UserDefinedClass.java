@@ -1,6 +1,7 @@
 package postal.classes;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -23,7 +24,7 @@ public class UserDefinedClass extends PostalClass {
 			Hashtable<String, MessageImplementation> messagesImplementations,
 			LinkedList<String> attributes,
 			PostalClass superClass) {
-		super.name = name;
+		super.name = className;
 		super.superClass = superClass;
 		this.messagesImplementations = messagesImplementations;
 		this.attributes = attributes;
@@ -35,6 +36,7 @@ public class UserDefinedClass extends PostalClass {
 		{
 			return messageReceived(postalNew(), m);
 		}
+
 		
 		//find the message implementation 
 		MessageImplementation impl= getMessageImplementation(m.getName());
@@ -46,8 +48,10 @@ public class UserDefinedClass extends PostalClass {
 			
 			PostalClass p = getRootClass();
 			if (!(p instanceof UserDefinedClass))
-				return p.messageReceived(o, m);
-				
+			{
+				p.messageReceived(o, m);
+				return o;
+			}
 				
 			if(impl == null && (superClass == null || !(superClass instanceof UserDefinedClass)))
 				throw new MessageDefinitionException("Cannot find message implementation : " + m.getName() + " in class " + this.name); 
@@ -59,7 +63,8 @@ public class UserDefinedClass extends PostalClass {
 			
 			// add self super # and params values in the environment
 			e.setVariable("self", o);
-			e.setVariable("super", o.getSuperObject());
+			if(o.getSuperObject() != null)
+				e.setVariable("super", o.getSuperObject());
 			e.setVariable("#",m);
 			//add params
 			if (impl.getParametersIdentifiers().size() != m.getParameters().size())
@@ -74,7 +79,9 @@ public class UserDefinedClass extends PostalClass {
 							,m.param(i));
 			}
 			
-			return impl.getBody().execute(e);
+			
+			impl.getBody().execute(e);
+			return o;
 		}	
 		
 		
@@ -102,10 +109,24 @@ public class UserDefinedClass extends PostalClass {
 		//fill the environment with defined attributes
 		ListIterator<String> itr = attributes.listIterator();
 		while(itr.hasNext())
-			e.setVariable(itr.next(), null);
+			//cannot add null in a hashtable
+			e.setVariable(itr.next(), new PostalObject(null));
 		return new UserDefinedObject(this, e);
 		
 	}
 
+	public String toString()
+	{
+		String str= "Classe : " + name + "\n";
+		str+= "Attributes : ";
+		ListIterator<String> itr = attributes.listIterator();
+		while(itr.hasNext()) str += itr.next() + " ";
+		str+="\n";
+		
+		str+= "MessagesImplementations("+ messagesImplementations.size()+") : ";
+		Iterator<String> itrm = messagesImplementations.keySet().iterator();
+		while(itrm.hasNext()) str+= itrm.next() + " ";
+		return str;
+	}
 
 }

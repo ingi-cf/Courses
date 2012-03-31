@@ -9,7 +9,7 @@ public class MessageImplementation {
 	SequenceNode		body;
 	LinkedList<String>	parametersIdentifier;
 	
-	MessageImplementation(String name, SequenceNode body)
+	public MessageImplementation(String name, SequenceNode body)
 	{
 		this.body = body;
 		this.messageName = name;

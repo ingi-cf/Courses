@@ -1,14 +1,3 @@
-Make the storing of variables
-Make class declaration (user defined class and object)
-Manage self super and #
-
-
-
-User defined classes
-When sending a message the environment is a new environment(local to the message execution) created in the beginning of the execution of the message
-	+ the parameters (the objects in the message are added in the local environment )
-	+ the class environment stored in the PostaObject (where we cannot add others varibles that the one defined before) (add a flag to the environment)
-		
 		
 		
 things to do : 
@@ -18,3 +7,5 @@ things to do :
 
 what if we send a object that is a son of the MessageObject
 idem check if inheritence works
+
+add errors when sending message to Integer(maybe others) with an anormal amount of parameters

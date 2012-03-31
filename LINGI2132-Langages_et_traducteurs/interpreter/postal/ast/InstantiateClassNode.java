@@ -3,12 +3,12 @@ package postal.ast;
 import postal.environment.PostalEnvironment;
 import postal.objects.PostalObject;
 
-public class InstantiateClassNode extends PostalNode {
+public class InstantiateClassNode extends PostalNode implements ElementNode {
 
 	private ElementNode message;
 	private String className;
 
-	InstantiateClassNode(String className, ElementNode m)
+	public InstantiateClassNode(String className, ElementNode m)
     {
 		this.className = className;
         this.message = m;

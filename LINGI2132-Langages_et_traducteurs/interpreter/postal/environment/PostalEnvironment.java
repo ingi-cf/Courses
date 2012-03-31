@@ -1,6 +1,7 @@
 package postal.environment;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import postal.classes.PostalClass;
 import postal.objects.PostalObject;
@@ -26,6 +27,7 @@ public class PostalEnvironment {
 	
 	public void setVariable(String identifier, PostalObject element) 
 	{
+		
 		vc.put(identifier, element);
 	}
 	
@@ -39,7 +41,32 @@ public class PostalEnvironment {
 	}
 	
 	public PostalClass getClass(String cn) {
-		return cc.get(cn);
+		if (cn != null)
+			return cc.get(cn);
+		else
+			return null;
 	}
-
+	
+	public String toString()
+	{
+		String str= "Values : \n";
+		Iterator<String> itr = vc.keySet().iterator();
+		String identifier;
+		while(itr.hasNext())
+		{
+			identifier = itr.next();
+			str+= identifier + " : " + vc.get(identifier)+ "\n";
+		}
+			
+		
+		str+= "Classes : \n";
+		itr = cc.keySet().iterator();
+		while(itr.hasNext())
+		{
+			identifier = itr.next();
+			str+= identifier + " : " + cc.get(identifier)+ "\n";
+		}
+		return str;
+		
+	}
 }
