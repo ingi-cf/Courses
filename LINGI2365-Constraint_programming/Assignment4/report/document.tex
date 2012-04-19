@@ -16,11 +16,89 @@
 \newpage
 
 \section{The Brussels airport problem} %6pt
+
+\subsection{Model implementation}
+We modelized the problem in comet as a minimization problem with as variables the landing times of the planes and as constraints the fact that all landing times are different and that no landing occurs during a given period depending of the plane after a plane has landed : 
+\begin{lstlisting}
+range P         = 1..nbPlanes;
+
+range T = (minPTime-maxdelay)..(maxPTime+maxdelay);
+
+var<CP>{int} lTime[P](cp, T);               //actual landing time
+
+minimize<cp>
+    sum(p in P)(abs(lTime[p]-prefLTime[p])*delayCost[p])
+subject to{
+    forall(p1 in P)
+    {
+        cp.post(abs(lTime[p1] - prefLTime[p1])<maxdelay);
+    }
+    cp.post(alldifferent(lTime));
+    forall(p1 in P, p2 in P: p1 != p2 && p1 > p2)
+    {
+        cp.post(!(lTime[p1] > lTime[p2]) || (lTime[p1] - lTime[p2]) > indispTime[p1]); 
+        cp.post(cp.post(!(lTime[p2] > lTime[p1]) || (lTime[p2] - lTime[p1]) > indispTime[p2]));
+    }
+}
+\end{lstlisting}
 \subsection{3 different variable and/or value ordering heuristics}
+In all of our three solutions we define a heuristic for ordering the access to the variables representing the planes landing times. The value ordering used for these times is the same in each solution and consist in considering the times closest to the plane's preffered landing time first. 
+\subsubsection{First heuristic}
+Our first heuristic orders the planes without a defined landing time by the cost of delaying their landing. Since we are dealing with an optimization problem this means that we are more likely to find non-optimal solutions first and those can then be discarded. \\  
+Here is what we put in the using part of our comet program to use this heuristic : 
+\begin{lstlisting}
+forall (p in P: !lTime[p].bound()) by (delayCost[p])
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+\end{lstlisting}
+\subsubsection{Second heuristic}
+The second heuristic orders the planes by the time during which no other plane can land after them. This follows the same logic as the first heuristic as what seems to be more efficient would be to schedule the landing of the planes that cause the greatest loss of time first, which is the opposite. \\ 
+Here is what we put in the using part of our comet program to use this heuristic : 
+\begin{lstlisting}
+forall (p in P: !lTime[p].bound()) by (indispTime[p])
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+\end{lstlisting}
+\subsubsection{Third heuristic}
+Our third heuristic tries to find a landing time for the planes for which the size of the remaining landing time variable domain is the smallest. This allow to reach a solution or a failure more quickly. \\ 
+Here is what we put in the using part of our comet program to use this heuristic : 
+\begin{lstlisting}
+forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+\end{lstlisting}
 
 \subsection{Meaningful criterias for comparing different search strategies}
 
+\begin{itemize}
+	\item The most basic criteria would simply to consider the execution time of each strategy on the same computer. This allows to roughly assess the quality of the search but we can't really trust it to be precise since the time could vary from one execution to another. 
+	\item Another straightforward criteria would be the sum of the number of choices and the number of failures. Since the execution time is correlated with this value we would rather use this number of choices and failure instead since it's more reliable. 
+	
+\end{itemize}
+
+
 \subsection{Heuristics comparison} % our heuristics + labelFF
+Here are the results of the tests of our different heuristics on the brussels airport file. 
+\begin{table}[h]
+	\centering
+		\begin{tabular}{|c|cccc|}
+			\hline
+			  & labelFF & first heuristic & second heuristic & third heuristic \\ 
+			  \hline
+			\#choices + \#fails &   236164 & 5475 & 896 & 206 \\ 
+			time taken[ms] & 37846 & 1124 & 234 & 94 \\ 
+			\hline
+			
+		\end{tabular}
+\end{table}
+
+All of our heuristic perform a lot better than labelFF but the second and third are particularly efficient. Especialy the third one.
 
 \section{The Knapsack problem}
 \subsection{A branch and bound approach} %5pt
