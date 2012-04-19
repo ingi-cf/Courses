@@ -77,7 +77,7 @@ forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
 \subsection{Meaningful criterias for comparing different search strategies}
 
 \begin{itemize}
-	\item The most basic criteria would simply to consider the execution time of each strategy on the same computer. This allows to roughly assess the quality of the search even though we can't really trust it to be precise since the time could vary from one execution to another. 
+	\item The most basic criteria would simply to consider the execution time of each strategy on the same computer. This allows to roughly assess the quality of the search even though we can't really trust it to be precise since the time could vary from one execution to another. A better solution would be to realise a lot of experiments and use the mean of the times taken. 
 	%\item Another straightforward criteria would be the sum of the number of choices and the number of failures. Since the execution time is correlated with this value we would rather use this number of choices and failure instead since it's more reliable. 
 	\item Another criteria would be the number of choices which has the advantage of not depending on the cpu load. 
 	\item A third criteria similar to the number of choices ois the number of failures, this can show how much search had to be done until an optimal solution was found. 
@@ -123,33 +123,43 @@ subject to{
 \subsubsection{4 different heuristics for variable selection}
 \begin{itemize}
 	\item \textbf{First heuristic} \\ 
-		Our first heuristic consist of starting with the most usefull objects. Then we try to take them in the sack. \\ 
-		Here is what we put in the using part of our comet program to use this heuristic :
+		Our first heuristic consist of starting with the most heavy objects. Thisis a first-fail strategy since this way the sack will be full very quickly : 
 		\begin{lstlisting}
-            forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
+            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
-                } 		\end{lstlisting}
+                } 
+                
 	\item \textbf{Second heuristic} \\ 
-		The second heuristic is based on the same idea as the first except now it choses objects that have the greatest $usefullness/weight$ ratio instead. This way we try to start by packing the objects that are both usefull and light first. \\ 
+		The second heuristic is based on the same idea as the first except now it choses objects that have the lowest $usefullness/weight$ ratio instead. This way we try to start by packing the objects that are both heavy and useless first. \\ 
 				Here is what we put in the using part of our comet program to use this heuristic :
 		\begin{lstlisting}
-		forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o]/oWeight[o])
+	forall (o in O: !objectsTaken[o].bound()) by ((oUsefullness[o]-0.0)/oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
 		\end{lstlisting}
 	\item \textbf{Third heuristic} \\ 
+	Our third heuristic is naive, it tries to pack the less usefull objects first, the idea being to reach a non-optimal value whenever the sack will be full. However as we will see later this is very unefficient since the maximized sack is not easy to find that way. \\ 
 				Here is what we put in the using part of our comet program to use this heuristic :
 		\begin{lstlisting}
-			%todo
+			forall (o in O: !objectsTaken[o].bound()) by (oUsefullness[o])
+                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
+                {
+                    label(objectsTaken[o], v);
+                } 
 		\end{lstlisting}
 	\item \textbf{Fourth heuristic} \\ 
+		Our fourth heuristic is a simple lexicographic one, it simply gets the objects in the same order as they are in the file. \\
 				Here is what we put in the using part of our comet program to use this heuristic :
 		\begin{lstlisting}
-			%todo
+			forall (o in O: !objectsTaken[o].bound())
+                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
+                {
+                    label(objectsTaken[o], v);
+                } 
 		\end{lstlisting}
 	
 \end{itemize}

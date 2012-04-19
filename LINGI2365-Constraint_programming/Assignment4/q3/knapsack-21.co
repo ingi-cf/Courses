@@ -9,7 +9,7 @@ Solver<CP> cp();
 int nbArgs = System.getArgs().getSize() ;
 string fString;
 int heuristic;
-/*
+
 if(nbArgs < 4)
 {
     cout<< "This program need at least 2 arguments, first a path to the item descriptions file and then a int representing the heuristic to use"<< endl;
@@ -20,9 +20,9 @@ else
 fString = System.getArgs()[nbArgs-2];
 heuristic = System.getArgs()[nbArgs-1].toInt();
 }
-*/
-fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q3/knapsackInstances/knapsack-B-1.txt";
-heuristic = 2;
+/*
+fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q3/knapsackInstances/knapsack-B-3.txt";
+heuristic = 4;*/
 
 ifstream file(fString);
 
@@ -67,21 +67,21 @@ subject to{
                 } 
                 break;
         case 2:
-            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o]/oUsefullness[o])
+            forall (o in O: !objectsTaken[o].bound()) by ((oUsefullness[o]-0.0)/oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
                 break;
         case 3:
-            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
+            forall (o in O: !objectsTaken[o].bound()) by (oUsefullness[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
                 break;
         case 4:
-            forall (o in O: !objectsTaken[o].bound()) by (oWeight[o]/oUsefullness[o])
+            forall (o in O: !objectsTaken[o].bound())
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
@@ -100,4 +100,4 @@ forall (o in O)
 int t1 = System.getCPUTime();
 cout << "time: " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
-cout << "#fail    = " << cp.getNFail() << endl;
+cout << "#fail    = " << cp.getTotalNumberFailures() << endl;
