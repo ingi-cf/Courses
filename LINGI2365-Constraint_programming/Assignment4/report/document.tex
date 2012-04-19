@@ -77,8 +77,11 @@ forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
 \subsection{Meaningful criterias for comparing different search strategies}
 
 \begin{itemize}
-	\item The most basic criteria would simply to consider the execution time of each strategy on the same computer. This allows to roughly assess the quality of the search but we can't really trust it to be precise since the time could vary from one execution to another. 
-	\item Another straightforward criteria would be the sum of the number of choices and the number of failures. Since the execution time is correlated with this value we would rather use this number of choices and failure instead since it's more reliable. 
+	\item The most basic criteria would simply to consider the execution time of each strategy on the same computer. This allows to roughly assess the quality of the search even though we can't really trust it to be precise since the time could vary from one execution to another. 
+	%\item Another straightforward criteria would be the sum of the number of choices and the number of failures. Since the execution time is correlated with this value we would rather use this number of choices and failure instead since it's more reliable. 
+	\item Another criteria would be the number of choices which has the advantage of not depending on the cpu load. 
+	\item A third criteria similar to the number of choices ois the number of failures, this can show how much search had to be done until an optimal solution was found. 
+	
 	
 \end{itemize}
 
@@ -91,14 +94,16 @@ Here are the results of the tests of our different heuristics on the brussels ai
 			\hline
 			  & labelFF & first heuristic & second heuristic & third heuristic \\ 
 			  \hline
-			\#choices + \#fails &   236164 & 5475 & 896 & 206 \\ 
+			%\#choices+\#fails  &   236164 & 5475 & 896 & 206 \\ 
+			\#choices &  87243 & 689 & 183 & 78 \\ 
+			\#fails & 148921 & 4786 & 713 & 128 \\
 			time taken[ms] & 37846 & 1124 & 234 & 94 \\ 
 			\hline
 			
 		\end{tabular}
 \end{table}
-
-All of our heuristic perform a lot better than labelFF but the second and third are particularly efficient. Especialy the third one.
+As expected the three criteria are correlated and comparing the heuristics with any of them yields the same results. \\ 
+All of our heuristic perform a lot better than labelFF but the second and third are particularly efficient. 
 
 \section{The Knapsack problem}
 \subsection{A branch and bound approach} %5pt

@@ -118,4 +118,3 @@ int t1 = System.getCPUTime();
 cout << "time: " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
 cout << "#fail    = " << cp.getNFail() << endl;
-cout << "#choices+#fail    = " << cp.getNFail()+cp.getNChoice() << endl;
