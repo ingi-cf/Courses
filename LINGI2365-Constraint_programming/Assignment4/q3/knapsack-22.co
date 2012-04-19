@@ -41,7 +41,7 @@ int knapsackCapacity = file.getInt();
 Integer ub;
 ub = new Integer(getUB(nbObjects,knapsackCapacity,oWeight, oUsefullness));
 
-var<CP>{int} objectsTaken[O](cp, 0..1);               //actual landing time
+var<CP>{int} objectsTaken[O](cp, 0..1);              
 var<CP>{int} totalUsefullness(cp, 0..ub);            
 
 whenever cp.getSearchController()@onCompletion(){

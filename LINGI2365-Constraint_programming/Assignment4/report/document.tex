@@ -151,10 +151,51 @@ subject to{
 \subsubsection{Heuristics tests} %also with labelFF
 
 \subsection{Optimization over iterations} %5pt
+\subsubsection{Model}
+We represent the problem as a constraint satisfaction problem associated with an upper bound value. We add a totalUsefullness variable to the minimization problem variables. We also use a variable $ub$ which is initialized at the upper bound of the total usefullness of objects in the sack. In the "using" part of our program we force the total usefullness value to be equal to $ub$. Since we want to maximize the totalUSefullness we simply have do decrement the value of $ub$ until we reach a solution and this solution will maximize the total usefullness :  \\  
+\begin{lstlisting}
+Integer ub;
+ub = new Integer(getUB(nbObjects,knapsackCapacity,oWeight, oUsefullness));
+
+var<CP>{int} objectsTaken[O](cp, 0..1);             
+var<CP>{int} totalUsefullness(cp, 0..ub);  
+
+whenever cp.getSearchController()@onCompletion(){
+    ub := ub-1;
+    cp.reStart();
+}
+
+whenever cp.getSearchController()@onFeasibleSolution(Solution s){
+    cp.exit();
+}
+
+solve<cp>
+{
+    cp.post(sum(o in O)(objectsTaken[o]*oWeight[o])<=knapsackCapacity);
+    cp.post(sum(o in O)(objectsTaken[o]*oUsefullness[o]) == totalUsefullness);
+}
+using{
+    cp.post(totalUsefullness == ub);
+    [...]
+    }
+\end{lstlisting}
 \subsubsection{Which of the three points must be executed on which events ?}
+\begin{itemize}
+	\item \textbf{modify the value of ub} : This must be done each time a search finishes with a failure.
+	\item \textbf{restart the search} : This must be done after modifying the value of ub to try another search with the new value.
+	\item \textbf{end the search} : This is done as soon as a search finishes with a valid solution.
+\end{itemize}
+
 \subsubsection{How is the value of ub modified to be sure to find the optimal solution ?}
+Since the totaUsefullness value is a sum of integers it is discrete so we can modify the value of ub by substracting 1 from it at each iteration. \\ 
+This guarantees to find an optimal solution because the value of ub is initialized at the upper bound of the totalUsefullness and then it is lowered without skipping any interesting value s the first valid solution achieved will be the one with the highest possible totalUsefullness. 
+
 \subsubsection{Why initialize ub with the upper bound ?}
+Because we want to maximize the totalUsefullness, starting with the upper bound and gradually reducing the value of ub allows to stop at the first valid solution found. This solution will be the one with the highest totalUsefullness among the solution that satisfy the constraints. \\ 
+On the opposite, if we had wanted to minimize the objective we would have initialized it with the lower bound and then incremented it.
+
 \subsubsection{Experiments on knapsack-A and knapsack-B}
+%todo
 
 
 \subsection{Optimization via divide and conquer} %4pt
