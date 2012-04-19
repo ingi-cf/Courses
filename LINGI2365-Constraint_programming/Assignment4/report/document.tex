@@ -232,7 +232,37 @@ And here are the times taken for the serie B :
 \subsection{Optimization via divide and conquer} %4pt
 \subsubsection{Which of the four points must be executed on which events ?}
 We know that the maximum is between 2 bounds.  We divide this bonded space in two and try to find if there is a solution in the part with the bigger values.  If there is no solution we are sure than the maximum we are looking after is in the half with smaller values so we have to update the upper bound (ii is in onCompletion).  If a solution is found, we are sure that the maximum we search is bigger or equal to this solution, so we update the lower bound (i is in onFeasibleSolution). We restart after each update (lb or ub) and we stop when we find a solution equals to the upper bound (we are sure that there cannot exist a bigger solution).\\
-%We are using ceil instead of floor because we could be blocked with floor.  For instance if there is a solution at the objective function with the objective a and the solution we search is with objective a+1, we will find the solution with a and update lb to a, we will then still find the solution with objective a because the interval will be $\left[ \frac{a+a+1}2 ; a+1 \right]$ wich is equal to $\left[ a ; a+1 \right]$ so we are in an infinite loop.  If, instead, we set the 
+We are using ceil instead of floor because we could be blocked with floor.  For instance if there is a solution at the objective function with the objective a and the solution we search is with objective a+1, we will find the solution with a and update lb to a, we will then still find the solution with objective a because the interval will be $\left[ \lfloor \frac{a+a+1}2 \rfloor; a+1 \right]$ wich is equal to $\left[ a ; a+1 \right]$ so we are in an infinite loop.  If we set ceil instead of floor we will have an interval $\left[ \lceil \frac{a+a+1}2 \rceil; a+1 \right]$ wich is equal to $\left[ a+1 ; a+1 \right]$ so we are not longer blocked.
+
+The major changes with the point 3.2.2 are
+\begin{lstlisting}
+whenever cp.getSearchController()@onCompletion(){
+    ub := (int)ceil((lb+ub)/2.0 -1);
+    cp.reStart();
+}
+
+whenever cp.getSearchController()@onFeasibleSolution(Solution s){
+    if(totalUsefullness == ub)
+        cp.exit();
+    else
+    {
+        lb := sum(o in O)(objectsTaken[o]*oUsefullness[o]);
+        cp.reStart();
+    }
+}
+\end{lstlisting}
+and 
+\begin{lstlisting}
+    using{
+    cp.post(totalUsefullness <= ub);
+    cp.post(totalUsefullness >= ceil((lb+ub)/2.0));
+    forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
+        tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
+        {
+            label(objectsTaken[o], v);
+        } 
+}
+\end{lstlisting}
 \subsubsection{Experiments on knapsack-A, knapsack-B and knapsack-C}
 
 

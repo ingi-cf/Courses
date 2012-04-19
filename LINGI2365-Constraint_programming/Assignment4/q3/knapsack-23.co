@@ -48,7 +48,6 @@ var<CP>{int} totalUsefullness(cp, 0..ub);
 
 whenever cp.getSearchController()@onCompletion(){
     ub := (int)ceil((lb+ub)/2.0 -1);
-    cout << "restart 0" << endl;
     cp.reStart();
 }
 
@@ -59,7 +58,6 @@ whenever cp.getSearchController()@onFeasibleSolution(Solution s){
     else
     {
         lb := sum(o in O)(objectsTaken[o]*oUsefullness[o]);
-        cout << "restart 1" << endl;
         cp.reStart();
     }
 }
