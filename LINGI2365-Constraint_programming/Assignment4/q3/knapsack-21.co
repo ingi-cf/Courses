@@ -77,12 +77,7 @@ subject to{
     }
 }
 
-cout << objectsTaken << endl;
-forall (o in O)
-{
-    cout << "object " << oId[o] << (objectsTaken[o] == 1)?" taken ":" not taken " <<  "usefullness " << oUsefullness[o] << " weight " << oWeight[o] << endl;        
-}
-
+cout << "objective :" << sum(o in O)(objectsTaken[o]*oUsefullness[o]) << endl;
 int t1 = System.getCPUTime();
 cout << "time: " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;

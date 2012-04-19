@@ -1,0 +1,88 @@
+// import the CP library
+import cotfd;
+include "knapsackLBUB";
+
+
+int t0 = System.getCPUTime();
+
+
+// create the CP Solver 
+Solver<CP> cp();
+int nbArgs = System.getArgs().getSize() ;
+if(nbArgs < 3)
+{
+    cout<< "This program need at least 1 argument, a path to the item descriptions file "<< endl;
+    System.exit(-1);
+}
+
+string fString = System.getArgs()[nbArgs-1];
+
+ifstream file(fString);
+
+int nbObjects = file.getInt();
+
+range O = 1..nbObjects;
+
+int oId[O];
+int oWeight[O];
+int oUsefullness[O];
+
+// Begin read file
+forall(o in O)
+{
+    oId[o] = file.getInt();
+    oWeight[o] = file.getInt();
+    oUsefullness[o] = file.getInt();
+}
+
+int knapsackCapacity = file.getInt();
+//end readfile
+
+Integer ub;
+Integer lb;
+ub = new Integer(getUB(nbObjects,knapsackCapacity,oWeight, oUsefullness));
+lb = new Integer(getLB(nbObjects,knapsackCapacity,oWeight, oUsefullness));
+
+var<CP>{int} objectsTaken[O](cp, 0..1);               //actual landing time
+var<CP>{int} totalUsefullness(cp, 0..ub);            
+
+whenever cp.getSearchController()@onCompletion(){
+    ub := (int)ceil((lb+ub)/2 -1);
+    cp.reStart();
+}
+
+whenever cp.getSearchController()@onFeasibleSolution(Solution s){
+    
+    if(totalUsefullness == ub)
+        cp.exit();
+    else
+    {
+        lb := sum(o in O)(objectsTaken[o]*oUsefullness[o]);
+        cp.reStart();
+    }
+}
+
+
+solve<cp>
+{
+    cp.post(sum(o in O)(objectsTaken[o]*oWeight[o])<=knapsackCapacity);
+    cp.post(sum(o in O)(objectsTaken[o]*oUsefullness[o]) == totalUsefullness);
+} using{
+    cp.post(totalUsefullness <= ub);
+    cp.post(totalUsefullness >= ceil((lb+ub)/2.0));
+    forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
+        tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
+        {
+            label(objectsTaken[o], v);
+        } 
+}
+
+//forall (o in O)
+//{
+//    cout << "object " << oId[o] << (objectsTaken[o] == 1)?" taken ":" not taken " <<  "usefullness " << oUsefullness[o] << " weight " << oWeight[o] << endl;        
+//}
+cout << "objective :" << sum(o in O)(objectsTaken[o]*oUsefullness[o]) << endl;
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;
+cout << "#choices = " << cp.getNChoice() << endl;
+cout << "#fail    = " << cp.getNFail() << endl;
