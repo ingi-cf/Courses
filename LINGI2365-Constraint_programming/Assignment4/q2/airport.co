@@ -10,8 +10,7 @@ string fString;
 int heuristic;
 if(System.getArgs().getSize() != 4)
 {
-    //cout<< "This program need 2 arguments, first a path to the plane description file and then a int representing the heuristic to use"<< endl;
-    //System.exit(-1);
+
    fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q2/brussels.txt";
    heuristic = 3;
 }
