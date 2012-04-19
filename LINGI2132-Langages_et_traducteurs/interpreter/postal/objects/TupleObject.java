@@ -1,14 +1,19 @@
 package postal.objects;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
-import postal.classes.PostalClass;
+import postal.ast.ElementNode;
+import postal.classes.*;
+/*
+ * tuple representation for collections of data
+ */
 public class TupleObject extends PostalObject
 {
     LinkedList<PostalObject>    elements;
     
-    TupleObject(PostalClass c)
+    public TupleObject()
     {
-    	super(c);
+    	super(new TupleClass());
         elements = new LinkedList<PostalObject>();
     }
     
@@ -26,12 +31,25 @@ public class TupleObject extends PostalObject
     	return elements.get(i);
     }
     
-    public BooleanObject isEmpty() {
-    	return new BooleanObject(elements.isEmpty());
+    public boolean isEmpty() {
+    	return elements.isEmpty();
+    }
+    
+    public int size() {
+    	return elements.size();
     }
     
     public LinkedList<PostalObject> elements()
     {
     	return elements;
     }
+    
+	public String toString()
+	{
+		String ret = "";
+		ListIterator<PostalObject> itr = elements.listIterator();
+        while(itr.hasNext())
+        	ret = ret+" , "+itr.next().toString();
+        return ret;
+	}
 }

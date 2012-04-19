@@ -5,14 +5,29 @@ import postal.objects.BooleanObject;
 import postal.objects.MessageObject;
 import postal.objects.PostalObject;
 
+/*
+ * class with the implemenattion of messages for booleans
+ */
 public class BooleanClass extends PostalClass
 {
+	
+	public PostalObject postalNew(boolean value)
+	{
+		
+		return new BooleanObject(value);
+	}
+	
+	public PostalObject postalNew()
+	{
+		
+		return new BooleanObject(true);
+	}
     public PostalObject messageReceived(PostalObject o, MessageObject m)
     {
     	assert(o instanceof BooleanObject);
     	BooleanObject o1 = (BooleanObject) o;
         // UNARY OPERATOR
-        if(m.name().equals("not"))
+        if(m.getName().equals("not"))
         {
             return new BooleanObject(!o1.booleanValue());
         }
@@ -20,7 +35,7 @@ public class BooleanClass extends PostalClass
         else
         {
             PostalObject o2 = m.param(0);
-            if(m.name().equals("and"))
+            if(m.getName().equals("and"))
             {
                 if(o2 instanceof BooleanObject)
                 {
@@ -31,7 +46,7 @@ public class BooleanClass extends PostalClass
                     throw new TypeException("Trying to do a binary operation (and) with a no boolean.");
                 }
             }
-            else if(m.name().equals("or"))
+            else if(m.getName().equals("or"))
             {
                 if(o2 instanceof BooleanObject)
                 {

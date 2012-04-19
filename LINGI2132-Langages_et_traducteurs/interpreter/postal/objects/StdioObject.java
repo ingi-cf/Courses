@@ -1,13 +1,21 @@
 
 package postal.objects;
 
-import postal.classes.PostalClass;
+import postal.classes.*;
 
+/*
+ * Stdio object, empty object used only to access the Stdio class for printing
+ */
 public class StdioObject extends PostalObject
 {
 
-	StdioObject(PostalClass c) {
-		super(c);
-	}	
+	public StdioObject() {
+		super(new StdioClass());
+	}
+
+	public void postalPrint(PostalObject toPrint) {
+		// TODO Auto-generated method stub
+		System.out.println(toPrint.toString());
+	}
 	
 }

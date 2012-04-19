@@ -4,11 +4,13 @@ import postal.environment.PostalEnvironment;
 import postal.objects.PostalObject;
 import java.util.LinkedList;
 import java.util.ListIterator;
-
+/*
+ * Node representing a sequence of nodes
+ */
 public class SequenceNode extends PostalNode
 {
     LinkedList<PostalNode>    statements;
-    SequenceNode()
+    public SequenceNode()
     {
         statements = new LinkedList<PostalNode>();
     }
@@ -16,6 +18,9 @@ public class SequenceNode extends PostalNode
     {
         statements.add(statement);
     }
+    /*
+     * Execute every node in the sequence sequentialy
+     */
     public PostalObject execute(PostalEnvironment e)
     {
         ListIterator<PostalNode> itr = statements.listIterator();

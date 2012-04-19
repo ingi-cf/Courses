@@ -1,14 +1,18 @@
 
 package postal.objects;
 
-import postal.classes.PostalClass;
+import postal.classes.*;
 
+/*
+ * represents a boolean
+ */
 public class BooleanObject extends PostalObject
 {
     boolean value;
-    public BooleanObject(boolean b, PostalClass c)
+    public BooleanObject(boolean b)
     {
-    	super(c);
+    	
+    	super(new BooleanClass());    	
         this.value = b;
     }
 
@@ -16,4 +20,9 @@ public class BooleanObject extends PostalObject
     {
         return value;
     }
+    
+	public String toString()
+	{
+		return ""+value;
+	}
 }
