@@ -74,18 +74,21 @@ subject to{
                 {
                     label(lTime[p], t);
                 } 
+                break;
         case 2:
             forall (p in P: !lTime[p].bound()) by (indispTime[p])
                 tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
                 {
                     label(lTime[p], t);
                 } 
+                break;
         case 3:
             forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
                 tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
                 {
                     label(lTime[p], t);
                 } 
+                break;
     }
 }
 
