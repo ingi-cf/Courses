@@ -60,7 +60,7 @@ solve<cp>
     cp.post(sum(o in O)(objectsTaken[o]*oUsefullness[o]) == totalUsefullness);
 } using{
     cp.post(totalUsefullness == ub);
-    forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
+    forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
         tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
         {
             label(objectsTaken[o], v);
