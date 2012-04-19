@@ -1,0 +1,93 @@
+// author : Sebastien Mouthuy, slightly adapted by Florence Massen
+
+import cotls;
+import cotln;
+
+/*****************************************
+ * Using LS to find a feasible solution.
+ * the cost of this solution will be a lower bound
+ * on the cost of the best solution to the 
+ * problem
+ *
+ * PARAMETERS : 
+ * n = number of objects
+ * b = capacity of knapsack,
+ * weight[] = array of weight per object,
+ * usefulness[] = array of usefulness per object  
+*****************************************/
+
+function int getLB(int n, int b, int[] weight, int[] usefulness){
+	// create the CBLS Model
+	Solver<LS> mls();
+	var{int} isSel[i in 1..n](mls) := 0;						// initialize all x's to 0. Initial solution = empty knapsack 
+	var{set{int}} K(mls) <- setof(i in 1..n) (isSel[i] > 0);	// set of selected objects
+	var{set{int}} R(mls) <- setof(i in 1..n) (isSel[i] == 0);	// set of non-selected objects
+	var{int} load(mls) <- sum(i in K) weight[i];				// weight of the knapsack	
+	var{int} price(mls) <- sum(i in K) usefulness[i];			// usefulness of the knapsack	
+	mls.close();
+
+	
+	int it = 1;
+	int tabu[1..n];
+	Integer lb(0);	
+	while( it < 1000){	// limit number of iterations
+		MaxNeighborSelector NS();	// create neighborhood
+		
+		// select an object that is not in the knapsack, that is not tabu 
+		// and that would not lead to excess capacity if we added it to the knapsack
+		select(i in R : tabu[i] <= it && load + weight[i] <= b){
+			// create neighbor that corresponds to adding the object to the knapsack
+			// evaluate quality of move by the usefulness of the object to be added
+			neighbor(usefulness[i] ,NS){
+				isSel[i] := 1;
+				tabu[i] = it + 3;
+			}
+		}
+		if (it % 4 == 0){ // every 4 iterations
+			// select an object that is in the knapsack and that is not tabu 
+			select(i in K:tabu[i] <= it ){
+				// create neighbor that corresponds to removing the object from the knapsack
+				// evaluate quality of move by the usefulness of the object to be removed
+				neighbor(usefulness[i],NS){
+					isSel[i] := 0;
+					tabu[i] = it + 3;
+				}
+			}
+		}
+		// If we have a possible move, execute it, else stop
+		if (NS.hasMove()) call(NS.getMove()); else break;
+		// Update the LB
+		if (price > lb){
+			lb := price;
+		}
+		it++;
+	}
+	return lb;
+}
+
+
+/*****************************************
+ * Using LP to find the optimal solution of
+ * the linear relaxation of the problem.
+ * The cost of the optimum of LP will be an
+ * upper bound on the cost of the best 
+ * solution of the integral knapsack problem
+ *
+ * PARAMETERS : 
+ * n = number of objects
+ * maxCapa = capacity of knapsack,
+ * weight[] = array of weight per object,
+ * usefulness[] = array of usefulness per object  
+ * 
+*****************************************/
+function int getUB(int n, int b, int[] weight, int[] usefulness){
+	//Create LP model
+	Solver<LP> mlp();
+	var<LP>{float} selLP[1..n](mlp,0..1); // release integrality
+	maximize<mlp> sum (i in 1..n) (usefulness[i]*selLP[i])	// max usefulness
+	subject to{
+	  mlp.post( sum (i in 1..n) (selLP[i]*weight[i]) <= b); // dont exceed capacity
+	} // solves itself, no need for a search
+	int ub = (int) round(sum(i in 1..n) (selLP[i].getValue()*usefulness[i])); // Extract UB
+	return ub;
+}

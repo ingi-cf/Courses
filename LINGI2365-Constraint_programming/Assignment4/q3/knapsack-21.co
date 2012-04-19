@@ -1,0 +1,83 @@
+// import the CP library
+import cotfd;
+
+int t0 = System.getCPUTime();
+
+
+// create the CP Solver 
+Solver<CP> cp();
+if(System.getArgs().getSize() != 4)
+{
+    cout<< "This program need 2 arguments, first a path to the item descriptions file and then a int representing the heuristic to use"<< endl;
+    System.exit(-1);
+}
+
+string fString = System.getArgs()[2];
+int heuristic = System.getArgs()[3].toInt();
+
+ifstream file(fString);
+
+int nbObjects    = file.getInt();
+
+range O         = 1..nbObjects;
+
+int oId[O];
+int oWeight[O];
+int oUsefullness[O];
+
+// Begin read file
+forall(o in O)
+{
+    oId[o] = file.getInt();
+    oWeight[o] = file.getInt();
+    oUsefullness[o] = file.getInt();
+}
+
+int knapsackCapacity = file.getInt();
+//end readfile
+
+
+var<CP>{int} objectsTaken[P](cp, 0..1);               //actual landing time
+
+
+
+maximize<cp>
+    sum(o in O)(objectsTaken[o]*oUsefullness[o])
+subject to{
+    cp.post(sum(o in O)(objectsTaken[o]*oWeight[o])<=knapsackCapacity)
+} using{
+    switch(heuristic){
+        case 0: 
+            labelFF(lTime);
+            break;
+        case 1:
+            forall (p in P: !lTime[p].bound()) by (delayCost[p])
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+        case 2:
+            forall (p in P: !lTime[p].bound()) by (indispTime[p])
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+        case 3:
+            forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
+                tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
+                {
+                    label(lTime[p], t);
+                } 
+    }
+}
+
+cout << objectsTaken << endl;
+forall (o in O)
+{
+    cout << "object " << oId[o] << (objectsTaken[o])?"taken ":"not taken " <<  "usefullness " << oUsefullness[o] << "weight " << oWeight[o] << endl;        
+}
+
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 << endl;
+cout << "#choices = " << cp.getNChoice() << endl;
+cout << "#fail    = " << cp.getNFail() << endl;
