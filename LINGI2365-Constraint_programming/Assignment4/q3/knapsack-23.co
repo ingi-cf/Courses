@@ -47,7 +47,8 @@ var<CP>{int} objectsTaken[O](cp, 0..1);               //actual landing time
 var<CP>{int} totalUsefullness(cp, 0..ub);            
 
 whenever cp.getSearchController()@onCompletion(){
-    ub := (int)ceil((lb+ub)/2 -1);
+    ub := (int)ceil((lb+ub)/2.0 -1);
+    cout << "restart 0" << endl;
     cp.reStart();
 }
 
@@ -58,6 +59,7 @@ whenever cp.getSearchController()@onFeasibleSolution(Solution s){
     else
     {
         lb := sum(o in O)(objectsTaken[o]*oUsefullness[o]);
+        cout << "restart 1" << endl;
         cp.reStart();
     }
 }
@@ -70,7 +72,7 @@ solve<cp>
 } using{
     cp.post(totalUsefullness <= ub);
     cp.post(totalUsefullness >= ceil((lb+ub)/2.0));
-    forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
+    forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
         tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
         {
             label(objectsTaken[o], v);

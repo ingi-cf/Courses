@@ -17,8 +17,8 @@ if(nbArgs < 4)
 }
 else
 {
-fString = System.getArgs()[nbArgs-2];
-heuristic = System.getArgs()[nbArgs-1].toInt();
+fString = System.getArgs()[nbArgs-1];
+heuristic = System.getArgs()[nbArgs-2].toInt();
 }
 /*
 fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q3/knapsackInstances/knapsack-B-3.txt";
@@ -98,6 +98,6 @@ forall (o in O)
 }
 
 int t1 = System.getCPUTime();
-cout << "time: " << t1 - t0 << endl;
+cout << "#time    = " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
 cout << "#fail    = " << cp.getTotalNumberFailures() << endl;
