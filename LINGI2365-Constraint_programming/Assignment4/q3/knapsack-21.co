@@ -81,7 +81,7 @@ subject to{
                 } 
                 break;
         case 4:
-            forall (o in O: !objectsTaken[o].bound())
+            forall (o in O: !objectsTaken[o].bound()) by (oId[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);

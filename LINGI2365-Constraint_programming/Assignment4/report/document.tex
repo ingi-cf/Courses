@@ -155,7 +155,7 @@ subject to{
 		Our fourth heuristic is a simple lexicographic one, it simply gets the objects in the same order as they are in the file. \\
 				Here is what we put in the using part of our comet program to use this heuristic :
 		\begin{lstlisting}
-			forall (o in O: !objectsTaken[o].bound())
+			forall (o in O: !objectsTaken[o].bound()) by (oId[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
@@ -164,6 +164,15 @@ subject to{
 	
 \end{itemize}
 \subsubsection{Heuristics tests} %also with labelFF
+
+We measured the performance of our different heuristics by looking at the time taken to find a solution and the total number of failures. Both show the same results so we will only include the graph of the times taken here, the horizontal axis contains the number of the file concerned and the vertical the time taken in milliseconds : 
+
+\begin{center}
+\includegraphics[width=\columnwidth]{q321timeA.png}%
+\end{center}
+
+The hierarchy is pretty clear, our first heuristic proves to be the most efficient, followed by the lexicographic and the labelFF. Then comes the second heuristic which is not efficient. \\ 
+And worst of all is the third heuristic, his disastrous results can be explained by the fact that in serie A the weights are the same value as the usefullness. In other words when we order by oUsefullness[o] it's as if we ordered by oWeight[o] which is the exact opposite of our best heuristic. 
 
 \subsection{Optimization over iterations} %5pt
 \subsubsection{Model}
