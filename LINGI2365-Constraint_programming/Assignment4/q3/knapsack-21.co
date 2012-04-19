@@ -7,14 +7,19 @@ int t0 = System.getCPUTime();
 // create the CP Solver 
 Solver<CP> cp();
 int nbArgs = System.getArgs().getSize() ;
+string fString;
+int heuristic;
 if(nbArgs < 4)
 {
     cout<< "This program need at least 2 arguments, first a path to the item descriptions file and then a int representing the heuristic to use"<< endl;
     System.exit(-1);
 }
+else
+{
+fString = System.getArgs()[nbArgs-2];
+heuristic = System.getArgs()[nbArgs-1].toInt();
+}
 
-string fString = System.getArgs()[nbArgs-2];
-int heuristic = System.getArgs()[nbArgs-1].toInt();
 
 ifstream file(fString);
 
@@ -38,7 +43,7 @@ int knapsackCapacity = file.getInt();
 //end readfile
 
 
-var<CP>{int} objectsTaken[O](cp, 0..1);               //actual landing time
+var<CP>{int} objectsTaken[O](cp, 0..1);         
 
 
 
@@ -53,7 +58,7 @@ subject to{
             break;
         case 1:
             forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
-                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
+                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
@@ -67,7 +72,7 @@ subject to{
                 break;
         case 3:
             forall (o in O: !objectsTaken[o].bound()) by (oWeight[o]/oUsefullness[o])
-                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v))
+                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 

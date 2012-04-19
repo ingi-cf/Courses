@@ -6,14 +6,20 @@ int t0 = System.getCPUTime();
 
 // create the CP Solver 
 Solver<CP> cp();
+string fString;
+int heuristic;
 if(System.getArgs().getSize() != 4)
 {
-    cout<< "This program need 2 arguments, first a path to the plane description file and then a int representing the heuristic to use"<< endl;
-    System.exit(-1);
+
+   fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q2/brussels.txt";
+   heuristic = 3;
+}
+else
+{
+fString = System.getArgs()[2];
+heuristic = System.getArgs()[3].toInt();
 }
 
-string fString = System.getArgs()[2];
-int heuristic = System.getArgs()[3].toInt();
 
 int maxdelay = 0;
 int maxPTime = -1;
@@ -70,28 +76,34 @@ subject to{
             break;
         case 1:
             forall (p in P: !lTime[p].bound()) by (delayCost[p])
+            {
                 tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
                 {
                     label(lTime[p], t);
                 } 
-                break;
+            }
+            break;
         case 2:
             forall (p in P: !lTime[p].bound()) by (indispTime[p])
+            {
                 tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
                 {
                     label(lTime[p], t);
                 } 
-                break;
+            }
+            break;
         case 3:
             forall (p in P: !lTime[p].bound()) by (lTime[p].getSize())
+            {
                 tryall<cp>(t in T: lTime[p].memberOf(t)) by (abs(t - prefLTime[p]))
                 {
                     label(lTime[p], t);
                 } 
-                break;
+            }
+            break;
     }
 }
-
+/*
 cout << lTime << endl;
 forall (p in P)
 {
@@ -101,8 +113,9 @@ forall (p in P)
 cout << "maxdelay" << maxdelay<< endl;
 cout << "maxPTime" << maxPTime<< endl;
 cout << "minPTime" << minPTime<< endl;
-
+*/
 int t1 = System.getCPUTime();
 cout << "time: " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
 cout << "#fail    = " << cp.getNFail() << endl;
+cout << "#choices+#fail    = " << cp.getNFail()+cp.getNChoice() << endl;
