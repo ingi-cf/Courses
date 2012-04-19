@@ -6,6 +6,11 @@ int t0 = System.getCPUTime();
 
 // create the CP Solver 
 Solver<CP> cp();
+if(System.getArgs().getSize() != 4)
+{
+    cout<< "This program need 2 arguments, first a path to the plane description file and then a int representing the heuristic to use"<< endl;
+    System.exit(-1);
+}
 
 string fString = System.getArgs()[2];
 int heuristic = System.getArgs()[3].toInt();
