@@ -83,6 +83,6 @@ solve<cp>
 //}
 cout << "objective :" << sum(o in O)(objectsTaken[o]*oUsefullness[o]) << endl;
 int t1 = System.getCPUTime();
-cout << "time: " << t1 - t0 << endl;
+cout << "#time    = " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
-cout << "#fail    = " << cp.getNFail() << endl;
+cout << "#fail    = " << cp.getTotalNumberFailures() << endl;

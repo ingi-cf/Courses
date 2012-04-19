@@ -11,13 +11,15 @@ string fString;
 int heuristic;
 if(nbArgs < 4)
 {
-    cout<< "This program need at least 2 arguments, first a path to the item descriptions file and then a int representing the heuristic to use"<< endl;
+    cout<< "This program need at least 2 arguments, first a int representing the heuristic to use and then  a path to the item descriptions file "<< endl;
     System.exit(-1);
 }
 else
 {
-fString = System.getArgs()[nbArgs-2];
-heuristic = System.getArgs()[nbArgs-1].toInt();
+fString = System.getArgs()[nbArgs-1];
+heuristic = System.getArgs()[nbArgs-2].toInt();
+cout << "fstring" << fString << endl;   
+cout << "heuristic" << heuristic << endl;
 }
 
 
@@ -64,7 +66,7 @@ subject to{
                 } 
                 break;
         case 2:
-            forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o]/oWeight[o])
+            forall (o in O: !objectsTaken[o].bound()) by ((0.0+oUsefullness[o])/oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
@@ -78,12 +80,13 @@ subject to{
                 } 
                 break;
         case 4:
+            labelFF(objectsTaken);
             break;
     }
 }
 
 cout << "objective :" << sum(o in O)(objectsTaken[o]*oUsefullness[o]) << endl;
 int t1 = System.getCPUTime();
-cout << "time: " << t1 - t0 << endl;
+cout << "#time    = " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
-cout << "#fail    = " << cp.getNFail() << endl;
+cout << "#fail    = " << cp.getTotalNumberFailures() << endl;
