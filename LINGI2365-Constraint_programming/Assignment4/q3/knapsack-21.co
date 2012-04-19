@@ -9,19 +9,20 @@ Solver<CP> cp();
 int nbArgs = System.getArgs().getSize() ;
 string fString;
 int heuristic;
+/*
 if(nbArgs < 4)
 {
-    cout<< "This program need at least 2 arguments, first a int representing the heuristic to use and then  a path to the item descriptions file "<< endl;
+    cout<< "This program need at least 2 arguments, first a path to the item descriptions file and then a int representing the heuristic to use"<< endl;
     System.exit(-1);
 }
 else
 {
-fString = System.getArgs()[nbArgs-1];
-heuristic = System.getArgs()[nbArgs-2].toInt();
-cout << "fstring" << fString << endl;   
-cout << "heuristic" << heuristic << endl;
+fString = System.getArgs()[nbArgs-2];
+heuristic = System.getArgs()[nbArgs-1].toInt();
 }
-
+*/
+fString = "D:/INFO21/git/courses/LINGI2365-Constraint_programming/Assignment4/q3/knapsackInstances/knapsack-B-1.txt";
+heuristic = 2;
 
 ifstream file(fString);
 
@@ -59,34 +60,44 @@ subject to{
             labelFF(objectsTaken);
             break;
         case 1:
-            forall (o in O: !objectsTaken[o].bound()) by (-oUsefullness[o])
+            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
                 break;
         case 2:
-            forall (o in O: !objectsTaken[o].bound()) by ((0.0+oUsefullness[o])/oWeight[o])
+            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o]/oUsefullness[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
                 break;
         case 3:
-            forall (o in O: !objectsTaken[o].bound()) by (oWeight[o]/oUsefullness[o])
+            forall (o in O: !objectsTaken[o].bound()) by (-oWeight[o])
                 tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
                 {
                     label(objectsTaken[o], v);
                 } 
                 break;
         case 4:
-            labelFF(objectsTaken);
-            break;
+            forall (o in O: !objectsTaken[o].bound()) by (oWeight[o]/oUsefullness[o])
+                tryall<cp>(v in 0..1: objectsTaken[o].memberOf(v)) by (-v)
+                {
+                    label(objectsTaken[o], v);
+                } 
+                break;
+           
     }
 }
 
-cout << "objective :" << sum(o in O)(objectsTaken[o]*oUsefullness[o]) << endl;
+cout << objectsTaken << endl;
+forall (o in O)
+{
+    cout << "object " << oId[o] << (objectsTaken[o] == 1)?" taken ":" not taken " <<  "usefullness " << oUsefullness[o] << " weight " << oWeight[o] << endl;        
+}
+
 int t1 = System.getCPUTime();
-cout << "#time    = " << t1 - t0 << endl;
+cout << "time: " << t1 - t0 << endl;
 cout << "#choices = " << cp.getNChoice() << endl;
-cout << "#fail    = " << cp.getTotalNumberFailures() << endl;
+cout << "#fail    = " << cp.getNFail() << endl;
