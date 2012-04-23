@@ -1,0 +1,5 @@
+-1 configure the router to access the net : separate wifi as lan and ethernet as wan and setup dhcp etc...
+-2 set iptables rules to redirect all traffic to router on 8080
+-3 start http serve ron 8080 on router
+-4 place a fake http fon page as index page for this server
+-5 change the url of the form to go to a cgi script of ours that writes the identifier sin a file and allows the client ip though our firewall

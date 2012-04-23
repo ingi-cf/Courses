@@ -1,0 +1,2049 @@
+@charset "utf-8";
+/* CSS Document */
+/*Start of Eric Meyer's reset styles*/
+html,body,div,span,
+applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,font,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+dd,dl,dt,li,ol,ul,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,
+input.submit, input.submit_disabled {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 100%;
+	line-height: 1;
+	font-family: inherit;
+	text-align: left;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+ol,ul {
+	list-style: none;
+}
+q:before,q:after,
+blockquote:before,blockquote:after {
+	content: "";
+}
+/*End of Eric Meyer's reset styles*/
+
+
+
+
+
+
+html { height: 100.1% }
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 75%;
+	margin: 0;
+	padding: 0;
+	background: #0d72b9 url(../../images/common/body_bg.png) repeat-x top left;
+	color: #666;
+}
+.email_warning strong {
+	font-size: 1.2em;
+	color: #000;
+}
+
+h1, h2, h3, h4, h5 {
+	font-weight: normal;
+}
+	
+/* Global stuff */
+
+h1,h2,h3,h4,h5,h6,p,form,table,tr,td,ul,li,em,strong,input {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.p0 {padding: 0px !important;}
+.p5 {padding: 5px !important;}
+.p10 {padding: 10px !important;}
+.p15 {padding: 15px !important;}
+.p20 {padding: 20px !important;}
+
+.pt5 {padding-top: 5px !important;}
+.pt10 {padding-top: 10px !important;}
+.pt15 {padding-top: 15px !important;}
+.pt20 {padding-top: 20px !important;}
+
+.pb5 {padding-bottom: 5px !important;}
+.pb10 {padding-bottom: 10px !important;}
+.pb15 {padding-bottom: 15px !important;}
+.pb20 {padding-bottom: 20px !important;}
+
+.pl5 {padding-left: 5px !important;}
+.pl10 {padding-left: 10px !important;}
+.pl15 {padding-left: 15px !important;}
+.pl20 {padding-left: 20px !important;}
+
+.pr5 {padding-right: 5px !important;}
+.pr10 {padding-right: 10px !important;}
+.pr15 {padding-right: 15px !important;}
+.pr20 {padding-right: 20px !important;}
+
+.m0 {margin: 0px !important;}
+.m5 {margin: 5px !important;}
+.m10 {margin: 10px !important;}
+.m15 {margin: 15px !important;}
+.m20 {margin: 20px !important;}
+
+.mt5 {margin-top: 5px !important;}
+.mt10 {margin-top: 10px !important;}
+.mt15 {margin-top: 15px !important;}
+.mt20 {margin-top: 20px !important;}
+
+.mb5 {margin-bottom: 5px !important;}
+.mb10 {margin-bottom: 10px !important;}
+.mb15 {margin-bottom: 15px !important;}
+.mb20 {margin-bottom: 20px !important;}
+
+.ml5 {margin-left: 5px !important;}
+.ml10 {margin-left: 10px !important;}
+.ml15 {margin-left: 15px !important;}
+.ml20 {margin-left: 20px !important;}
+
+.mr5 {margin-right: 5px !important;}
+.mr10 {margin-right: 10px !important;}
+.mr15 {margin-right: 15px !important;}
+.mr20 {margin-right: 20px !important;}
+
+.no_r_m { margin-right: 0 !important }
+.no_r_p { padding-right: 0 !important }
+.no_r_b { border-right: 0 !important }
+
+.clearfix { height: 1%; clear: both !important; float: none !important }
+.rel { position: relative }
+.abs { position: absolute }
+.fleft { float: left }
+.fright { float: right }
+.vert_m { vertical-align: middle; }
+.clear { clear: both; }
+
+img { border: none; }
+
+.yellow { color: #FFA02F !important; }
+.blue { color: #005293 !important; }
+
+a { color: #e86c1f; text-decoration: underline; }
+a:hover { text-decoration: none; }
+
+.small { font-size: smaller}
+.large { font-size: larger }
+
+
+/*========================================================================
+GENERAL TABLES START
+========================================================================*/
+
+.generalTable {
+	clear: both;
+}
+.generalTable table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.generalTable th {
+	font-size: 1.1em;
+	padding: 5px;
+	background-color: #f2f2f2;
+ 	color: #FBB034;
+	font-weight: bold;
+	text-align: left;
+}
+.generalTable tr.odd {
+	background-color: #f2f2f2;
+}
+.generalTable td {
+	padding: 5px;
+}
+.generalTable  td.noData,
+.generalTable  td.nodata {
+	text-align: center;
+}
+
+
+/*========================================================================
+GENERAL TABLES END
+========================================================================*/
+
+
+.box {
+	clear: both;
+	margin-bottom: 10px;
+	background: url(../../images/common/300BoxWhiteTop.png) no-repeat left top;
+	position: relative;
+}
+.box .inner {
+	width: 260px;
+	padding: 20px;
+	background: url(../../images/common/300BoxWhiteBottom.png) no-repeat left bottom;
+	position: relative;
+}
+.box h3 {
+	font-size: 1.5em;
+	color: #e86c1f;
+	display: block;
+	padding: 0 0 10px;
+}
+.add {
+	display: block;
+	padding: 2px 0 2px 20px;
+	background: url(http://www.fon.com/en/main/error404) no-repeat left center;
+}
+
+
+
+
+/* Layout */
+
+div.container { 
+	width: 770px; 
+	margin: 12px auto 0 auto;
+	background: #fff url(../../images/common/container_top.png) top left no-repeat;
+	position: relative;
+}
+input.submit {
+	display: block;
+	background: url(../../images/common/login_button.png);
+	width: 86px;
+	height: 27px; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	float: right;
+}
+input.submit_disabled {
+	display: block;
+	background: url(../../images/common/login_button_grey.png);
+	width: 86px;
+	height: 27px; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: auto;
+	text-align: center;
+	float: right;
+}
+input.text {
+}
+.launch_browser {
+	display: block;
+	background: url(../../images/common/launch_browser_button.png);
+	width: 150px;
+	height: 20px;
+	padding: 7px 0 0; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+.launch_browser_disabled {
+	display: block;
+	background: url(../../images/common/launch_browser_button_grey.png);
+	width: 150px;
+	height: 20px;
+	padding: 7px 0 0; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: auto;
+	text-align: center;
+	text-decoration: none;
+}
+.checkout {
+	display: block;
+	background: url(http://www.fon.com/en/main/error404);
+	width: 198px;
+	height: 20px;
+	padding: 7px 0 0 7px; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+	text-decoration: none;
+}
+.off .checkout {
+	background: url(http://www.fon.com/en/main/error404);
+	cursor: default;
+	color: #cfcfcf;
+}
+.change {
+	display: block;
+	background: url(http://www.fon.com/en/main/error404);
+	width: 80px;
+	height: 16px;
+	padding: 4px 0 0; 
+	color: #4e4e4e; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+.cancel {
+	display: block;
+	background: url(http://www.fon.com/en/main/error404);
+	width: 80px;
+	height: 18px;
+	padding: 9px 0 0; 
+	color: #4e4e4e; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+.continue {
+	display: block;
+	background: url(../../images/common/login_button.png);
+	width: 86px;
+	height: 20px;
+	padding: 7px 0 0; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+.button_container {
+	clear: both;
+}
+input.submit:hover,
+.launch_browser:hover,
+.continue:hover,
+.buy:hover {
+	text-decoration: underline;
+}
+.form_error {
+	color: #FF0000;
+	margin-bottom: 5px;
+}
+#form_error_messages,
+.form_error_messages {
+	border: 1px solid #ff0000;
+	padding: 5px 5px 5px 20px;
+	color: #FF0000;
+	margin-bottom: 5px;
+}
+#form_error_messages li,
+.form_error_messages li {
+	line-height: 1.2em;
+	list-style-type: disc;
+	list-style-position: outside;
+}
+#form_error_messages p,
+.form_error_messages p {
+	line-height: 1.2em;
+}
+
+.col1 {
+	float: left;
+	width: 210px;
+}
+.col2 {
+	float: right;
+	width: 230px;
+	padding-left: 50px;
+	padding-right: 70px;
+	border-left: 1px solid #dfdfdf;
+}
+.agreement,
+.col2 .submit {
+	margin-right: 20px;
+}
+legend {
+	font-size: 1.5em;
+	color: #e86c1f;
+	display: block;
+	padding: 10px 0;
+}
+label span {
+	color: #F00;
+}
+.agreement {
+	clear: both;
+	padding: 10px 0;
+}
+.agreement label {
+	line-height: 1.2em;
+}
+.captcha_container {
+	margin-top: 5px;
+}
+.action_link {
+	text-align: right;
+}
+legend a {
+	font-size: 0.7em;
+	padding-left: 1em;
+}
+
+/*====================
+INFO BOX START
+====================*/
+.infoBox {
+	width: 360px;
+	position: absolute;
+	left: 195px;
+	bottom: 20px;
+	z-index: 1000;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	background: url(../../images/common/boxBlack360t.png) no-repeat left top;
+}
+.infoBox .inner {
+	padding: 10px 8px 5px;
+	position: relative;
+	bottom: -10px;
+	background: url(../../images/common/boxBlack360b.png) no-repeat left bottom;
+	color: #FFF;
+}
+.infoBox .close {
+	position: absolute;
+	top: -5px;
+	right: 8px;
+	cursor: pointer;
+	color: #aaa;
+}
+.infoBox .close:hover {
+	text-decoration: underline;
+}
+.infoBox h2 {
+	font-size: 1.8em;
+	margin-bottom: 1em;
+	/*color: #e85200;*/
+}
+.infoBox li {
+	text-indent: 1em;
+	margin-bottom: 1em;
+}
+.infoBox .new_user {
+	width: 280px;
+	margin: 0 auto;
+}
+.infoBox label span {
+	color: #fff;
+}
+
+.infoBox p,
+.infoBox li {
+	line-height: 1.2em;
+}
+.infoBox p {
+	margin-bottom: 1em;
+}
+/*====================
+INFO BOX END
+====================*/
+
+/*====================
+HEADER MODULE START
+====================*/
+div.header {
+	position: relative;
+	padding: 20px 20px 5px 20px;
+}
+div.header img.logo {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+div.header h1 {
+	font-size: 2.3em;
+	font-weight: bold;
+	color: #e86c1f;
+}
+div.header h2 {
+	margin-top: 15px;
+	font-size: 2em;
+	font-weight: normal;
+}
+div.header h2 small {
+	font-size: 0.7em;
+	margin-left: 20px;
+}
+div.header h3 {
+	margin-top: 15px;
+	font-size: 1.4em;
+	font-weight: normal;
+	line-height: 1.2em;
+}
+/*====================
+HEADER MODULE END
+====================*/
+
+
+/*====================
+PRICES MODULE START
+====================*/
+div.prices {	
+	background: #e86c1f url(../../images/common/pricing_bg.png) repeat-x;
+	color: #fff;
+	text-align: center;
+	height: 200px;
+	padding: 10px 0;
+}
+
+div.pricing-info {
+	position: relative;
+	float: left;
+	width: 250px;
+	border-right: 2px #fff dotted;
+	height: 170px;
+	padding: 30px 0 0 0;
+}
+
+div.prd1items .pricing-info {
+	width: 768px;
+}
+div.prd1items .pricing-info a.buy {
+	left: 323px;
+}
+
+div.prd2items .pricing-info {
+	width: 384px;
+}
+div.prd2items .pricing-info a.buy {
+	left: 131px;
+}
+
+div.prd1items .first,
+div.prd1items .second,
+div.prd2items .first {
+	display: none;
+}
+
+div.pricing-info.third {
+	border-right: none;
+}
+
+div.pricing-info small {
+	font-size: 0.5em;
+	display: block;
+	text-align: center;
+	line-height: 0.5em;
+}
+div.pricing-info h3 {
+	font-size: 2.5em;
+	line-height: 1em;
+	margin-bottom: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+div.pricing-info h4 {
+	font-size: 3.2em;
+	line-height: 1em;
+	font-weight: bold;
+	text-align: center;
+}
+div.pricing-info h4 em {
+	font-size: 0.4em;
+	font-style: normal;
+	display: block;
+	line-height: 1em;
+	margin-bottom: 5px;
+	font-weight: bold;
+	text-align: center;
+}
+
+div.pricing-info h4 small {
+	font-size: 0.4em;
+	padding-top: 10px;
+} 
+div.pricing-info p {
+	margin-bottom: 10px;
+}
+div.pricing-info a.buy {
+	display: block;
+	width:123px;
+	height:24px;
+	background: #efefef url(../../images/common/btn_pricing-info.png) no-repeat center center;
+	color: #6f6f6f;
+	font-weight: bold;
+	font-size: 1.2em;
+	padding: 9px 0 0 0;
+	text-decoration: none;
+	text-align: center;
+	/*margin: 30px auto 0;*/
+	position: absolute;
+	bottom: 15px;
+	left: 65px;
+}
+div.pricing-info a.buy:hover {
+	text-decoration: underline;
+}
+/*====================
+PRICES MODULE END
+====================*/
+
+
+/*====================
+CONTENT SECTION START
+====================*/
+div#content {
+	padding: 40px;
+	position: relative;
+	width: 690px;
+	/*border-bottom: 1px dashed #B5B5B5;*/
+}
+div#content #more_products {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	color: #e86c1f;
+}
+div#content p,
+div#content li {
+	line-height: 1.2em;
+}
+div#content p {
+	margin-bottom: 1em;
+}
+#captive_portal div#content {
+	padding: 0;
+	width: 770px;
+	background: url(../../images/common/250px_gray_bg.png) repeat-y left;
+}
+#choose_access div#content,
+#choose_pass div#content {
+	padding: 20px 20px 40px;
+	width: 730px;
+}
+/*====================
+CONTENT SECTION END
+====================*/
+
+
+/*====================
+LOGIN MODULE START
+====================*/
+div.login {
+	width: 210px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	margin-right: 20px;
+	float: left;
+}
+div.login h4 {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+	color: #9d9d9d;
+}
+div.login h4 strong {
+	color: #666;
+}
+div.login form {
+	float: left;
+	border-bottom: 1px dashed #b5b5b5;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+div.input_text_frame {
+	background: url(../../images/common/input_text_bg.png) no-repeat;
+	height: 18px;
+	padding: 4px 0 8px 6px;
+	margin: 2px 0 5px;
+}
+div.input_text_frame input,
+div.input_text_frame select {
+	background: #fff url(../../images/common/white_pixel.png);
+	border: none;
+	width: 200px;
+	margin: 0 5px 5px 0;
+	float: left;
+}
+div.input_text_frame input:focus,
+div.input_text_frame select:focus {
+	outline: 0 none;
+}
+div.input_text_frame img {
+	float: right;
+}
+div.login form a.help {
+	margin-top: 5px;
+	float: left;
+}
+div.login form .submit {
+	margin-top: 5px;
+	float: right;
+	clear: both;
+}
+div.login form .submit:hover {
+	text-decoration: underline;
+}
+div.remember_me {
+	padding: 5px 0;
+	clear: both;
+	text-align: right;
+}
+div.remember_me_jp,
+div.warning_jp {
+	padding: 5px 0;
+	clear: both;
+}
+div.partner_login {
+	clear: both;
+	border-bottom: 1px dashed #b5b5b5;
+	padding-bottom: 15px;
+	margin-bottom: 10px;
+}
+div.other_options a {
+	display: block;
+	background: url(../../images/common/long_button_bg.png) no-repeat;
+	width: 210px;
+	margin: 0 auto 10px; 
+	height: 29px; 
+	line-height: 29px; 
+	text-align: center;
+	color: #4e4e4e;
+	text-decoration: none;
+}
+div.other_options a:hover {
+	text-decoration: underline;
+}
+/*====================
+LOGIN MODULE END
+====================*/
+
+
+/*====================
+NO PASSES MODULE START
+====================*/
+div.no_passes {
+	width: 210px;
+	padding: 20px 20px 50px 20px;
+	margin-right: 20px;
+	float: left;
+	background: #f2f2f2 url(../../images/common/back_up.png) no-repeat 120px bottom;
+}
+div.no_passes h4 {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+	color: #9d9d9d;
+	margin-bottom: 1em;
+}
+div.no_passes h4 strong {
+	color: #666;
+}
+div.no_passes p {
+	line-height: 1.2em;
+	margin-bottom: 1em;
+}
+/*====================
+NO PASSES MODULE END
+====================*/
+
+
+/*====================
+HAS PASSES MODULE START
+====================*/
+div.has_passes {
+	width: 190px;
+	padding: 20px 40px 20px 20px;
+	margin-right: 20px;
+	float: left;
+}
+div.has_passes h4 {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+	color: #9d9d9d;
+	margin-bottom: 1em;
+}
+div.has_passes h4 strong {
+	color: #666;
+}
+div.has_passes p,
+div.has_passes ul {
+	line-height: 1.2em;
+	margin-bottom: 1em;
+}
+div.has_passes p.timer strong {
+	display: block;
+	font-size: 1.5em;
+}
+div.has_passes a.continue {
+	float: right;
+}
+div.has_passes #existing_passes,
+div.has_passes #prepaid_wifi {
+	margin-bottom: 30px;
+}
+div.has_passes #existing_passes h2,
+div.has_passes #prepaid_wifi h2 {
+	font-size: 1.2em;
+	color: #666;
+	font-weight: bold;
+	padding: 2px 0 2px 30px;
+	padding-left: 30px;
+	margin-bottom: 10px;
+	background: url(../../images/common/grey_tick.png) no-repeat left center;
+}
+div.has_passes #existing_passes ul,
+div.has_passes #prepaid_wifi ul {
+	padding-left: 30px;
+}
+div.has_passes #existing_passes ul li {
+	margin-bottom: 5px;
+}
+/*====================
+HAS PASSES MODULE END
+====================*/
+
+
+/*====================
+OPEN SESSION MODULE START
+====================*/
+div.open_session {
+	width: 190px;
+	padding: 20px 40px 20px 20px;
+	margin-right: 20px;
+	float: left;
+}
+div.open_session h4 {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+	color: #9d9d9d;
+	margin-bottom: 1em;
+}
+div.open_session h4 strong {
+	color: #666;
+}
+div.open_session p {
+	line-height: 1.2em;
+	margin-bottom: 1em;
+}
+div.open_session p.timer strong {
+	display: block;
+	font-size: 1.5em;
+}
+div.open_session a.launch_browser {
+	float: right;
+}
+/*====================
+OPEN SESSION MODULE END
+====================*/
+
+
+/*====================
+FON's OWN MODULE START
+====================*/
+div.module_fon {
+	width: 460px;
+	float: right;
+	padding: 30px 20px 250px 0;
+	margin-bottom: 20px;
+	background: url(../../images/common/into_the_world.png) no-repeat 50px bottom;
+}
+div.module_fon h2 {
+	font-weight: bold;
+	font-size: 2em;
+	color: #0d72b9;
+	padding: 0 30px;
+}
+/*====================
+FON's OWN MODULE END
+====================*/
+
+
+/*====================
+FON's GOOGLE SEARCH START
+====================*/
+div#google_search {
+	width: 460px;
+	height:312px;
+	float: right;
+	padding: 30px 20px 0 0;
+}
+div#google_search form {
+	width: 275px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+div#google_search .ds{
+	border-bottom:solid 1px #e7e7e7;
+	border-right:solid 1px #e7e7e7;
+	display:inline-block;
+	height:32px;
+	margin-top: 3px;
+	margin-right: 3px;
+	margin-bottom: 4px;
+	margin-left: 4px;
+}
+
+div#google_search .lsbb{
+	background:#eee;
+	border:solid 1px;
+	border-color:#ccc #999 #999 #ccc;
+	height:30px;
+	display:block;
+}
+
+div#google_search .lsb{
+	background:url(http://www.fon.com/en/main/error404) bottom;
+	font:15px arial,sans-serif;
+	border:none;
+	cursor:pointer;
+	display:block;
+	margin-right:auto;
+	margin-left:auto;
+	outline:0;
+	margin-top:4px;
+}
+
+div#google_search .lsb:active{
+	background:#ccc
+
+}
+div#google_search .campo{
+	width:275px;
+	margin-bottom:10px;
+}
+
+div#google_search #logoyformulario {
+	height: 150px;
+	width: 275px;
+}
+
+div#google_search #logoyformulario a img {
+	padding-bottom: 15px;
+}	
+
+div#google_search #boton{
+	width:160px;
+	margin-left:auto;
+	margin-right:auto;
+}
+/*====================
+FON's GOOGLE SEARCH END
+====================*/
+
+
+/*====================
+FONERO's CUSTOM MODULE START
+====================*/
+div.module_fonero {
+	width: 730px;
+	float: left;
+	padding: 20px;
+}
+#content div.module_fonero {
+	width: 460px;
+	float: right;
+	padding: 30px 20px 20px 0;
+}
+div.module_fonero h2 {
+	color: #0d72b9;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+div.module_fonero #photo {
+	width: 208px;
+	float: left;
+	height: 155px;
+	overflow: hidden;
+	margin-right: 20px;
+	border: 1px solid #999;
+	background: #fff;
+}
+div.module_fonero #video {
+	width: 210px;
+	float: left;
+	height: 157px;
+	overflow: hidden;
+}
+div.module_fonero #text {
+	padding: 0 0 0 20px;
+	float: left;
+}
+#content div.module_fonero #text {
+	clear: both;
+	padding: 30px 0;
+	width: auto;
+	float: none;
+}
+div.module_fonero #text h3 {
+	margin-bottom: 5px;
+	font-size: 1.2em;
+}
+div.module_fonero #text p {
+	margin-top: 15px;
+}
+/*====================
+FONERO's CUSTOM MODULE END
+====================*/
+
+
+/*====================
+HORIZONTAL BANNER MODULE START
+====================*/
+div.banner_horizontal {
+	width: 730px;
+	padding: 20px;
+	clear: both;
+}
+div.banner_horizontal.full_width {
+	width: 100%;
+	padding: 0;
+	border-top: 1px dashed #b5b5b5;
+	clear: both;
+}
+/*====================
+HORIZONTAL BANNER MODULE END
+====================*/
+
+
+/*====================
+FOOTER MODULE START
+====================*/
+div.footer {
+	clear: both;
+	width: 770px;
+	padding-top: 10px;
+	border-top: 1px dashed #b5b5b5;
+	background: url(../../images/common/container_bottom.png) no-repeat left bottom;
+	margin-bottom: 0;
+}
+div.footer a.help {
+	float: right;
+	margin: 10px 20px 10px 0;
+}
+div.footer a.button {
+	display: block;
+	float: left;
+	background: url(../../images/common/btn_white_right.png) no-repeat right center;
+	text-decoration: none;
+	margin: 10px 0 10px 20px;
+}
+div.footer a.button strong {
+	display: block;
+	height: 19px;
+	padding: 6px 5px 0;
+	font-weight: bold;
+	background: url(../../images/common/btn_white_left.png) no-repeat left center;
+}
+div.footer a.button.help {
+	float: right;
+	margin: 10px 20px 10px 0;
+}
+div.footer a.button.help strong {
+	background: url(../../images/common/btn_white_help_left.png) no-repeat left center;
+	padding-left: 24px;
+}
+div.footer .investors {
+	float: left;
+	clear: both;
+	margin: 10px 0 10px 20px;
+}
+div.footer .investors h5 {
+	display: block;
+	float: left;
+	padding: 10px 10px 0 0;
+}
+div.footer .clearfix {
+	padding-bottom: 10px;
+}
+/*====================
+FOOTER MODULE END
+====================*/
+
+
+/*====================
+UNDER FOOTER MODULE START
+====================*/
+div.under_footer {
+	width: 750px;
+	margin: 0 auto;
+	color: #fff;
+	font-size: 0.8em;
+	padding: 10px 20px 20px;
+}
+div.under_footer ul li {
+	float: left;
+	/*border-right: 1px solid #fff;*/
+	padding: 0 10px;
+}
+	
+div.under_footer ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+	
+div.under_footer ul li a:hover {
+	text-decoration: underline;
+}
+div.under_footer .methods_of_payment p {
+	text-align: right;
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+div.under_footer .methods_of_payment p img {
+	vertical-align: middle;
+}
+/*====================
+UNDER FOOTER MODULE END
+====================*/
+
+
+/*====================
+GENERAL FORMS START
+====================*/
+
+fieldset#login .submit {
+	float: right;
+}
+p#registered_with_card {
+	margin-top: 125px;
+	margin-bottom: 5px;
+}
+fieldset#payment_options {
+	margin-bottom: 10px;
+	width: 210px;
+}
+fieldset#payment_options2 {
+	display: none;
+}
+#payment_options label {
+	display: block;
+	margin-bottom: 5px;
+	/*border: 1px solid #f00;*/
+}
+#payment_options input {
+	margin-bottom: 2px;
+}
+#payment_options img {
+	margin: 0 5px;
+	vertical-align: bottom;
+}
+
+/*====================
+STEPS HEADER MODULE START
+====================*/
+.steps div.header {
+	padding: 40px 20px 20px 35px;
+	background: #f2f2f2 url(../../images/common/container_top_steps.png) no-repeat left top;
+}
+.steps div.header h1 {
+	font-weight: normal;
+}
+.steps div.header h1 strong {
+	color: #0d72b9;
+}
+
+
+/*====================
+STEPS LIST MODULE START
+====================*/
+ol.steps {
+	display: block;
+	background-color: #f2f2f2;
+	height: 70px;
+	position: relative;
+	padding-left: 35px;
+}
+ol.steps li {
+	display: block;
+	float: left;
+	width: 180px;
+	padding: 20px 0 20px 65px;
+	position: relative;
+	font-size: 1.6em;
+	/*border: 1px solid #FF0000;*/
+}
+ol.steps li strong {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 12px 18px 8px 18px;
+	font-size: 1.8em;
+	font-weight: bold;
+	display: block;
+	background: url(../../images/common/step_num_bg_unselected.png) no-repeat left top;
+}
+
+#login_or_register ol.steps li.step1 strong,
+#complete_info ol.steps li.step1 strong,
+#choose_payment_method ol.steps li.step2 strong,
+#pay_by_credit_card ol.steps li.step2 strong,
+#pay_by_sms ol.steps li.step2 strong,
+#waiting ol.steps li.step2 strong,
+#watch_video ol.steps li.step2 strong,
+#enter_promocode ol.steps li.step2 strong,
+#prepaid_wifi ol.steps li.step2 strong,
+#start_surfing ol.steps li.step3 strong,
+#personal_information ol.steps li.step1 strong,
+#personal_payment ol.steps li.step2 strong {
+	color: #fff;
+	background: url(../../images/common/step_num_bg_selected.png) no-repeat left top;
+}
+
+
+/*===============
+Login or register
+===============*/
+#login_or_register .col2 {
+	margin-top: 3em;
+}
+
+
+/*===============
+Choose payment method
+===============*/
+#choose_payment_method #payment_options {
+	width: 350px;
+	margin: auto;
+}
+#choose_payment_method #payment_options .row {
+	padding-top: 5px;
+	border-top: 1px solid #CCC;
+	margin-top: 5px;
+	clear: both;
+}
+#choose_payment_method #payment_options label {
+	clear: both;
+	height: 24px;
+}
+#choose_payment_method #payment_options label input {
+	float: left;
+	display: block;
+	margin-top: 6px;
+	margin-right: 10px;
+}
+#choose_payment_method #payment_options label strong {
+	float: left;
+	display: block;
+	line-height: 24px;
+}
+#choose_payment_method #payment_options label img {
+	float: right;
+	display: block;
+}
+
+
+/*===============
+Pay by SMS
+===============*/
+#pay_by_sms #peekABoo {
+	margin-top: 20px;
+}
+#pay_by_sms #peekABoo h2 {
+	color: #e86c1f;
+	font-size: 2em;
+}
+#pay_by_sms #peekABoo ol {
+	margin-bottom: 20px;
+	color: #e86c1f;
+}
+#pay_by_sms #peekABoo ol li {
+	list-style: outside decimal;
+	font-size: 1.3em;
+	margin-left: 20px;
+	line-height: 1.3em;
+}
+*+html #pay_by_sms #peekABoo ol li {
+	margin-left: 25px;
+}
+#pay_by_sms #peekABoo ol li strong {
+	color: #0d72b9;
+}
+#pay_by_sms .instructions {
+	margin-bottom: 30px;
+}
+#pay_by_sms #smsCode {
+	width: 210px;
+}
+
+
+
+
+/*===============
+Enter Promocode
+===============*/
+#enter_promocode .captcha_container {
+	margin-bottom: 10px;
+}
+
+
+
+
+/*===============
+WiFi Ads
+===============*/
+#watch_video h2 {
+	font-size: 1.5em;
+}
+#watch_video h2.no_ads {
+	color: #f00;
+}
+#watch_video .ads {
+	width: 425px;
+	margin: 0 auto;
+}
+
+
+
+
+/*===============
+Enter Promocode
+===============*/
+.col3 {
+	width: 230px;
+	padding-right: 70px;
+	border-left: 1px solid #dfdfdf;
+	float: left;
+	padding-left: 0;
+	border: none;
+	margin-left: 50px;
+}
+.col3 .agreement,
+.col3 .submit {
+	margin-right: 20px;
+}
+
+
+
+/*===============
+Prepaid WiFi
+===============*/
+#prepaid_wifi ol.steps {
+	/*display: none;*/
+}
+#prepaid_wifi .col1 {
+	width: 300px;
+}
+#prepaid_wifi fieldset.ammount {
+}
+#prepaid_wifi legend a {
+	font-size: 0.7em;
+	padding-left: 1em;
+}
+#prepaid_wifi .choice li {
+	font-size: 1.5em;
+	color: #000;
+}
+#prepaid_wifi fieldset#ammount #credit_payment {
+	width: 270px;
+	margin: 10px 0;
+}
+#prepaid_wifi fieldset#ammount #credit_payment thead {
+	display: none;
+}
+#prepaid_wifi fieldset#ammount #credit_payment td {
+	font-size: 1.1em;
+	padding: 2px;
+}
+#prepaid_wifi fieldset#ammount #credit_payment td.concept {
+}
+#prepaid_wifi fieldset#ammount #credit_payment td.charge {
+	text-align: right;
+}
+#auto_recharge {
+	background: url(../../images/common/300BoxGrayTop.png) no-repeat left top;
+}
+#auto_recharge .inner {
+	background: url(../../images/common/300BoxGrayBottom.png) no-repeat left bottom;
+	padding-bottom: 10px;
+}
+
+#free_credit h2 {
+	color: #0d72b9;
+	font-weight: bold;
+	font-size: 1.4em;
+}
+#free_credit .inner {
+	padding-bottom: 30px;
+}
+#free_credit h2.label {
+	float: left;
+}
+#free_credit h2.ammount {
+	float: right;
+	color: #000;
+}
+#free_credit p {
+	clear: both;
+}
+#prepaid_wifi .col2 {
+	width: 300px;
+	border: none;
+	padding-right: 0;
+}
+
+
+
+/*===============
+Choose access and Choose pass
+===============*/
+#choose_access h3,
+#choose_pass h3 {
+	font-size: 1.5em;
+	letter-spacing: 0.1em;
+	margin-bottom: 10px;
+}
+#choose_access .action_link a,
+#choose_pass .action_link a {
+	margin-left: 50px;
+}
+#choose_access .group,
+#choose_pass .group {
+	clear: both;
+	margin-bottom: 10px;
+	background: url(../../images/common/passBoxGrayTop.png) no-repeat left top;
+	position: relative;
+}
+#choose_access .first,
+#choose_pass .first {
+	background: url(../../images/common/passBoxWhiteTop.png) no-repeat left top;
+}
+#choose_access .group .inner,
+#choose_pass .group .inner {
+	width: 690px;
+	padding: 20px;
+	background: url(../../images/common/passBoxGrayBottom.png) no-repeat left bottom;
+	position: relative;
+}
+#choose_access .first .inner,
+#choose_pass .first .inner {
+	background: url(../../images/common/passBoxWhiteBottom.png) no-repeat left bottom;
+}
+#choose_access .group .subgroup,
+#choose_pass .group .subgroup {
+	float: left;
+	width: 330px;
+	padding: 5px 10px 5px 0;
+}
+#choose_access .group .single,
+#choose_pass .group .single {
+	width: 500px;
+}
+#choose_access .group h2,
+#choose_pass .group h2 {
+	color: #e86c1f;
+	font-weight: bold;
+	font-size: 1.8em;
+	margin-bottom: 15px;
+}
+#choose_access .first h2,
+#choose_pass .first h2 {
+	/*font-size: 2.2em;*/
+}
+#choose_access .group h3,
+#choose_pass .group h3 {
+	font-size: 1.3em;
+	letter-spacing: normal;
+	font-weight: bold;
+	height: 30px;
+}
+#choose_access .group h3 small,
+#choose_pass .group h3 small {
+	font-size: 0.8em;
+	font-weight: normal;
+}
+#choose_access .group p,
+#choose_pass .group p {
+	font-size: 1.1em;
+	font-weight: bold;
+	letter-spacing: 0.01em;
+}
+#choose_access .group li,
+#choose_pass .group li {
+	display: block;
+	float: left;
+	clear: both;
+	margin-bottom: 10px;
+	width: 330px;
+	position: relative;
+}
+#choose_access .group li img,
+#choose_pass .group li img {
+	position: absolute;
+	right: -5px;
+	top: -25px;
+	z-index: 100;
+}
+#choose_access .group .single li,
+#choose_pass .group .single li {
+	/*width: 500px;*/
+}
+#choose_access .group .single li p,
+#choose_pass .group .single li p {
+	position: absolute;
+	left: 340px;
+	top: -2px;
+	width: 340px;
+	font-weight: normal;
+}
+#choose_access .group li span,
+#choose_pass .group li span,
+#choose_pass .group li label {
+	display: block;
+	float: left;
+	padding-top: 7px; 
+	font-weight: bold;
+}
+#choose_access .group li .concept,
+#choose_pass .group li .concept {
+	width: 130px;
+	font-size: 1.5em;
+	padding-top: 6px;
+	color: #0d72b9;
+}
+#choose_access .group li .price,
+#choose_pass .group li .remaining {
+	width: 80px;
+	font-size: 1.6em;
+	padding-top: 5px;
+	padding-right: 12px;
+	text-align: right; 
+}
+#choose_access .group .single li .price {
+	/*width: 80px;
+	padding-right: 180px;*/ 
+}
+#choose_access #prepaid_wifi_module h3,
+#choose_pass #prepaid_wifi_module h3 { 
+	height: auto;
+	margin-bottom: 5px;
+}
+#choose_access #prepaid_wifi_module li .price,
+#choose_pass #prepaid_wifi_module li .price {
+}
+#choose_access #prepaid_wifi_module li .price small,
+#choose_pass #prepaid_wifi_module li .price small {
+	display: block;
+	text-align: right;
+	font-size: 0.8em;
+}
+#choose_access #prepaid_wifi_module p small {
+	font-size: 0.8em;
+}
+#choose_access .group .text,
+#choose_pass .group .text {
+	padding-top: 15px;
+}
+#choose_access .group .subgroup a.buy,
+#choose_pass .group .subgroup a.buy {
+	display: block;
+	float: left;
+	background: url(../../images/common/login_button.png);
+	width: 86px;
+	height: 20px;
+	padding: 7px 0 0; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+}
+#choose_access .group .subgroup a.buy:hover,
+#choose_pass .group .subgroup a.buy:hover {
+	text-decoration: underline;
+}
+
+
+
+/*===============
+Choose pass
+===============*/
+#choose_pass .group #existing_passes {
+	width: 250px;
+	margin-right: 80px;
+}
+		* html #choose_pass .group #existing_passes {
+			margin-right: 0px;
+		}
+#choose_pass .group #existing_passes li .concept {
+	width: 250px;
+	
+}
+#choose_pass .group #prepaid_wifi {
+	
+}
+#choose_pass .group #prepaid_wifi li .concept,
+#choose_pass .group #prepaid_wifi li .remaining {
+	display: inline;
+	width: auto;
+	margin-right: 10px;
+}
+#choose_pass .group #prepaid_wifi li .remaining {
+	font-size: 1.5em;
+}
+#choose_pass .group #prepaid_wifi input.submit {
+	margin-top: 5.8em;
+}
+
+
+
+
+/*===============
+Waiting Room
+===============*/
+#waiting h2 {
+	font-size: 1.5em;
+	margin-bottom: 1em;
+}
+#waiting #passes_purchase_error h2 {
+	color: #F00;
+}
+#waiting #waiting_room h2 {
+	background: url(../../images/common/waiting.gif) no-repeat center bottom;
+	padding-bottom: 150px;
+}
+
+
+
+
+/*===============
+Start Surfing
+===============*/
+#start_surfing h2 {
+	font-size: 1.5em;
+	color: #e86c1f;
+	margin-bottom: 1em;
+}
+#start_surfing p.timer {
+	margin-bottom: 2em;
+}
+#start_surfing #cTimerSplash {
+	font-size: 1.8em;
+	background: #fff;
+	border: none;
+	width: 90px;
+	width: 100px;
+	width: 150px;
+}
+#start_surfing p.tip {
+	width: 300px;
+}
+#start_surfing .launch_browser {
+	margin-bottom: 80px;
+	margin-right: 15px;
+	float: left;
+}
+#start_surfing .infoBox h2 {
+	color: #fff;
+}
+
+
+
+
+/*===============
+Sorry Blacklisted
+===============*/
+#blacklisted .launch_browser {
+	margin: 0 auto 20px;
+}
+#blacklisted .promo {
+	margin: 0 auto 20px;
+}
+
+
+
+
+/*===============
+Pages in shop
+===============*/
+.shop div#content {
+	padding: 20px 40px;
+}
+.shop h3 {
+	font-size: 1.5em;
+	color: #e86c1f;
+	display: block;
+	padding: 0 0 10px;
+}
+.shop h4 {
+	font-weight: bold;
+}
+.shop small {
+	font-size: 0.9em;
+}
+.shop .basket {
+	padding: 0 20px;
+	padding: 0;
+}
+.shop .basket .box {
+	background: url(../../images/common/300BoxGrayTop.png) no-repeat left top;
+	float: right;
+}
+.shop .basket .box .inner {
+	background: url(../../images/common/300BoxGrayBottom.png) no-repeat left bottom;
+}
+.shop .basket .box img.extra_product {
+	float: left;
+	margin-right: 5px;
+}
+.shop .basket_propper {
+	float: left;
+}
+.shop .basket_propper .chosen_product {
+	float: left;
+}
+.shop .basket_propper table {
+	float: left;
+	color: #4d4d4d;
+	font-size: 1.1em;
+	width: 223px;
+	margin-bottom: 15px;
+}
+.shop .basket_propper table td {
+	padding: 5px;
+}
+.shop .basket_propper table td.price {
+	text-align: right;
+}
+.shop .basket_propper table .product {
+	font-size: 1.2em;
+}
+.shop .basket_propper table .product td {
+	font-weight: bold;
+	padding: 5px 5px 15px 5px;
+}
+.shop .basket_propper table tfoot td {
+	border-top: 1px solid #c9c9c9;
+	border-bottom: 1px solid #c9c9c9;
+	color: #E86C1F;
+	padding: 8px 5px;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.shop .basket_propper table tfoot td.trash {
+	border-top: none;
+	border-bottom: none;
+}
+.shop .basket_propper .last_word {
+	 clear: both;
+	 padding-left: 72px;
+}
+.shop .payment_method {
+	 float: right;
+	 margin: 5px 0 10px 0;
+}
+.shop .payment_method h4 {
+	margin-bottom: 5px;
+}
+.shop #content .payment_method p {
+	margin-bottom: 5px;
+}
+.shop .payment_method input {
+	margin-top: 7px;
+}
+.shop .payment_method img {
+	vertical-align: top;
+}
+.shop .payment_method label img {
+	margin: 0 10px 0 5px;
+}
+.shop .payment_method label.last img {
+	margin-right: 0;
+}
+
+*+html .shop .payment_method label img {
+	margin: 0 5px 0 2px;
+} /* Filtered for IE7 */
+*+html .shop .payment_method input {
+	margin-top: 3px;
+} /* Filtered for IE7 */
+
+.shop .commit_container {
+	clear: both;
+}
+.shop .commit_container .on {
+	background: url(http://www.fon.com/en/main/error404) no-repeat left center;
+	padding-left: 30px;
+	float: right;
+	width: 205px;
+}
+.shop .commit_container .checkout {
+	float: right;
+}
+.shop .commit_container .off p {
+	text-align: right;
+	padding: 5px 0 0 0;
+	color: #f00;
+}
+.shop .commit_container .off .checkout {
+	margin-left: 5px;
+}
+.shop .fpp_error {
+	color: #F00;
+	padding-bottom: 5px;
+}
+.shop .already_member {
+	background: url(http://www.fon.com/en/main/error404) no-repeat center top;
+	margin-top: 15px;
+	padding-top: 15px;
+	clear: both;
+}
+.shop .already_member .block {
+	float: left;
+	width: 220px;
+	margin-bottom: 15px;
+}
+.shop .already_member .block.commit_container {
+	width: 190px;
+	clear: none;
+}
+.shop .already_member input.submit,
+.shop .already_member input.submit_disabled {
+	float: left;
+	margin-top: 14px;
+	margin-right: 10px;
+}
+.shop .already_member .remember_me {
+	float: left;
+	clear: none;
+	margin-top: 14px;
+}
+.shop .already_member .remember_me .small {
+	display: block;
+}
+.shop .already_member .inner,
+.shop .new_user .inner {
+	padding: 0 0 0 20px;
+}
+.shop .new_user {
+	background: url(http://www.fon.com/en/main/error404) no-repeat center top;
+	padding-top: 15px;
+	clear: both;
+}
+.shop .new_user .col1 {
+	width: 280px;
+}
+.shop .new_user .col2 {
+	width: 280px;
+	border: none;
+	padding: 0;
+}
+.shop .new_user div.input_text_frame {
+	background: url(../../images/common/input_text_bg_260.png) no-repeat;
+	height: 18px;
+	padding: 4px 0 8px 6px;
+	margin: 2px 0 5px;
+}
+.shop .new_user div.input_text_frame input,
+.shop .new_user div.input_text_frame select {
+	width: 250px;
+}
+.shop .new_user .region {
+	float: left;
+	width: 160px;
+}
+.shop .new_user .region div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+}
+.shop .new_user .region div.input_text_frame input {
+	width: 120px;
+}
+.shop .new_user .post_code {
+	float: left;
+	width: 120px;
+}
+.shop .new_user .post_code div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+}
+.shop .new_user .post_code div.input_text_frame input {
+	width: 90px;
+}
+.shop .new_user input.submit,
+.shop .new_user input.submit_disabled {
+	margin-right: 20px;
+}
+.shop .welcome_back {
+	background: url(http://www.fon.com/en/main/error404) no-repeat center top;
+	margin-top: 15px;
+	padding-top: 15px;
+	clear: both;
+}
+.shop .welcome_back h3 span.identity {
+	color: #4e4e4e;
+}
+.shop .welcome_back .col1 {
+	width: 280px;
+}
+.shop .welcome_back .col2 {
+	width: 280px;
+	border: none;
+	padding: 0;
+}
+.shop div#content .welcome_back .col1 li,
+.shop div#content .welcome_back .col2 li {
+	line-height: 1.5em;
+}
+.shop .welcome_back h3 {
+	position: relative;
+	padding-right: 70px;
+}
+.shop .welcome_back .col1 h3 .change,
+.shop .welcome_back .col2 h3 .change {
+	font-size: 0.7em;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.shop .infoBox .new_user {
+	background: none;
+	padding-top: 0;
+}
+.shop .infoBox .button_container {
+	padding: 10px 0 20px;
+}
+.shop .infoBox input.submit {
+	display: block;
+	background: url(http://www.fon.com/en/main/error404);
+	width: 170px;
+	height: 27px; 
+	color: #fff; 
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	float: right;
+}
+.shop .infoBox#shippingAddressChange,
+.shop .infoBox#billingAddressChange {
+	bottom: 0;
+}
+.shop#start_surfing .launch_browser {
+	margin: 90px auto;
+}
+.shop .infoBox .new_user div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+}
+.shop .infoBox .new_user .region div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+}
+.shop .infoBox .new_user .post_code div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+}
+
+
+.shop#personal_payment .basket_propper {
+	float: right;
+	width: 295px;
+}
+.shop .payment_info {
+	float: left;
+	margin-bottom: 10px;
+	width: 365px;
+}
+.shop .payment_info .inner {
+	border-right: 1px dashed #666;
+}
+.shop .payment_info .payment_info_type {
+	clear: both;
+}
+.shop .payment_info #pre_existing h4 {
+	font-size: 1.4em;
+	margin: 0 0 15px 20px;
+}
+.shop .payment_info .block {
+	float: left;
+	clear: both;
+	width: 365px;
+}
+.shop .payment_info .payment_info_type label {
+	margin-top: 10px;
+}
+.shop .payment_info .payment_info_type label.radio {
+	margin: 0 0 10px 0;
+	display: block;
+}
+.shop .payment_info #non_existing label {
+	float: left;
+	display: block;
+	width: 130px;
+}
+.shop .payment_info #non_existing .save_card_number label {
+	width: 355px;
+	text-align: right;
+	padding-right: 10px;
+}
+.shop .payment_info #non_existing div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+	width: 100px;
+	float: left;
+}
+.shop .payment_info #non_existing div.input_text_frame input,
+.shop .payment_info #non_existing div.input_text_frame select {
+	width: 90px;
+}
+.shop .payment_info #non_existing .card_holder div.input_text_frame,
+.shop .payment_info #non_existing .card_number div.input_text_frame {
+	background: url(http://www.fon.com/en/main/error404) no-repeat;
+	width: 210px;
+	float: left;
+}
+.shop .payment_info #non_existing .card_holder div.input_text_frame input,
+.shop .payment_info #non_existing .card_holder div.input_text_frame select,
+.shop .payment_info #non_existing .card_number div.input_text_frame input,
+.shop .payment_info #non_existing .card_number div.input_text_frame select {
+	width: 200px;
+}
+.shop .payment_info #non_existing .card_issue_number small {
+	padding-top: 5px;
+	display: block;
+}
+
+
+/*====================
+COMSTAR SPECIAL
+====================*/
+#comstar_cp div.header img.logo {
+	top: 30px;
+	width: 150px;
+}
+div.comstar_masthead {	
+	background: #e86c1f url(../../images/common/comstar_cp_bg.png) repeat-x;
+	color: #fff;
+	text-align: center;
+	height: 200px;
+	padding: 11px 0;
+}
+div#comstar_iframe_container {
+	float: right;
+	padding: 7px 20px 0 0;
+}
+div#comstar_iframe_container #comstar_iframe {
+	width: 480px;
+	height:410px;
+}
+div.single_column.comstar_cp {
+	background: #efefef;
+	padding-bottom: 20px;
+}
+div.comstar_cp .login {
+	float: none;
+	margin: 0 auto;
+		background: #efefef;
+}
+div.comstar_cp .login form {
+	float: none;
+	margin: 0 auto;
+	border: 0;
+}
+div.comstar_cp .masthead img {
+	display: block;
+	margin: 0 auto;
+	padding-top: 15px;
+}
+
+
