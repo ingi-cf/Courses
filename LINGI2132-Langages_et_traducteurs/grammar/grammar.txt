@@ -1,0 +1,70 @@
+//Postal grammar
+<S> ::= <block code>
+
+<statement> ::= <message sending> ;
+| <assignment expression> ;
+| return <element> ;
+| <while statement>
+| <if statement>
+| <class>
+
+<message> ::= {IDENTIFIER <comma first element list>}
+<message sending> ::= <element> MSA <message> //MSA = message send arrow
+
+<element list> ::= <element> <comma first element list>
+<comma first element list> ::= | ,<element> <comma first element list>
+
+<boolean value> ::= true | false
+
+<tuple> ::= [] | [<element list>]
+
+<element> ::= IDENTIFIER
+|<message sending>
+|<instantiation>
+//| \{<digits>\}
+| <boolean value>
+| <operation>
+| <message>
+| <tuple>
+| # | self | super
+| <element>.IDENTIFIER
+
+
+<operation> ::= <element> <binary operator> <element>
+| <unary operator> <element>
+| (<operation>)
+
+<binary operator> ::= + | - | * | / | % 
+| <= | => | < | > | == | != 
+| and | or
+
+<unary operator> ::= ! | - 
+
+<instantiation> ::= CLASSIDENTIFIER MSA {new <comma first element list>}
+
+
+<assignment expression> ::= IDENTIFIER = <element>
+
+//here is wrong don't know how to represent comment
+<comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
+
+<block code> ::= | <statement> <block code> | <comment> <block code>
+
+<while statement> ::= while ( <element> )  {<block code>}
+
+<if statement> ::= if ( <element> )  {<block code>}
+
+
+
+
+<class> ::= class CLASSIDENTIFIER <extends> { <class body> }
+<extends> ::= | identifier CLASSIDENTIFIER
+
+
+<class body> ::= {<attributes declaration>} {<messages declaration>}
+<attributes declaration> ::= | <attribute declaration> <attributes declaration>
+<messages declaration> ::= | <message declaration> <messages declaration>
+
+<message declaration> ::= def  {IDENTIFIER <comma first element list>} {<block code>}
+
+<attribute declaration> ::= IDENTIFIER ;
