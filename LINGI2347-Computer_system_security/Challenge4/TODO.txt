@@ -1,0 +1,4 @@
+-change error 404 page to redirect to index.html on busybox, httpd.conf doesn't seem to work
+-better storage than a simple file ?
+-redirect to another page than fon ?
+-WTF https works thourhg the global redirection from the firewall...check for udp or other

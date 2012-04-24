@@ -1,0 +1,287 @@
+/*================================================================================================================================================
+
+
+			STYLE SHEET TO DEAL WITH INTERNET EXPLORER CAVEATS AND INCONSISTENCIES FOR FON WEBSITE
+
+
+================================================================================================================================================*/
+
+
+
+/*========================================================================
+MAIN INDEX START
+========================================================================*/
+* html .main #section3 .doubleSubsection {
+	margin-left: 7px;
+}
+* html .main #section3 .subsection {
+	margin-left: 1px;
+}
+/*========================================================================
+MAIN INDEX
+========================================================================*/
+
+
+
+
+/*========================================================================
+SMS VERIFICATION START
+========================================================================*/
+* html #smsVerification {
+	position: absolute;
+}
+/*========================================================================
+SMS VERIFICATION END
+========================================================================*/
+
+
+
+/*========================================================================
+USERZONE HIDDEN LAYER START
+========================================================================*/
+* html div#uz_hidden {
+	z-index: 200;
+	position: absolute;
+	border: 3px solid #F49B10;
+	background-color: white;
+	width: 750px;
+	top: auto;
+	bottom: auto;
+}
+* html div#uz_hidden img {
+	margin-right: -10px;
+}
+*+html div#uz_hidden div#inner {
+	overflow-y: scroll;
+}
+*+html div#uz_hidden div#inner>div {
+	width: 728px;
+}
+/*========================================================================
+USERZONE HIDDEN LAYER END
+========================================================================*/
+
+
+
+/*========================================================================
+UPPER AREA START
+========================================================================*/
+* html #cTimer {
+	padding-bottom: 2px;
+}
+/*========================================================================
+UPPER AREA END
+========================================================================*/
+
+
+
+/*========================================================================
+userzone_configure_router START
+========================================================================*/
+* html .userzone .configure_router div#uz_hidden {
+	bottom: 200px;
+}
+/*========================================================================
+userzone_configure_router END
+========================================================================*/
+
+
+
+/*========================================================================
+userzone_userzone_connection_log START
+========================================================================*/	
+*+html .userzone .userzone_connection_log .routerInstance .table {
+	overflow-y: scroll;
+}
+*+html .userzone .userzone_connection_log .routerInstance .table>table {
+	width: 728px;
+}
+/*========================================================================
+userzone_userzone_connection_log END
+========================================================================*/
+
+
+
+/*========================================================================
+MESSAGES SENDER START
+========================================================================*/
+* html #messageSender #msg_to0 .auto_complete {
+	left: 210px;
+}
+*+html #messageSender #msg_to0 .auto_complete {
+	left: 233px;
+}
+* html #messageSender .auto_complete {
+	left: 210px;
+	top: 1px;
+}
+*+html #messageSender .auto_complete {
+	left: 233px;
+	top: 1px;
+}
+* html #messageSender .auto_complete ul {
+	border-top: 2px solid #fbb034;
+	height: 100px;
+}
+*+html #messageSender .auto_complete ul {
+	border-top: 2px solid #fbb034;
+}
+* html #messageSender #moreOrLess {
+	margin-top: -18px;
+}
+/*========================================================================
+MESSAGES SENDER END
+========================================================================*/
+
+
+
+/*========================================================================
+USERZONE MESSAGES start
+========================================================================*/
+*html .userzone .messages .tabs ul {
+	margin-bottom: -0.1em;
+}
+* html .userzone .messages #contacts #fonerasSelector label {
+	vertical-align: bottom;
+}
+*+html .userzone .messages #contacts #fonerasSelector label {
+	vertical-align: bottom;
+}
+* html .userzone .messages #contacts div#moreContacts #foundUsers {
+	margin-left: 18px;
+}
+
+* html .userzone .messages #contacts #mapTools #messagesMapLegend {
+	top: 60px;
+	left:350px;
+}
+*+html .userzone .messages #contacts #mapTools #messagesMapLegend {
+	top: 60px;
+	left:350px;
+}
+/*=========================================================================
+USERZONE MESSAGES END
+=========================================================================*/
+
+
+
+/*=========================================================================
+USERZONE MY PERSONAL INFO start
+=========================================================================*/
+* html .userzone .my_personal_info .tabs ul {
+	margin-bottom: -0.1em;
+}
+* html .userzone .my_personal_info #public_profile form#form_user_profile {
+	margin-left: 63px;
+}
+* html .userzone .my_personal_info #public_profile form#form_user_profile #save input.submit {
+	margin-right: 150px;
+}
+*+html .userzone .my_personal_info #public_profile form#form_user_profile #save input.submit {
+	margin-right: 150px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #linus {
+	margin-left: 125px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #linus input {
+	margin: 8px;
+}
+*+html .userzone .my_personal_info #change_profile form#form_user_profile #linus input {
+	margin: 8px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #bill {
+	margin-left: 125px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #bill input {
+	margin: 8px;
+}
+*+html .userzone .my_personal_info #change_profile form#form_user_profile #bill input {
+	margin: 8px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #paypalBox {
+	margin-left: 125px;
+}
+* html .userzone .my_personal_info #change_profile form#form_user_profile #buttonHolder {
+	margin-left: 150px;
+}
+*+html .userzone .my_personal_info #change_profile form#form_user_profile #buttonHolder {
+	margin-left: 200px;
+}
+/*=========================================================================
+USERZONE MY PERSONAL INFO END
+=========================================================================*/
+
+
+
+/*=========================================================================
+USERZONE ROUTER PROFILE START
+=========================================================================*/
+*html .userzone .router_profile .tabs ul {
+	margin-bottom: -0.1em;
+}
+* html .userzone .router_profile #location form#form_router_profile #publicPlaceSelector ul {
+	margin: 0 auto 20px;
+}
+*+html .userzone .router_profile #location form#form_router_profile #publicPlaceSelector ul {
+	margin: 0 auto 20px;
+}
+* html .userzone .router_profile #location form#form_router_profile #publicPlaceSelector ul li {
+	margin: 2px;
+}
+* html .userzone .router_profile #friendsAndFamily form#form_router_profile .line {
+	margin-left: 62px;
+}
+* html .userzone .router_profile #access_portal .field img {
+	vertical-align: bottom;
+}
+*+html .userzone .router_profile #access_portal .field img {
+	vertical-align: bottom;
+}
+* html .userzone .router_profile #access_portal #greeting #inner {
+	 margin-bottom: 10px;
+}
+*+html .userzone .router_profile #access_portal #greeting #inner {
+	 margin-bottom: 10px;
+}
+* html .userzone .router_profile #access_portal #greeting #inner .form_error {
+	left: 0;
+}
+/*===========================================================================
+USERZONE ROUTER PROFILE END
+===========================================================================*/
+
+
+
+/*=========================================================================
+USERZONE REGISTER AP START
+=========================================================================*/
+* html .userzone .register_ap #addressDetails .line label {
+	width: 200px;
+}
+/*===========================================================================
+USERZONE REGISTER AP END
+===========================================================================*/
+
+
+
+/*=========================================================================
+ACCESS INDEX START
+=========================================================================*/
+* html .access .index #redeemPromoCode {
+	margin: 0 5px 0 45px;
+}
+/*===========================================================================
+ACCESS INDEX END
+===========================================================================*/
+
+
+
+/*=========================================================================
+ACCESS BY PROMOCODE START
+=========================================================================*/
+* html .access .accessByPromocode #promoCodes .button {
+	right: 80px;
+}
+/*===========================================================================
+ACCESS BY PROMOCODE END
+===========================================================================*/
