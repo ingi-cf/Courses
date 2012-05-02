@@ -1,0 +1,37 @@
+\documentclass{eplDoc}
+\usepackage{placeins}
+
+
+\newcommand{\docType}	{Assignment 3 : Semantic word clustering}
+\newcommand{\docDate}	{03/05/2012}
+\newcommand{\docAuthor}	{gr10 : Mulders Corentin, Pelsser Francois}
+\newcommand{\courseCode}{LINGI2263}
+\newcommand{\courseName}{Computational linguistics}
+\usepackage{syntax}
+\begin{document}
+\maketitle
+\newpage
+
+\section{Global architecture}
+
+Our program is composed of three parts : 
+\begin{enumerate}
+	\item Lemmatization and part of speech tagging (tag.py)
+	\item Filtering of stop words and stop part-of-speech tags (filter.py)
+	\item Clustering  %TODO py name
+\end{enumerate}
+
+The first two parts do the preprocessing on the text files. The first one takes a definitions file as input and produces a file with words in the definitions tagged with a part-of-speech tag and lemmatized. The second takes a file with tagged definitions and removes words that match either a stop word or a stop tag. \\ 
+
+The third part is the main part, it takes a preprocessed file as input and produces an output file with the culsters of words. 
+
+\section{Discussion on the results}
+
+\subsection{Results depending on the value of K}
+
+\subsection{How to automate the evaluation of the quality of the clustering} %and ressources needed
+
+\subsection{Possible ways to enhance our results} % and reason for error sin our results
+
+
+\end{document}
