@@ -1,6 +1,7 @@
 import sys
 from dictionary import Dictionary
 from definition import Definition
+import skmean
 
 if len(sys.argv) < 3:
     print("This script takes 2 arguments the definition file and the cluster file paths\n")
@@ -31,4 +32,4 @@ def_file.close()
 for d in dico.getDefs().values():
     d.computeTFIDFV(dico.getIDF())
 
-
+print(skmean.skmean(dico.getAllTFIDFV(),1000))

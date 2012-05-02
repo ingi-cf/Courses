@@ -30,3 +30,9 @@ class Dictionary:
 
     def getDefs(self):
         return self.defs
+
+    def getAllTFIDFV(self):
+        tfidfvs = {}
+        for k,v in self.defs.items():
+            tfidfvs[k] = v.getTFIDFV()
+        return tfidfvs
