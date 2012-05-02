@@ -22,7 +22,7 @@ def filter(source_file_name, stopwords, stopposes):
         
         #remove stop words
         for stopword in stopwords:
-            definition = re.sub("<\w+>"+stopword,"",definition).strip()
+            definition = re.sub("<\w+>"+stopword+"(?= )","",definition).strip()
             
         #remove words with a stop POS
         for stoppos in stopposes:
