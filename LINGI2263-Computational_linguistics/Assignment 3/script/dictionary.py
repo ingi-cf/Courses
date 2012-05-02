@@ -1,21 +1,32 @@
-import Dictionary
-
+import math
 class Dictionary:
     
-    definitions = None;
+    defs        = None;
     def_with_w  = None;     #number of definition in wich each word appears
+    idf         = None;
 
     def __init__(self):
-        self.definitions = {}
+        self.defs = {}
         self.def_with_w = {}
 
 
-    def insert(self,definition):
+    def insert(self,adef):
         #add all words of the definition in the count of number of definition per word
-        for w in definition.defWords():
-            if w not in def_with_w:
-                def_with_w[w] = 0
-            def_with_w[w] += 1
+        for w in adef.defWords():
+            if w not in self.def_with_w:
+                self.def_with_w[w] = 0
+            self.def_with_w[w] += 1
+        self.defs[adef.wDefined()] = adef
 
-        definitions{definition.wDefined()} = definition
-        
+    def computeIDF(self):
+        self.idf = {}
+        for w in self.def_with_w.keys():
+            self.idf[w] = math.log(len(self.defs) / self.def_with_w[w])
+
+    def getIDF(self):
+        if self.idf==None:
+            self.computeIDF()
+        return self.idf
+
+    def getDefs(self):
+        return self.defs
