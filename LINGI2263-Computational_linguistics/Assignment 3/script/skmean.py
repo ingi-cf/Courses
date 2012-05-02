@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import math
+=======
+import math, time
+>>>>>>> optimized
 
 def tfidfAddTo(a,b):
     """
@@ -15,8 +19,14 @@ def sim(a,b):
     compute the similitude between 2 unit-length tf-idf vector
     """
     s = 0
+<<<<<<< HEAD
     for w in set.intersection(set(a.keys()), b.keys()):
         s += a[w]*b[w]
+=======
+    for w in a:
+        if w in b:
+            s += a[w]*b[w]
+>>>>>>> optimized
     return s
 
 def assign(cv,x):
@@ -109,8 +119,7 @@ def skmean(x,k):
         print("time elapsed to assign : " + str( elapsed))
         print("estimation start")
         cv = centroidEstimation(y,k,x)
-        print(y)
     clusters = [None] * k
     for i in range(k):
-        cluster[i] = list(l for l, v in y.items() if v == i) 
+        clusters[i] = list(l for l, v in y.items() if v == i) 
     return clusters
