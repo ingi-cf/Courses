@@ -112,5 +112,5 @@ def skmean(x,k):
         cv = centroidEstimation(y,k,x)
     clusters = [None] * k
     for i in range(k):
-        cluster[i] = list(l for l, v in y.items() if v == i) 
+        clusters[i] = list(l for l, v in y.items() if v == i) 
     return clusters
