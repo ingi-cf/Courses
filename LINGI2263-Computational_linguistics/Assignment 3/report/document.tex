@@ -25,11 +25,30 @@ The first two parts do the preprocessing on the text files. The first one takes 
 
 The third part is the main part, it takes a preprocessed file as input and produces an output file with the culsters of words. 
 
+\subsection{Lemmatization and part of speech tagging}
+This part of the program uses TreeTagger to tag and lemmatize the definitions.
+
+\subsubsection{Filtering of stop words and stop part-of-speech tags}
+
+We filter the stop words from a common stop words list that we retrieved on the internet. \\ 
+We also filter words based on some POS tags : 
+\begin{itemize}
+	\item CC, that are the coordinating conjunctions.
+	\item DT, the determiners.
+	\item IN, the prepositions or subordinating conjunctions.
+	\item SENT, the end of sentences.
+\end{itemize}
+
 \section{Discussion on the results}
 
 \subsection{Results depending on the value of K}
+For very small values of K the results don't seem better at all since all the words are put in huge cluster in which they don't seem to be related at all. However when the value of K approaches the number of words the quality of the results deteriorate since we get clusters with only one or two words. \\ 
+
+The values of K that seemed to be the best to us are values around 1000-1500. We get clusters containing around 15 words that seem to belogn together. We will chose the values of $K=1000$ and $K=1500$, the reason is that below 1000 we get too big clusters with a high rate of occurences of unrelated words being put together. And above 1500 the clusters get too small and we begin to have a lot of cluster scontaining only one word. \\ 
+The results for those two values are available in the attached files. 
 
 \subsection{How to automate the evaluation of the quality of the clustering} %and ressources needed
+
 
 \subsection{Possible ways to enhance our results} % and reason for error sin our results
 
