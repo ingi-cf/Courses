@@ -8,7 +8,7 @@ stopwords = [",", ";", "a","able","about","across","after","all","almost","also"
 stopposes = ["DT", "SENT", ",", "IN", "CC"]
 
 def filter(source_file_name, stopwords, stopposes):
-    dest_file_name = "filtered_"+source_file_name
+    dest_file_name = source_file_name+"_filtered"
     dest = []
     
     source_file = open(source_file_name, 'r')
@@ -35,5 +35,5 @@ def filter(source_file_name, stopwords, stopposes):
     dest_file.write('\n'.join(dest))
     dest_file.close()
     source_file.close()
-    
-filter(source_file_name, stopwords, stopposes)
+if __name__ == "__main__":
+    filter(source_file_name, stopwords, stopposes)

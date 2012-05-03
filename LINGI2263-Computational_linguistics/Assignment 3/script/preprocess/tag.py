@@ -19,7 +19,7 @@ if(len(sys.argv)>2):
     treetagger = sys.argv[2]
 
 def tag(source_file_name, treetagger):
-    dest_file_name = "tagged_"+source_file_name
+    dest_file_name = source_file_name+"_tagged"
 
     tmp_file_name = "tmp"
     tmp_out_file_name = "tmp_out"
@@ -65,5 +65,5 @@ def tag(source_file_name, treetagger):
     dest_file.write('\n'.join(dest))
     dest_file.close()
     source_file.close()
-    
-tag(source_file_name, treetagger)
+if __name__ == "__main__":
+    tag(source_file_name, treetagger)

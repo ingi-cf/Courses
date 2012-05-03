@@ -18,8 +18,10 @@ Our program is composed of three parts :
 \begin{enumerate}
 	\item Lemmatization and part of speech tagging (tag.py)
 	\item Filtering of stop words and stop part-of-speech tags (filter.py)
-	\item Clustering  %TODO py name
+	\item Clustering (cluster.py) 
 \end{enumerate}
+
+Each of these parts can be executed separately to perform its task or the three can be used as a whole using semantic_words_clustering.py. \\ 
 
 The first two parts do the preprocessing on the text files. The first one takes a definitions file as input and produces a file with words in the definitions tagged with a part-of-speech tag and lemmatized. The second takes a file with tagged definitions and removes words that match either a stop word or a stop tag. \\ 
 
@@ -58,10 +60,24 @@ The values of K that seemed to be the best to us are values around 1000-1500. We
 The results for those two values are available in the attached files. 
 
 \subsection{How to automate the evaluation of the quality of the clustering} %and ressources needed
-We could use thematic dictionaris and synonym dictionaries.  Then look how many synonys are in the same cluster and how many are in different, or how is the probability to 2 words from the same theme to be in the same cluster.
+We could use a them based words database and synonym dictionaries. Or use a different clustering algorithm or use the same algorithm with more extensive definitions. \\ 
+Then we might use this as a reference to check whether or not a word in a cluster belongs with the other members of the cluster and count the number of misplaced words which would give us an evaluation of how bad our results are. 
 
 
 \subsection{Possible ways to enhance our results} % and reason for error sin our results
 We could use more sources.  We have definitions with only one word.  This is not very representative.  We could also add the defined word to its definition.
+
+\section{How to use our program}
+To use our program you need to have installed TreeTagger and made sure it works on your platform. The TreeTagger executable (the script that can be called with only an input file and an output file, not the main executable) must either have the standard name for windows or linux and be in the path or be specified in the command line to our program. \\ 
+The program detects if the input file is already tagged to avoid doing the preprocessing twice by searching for the key "tagged" in the file name. \\ 
+The value of K for the algorithm can be specified and is set to 1500 by default. \\
+You also need python 3 to use our program. \\ 
+Here is the syntax to us eour program : 
+\lstset{breaklines=true}
+\begin{lstlisting}
+python semantic_words_clustering.py definitions_file clusters_file [k_value [treetagger_executabe]]
+\end{lstlisting}
+
+
 
 \end{document}
