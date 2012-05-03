@@ -8,7 +8,7 @@ python tag.py [[input file] treetagger executable]
 if platform.system() == "Windows":
     treetagger = "tag-english"
 else:
-    treetagger = "cmd/tree-tagger-english"
+    treetagger = "tree-tagger-english"
 
 
 source_file_name = "definitions-6914.csv"
@@ -44,9 +44,12 @@ def tag(source_file_name, treetagger):
             tmp_file.close()
             
             #execute treetagger on tmp file
-            command = treetagger + " " + tmp_file_name + " " + tmp_out_file_name      
             if i%100==0:
                 print(str(i)+" definitions tagged")
+            if platform.system() == "Windows":
+                command = treetagger + " " + tmp_file_name + " " + tmp_out_file_name      
+            else:
+                command = treetagger + " " + tmp_file_name + ">" + tmp_out_file_name      
             os.system(command)
                 
             #get tagged definition from file

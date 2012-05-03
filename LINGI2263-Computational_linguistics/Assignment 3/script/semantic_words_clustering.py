@@ -25,7 +25,7 @@ print("Starting : \n\tdef file \t : " + source_file_name + "\n\tclusters file\t 
 if len(sys.argv) > 3:
     nbCLusters = int(sys.argv[3])
 if len(sys.argv) > 4:
-    treetagger = int(sys.argv[4])
+    treetagger = sys.argv[4]
         
 if not re.match(".*tagged.*",source_file_name):
     preprocess.tag.tag(source_file_name, treetagger)
