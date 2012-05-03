@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import math
-=======
 import math, time
->>>>>>> optimized
 
 def tfidfAddTo(a,b):
     """
@@ -19,14 +15,9 @@ def sim(a,b):
     compute the similitude between 2 unit-length tf-idf vector
     """
     s = 0
-<<<<<<< HEAD
-    for w in set.intersection(set(a.keys()), b.keys()):
-        s += a[w]*b[w]
-=======
     for w in a:
         if w in b:
             s += a[w]*b[w]
->>>>>>> optimized
     return s
 
 def assign(cv,x):
@@ -55,23 +46,6 @@ def assign(cv,x):
     return y
 
 
-def cvStop(cv1,cv2,threshold):
-    """
-    return true if the difference between cv1 and cv2 is smaller than the threshold
-    """
-    s = 0
-    for i in range(len(cv1)):
-        a = cv1[i]
-        b = cv2[i]
-        for w in set.union(set(a.keys()), b.keys()):
-            if w in a : va = a[w] 
-            else : va = 0
-            if w in b : vb = b[w] 
-            else : vb = 0
-            s += (va-vb)**2
-            if(s>threshold):
-                return False
-    return True
 
 
 def centroidEstimation(y,k,x):
@@ -104,15 +78,14 @@ def skmean(x,k):
     #cv are the centroids vectors
     cv = [None] * k
     cv = list(x.values())[0:k]
-
-    cv_old = list(cv)
-    cv_old[0] = {'toenter':1}
+    y = []
+    y_old = [1]
     it = 0
-    while not cvStop(cv_old,cv,10**-4):
+    while y_old != y:
         print('iteration '+ str(it))
         it+=1
-        cv_old = list(cv)
         print("assign start")
+        y_old = dict(y)
         start = time.time()
         y = assign(cv,x)
         elapsed = (time.time() - start)
