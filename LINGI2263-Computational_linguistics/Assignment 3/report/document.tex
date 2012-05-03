@@ -26,22 +26,23 @@ The first two parts do the preprocessing on the text files. The first one takes 
 The third part is the main part, it takes a preprocessed file as input and produces an output file with the culsters of words. \\
 
 This part is composed of two datastructures (definition and dictionary) one computation file (skmean) and the file that launch everything (cluster)\\
+We wanted cluster to be or launched automatically after the preprocess or alone (to avoid preprocessing every time).  This allow to test multiple K.
 First cluster read the preprocessed file, create a definition object for every definition and add it in dictionary.
 Then the dictionary compute the idf vector and the definition objects compute the whole tf-idf vector for every definition.
 \\
 Everything is then passed to the skmean algorithm which compute the different clusters.\\
 One particularity of our implementation is that the tf-idf are stored as dictionaries which allow to save memory because a definition only contains few words from the whole vocabulary.
 \\
-We decided to initialise the k centroid vectors with the k first definition vectors.
+We decided to initialise the k centroid vectors with the k first definition vectors.  In this way we are sure that there is no empty clusters wich could lead to additive iteration needed.
 
 \section{Discussion on the results}
 
 \subsection{Results depending on the value of K}
 
 \subsection{How to automate the evaluation of the quality of the clustering} %and ressources needed
-
+We could use thematic dictionaris and synonym dictionaries.  Then look how many synonys are in the same cluster and how many are in different, or how is the probability to 2 words from the same theme to be in the same cluster.
 
 \subsection{Possible ways to enhance our results} % and reason for error sin our results
-
+We could use more sources.  We have definitions with only one word.  This is not very representative.  We could also add the defined word to its definition.
 
 \end{document}
