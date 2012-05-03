@@ -23,13 +23,23 @@ Our program is composed of three parts :
 
 The first two parts do the preprocessing on the text files. The first one takes a definitions file as input and produces a file with words in the definitions tagged with a part-of-speech tag and lemmatized. The second takes a file with tagged definitions and removes words that match either a stop word or a stop tag. \\ 
 
-The third part is the main part, it takes a preprocessed file as input and produces an output file with the culsters of words. 
+The third part is the main part, it takes a preprocessed file as input and produces an output file with the culsters of words. \\
+
+This part is composed of two datastructures (definition and dictionary) one computation file (skmean) and the file that launch everything (cluster)\\
+First cluster read the preprocessed file, create a definition object for every definition and add it in dictionary.
+Then the dictionary compute the idf vector and the definition objects compute the whole tf-idf vector for every definition.
+\\
+Everything is then passed to the skmean algorithm which compute the different clusters.\\
+One particularity of our implementation is that the tf-idf are stored as dictionaries which allow to save memory because a definition only contains few words from the whole vocabulary.
+\\
+We decided to initialise the k centroid vectors with the k first definition vectors.
 
 \section{Discussion on the results}
 
 \subsection{Results depending on the value of K}
 
 \subsection{How to automate the evaluation of the quality of the clustering} %and ressources needed
+
 
 \subsection{Possible ways to enhance our results} % and reason for error sin our results
 
