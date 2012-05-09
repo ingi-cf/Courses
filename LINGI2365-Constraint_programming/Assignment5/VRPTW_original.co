@@ -1,0 +1,155 @@
+/*******************************************
+Based on model for the VRPTW by SŽbastien Mouthuy
+Usage:  comet VRPTW.co instance.txt
+*******************************************/
+import cotfd;
+tuple instanceInfo{int n; int K; int Q; int[] demand; int[] tw_start; int[] tw_end; int[] service_duration; int[,] distance;}
+
+
+
+// ++++++++++++++++ VARIABLES NECESSARY TO REPRESENT INSTANCE ++++++++++++++++
+
+range Customers; 					// customers to be visited
+range Depots;						// single depot is duplicated, one per vehicle
+range CustomersAndDepots;			// customers to be visited and all depots
+range Horizon; 						// from start of depot time window to end of depot time window 
+
+int n;								// number of customers to visit
+int K;								// number of vehicles
+int Q;								// capacity of vehicles
+
+int[] demand;						// demand for customers and depots
+int[] tw_start;						// start of time window customers and depots
+int[] tw_end;						// end of time window customers and depots
+int[] service_duration;				// time needed to perform service for customers and depots
+int[,] distance; 					// distance/travel time matrix
+
+// ++++++++++++++++++++++++++++++ READING INSTANCE FILE ++++++++++++++++++++++++++++++
+
+instanceInfo instance = fillVariablesFromInstance(System.getArgs()[2]);
+
+// ++++++++++++++++++++++++++++++ FILLING THE INSTANCE VARIABLES ++++++++++++++++++++++++++++++
+
+n = instance.n;
+K = instance.K;
+Q = instance.Q;
+
+Customers = 1..n;
+Depots = Customers.getUp()+1..Customers.getUp()+K; 
+CustomersAndDepots = Customers.getLow()..Depots.getUp();
+
+demand = new int[CustomersAndDepots];
+tw_start = new int[CustomersAndDepots];
+tw_end = new int[CustomersAndDepots];
+service_duration = new int[CustomersAndDepots];
+distance = new int[CustomersAndDepots,CustomersAndDepots];
+
+forall(c in CustomersAndDepots){
+	demand[c] = instance.demand[c>n?0:c];
+	tw_start[c] = instance.tw_start[c>n?0:c];
+	tw_end[c] = instance.tw_end[c>n?0:c];
+	service_duration[c] = instance.service_duration[c>n?0:c];
+}
+
+forall(c1 in CustomersAndDepots, c2 in CustomersAndDepots){
+	distance[c1,c2] = instance.distance[c1>n?0:c1,c2>n?0:c2];
+}
+
+Horizon = tw_start[Depots.getLow()]..tw_end[Depots.getLow()];
+
+// ++++++++++++++++++++++++++++++ MODEL FOR THE VRPTW ++++++++++++++++++++++++++++++
+
+Solver<CP> cp();
+
+var<CP>{int} previous[CustomersAndDepots](cp,CustomersAndDepots);
+var<CP>{int} routeOf[i in CustomersAndDepots](cp,1..K);
+var<CP>{int} service_start[i in CustomersAndDepots](cp,Horizon);
+var<CP>{int} departure[i in CustomersAndDepots](cp,Horizon);
+var<CP>{int} totDist = minCircuit(previous,distance);
+
+minimize<cp> totDist
+subject to{
+
+	forall(i in Customers) cp.post(routeOf[i] == routeOf[previous[i]]);
+	forall(i in Depots) cp.post(routeOf[i] == i - Customers.getUp());
+	cp.post(multiknapsack(routeOf, demand, all(k in 1..K) Q));
+	forall(i in CustomersAndDepots){
+		cp.post(service_start[i] == max(tw_start[i],departure[previous[i]] + distance[previous[i],i]));
+		cp.post(service_start[i] <= tw_end[i]);
+		cp.post(service_start[i] >= tw_start[i]);
+	}
+	
+	forall(i in Customers){
+		cp.post(departure[i] ==  service_start[i] + service_duration[i]);
+	}
+	
+	forall(i in Depots){
+		cp.post(departure[i] == 0);
+	}
+	
+} using	{
+	labelFF(previous);
+}
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// function to read the instance file
+
+function instanceInfo fillVariablesFromInstance(string pathToFile){
+	int n; int K; int Q;
+	int[] xcoord;
+	int[] ycoord;
+	int[] demand;
+	int[] tw_start;
+	int[] tw_end;
+	int[] service_duration;
+	int[,] distance; 
+
+	string filename = pathToFile;
+	ifstream input(filename);
+	input.getLine(); // instance number
+	input.getLine(); // ...
+	input.getLine(); // ...
+	input.getLine(); // ...
+	K = input.getInt();	// number of vehicles	
+	Q = input.getInt();	// capacity Q of each vehicle
+	input.getLine(); // ...
+	input.getLine(); // ...
+	input.getLine(); // ...
+	input.getLine(); // ...
+	stack{int[]} lines();
+	int[] line;
+	while(input.good()){
+		int line[i in 0..6] = input.getInt();
+		lines.push(line);	
+	}
+	lines.pop(); // remove last empty line
+	n = lines.getSize() - 1;
+	demand = new int[0..n];
+	xcoord = new int[0..n];
+	ycoord = new int[0..n];
+	tw_start = new int[0..n];
+	tw_end = new int[0..n];
+	service_duration = new int[0..n];
+	while(lines.getSize() > 0){	
+		line = lines.pop();
+		xcoord[line[0]] = line[1];
+		ycoord[line[0]] = line[2];
+		demand[line[0]] = line[3];
+		tw_start[line[0]] = line[4]*100;
+		tw_end[line[0]] = line[5]*100;
+		service_duration[line[0]] = line[6]*100;
+	}
+	
+	distance = new int[0..n,0..n];
+	forall(c1 in 0..n, c2 in 0..n : c1 < c2){
+		distance[c1,c2] = (int) (sqrt((xcoord[c1]-xcoord[c2])^2 + (ycoord[c1]-ycoord[c2])^2)*100);
+		distance[c2,c1] = distance[c1,c2];
+		distance[c1,c1] = 0; distance[c2,c2] = 0;
+	}
+	
+	return new instanceInfo(n, K, Q, demand, tw_start, tw_end, service_duration, distance);
+}
+
