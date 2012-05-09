@@ -5,7 +5,7 @@ Usage:  comet VRPTW.co instance.txt
 import cotfd;
 tuple instanceInfo{int n; int K; int Q; int[] demand; int[] tw_start; int[] tw_end; int[] service_duration; int[,] distance;}
 
-
+int t0 = System.getCPUTime();
 
 // ++++++++++++++++ VARIABLES NECESSARY TO REPRESENT INSTANCE ++++++++++++++++
 
@@ -25,8 +25,10 @@ int[] service_duration;				// time needed to perform service for customers and d
 int[,] distance; 					// distance/travel time matrix
 
 // ++++++++++++++++++++++++++++++ READING INSTANCE FILE ++++++++++++++++++++++++++++++
+instanceInfo instance;
+//instance = fillVariablesFromInstance(System.getArgs()[2]);
 
-instanceInfo instance = fillVariablesFromInstance(System.getArgs()[2]);
+instance = fillVariablesFromInstance("D:\\info21\\git\\courses\\lingi2365-constraint_programming\\Assignment5\\Instances\\C101.txt");
 
 // ++++++++++++++++++++++++++++++ FILLING THE INSTANCE VARIABLES ++++++++++++++++++++++++++++++
 
@@ -67,8 +69,7 @@ var<CP>{int} service_start[i in CustomersAndDepots](cp,Horizon);
 var<CP>{int} departure[i in CustomersAndDepots](cp,Horizon);
 var<CP>{int} totDist = minCircuit(previous,distance);
 
-minimize<cp> totDist
-subject to{
+solve<cp>{
 
 	forall(i in Customers) cp.post(routeOf[i] == routeOf[previous[i]]);
 	forall(i in Depots) cp.post(routeOf[i] == i - Customers.getUp());
@@ -153,3 +154,9 @@ function instanceInfo fillVariablesFromInstance(string pathToFile){
 	return new instanceInfo(n, K, Q, demand, tw_start, tw_end, service_duration, distance);
 }
 
+
+int t1 = System.getCPUTime();
+cout << "time: " << t1 - t0 ;
+cout << "; #choices = " << cp.getNChoice();
+cout << "; #fail    = " << cp.getNFail();
+cout << "; K    = " << K << endl;
