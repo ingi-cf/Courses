@@ -147,11 +147,55 @@ forall (i in CustomersAndDepots: !previous[i].bound()) by (previous[i].getSize()
 \end{lstlisting}
 
 The variable ordering is based on the first fail principle with the "previous[i].getSize()" ordering but we only use this up to a precision of 10. And we use the start of the time window as a second parameter to pick customers that must me reached urgently first since those have less chance to find an available vehicle. \\ 
-The value ordering used is simply to pick a previous candidate that is the closest possible. This has been chosen after trying other orderings such as minimizing the waiting time because it worked better. 
+The value ordering used is simply to pick a previous candidate that is the closest possible. This has been chosen after trying other orderings such as minimizing the waiting time because it worked better. \\ 
+As we will see in the test results this optimizations allows to find the optimal value of K for the instances c101, c102, c103 and c104 very quickly but fails when used on more difficult instances.
 
 \subsection{Second optimization}
+In this optimization we replaced the labelFF search heuristic by : 
+\begin{lstlisting}
+         forall (i in Customers: !routeOf[i].bound()) by (routeOf[i].getSize())
+         {
+            tryall<cp>(c in 1..K: routeOf[i].memberOf(c)) by (sum(j in Customers: routeOf[j].bound() && routeOf[j] == c )(distance[j,i])/sum(j in Customers: routeOf[j].bound())((int)(routeOf[j] == c)))
+            {   
+               label(routeOf[i], c);
+            }
+         } \end{lstlisting}
+
+
+This will assign values to the routeOf variables instead of the previous variables as in the firts optimization. \\ 
+It choses the variable i with the smallest domain size (first fail principle) and tries to assign this customer to the route for which the mean of the distance between the members of the route and i is the lowest (best first value ordering). \\ 
+However this optimization proved to work only with the instances c103 and c104 for which it is faster than the first one. \\
+
+\subsection{Optimizations comment} 
+We wanted to make a combination of our two search heuristics, that would first assign a customer to a route either with our second optimization heuristic or by using a clustering algorithm. Then use the search heuristic from our first optimization to order the customers within a route. However we didn't manage to make comet behave in the way we wanted to achieve this. 
 
 \section{Test results}
 
+We were unable to get a result for any of the instances from the r serie. Here are the result obtained on the instances from the c serie, for each instance form the c serie the optimal value of K was 10. A "/" in a column means that no result was obtained in a reasonable amount of time.  
+
+\subsection{Time taken to find an optimal value of K [ms]}
+\begin{tabular}{|r|c|c|c|c|c|}
+	\hline
+	Instance            & c101  & c102 & c103 & c104 & c105 \\   
+	\hline
+	labelFF(previous)  &  2169   &   / & /  &  / &   /  \\
+	First optimization  &  702  &   748&  812 &   656&  /   \\
+	Second optimization &   /   &   /  & 764  &  671 &  /   \\
+	\hline
+\end{tabular}
+\subsection{Number of choices for finding a solution with the optimal K}
+\begin{tabular}{|r|c|c|c|c|c|}
+	\hline
+	Instance            & c101  & c102 & c103 & c104 & c105 \\   
+	\hline
+	labelFF(previous)  &  423   &   / & /  &  / &   /  \\
+	First optimization  &  65   &   99 & 113  &  101 &   /  \\
+	Second optimization &   /   &   /  & 100  &  100 &   /  \\
+	\hline
+\end{tabular}
+
+\subsection{Conclusions}
+Both our optimizations are better than a simple labelFF in terms of number of instances solved and in terms of the time taken to find an optimal K. Our first optimization is more reliable than the second since the second one was unable to solve even the basic instance c101, even though it seems to have been lucky with c103 and c104.  \\ 
+However both of our implementation got completely stuck when trying to find a solution to the CSP with the optimal value of K for the instance sof serie r and the instance c105. Which means that they are clearly lacking. A possible way to improve the results would have been to make the combination of our two heuristics described in the previous section work. 
 
 \end{document}

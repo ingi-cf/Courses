@@ -26,7 +26,8 @@ int[,] distance; 					// distance/travel time matrix
 
 // ++++++++++++++++++++++++++++++ READING INSTANCE FILE ++++++++++++++++++++++++++++++
 
-instanceInfo instance = fillVariablesFromInstance(System.getArgs()[2]);
+//instanceInfo instance = fillVariablesFromInstance(System.getArgs()[2]);
+instanceInfo instance = fillVariablesFromInstance("D:\\info21\\git\\courses\\lingi2365-constraint_programming\\Assignment5\\Instances\\c104.txt");
 
 // ++++++++++++++++++++++++++++++ FILLING THE INSTANCE VARIABLES ++++++++++++++++++++++++++++++
 
