@@ -198,4 +198,8 @@ We were unable to get a result for any of the instances from the r serie. Here a
 Both our optimizations are better than a simple labelFF in terms of number of instances solved and in terms of the time taken to find an optimal K. Our first optimization is more reliable than the second since the second one was unable to solve even the basic instance c101, even though it seems to have been lucky with c103 and c104.  \\ 
 However both of our implementation got completely stuck when trying to find a solution to the CSP with the optimal value of K for the instance sof serie r and the instance c105. Which means that they are clearly lacking. A possible way to improve the results would have been to make the combination of our two heuristics described in the previous section work. 
 
+
+\section{Instructions to use our program}
+To use our program you must give it at least one argument as in the original program : the instance file path. \\ 
+Optionally you can also give it the number of the search heuristic to use (0: labelFF; 1: First heuristic; 2: Second heuristic), if this is not specified it will use our first heuristic. 
 \end{document}

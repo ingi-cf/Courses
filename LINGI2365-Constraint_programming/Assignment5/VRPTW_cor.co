@@ -6,7 +6,6 @@ import cotfd;
 tuple instanceInfo{int n; int K; int Q; int[] demand; int[] tw_start; int[] tw_end; int[] service_duration; int[,] distance;}
 
 int t0 = System.getCPUTime();
-int st0;
 
 // ++++++++++++++++ VARIABLES NECESSARY TO REPRESENT INSTANCE ++++++++++++++++
 
@@ -27,9 +26,19 @@ int[,] distance; 					// distance/travel time matrix
 
 // ++++++++++++++++++++++++++++++ READING INSTANCE FILE ++++++++++++++++++++++++++++++
 instanceInfo instance;
-//instance = fillVariablesFromInstance(System.getArgs()[2]);
 
-instance = fillVariablesFromInstance("D:\\info21\\git\\courses\\lingi2365-constraint_programming\\Assignment5\\Instances\\c104.txt");
+int heuristic=1;
+//instance = fillVariablesFromInstance("D:\\info21\\git\\courses\\lingi2365-constraint_programming\\Assignment5\\Instances\\c104.txt");
+int nbArgs = System.getArgs().getSize() ;
+if(nbArgs < 3)
+{
+    cout<< "This program need at least 1 argument, a path to the instance file "<< endl;
+    System.exit(-1);
+}
+instance = fillVariablesFromInstance(System.getArgs()[2]);
+
+if(nbArgs > 3)
+   heuristic = System.getArgs()[3].toInt();
 
 // ++++++++++++++++++++++++++++++ FILLING THE INSTANCE VARIABLES ++++++++++++++++++++++++++++++
 int Kup = instance.K;
@@ -39,10 +48,7 @@ int nf;
 
 while(Kup != Kdown+1)
 {
-st0 = System.getCPUTime();
 K = (Kup+Kdown)/2; //chose next K to try
-
-cout << "try K=" << K << endl;
 
 n = instance.n;
 //K = instance.K;
@@ -85,26 +91,6 @@ var<CP>{int} departure[i in CustomersAndDepots](cp,Horizon);
 solve<cp>{
 
          
-         //nodes that can be reached from depot but only by going there first 
-         /*
-         forall(i in Customers:  tw_end[i] > distance[i, Depots.getUp()]) 
-         {
-            
-            int path = 0;
-            forall(j in Customers: j!=i && tw_end[i]>distance[j, Depots.getUp()]+distance[j,i]+service_duration[j])
-               path = path+1;
-            if(path==0)
-            {
-                  cp.post(previous[i] > Customers.getUp());
-            }
-         } */
-
-         //a node can't have itself as previous node redundant with circuit
-         /*
-         forall(i in CustomersAndDepots)
-            cp.post(previous[i]!=i);
-         */
-
          //stop customers from being on the same route if it's impossible to serve both in time
          
          forall(i in Customers, j in Customers: i<j && max(tw_end[i]-(tw_start[j]+service_duration[j]), tw_end[j]-(tw_start[i]+service_duration[i]))<distance[i,j])
@@ -113,16 +99,6 @@ solve<cp>{
             cp.post(previous[i]!=j);
             cp.post(previous[j]!=i);
          }
-         
-         
-         //remove i from previous[j] domain when it's impossible to reach j in time from i
-         /*
-         forall(i in Customers, j in Customers: i<j && tw_start[i]+service_duration[i]+distance[i,j] > tw_end[j])
-         {
-            cp.post(previous[j]!=i);
-         }
-         */
-
          
          
         forall(i in Customers) cp.post(routeOf[i] == routeOf[previous[i]]);
@@ -156,9 +132,13 @@ solve<cp>{
         
 	
 } using	{
-         //labelFF(previous);
+      switch(heuristic)
+      {
+        case 0:
+            labelFF(previous);
+            break;
+         case 1:
          //assign previous to nodes starting with domain size variable ordering and distance as value ordering
-         
          forall (i in CustomersAndDepots: !previous[i].bound()) by (previous[i].getSize()/10, tw_start[i])
             {
                
@@ -170,9 +150,11 @@ solve<cp>{
                 } 
                 
             }
+         break;
 
-         
-         /*
+         case 2:
+
+         //second heuristic
          forall (i in Customers: !routeOf[i].bound()) by (routeOf[i].getSize())
          {
             tryall<cp>(c in 1..K: routeOf[i].memberOf(c)) by (sum(j in Customers: routeOf[j].bound() && routeOf[j] == c )(distance[j,i])/sum(j in Customers: routeOf[j].bound())((int)(routeOf[j] == c)))
@@ -181,17 +163,9 @@ solve<cp>{
                
             }
          } 
-            */
-         /*
-         forall (i in CustomersAndDepots: !service_start[i].bound()) by (service_start[i].getSize())
-         {
-            tryall<cp>(t in service_start[i].getMin()..service_start[i].getMax(): service_start[i].memberOf(t)) by (t)
-            {
-               label(service_start[i], t);
-            }
-         } */
-
-            
+          break;
+      }
+         
 }
 
 if(cp.isFeasible())
@@ -203,16 +177,15 @@ if(cp.isFeasible())
       nf = cp.getNFail();
    }
    
-   cout << " --> solution found ";
+
    
 }
 else
 {
    Kdown = K;
-   cout << " --> failure ";
 }
 
-cout << " in " << System.getCPUTime() - st0 << "ms " << endl;
+
 
 } //end K search
 
