@@ -14,5 +14,144 @@
 \begin{document}
 \maketitle
 \newpage
+\section{Provided model}
+The provided model is a minimization problem that minimizes the total distance travelled by all the vehicles.  \\ 
+It uses the following variables :
+\begin{lstlisting}
+var<CP>{int} previous[CustomersAndDepots](cp,CustomersAndDepots);
+var<CP>{int} routeOf[i in CustomersAndDepots](cp,1..K);
+var<CP>{int} service_start[i in CustomersAndDepots](cp,Horizon);
+var<CP>{int} departure[i in CustomersAndDepots](cp,Horizon);
+var<CP>{int} totDist = minCircuit(previous,distance);
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{previous} represents the for each place the place that was visited before by the vehicle that services it. 
+	\item \textbf{routeOf} is the number of the vehicle that passes through a given customer or depot.
+	\item \textbf{service\_start} is the time at which the vehicle arrives at a given customer or depot.
+	\item \textbf{departure} represent the time at which a vehicle finishes the service for a given customer or depot and leaves.
+	\item \textbf{totDist} is the total distance travelled by all the vehicles.
+\end{itemize}
+ \ \\ 
+The model minimizes the totDist as objective function : 
+\begin{lstlisting}
+minimize<cp> totDist
+\end{lstlisting}
+ \ \\ 
+And it uses the following constraints : 
+\begin{itemize}
+	\item A circuit constraint added by the "minCircuit(previous,distance)" call that makes sure that the chain constructed with the values of previous consist of an hamiltonian circuit. 
+	\item For every customer, the vehicle servicing a customer is the same as the one servicing the previous customer : 
+	\begin{lstlisting}
+	forall(i in Customers) cp.post(routeOf[i] == routeOf[previous[i]]);
+	\end{lstlisting}
+	\item For every depot the vehicle servicing it has the same number as the depot, this is because the unique depot from the model has been duplicated to have a depot for each vehicle and to be able to have a giant tour representation : 
+	\begin{lstlisting}
+	forall(i in Depots) cp.post(routeOf[i] == i - Customers.getUp());
+	\end{lstlisting}
+	\item The sum of the demands of the customers serviced by a vehicle can't exceed the vehicle capacity : 
+	\begin{lstlisting}
+	cp.post(multiknapsack(routeOf, demand, all(k in 1..K) Q));
+	\end{lstlisting}
+	\item For each location the time at which the service starts is either the beginning of the time window "tw\_start" or the moment the vehicle arrives "departure[previous[i]] + distance[previous[i],i]". Moreover it cannot be after the end of the time windows nor before the beginning of the time window. 
+	\begin{lstlisting}
+	
+	forall(i in CustomersAndDepots){
+		cp.post(service_start[i] == max(tw_start[i],departure[previous[i]] + distance[previous[i],i]));
+		cp.post(service_start[i] <= tw_end[i]);
+		cp.post(service_start[i] >= tw_start[i]);
+	}
+	\end{lstlisting}
+	\item For each customer serviced, the vehicle leaves after having performed its service : 
+	\begin{lstlisting}
+	
+	forall(i in Customers){
+		cp.post(departure[i] ==  service_start[i] + service_duration[i]);
+	}
+	\end{lstlisting}
+	\item All the vehicles leave the depot at the time 0 : 
+	\begin{lstlisting}
+	forall(i in Depots){
+		cp.post(departure[i] == 0);
+	}
+	\end{lstlisting}
+
+\end{itemize}
+
+\section{Chosen objective}
+
+We chose to minimize the value of K, the number of vehicles used. 
+
+\section{Changes to the model}
+
+To change the model from a total distance minimization to a minimization of the value of K we made the following changes : 
+\begin{itemize}
+	\item We transformed the COP to a CSP by changing "minimize$<$cp$>$ totDist subject to" to "solve$<$cp$>$". 
+	\item We also removed the variable "var$<$CP$>${int} totDist = minCircuit(previous,distance)" and added a "cp.post(circuit(previous))" constraint to replace the hamiltonian circuit constraint added by minCircuit. 
+	\item Then we needed to minimize the value of K, to this end we use our CSP to check if a value of K can lead to a solution. And we iterate on the possible value of K between 0 and the value imported from the instance file by using a dichotomic search. We stop the search when we have found a Kup value of K such as our CSP yields a solution with Kup but not with Kup-1 : 
+	\begin{lstlisting}
+	int Kup = instance.K; //lowest valid K value
+	int Kdown = 0; //highest invalid K value
+	
+	while(Kup != Kdown+1)
+	{
+		K = (Kup+Kdown)/2; //chose next K to try using a dichotomic search
+		
+		[...] //fill instance variables and solve CSP 
+		
+		if(cp.isFeasible())
+		{
+			if(K<Kup) //update lowest valid K value found
+			{
+				Kup = K;
+			}
+		}
+		else
+		{
+			Kdown = K; //update highest invalid K value found
+		}
+	}
+	
+	\end{lstlisting}
+	After the execution of that code Kup has the lowest value of K for which the CSP has a solution. 
+\end{itemize}
+
+\section{Optimization procedures}
+The basic model for our CSP only produced results in a reasonable time for the instances c101 and c102. \\ 
+First of all, we added a redundant constraint to the CSP use din both optimizations. What it does is that it makes sure that when two locations cannot both be reached in time by the same vehicle they don't get placed on the same route :  
+\begin{lstlisting}
+forall(i in Customers, j in Customers: i<j && max(tw_end[i]-(tw_start[j]+service_duration[j]), tw_end[j]-(tw_start[i]+service_duration[i]))<distance[i,j])
+         {
+            cp.post(routeOf[i]!=routeOf[j]);
+            cp.post(previous[i]!=j);
+            cp.post(previous[j]!=i);
+         }
+\end{lstlisting}
+
+Our two optimization consist in changing the basic labelFF search by a search that is more adapte dto the problem. 
+\subsection{First optimization}
+
+In this optimization we replaced the labelFF search heuristic by : 
+\begin{lstlisting}
+forall (i in CustomersAndDepots: !previous[i].bound()) by (previous[i].getSize()/10, tw_start[i])
+            {
+               
+                tryall<cp>(j in CustomersAndDepots: previous[i].memberOf(j) && (!departure[j].bound() || departure[j]+distance[j,i]<tw_end[i])) by (distance[j,i])
+
+                {
+                    label(previous[i], j);
+                    
+                } 
+                
+            }
+\end{lstlisting}
+
+The variable ordering is based on the first fail principle with the "previous[i].getSize()" ordering but we only use this up to a precision of 10. And we use the start of the time window as a second parameter to pick customers that must me reached urgently first since those have less chance to find an available vehicle. \\ 
+The value ordering used is simply to pick a previous candidate that is the closest possible. This has been chosen after trying other orderings such as minimizing the waiting time because it worked better. 
+
+\subsection{Second optimization}
+
+\section{Test results}
+
 
 \end{document}
