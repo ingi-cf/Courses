@@ -2,6 +2,8 @@ function core = algo47(A)
 %ALGO47 Summary of this function goes here
 %   Detailed explanation goes here
 
+n = length(A);
+
 %degree vector (to verify?)
 d = A*ones(size(A),1);
 d = sort(d);
@@ -15,10 +17,10 @@ for i=1:n-1
 			if j>i
 				d(j) = d(j)-1;
 				if d(i)<d(j)
-					core(j) = core(j)-1
+					core(j) = core(j)-1;
 				end
 			end
-			d = [d(1:i) ,sort(d(i+1:end))];
+			d = [d(1:i); sort(d(i+1:end))];
 		end
 	end
 end
