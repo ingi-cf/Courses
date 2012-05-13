@@ -17,7 +17,7 @@ U = zeros(n,m);
 X = [X, ones(n,1)];
 
 %generalized outdegree matrix ? 
-D = diag(A);
+D = diag(A*ones(size(A),1));
 
 %laplacian matrix
 L = D-A;

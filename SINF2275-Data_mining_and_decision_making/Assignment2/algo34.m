@@ -14,7 +14,7 @@ gamma = diag(di);
 U = zeros(n,m);
 
 %generalized outdegree matrix ? 
-D = diag(A);
+D = diag(A*ones(size(A),1));
 
 %laplacian matrix
 L = D-A;
