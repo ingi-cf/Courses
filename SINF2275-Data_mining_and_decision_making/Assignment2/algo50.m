@@ -1,4 +1,4 @@
-function dendo = algo50(K)
+function [dendo dendoinert] = algo50(K)
 %ALGO50 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,6 +11,7 @@ for k=1:nr
 end
 dendo = h;
 n = ones(nr,1);% n(k) = 1 forall k ??
+dendoinert = zeros(nr,1);
 
 m = nr;
 
@@ -41,12 +42,9 @@ do
 	
 	%store the factt that clusters have been merged with scalmin as within-cluster inertia in dendogram struct ? 
 	dendo = [dendo, h(:, kul)];
+	dendoinert(length(dendoinert)+1) = scalmin;
 	
 	%delete individual clusters kmin and lmin  ??? 
-	
-	lmin
-	kmin
-	h
 	first = min(kmin, lmin);
 	second = max(kmin,lmin)-1;
 	n = [n(1:first-1);n(first+1:end)];
@@ -55,7 +53,7 @@ do
 	h = [h(:,1:second-1),h(:,second+1:end)];
 	kul = length(n);
 	m = m-1;
-	h
+	
 	
 	%update dissimilarities : 
 	deltaj = zeros(m);
