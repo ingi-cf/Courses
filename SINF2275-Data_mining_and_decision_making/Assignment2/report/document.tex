@@ -1,0 +1,98 @@
+\documentclass{eplDoc}
+
+\usepackage{placeins}
+
+\newcommand{\docType}	{Assignment 2 : Graph Mining}
+\newcommand{\docDate}	{18/05/2012}
+\newcommand{\docAuthor}	{gr10 : Mulders Corentin, Pelsser Francois}
+\newcommand{\courseCode}{SINF2275}
+\newcommand{\courseName}{Data mining and decision making}
+\usepackage{syntax}
+
+\lstset{breaklines=true, breakatwhitespace=false}
+
+\begin{document}
+\maketitle
+\newpage
+
+\section{Implemented algorithms}
+
+We chose to implement the algorithms from chapters 6.1, 8.1 and 8.2. So the following algorithms have been implemented : 33, 34, 47, 48, 49, 50. \\ 
+ Here are the prototypes of our implementations, these can also be obtained by typing "help algoXX" in octave (where algoXX is the function name corresponding to the algorithm number XX)  :   
+
+\subsection{Algorithm 33}
+ALGO33(A, X, m, Y, lambda, mu) Performs a laplacian regularized least square for labeling the 
+nodes of a weighted undirected graph G and integrating features availables on the nodes.
+\begin{itemize}
+	\item A is the adjacency matric representing G
+  \item  X contains the features vectors as rows
+  \item  m is the number of classes
+  \item  Y a mxn matrix containing the m binary indicator vectors y(c) representing the classes as rows
+  \item  lambda and mu are regularization parameters 
+\end{itemize}
+ Output : the membership matrix, each column representing a class.
+
+\subsection{Algorithm 34}
+
+ALGO34(A, K, m, Y, lambda, mu) Performs a laplacian regularized least square for labeling the 
+nodes of a weighted undirected graph G and integrating features availables on the nodes.
+\begin{itemize}
+	\item  A is the adjacency matric representing G
+  \item  K is the similarity matrix containing the similarities between nodes
+  \item  m is the number of classes
+  \item  Y a mxn matrix containing the m binary indicator vectors y(c) representing the classes as rows
+  \item  lambda and mu are regularization parameters 
+\end{itemize}
+ Output : the membership matrix, each column representing a class.
+
+\subsection{Algorithm 47}
+
+ALGO47(A) Computes the core numbers of an unweighted undirected graph G 
+\begin{itemize}
+	\item A is the adjacency matrix representing G
+\end{itemize}
+ Output : A vector containing the core numbers associated to each node.
+
+
+
+\subsection{Algorithm 48}
+ALGO48(A, k) Computes the generalized k-core of an unweighted undirected graph G 
+\begin{itemize}
+	\item  A is the adjacency matrix representing G
+   \item k is the order of the core
+\end{itemize}
+ Output : A vector containing the core numbers associated to each node. 
+
+
+\subsection{Algorithm 49}
+ALGO49(A, k) Computes the generalized k-core of an unweighted undirected graph G 
+\begin{itemize}
+	\item  A is the adjacency matrix representing G
+   \item k is the order of the core
+\end{itemize}
+ Output : A vector containing the core numbers associated to each node. 
+
+
+\subsection{Algorithm 50}
+
+ALGO50(K) Computes a kernel ward hierarchical clustering of the nodes of a graph G
+  
+\begin{itemize}
+	\item K is the similarity matrix associated with G
+\end{itemize}
+ Output : A matrix representing the dendogram of the hierarchical clustering, each 
+ column represents a cluster and contains n elements $e_i$ with $e_i=0$ if the node $i$ is not in the cluster and 
+ $e_i>0$ if it is in the cluster. \\ 
+ A secondary output dendoinert gives for each cluster created the within-cluster inertia of the merge. 
+
+
+\section{Implementation choices}
+
+\subsection{Measure used for the algorithms 48 and 49}
+In the algorithms 48 and 49 we use the degree of the nodes as measure for the computeMeasure subroutine. 
+
+\subsection{Structure used to store the dendogram for algorithm 50}
+In algorithm 50 we simply store the dendogram as a matrix in which each column represents a cluster. Initially it is an identity matrix of size n since the only clusters are the nodes themselves. Then each time we merge two clusters we add a column to this matrix with elements $e_i$ having a non-zero value only if the node $i$ belongs to the new cluster. 
+
+
+\end{document}
