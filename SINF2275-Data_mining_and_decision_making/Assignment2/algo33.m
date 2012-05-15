@@ -1,13 +1,16 @@
 function U = algo33(A, X, m, Y, lambda, mu)
-%ALGO33 Summary of this function goes here
-%   Detailed explanation goes here
+%ALGO33(A, X, m, Y, lambda, mu) Performs a laplacian regularized least square for labeling the 
+%nodesof a weighted undirected graph G and integrating features availables on the nodes.
+% - A is the adjacency matric representing G
+% - X contains the features vectors as rows
+% - m is the number of classes
+% - Y a mxn matrix containing the m binary indicator vectors y(c) representing the classes as rows
+% - lambda and mu are regularization parameters 
+% Output : the membership matrix, each column representing a class.
 
-
+n = length(A);
 %gamma
-di = zeros(1,m);
-for i=1:m
-	di = di + Y(i)
-end
+di = Y*ones(size(Y,2),1);
 gamma = diag(di);
 
 %init U
@@ -17,22 +20,22 @@ U = zeros(n,m);
 X = [X, ones(n,1)];
 
 %generalized outdegree matrix ? 
-D = diag(A*ones(size(A),1));
+D = diag(A*ones(size(A,1),1));
 
 %laplacian matrix
 L = D-A;
 
 %compute predicted scores for each class
-yhat = zeros(1,m)
+yhat = zeros(n,m);
 for c=1:m
 	xtgammax = X'*gamma*X;
 	lambdaxtlx = lambda*X'*L*X;
-	mumatrix = mu*diag(ones(1, size(xtgammax)));
-	xtgammay = X'*gamma*Y(c);
+	mumatrix = mu*diag(ones(1, size(xtgammax,1)));
+	xtgammay = X'*gamma*Y(:,c);
 	
 	w = (xtgammax+lambdaxtlx+mumatrix)\(xtgammay);
 	
-	yhat(c) = X*w;
+	yhat(:,c) = X*w;
 end
 
 %get argmax of lhat for each node 

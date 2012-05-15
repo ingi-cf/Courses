@@ -1,10 +1,12 @@
 function u = algo48(A, k)
-%ALGO48 Summary of this function goes here
-%   Detailed explanation goes here
+%ALGO48(A, k) Computes the generalized k-core of an unweighted undirected graph G 
+%  -A is the adjacency matrix representing G
+%  -k is the order of the core
+% Output : A vector containing the core numbers associated to each node. 
 
 %compute degree measure
 function r = computeMeasure(Aff)
-	r = Aff*ones(size(Aff),1);
+	r = Aff*ones(size(Aff,1),1);
 end
 
 %init k-core membership vector

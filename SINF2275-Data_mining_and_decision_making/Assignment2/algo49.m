@@ -1,10 +1,12 @@
 function u = algo49(A, k)
-%ALGO49 Summary of this function goes here
-%   Detailed explanation goes here
+%ALGO49(A, k) Computes the generalized k-core of an unweighted undirected graph G 
+%  -A is the adjacency matrix representing G
+%  -k is the order of the core
+% Output : A vector containing the core numbers associated to each node. 
 
 %compute degree measure
 function r = computeMeasure(Aff)
-	r = Aff*ones(size(Aff),1);
+	r = Aff*ones(size(Aff,1),1);
 end
 
 %count number of ones in a vector
@@ -18,7 +20,7 @@ function n=numberOfOnes(vec)
 end
 
 %init k-core membership vector
-u = ones(size(A),1);
+u = ones(size(A,1),1);
 
 rho = computeMeasure(A);
 

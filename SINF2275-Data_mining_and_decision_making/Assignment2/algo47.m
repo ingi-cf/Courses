@@ -1,11 +1,12 @@
 function core = algo47(A)
-%ALGO47 Summary of this function goes here
-%   Detailed explanation goes here
+%ALGO47(A) Computes the core numbers of an unweighted undirected graph G 
+%  -A is the adjacency matrix representing G
+% Output : A vector containing the core numbers associated to each node. 
 
 n = length(A);
 
 %degree vector (to verify?)
-d = A*ones(size(A),1);
+d = A*ones(n,1);
 d = sort(d);
 
 %init core

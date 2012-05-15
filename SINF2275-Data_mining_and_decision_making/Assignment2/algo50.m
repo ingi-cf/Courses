@@ -1,6 +1,10 @@
 function [dendo dendoinert] = algo50(K)
-%ALGO50 Summary of this function goes here
-%   Detailed explanation goes here
+%ALGO50(K) Computes a kernel ward hierarchical clustering of the nodes of a graph G
+%   -K is the similarity matrix associated with G
+% Output : A matrix representing the dendogram of the hierarchical clustering, each 
+% column represents a cluster and contains n elements e_i with 0 as value if the node i is not in the cluster and 
+% e_i>0 if it is in the cluster. 
+% A secondary output dendoinert gives for each cluster created the within-cluster inertia of the merge. 
 
 [nr,nc] = size(K);
 
