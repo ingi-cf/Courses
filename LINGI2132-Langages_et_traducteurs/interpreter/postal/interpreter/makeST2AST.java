@@ -18,5 +18,7 @@ class makeST2AST{
 	
 		genST2AST gen = new genST2AST(CParams.PATH, ASTname) ;
 		gen.genTrad() ;
+
+		
 	}
 }
