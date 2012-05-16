@@ -39,7 +39,7 @@ public class IntegerClass extends PostalClass
             {
                 if(o2 instanceof IntegerObject)
                 {
-                   return new IntegerObject(o1.value() + ((IntegerObject) o2).value(), this);
+                   return new IntegerObject(o1.value() + ((IntegerObject) o2).value());
                 }
                 else 
                 {

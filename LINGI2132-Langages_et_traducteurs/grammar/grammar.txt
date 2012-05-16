@@ -21,7 +21,7 @@
 <element> ::= IDENTIFIER
 |<message sending>
 |<instantiation>
-//| \{<digits>\}
+| INTEGER
 | <boolean value>
 | <operation>
 | <message>
@@ -48,7 +48,7 @@
 //here is wrong don't know how to represent comment
 <comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
 
-<block code> ::= | <statement> <block code> | <comment> <block code>
+<block code> ::= <statement> <block code> | <comment> <block code>
 
 <while statement> ::= while ( <element> )  { <block code> }
 
