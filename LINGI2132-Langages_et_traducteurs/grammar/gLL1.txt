@@ -16,7 +16,7 @@
 
 <boolean value> ::= true | false
 
-<tuple> ::= [] | [<element list>]
+<tuple> ::= [ ] | [<element list>]
 
 <element> ::= IDENTIFIER
 |<message sending>
@@ -50,9 +50,9 @@
 
 <block code> ::= | <statement> <block code> | <comment> <block code>
 
-<while statement> ::= while ( <element> )  { <block code> }
+<while statement> ::= while ( <element> )  {<block code>}
 
-<if statement> ::= if ( <element> )  { <block code> }
+<if statement> ::= if ( <element> )  {<block code>}
 
 
 
