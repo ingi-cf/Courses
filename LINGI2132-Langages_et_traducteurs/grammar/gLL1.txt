@@ -18,25 +18,28 @@
 
 <tuple> ::= [ ] | [<element list>]
 
-<element> ::= <element prefixe> <element access>
+<element> ::= <element prefixe> <element suffixe>
+<element suffixe> ::= <element suffixes> <element suffixe>| 
+<element suffixes> ::= <element access> | <operation suffixe>
 
 <element prefixe> ::= IDENTIFIER
-|<message sending>
-|<instantiation>
-//| \{<digits>\}
+| # | self | super
+| <instantiation>
 | <boolean value>
-| <operation>
 | <message>
 | <tuple>
-| # | self | super
-|
+| <unary operation>
+| ( <element> )
+//TODO add message sending
+//|<message sending>
+//| <operation>
+
+<unary operation> ::= <unary operator> <element>
 
 <element access> ::= . IDENTIFIER
 
 
-<operation> ::= <element> <binary operator> <element>
-| <unary operator> <element>
-| (<operation>)
+<operation suffixe> ::= <binary operator> <element>
 
 <binary operator> ::= + | - | * | / | % 
 | <= | => | < | > | == | != 
