@@ -18,7 +18,9 @@
 
 <tuple> ::= [ ] | [<element list>]
 
-<element> ::= IDENTIFIER
+<element> ::= <element prefixe> <element access>
+
+<element prefixe> ::= IDENTIFIER
 |<message sending>
 |<instantiation>
 //| \{<digits>\}
@@ -27,7 +29,9 @@
 | <message>
 | <tuple>
 | # | self | super
-| <element> . IDENTIFIER
+|
+
+<element access> ::= . IDENTIFIER
 
 
 <operation> ::= <element> <binary operator> <element>
@@ -46,9 +50,9 @@
 <assignment expression> ::= IDENTIFIER = <element>
 
 //here is wrong don't know how to represent comment
-<comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
+//<comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
 
-<block code> ::= | <statement> <block code> | <comment> <block code>
+<block code> ::= | <statement> <block code> //| <comment> <block code>
 
 <while statement> ::= while ( <element> )  {<block code>}
 
