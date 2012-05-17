@@ -27,6 +27,11 @@ public class ClassDeclarationNode extends PostalNode {
 		this.messagesImplementations = new Hashtable<String,MessageImplementation>();
 		this.attributes = new LinkedList<String>();
 	}
+	public ClassDeclarationNode(LinkedList<String> attributes,
+			Hashtable<String, MessageImplementation> messagesImplementations) {
+		this.messagesImplementations = messagesImplementations;
+		this.attributes = attributes;
+	}
 	/*
 	 * declare a class variable
 	 */	
@@ -51,6 +56,14 @@ public class ClassDeclarationNode extends PostalNode {
 		UserDefinedClass c = new UserDefinedClass(className, messagesImplementations, attributes,e.getClass(superClassName));
 		e.insertClass(c);
 		return null;
+	}
+	public void setExtends(String x) {
+		this.superClassName=x;
+		
+	}
+	public void setName(String x) {
+		this.className=x;
+		
 	}
 
 }

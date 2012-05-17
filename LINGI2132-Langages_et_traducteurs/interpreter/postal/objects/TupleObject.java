@@ -52,4 +52,9 @@ public class TupleObject extends PostalObject
         	ret = ret+" , "+itr.next().toString();
         return ret;
 	}
+
+	public void setElements(LinkedList<PostalObject> e) {
+		elements = e;
+		
+	}
 }

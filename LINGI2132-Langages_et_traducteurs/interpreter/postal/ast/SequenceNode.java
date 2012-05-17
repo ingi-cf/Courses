@@ -14,6 +14,10 @@ public class SequenceNode extends PostalNode
     {
         statements = new LinkedList<PostalNode>();
     }
+    public SequenceNode(LinkedList<PostalNode> s)
+    {
+        statements = s;
+    }
     public void addStatement(PostalNode statement)
     {
         statements.add(statement);
