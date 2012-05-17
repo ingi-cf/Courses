@@ -27,20 +27,29 @@ public class LL1Parser{
 	public static TreeNode parse(PostalLexer lex, GTools gt,IToken t, int nt) throws Exception
 	{ 
 		//create a node with nt?
-		TreeNode tn = new TreeNode();
 		int[] productionRule = gt.parseTable()[nt-gt.numberOfTerminals()][t.getTerminal()];
+		int productionRuleNr = gt.ruleNumber(nt,productionRule);
+		TreeNode tn = new TreeNode(nt,productionRuleNr);
+		TreeNode[] childs = new TreeNode[productionRule.length];
 		for(int i=0; i<productionRule.length ; i++)
 		{
 			if(productionRule[i] < gt.numberOfTerminals())
 				//this is a terminal
 			{
-				
-				t = lex.getNextSymbol();
+				if(productionRule[i] != t.getTerminal()){
+					childs[i] = new TreeNode(t.getTerminal(),t.getSymbol());
+					t = lex.getNextSymbol();
+				} else {
+					throw new Exception("error : \""+t.getSymbol()+"\" not expected");
+				}
+					
 			} else {
-				parse(lex,gt,t,productionRule[i]);
+				//this is not a terminal
+				childs[i] = parse(lex,gt,t,productionRule[i]);
 			}
 		}
-		return null;
+		tn.putChilds(childs);
+		return tn;
 	}
 	public static void main (String [] args) throws Exception
     {

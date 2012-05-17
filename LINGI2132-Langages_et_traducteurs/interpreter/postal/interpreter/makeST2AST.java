@@ -1,5 +1,8 @@
 package postal.interpreter;
 
+import java.util.Hashtable;
+
+import postal.environment.MessageImplementation;
 import slip.trees.genST2AST;
 
 class makeST2AST{
@@ -14,40 +17,39 @@ class makeST2AST{
 			{ASTname[i ++] = "" ; }	
 		}
 		
-		ASTname[gt.terminal("<S>")] 							="SequenceNode";
-		ASTname[gt.terminal("<statement>")]	 					="PostalNode";
-		ASTname[gt.terminal("<message>")] 						="";
-		ASTname[gt.terminal("<message sending suffixe>")] 		="";
-		ASTname[gt.terminal("<element list>")] 					="";
-		ASTname[gt.terminal("<comma first element list>")] 		="";
-		ASTname[gt.terminal("<boolean value>")] 				="ElementNode";
-		ASTname[gt.terminal("<tuple>")] 						="ElementNode";
-		ASTname[gt.terminal("<element>")] 						="ElementNode";
-		ASTname[gt.terminal("<element suffixe>")] 				="";
-		ASTname[gt.terminal("<element prefixe>")] 				="ElementNode";
-		ASTname[gt.terminal("<unary operation>")] 				="ElementNode";
-		ASTname[gt.terminal("<element access>")] 				="String";
-		ASTname[gt.terminal("<operation suffixe>")] 			="ElementNode";
-		ASTname[gt.terminal("<binary operator>")] 				="String";
-		ASTname[gt.terminal("<unary operator>")] 				="String";
-		ASTname[gt.terminal("<instantiation>")] 				="InstantiateClassNode";
-		ASTname[gt.terminal("<assignment expression suffixe>")] ="";
-		ASTname[gt.terminal("<block code>")] 					="SequenceNode";
-		ASTname[gt.terminal("<statements>")] 					="";
-		ASTname[gt.terminal("<while statement>")] 				="WhileNode";
-		ASTname[gt.terminal("<if statement>")] 					="IfNode";
-		ASTname[gt.terminal("<class>")] 						="ClassDeclarationNode";
-		ASTname[gt.terminal("<extends>")] 						="String";
-		ASTname[gt.terminal("<class body>")] 					="";
-		ASTname[gt.terminal("<attributes declaration>")] 		="";
-		ASTname[gt.terminal("<messages declaration>")] 			="";
-		ASTname[gt.terminal("<message declaration>")] 			="";
-		ASTname[gt.terminal("<attribute declaration>")] 		="";
+		ASTname[gt.nonTerminal("<statement>")]	 					="PostalNode";
+		ASTname[gt.nonTerminal("<message>")] 						="ElementNode";
+		ASTname[gt.nonTerminal("<message sending suffixe>")] 		="ElementSuffixe";
+		ASTname[gt.nonTerminal("<element list>")] 					="LinkedList<ElementNode>";
+		ASTname[gt.nonTerminal("<comma first element list>")] 		="LinkedList<ElementNode>";
+		ASTname[gt.nonTerminal("<boolean value>")] 				    ="ElementNode";
+		ASTname[gt.nonTerminal("<tuple>")] 						    ="ElementNode";
+		ASTname[gt.nonTerminal("<element>")] 						="ElementNode";
+		ASTname[gt.nonTerminal("<element suffixe>")] 				="LinkedList<ElementSuffixe>"; //linked list of what exaclty? a couple <action, element>  element can be a string? or a variable node? 
+		ASTname[gt.nonTerminal("<element prefixe>")] 				="ElementNode";
+		ASTname[gt.nonTerminal("<unary operation>")] 				="ElementNode";
+		ASTname[gt.nonTerminal("<element access>")] 				="ElementSuffixe";
+		ASTname[gt.nonTerminal("<operation suffixe>")] 			    ="ElementSuffixe";
+		ASTname[gt.nonTerminal("<binary operator>")] 				="String";
+		ASTname[gt.nonTerminal("<unary operator>")] 				="String";
+		ASTname[gt.nonTerminal("<instantiation>")] 				    ="InstantiateClassNode";
+		ASTname[gt.nonTerminal("<assignment expression suffixe>")]  ="ElementSuffixe";
+		ASTname[gt.nonTerminal("<block code>")] 					="SequenceNode";
+		ASTname[gt.nonTerminal("<statements>")] 					="PostalNode";
+		ASTname[gt.nonTerminal("<while statement>")] 				="WhileNode";
+		ASTname[gt.nonTerminal("<if statement>")] 					="IfNode";
+		ASTname[gt.nonTerminal("<class>")] 						    ="ClassDeclarationNode";
+		ASTname[gt.nonTerminal("<extends>")] 						="String";
+		ASTname[gt.nonTerminal("<class body>")] 					="ClassDeclarationNode";
+		ASTname[gt.nonTerminal("<attributes declaration>")] 		="LinkedList<String>";
+		ASTname[gt.nonTerminal("<messages declaration>")] 			="Hashtable<String,MessageImplementation>";
+		ASTname[gt.nonTerminal("<message declaration>")] 			="MessageImplementation";
+		ASTname[gt.nonTerminal("<attribute declaration>")] 		    ="String";
 
 		
 		ASTname[gt.terminal("IDENTIFIER")] 						= "String" ;
 		ASTname[gt.terminal("CLASSIDENTIFIER")] 				= "String" ;
-		ASTname[gt.terminal("INTEGER")] 						= "String" ;
+		ASTname[gt.terminal("INTEGER")] 						= "ElementNode" ;
 		
 		genST2AST gen = new genST2AST(CParams.PATH, ASTname) ;
 		gen.genTrad() ;
