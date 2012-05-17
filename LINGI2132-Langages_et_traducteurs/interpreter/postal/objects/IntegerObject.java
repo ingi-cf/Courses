@@ -19,9 +19,14 @@ public class IntegerObject extends PostalObject
 		return value;
 	}
 	
+
 	public String toString()
 	{
-		return ""+value;
+		String s="";
+    	s+="[(Integer Object) : ";
+    	s+= value;
+    	s+="]";
+    	return s;
 	}
     
 }

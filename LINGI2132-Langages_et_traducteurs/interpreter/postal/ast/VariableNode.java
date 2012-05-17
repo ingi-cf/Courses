@@ -46,4 +46,12 @@ public class VariableNode extends ElementNode{
 		return resolve(e);
 	}
 
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Variable Node) : ";
+    	s+= identifier;
+        s+="]";
+    	return s;
+    }
 }

@@ -29,7 +29,22 @@ public class SequenceNode extends PostalNode
     {
         ListIterator<PostalNode> itr = statements.listIterator();
         while(itr.hasNext())
-            itr.next().execute(e);
+        {
+        	itr.next().execute(e);
+        }
         return null;
+    }
+    
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Sequence Node) : ";
+    	ListIterator<PostalNode> itr = statements.listIterator();
+        while(itr.hasNext())
+        {
+        	s+=itr.next().toString();
+        }
+        s+="]";
+    	return s;
     }
 }

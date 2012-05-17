@@ -26,7 +26,7 @@ class makeST2AST{
 		ASTname[gt.nonTerminal("<tuple>")] 						    ="ElementNode";
 		ASTname[gt.nonTerminal("<element>")] 						="ElementNode";
 		ASTname[gt.nonTerminal("<element suffixe>")] 				="LinkedList<ElementSuffixe>"; //linked list of what exaclty? a couple <action, element>  element can be a string? or a variable node? 
-		ASTname[gt.nonTerminal("<element prefixe>")] 				="ElementNode";
+		ASTname[gt.nonTerminal("<element prefixe>")] 				="ElementPrefixe";
 		ASTname[gt.nonTerminal("<unary operation>")] 				="ElementNode";
 		ASTname[gt.nonTerminal("<element access>")] 				="ElementSuffixe";
 		ASTname[gt.nonTerminal("<operation suffixe>")] 			    ="ElementSuffixe";

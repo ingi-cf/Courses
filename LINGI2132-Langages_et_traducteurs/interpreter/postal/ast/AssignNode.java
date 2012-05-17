@@ -44,7 +44,10 @@ public class AssignNode extends ElementNode{
 		if(src == null)
 			e.setVariable(identifier,element.resolve(e));
 		else
+		{
+			System.out.println(identifier + " - " + element);
 			src.resolve(e).getEnvironment().setVariable(identifier,element.resolve(e));
+		}
 		return null;
 	}
 

@@ -23,10 +23,7 @@ import postal.objects.TupleObject;
 
 
 //TODO Tuples WTF
-//TODO check all lambda (if they return null what happens next?)
-//TODO OPERATIONS 
-//Message declaration
-//WHAT if ((2+3)+4) ... I think it sucks ^^
+
 
 
 public class ST2AST{
@@ -158,6 +155,8 @@ public class ST2AST{
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
                  LinkedList<ElementNode> x2 = trad45(tree.getChild(2)) ;
+                 if(x2==null)
+                	 x2 = new LinkedList<ElementNode>();
                  x2.push(x1);
                  return x2 ; // a modifier
                }
@@ -209,30 +208,39 @@ public class ST2AST{
     {
        case 0 : // <element> --> <element prefixe> <element suffixe> 
                { 
-                 ElementNode x0 = trad50(tree.getChild(0)) ;
+                 ElementPrefixe x0 = trad50(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 ListIterator<ElementSuffixe> itr = x1.listIterator();
-                 while(itr.hasNext())
+                 if(x1 != null)
                  {
-                	ElementSuffixe es = itr.next();
-                	switch(es.getAction())
-                	{
-                		case ElementSuffixe.ACCESS:
-                			x0 = new VariableNode(x0, es.getString());
-                			break;
-                		case ElementSuffixe.ASSIGNMENT:
-                			x0 = new AssignNode(x0, es.getElement());
-                			break;
-                		case ElementSuffixe.MESSAGESENDING:
-                			x0=new SendNode(x0,es.getElement());
-                			break;
-                		case ElementSuffixe.OPERATION:
-                			MessageObject m = new MessageObject(es.getString(),es.getElement());
-                			x0 = new SendNode(x0,m);
-                			break;
-                	}
+	                 ListIterator<ElementSuffixe> itr = x1.listIterator();
+	                 while(itr.hasNext())
+	                 {
+	                	ElementSuffixe es = itr.next();
+	                	switch(es.getAction())
+	                	{
+	                		case ElementSuffixe.ACCESS:
+	                			x0 = new ElementPrefixe(x0.getElementObject(),es.getString());
+	                			break;
+	                		case ElementSuffixe.ASSIGNMENT:
+	                			AssignNode an;
+	                			if(x0.getElement() == null)
+	                				an = new AssignNode(x0.getIdentifier(), es.getElement());
+	                			else
+	                				an = new AssignNode(x0.getIdentifier(),x0.getElement(), es.getElement());
+	                			
+	                			x0 = new ElementPrefixe(an);
+	                			break;
+	                		case ElementSuffixe.MESSAGESENDING:
+	                			x0=new ElementPrefixe(new SendNode(x0.getElementObject(),es.getElement()));
+	                			break;
+	                		case ElementSuffixe.OPERATION:
+	                			MessageObject m = new MessageObject(es.getString(),es.getElement());
+	                			x0 = new ElementPrefixe(new SendNode(x0.getElementObject(),m));
+	                			break;
+	                	}
+	                 }
                  }
-                 return null ; // a modifier
+                 return x0.getElementObject() ; // a modifier
                }
        default : return null ;
     }
@@ -286,7 +294,7 @@ public class ST2AST{
        default : return null ;
     }
   }
-  private static ElementNode trad50(TreeNode tree){
+  private static ElementPrefixe trad50(TreeNode tree){
   // tree symbol is <element prefixe>
 
     int r = tree.getRule() ;
@@ -295,54 +303,54 @@ public class ST2AST{
        case 0 : // <element prefixe> --> IDENTIFIER 
                { 
                  String x0 = trad3(tree.getChild(0)) ;
-                 return new VariableNode(x0);
+                 return new ElementPrefixe(x0);
                }
        case 1 : // <element prefixe> --> INTEGER 
                { 
                  ElementNode x0 = trad11(tree.getChild(0)) ;
-                 return x0 ; 
+                 return new ElementPrefixe(x0);
                }
        case 2 : // <element prefixe> --> # 
                { 
-            	   return new VariableNode("#");
+            	   return new ElementPrefixe(new VariableNode("#"));
                }
        case 3 : // <element prefixe> --> self 
                { 
-            	   return new VariableNode("self");
+            	   return new ElementPrefixe(new VariableNode("self"));
                }
        case 4 : // <element prefixe> --> super 
                { 
-            	   return new VariableNode("super");
+            	   return new ElementPrefixe(new VariableNode("super"));
                }
        case 5 : // <element prefixe> --> <instantiation> 
                { 
                  InstantiateClassNode x0 = trad56(tree.getChild(0)) ;
-                 return x0 ; 
+                 return new ElementPrefixe(x0); 
                }
        case 6 : // <element prefixe> --> <boolean value> 
                { 
                  ElementNode x0 = trad46(tree.getChild(0)) ;
-                 return x0 ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 7 : // <element prefixe> --> <message> 
                { 
                  ElementNode x0 = trad42(tree.getChild(0)) ;
-                 return x0 ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 8 : // <element prefixe> --> <tuple> 
                { 
                  ElementNode x0 = trad47(tree.getChild(0)) ;
-                 return x0 ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 9 : // <element prefixe> --> <unary operation> 
                { 
                  ElementNode x0 = trad51(tree.getChild(0)) ;
-                 return x0 ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 10 : // <element prefixe> --> ( <element> ) 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return x1 ; // a modifier
+                 return new ElementPrefixe(x1) ; // a modifier
                }
        default : return null ;
     }
@@ -511,6 +519,8 @@ public class ST2AST{
                { 
                  PostalNode x0 = trad41(tree.getChild(0)) ;
                  LinkedList<PostalNode> x1 = trad59(tree.getChild(1)) ;
+                 if(x1 == null)
+                	 x1 = new LinkedList<PostalNode>();
                  x1.push(x0);
                  return new SequenceNode(x1) ;
                }
@@ -531,6 +541,11 @@ public class ST2AST{
                { 
                  PostalNode x0 = trad41(tree.getChild(0)) ;
                  LinkedList<PostalNode> x1 = trad59(tree.getChild(1)) ;
+                 if(x1==null)
+                	 x1 = new LinkedList<PostalNode>();
+                 if(x0 == null)
+                	 //TODO remove
+                	 System.out.println("the error is here");
                  x1.push(x0);
                  return x1 ;
                }

@@ -79,11 +79,16 @@ public class MessageObject extends PostalObject
 	 */
 	public String toString()
 	{
-		String ret = messagename;
+		
+		String s="";
+    	s+="[(Message Object) : ";
+    	s += messagename;
 		ListIterator<ElementNode> itr = parameters.listIterator();
         while(itr.hasNext())
-        	ret = ret+" , "+itr.next().toString();
-        return ret;
+        	s+= ", "+itr.next().toString();
+        s+="]";
+    	return s;
+
 	}
 
 	public LinkedList<ElementNode> getParameters() {
