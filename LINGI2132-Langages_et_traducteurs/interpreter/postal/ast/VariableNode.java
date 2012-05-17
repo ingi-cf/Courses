@@ -6,7 +6,7 @@ import postal.objects.PostalObject;
 /*
  * Variable access
  */
-public class VariableNode extends PostalNode implements ElementNode{
+public class VariableNode extends ElementNode{
 
 	private String identifier;
 	private ElementNode element;

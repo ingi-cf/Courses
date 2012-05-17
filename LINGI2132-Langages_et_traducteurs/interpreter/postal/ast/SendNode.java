@@ -7,7 +7,7 @@ import postal.objects.PostalObject;
 /*
  * Node representing a message sending
  */
-public class SendNode extends PostalNode implements ElementNode
+public class SendNode extends ElementNode
 {
     
     private ElementNode message;

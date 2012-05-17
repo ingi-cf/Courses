@@ -9,5 +9,5 @@ import postal.environment.PostalEnvironment;
 public abstract class PostalNode
 {
 
-    public abstract ElementNode execute(PostalEnvironment e);
+    public abstract PostalNode execute(PostalEnvironment e);
 }

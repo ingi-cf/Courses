@@ -7,7 +7,7 @@ import postal.objects.PostalObject;
 /*
  * Node representing the instanciation of a class 
  */
-public class InstantiateClassNode extends PostalNode implements ElementNode {
+public class InstantiateClassNode extends ElementNode {
 
 	private ElementNode message;
 	private String className;
@@ -24,7 +24,7 @@ public class InstantiateClassNode extends PostalNode implements ElementNode {
 	/*
 	 * Executes the instanciation and returns the obtained instance
 	 */
-    public PostalObject execute(PostalEnvironment e)
+    public PostalNode execute(PostalEnvironment e)
     {
 		return resolve(e);
     }
