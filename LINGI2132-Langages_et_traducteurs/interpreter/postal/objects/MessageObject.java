@@ -90,4 +90,8 @@ public class MessageObject extends PostalObject
 		// TODO Auto-generated method stub
 		return parameters;
 	}
+	public void setParameters(LinkedList<ElementNode> p) {
+		parameters = p;
+		
+	}
 }

@@ -11,25 +11,28 @@ import postal.ast.PostalNode;
 import postal.ast.SequenceNode;
 import postal.ast.WhileNode;
 import postal.environment.MessageImplementation;
+import postal.objects.IntegerObject;
+import postal.objects.MessageObject;
+import postal.objects.TupleObject;
 
 
 public class ST2AST{
   private static String trad3(TreeNode tree){
   // Tree symbol is IDENTIFIER
 
-      return null ; // a modifier
+      return tree.getStringValue();
   }
   private static ElementNode trad11(TreeNode tree){
   // Tree symbol is INTEGER
 
-      return null ; // a modifier
+      return new IntegerObject(Integer.parseInt(tree.getStringValue())) ; 
   }
   private static String trad32(TreeNode tree){
   // Tree symbol is CLASSIDENTIFIER
 
-      return null ; // a modifier
+      return tree.getStringValue() ; 
   }
-  private static Object trad40(TreeNode tree){
+  private static SequenceNode trad40(TreeNode tree){
   // tree symbol is <S>
 
     int r = tree.getRule() ;
@@ -38,7 +41,7 @@ public class ST2AST{
        case 0 : // <S> --> <block code> 
                { 
                  SequenceNode x0 = trad58(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return x0 ; 
                }
        default : return null ;
     }
@@ -52,27 +55,27 @@ public class ST2AST{
        case 0 : // <statement> --> <class> 
                { 
                  ClassDeclarationNode x0 = trad62(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return x0 ; // a modifier
                }
        case 1 : // <statement> --> <element> ; 
                { 
                  ElementNode x0 = trad48(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return (PostalNode) x0 ; 
                }
        case 2 : // <statement> --> return <element> ; 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return (PostalNode) x1 ; 
                }
        case 3 : // <statement> --> <while statement> 
                { 
                  WhileNode x0 = trad60(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return x0 ; 
                }
        case 4 : // <statement> --> <if statement> 
                { 
                  IfNode x0 = trad61(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return x0 ; 
                }
        default : return null ;
     }
@@ -87,7 +90,9 @@ public class ST2AST{
                { 
                  String x1 = trad3(tree.getChild(1)) ;
                  LinkedList<ElementNode> x2 = trad45(tree.getChild(2)) ;
-                 return null ; // a modifier
+                 MessageObject m = new MessageObject(x1) ;
+                 m.setParameters(x2);
+                 return m;
                }
        default : return null ;
     }
@@ -101,7 +106,7 @@ public class ST2AST{
        case 0 : // <message sending suffixe> --> MSA <element> 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return new ElementSuffixe(ElementSuffixe.MESSAGESENDING, x1) ; 
                }
        default : return null ;
     }
@@ -116,7 +121,8 @@ public class ST2AST{
                { 
                  ElementNode x0 = trad48(tree.getChild(0)) ;
                  LinkedList<ElementNode> x1 = trad45(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 x1.push(x0);
+                 return x1 ; // a modifier
                }
        case 1 : // <element list> --> <lambda>
                { 
@@ -169,7 +175,11 @@ public class ST2AST{
     {
        case 0 : // <tuple> --> [ <element list> ] 
                { 
+            	 TupleObject to = new TupleObject();
                  LinkedList<ElementNode> x1 = trad44(tree.getChild(1)) ;
+                 if (x1 != null)
+                 {
+                 }
                  return null ; // a modifier
                }
        default : return null ;
