@@ -36,7 +36,7 @@ public class PostalLexer implements ILexer {
 			if(candidateToken.matches(termNonAlpha) || (candidateToken.matches(termAlpha) && (line.length()==0 || !line.substring(0,1).matches("[a-zA-Z]")))) //detect if it is a terminal symbol composed of letters
 			{
 				symbol = candidateToken;
-				terminal = gt.terminal("symbol");
+				terminal = gt.terminal(symbol); 
 				completeToken = true;
 			}
 			else if(candidateToken=="<-")

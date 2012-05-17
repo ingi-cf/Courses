@@ -37,7 +37,7 @@ class makeST2AST{
 		ASTname[gt.terminal("<while statement>")] 				="WhileNode";
 		ASTname[gt.terminal("<if statement>")] 					="IfNode";
 		ASTname[gt.terminal("<class>")] 						="ClassDeclarationNode";
-		ASTname[gt.terminal("<extends>")] 						="";
+		ASTname[gt.terminal("<extends>")] 						="String";
 		ASTname[gt.terminal("<class body>")] 					="";
 		ASTname[gt.terminal("<attributes declaration>")] 		="";
 		ASTname[gt.terminal("<messages declaration>")] 			="";
@@ -51,7 +51,5 @@ class makeST2AST{
 		
 		genST2AST gen = new genST2AST(CParams.PATH, ASTname) ;
 		gen.genTrad() ;
-
-		
 	}
 }

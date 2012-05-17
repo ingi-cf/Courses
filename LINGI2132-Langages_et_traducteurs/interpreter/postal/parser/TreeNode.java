@@ -35,27 +35,27 @@ import slip.grammars.Grammar ;
 */
 public class TreeNode{
 
-  private int X ; // Symbol of the node
-		private int r ; // rule of the node (number of the rule in pRonde[X])
-		private TreeNode[] child; 
-		private int v ; // integer value of the node (if any)
-		private String s ; // string value of the note (if any)
-		
-		public TreeNode(int X)
-		{ this.X = X ; }
-		
+	private int X ; // Symbol of the node
+	private int r ; // rule of the node (number of the rule in pRonde[X])
+	private TreeNode[] child; 
+	private int v ; // integer value of the node (if any)
+	private String s ; // string value of the note (if any)
+	
+	public TreeNode(int X)
+	{ this.X = X ; }
+	
 			
-		public TreeNode(int X, int r)
-		{ this.X = X ; this.r = r ;	}
+	public TreeNode(int X, int r)
+	{ this.X = X ; this.r = r ;	}
 		
-		public TreeNode(int X, int r, int v)
-		// Terminal node with an int value
-		// r is meaningless
-		{ this.X = X ; this.r = r ;	this.v = v ;}
-		
-			public TreeNode(int X, String s)
-		// Terminal node with a String value
-		{ this.X = X ; this.s = s ;}
+	public TreeNode(int X, int r, int v)
+	// Terminal node with an int value
+	// r is meaningless
+	{ this.X = X ; this.r = r ;	this.v = v ;}
+	
+	public TreeNode(int X, String s)
+	// Terminal node with a String value
+	{ this.X = X ; this.s = s ;}
 		
  	public TreeNode(int X, int r, TreeNode[] child)
 		// For bottom-up parsers
