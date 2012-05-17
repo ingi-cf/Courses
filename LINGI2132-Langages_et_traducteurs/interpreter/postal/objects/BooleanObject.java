@@ -1,6 +1,9 @@
 
 package postal.objects;
 
+import java.util.ListIterator;
+
+import postal.ast.ElementNode;
 import postal.classes.*;
 
 /*
@@ -23,6 +26,10 @@ public class BooleanObject extends PostalObject
     
 	public String toString()
 	{
-		return ""+value;
+		String s="";
+    	s+="[(Boolean Object) : ";
+    	s+= value;
+    	s+="]";
+    	return s;
 	}
 }

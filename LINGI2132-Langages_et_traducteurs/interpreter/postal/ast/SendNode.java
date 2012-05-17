@@ -1,4 +1,6 @@
 package postal.ast;
+import java.util.ListIterator;
+
 import postal.ast.ElementNode;
 import postal.environment.PostalEnvironment;
 import postal.objects.MessageObject;
@@ -7,7 +9,7 @@ import postal.objects.PostalObject;
 /*
  * Node representing a message sending
  */
-public class SendNode extends PostalNode implements ElementNode
+public class SendNode extends ElementNode
 {
     
     private ElementNode message;
@@ -37,4 +39,15 @@ public class SendNode extends PostalNode implements ElementNode
 		PostalObject resolvedDst = dst.resolve(e);
 		return resolvedDst.getPostalClass().messageReceived(resolvedDst,message.resolve(e));
 	}
+	
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Send Node) : ";
+    	s+= dst.toString();
+    	s+= " ";
+    	s+= message.toString();
+        s+="]";
+    	return s;
+    }
 }

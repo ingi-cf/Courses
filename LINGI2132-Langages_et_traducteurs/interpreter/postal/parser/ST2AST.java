@@ -2,18 +2,29 @@ package postal.parser;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
+import postal.ast.AssignNode;
 import postal.ast.ClassDeclarationNode;
 import postal.ast.ElementNode;
 import postal.ast.IfNode;
 import postal.ast.InstantiateClassNode;
 import postal.ast.PostalNode;
+import postal.ast.SendNode;
 import postal.ast.SequenceNode;
+import postal.ast.VariableNode;
 import postal.ast.WhileNode;
 import postal.environment.MessageImplementation;
+
+import postal.objects.BooleanObject;
 import postal.objects.IntegerObject;
 import postal.objects.MessageObject;
+import postal.objects.PostalObject;
 import postal.objects.TupleObject;
+
+
+//TODO Tuples WTF
+
 
 
 public class ST2AST{
@@ -139,13 +150,16 @@ public class ST2AST{
     {
        case 0 : // <comma first element list> --> <lambda>
                { 
-                 return null ; // a modifier
+                 return null ; 
                }
        case 1 : // <comma first element list> --> , <element> <comma first element list> 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
                  LinkedList<ElementNode> x2 = trad45(tree.getChild(2)) ;
-                 return null ; // a modifier
+                 if(x2==null)
+                	 x2 = new LinkedList<ElementNode>();
+                 x2.push(x1);
+                 return x2 ; // a modifier
                }
        default : return null ;
     }
@@ -158,11 +172,11 @@ public class ST2AST{
     {
        case 0 : // <boolean value> --> true 
                { 
-                 return null ; // a modifier
+                 return new BooleanObject(true) ; // a modifier
                }
        case 1 : // <boolean value> --> false 
                { 
-                 return null ; // a modifier
+                 return new BooleanObject(false) ; // a modifier
                }
        default : return null ;
     }
@@ -179,6 +193,10 @@ public class ST2AST{
                  LinkedList<ElementNode> x1 = trad44(tree.getChild(1)) ;
                  if (x1 != null)
                  {
+
+                	 //TODO here there is something to do
+                	 //to.setElements(x1);
+
                  }
                  return null ; // a modifier
                }
@@ -193,9 +211,39 @@ public class ST2AST{
     {
        case 0 : // <element> --> <element prefixe> <element suffixe> 
                { 
-                 ElementNode x0 = trad50(tree.getChild(0)) ;
+                 ElementPrefixe x0 = trad50(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if(x1 != null)
+                 {
+	                 ListIterator<ElementSuffixe> itr = x1.listIterator();
+	                 while(itr.hasNext())
+	                 {
+	                	ElementSuffixe es = itr.next();
+	                	switch(es.getAction())
+	                	{
+	                		case ElementSuffixe.ACCESS:
+	                			x0 = new ElementPrefixe(x0.getElementObject(),es.getString());
+	                			break;
+	                		case ElementSuffixe.ASSIGNMENT:
+	                			AssignNode an;
+	                			if(x0.getElement() == null)
+	                				an = new AssignNode(x0.getIdentifier(), es.getElement());
+	                			else
+	                				an = new AssignNode(x0.getIdentifier(),x0.getElement(), es.getElement());
+	                			
+	                			x0 = new ElementPrefixe(an);
+	                			break;
+	                		case ElementSuffixe.MESSAGESENDING:
+	                			x0=new ElementPrefixe(new SendNode(x0.getElementObject(),es.getElement()));
+	                			break;
+	                		case ElementSuffixe.OPERATION:
+	                			MessageObject m = new MessageObject(es.getString(),es.getElement());
+	                			x0 = new ElementPrefixe(new SendNode(x0.getElementObject(),m));
+	                			break;
+	                	}
+	                 }
+                 }
+                 return x0.getElementObject() ; // a modifier
                }
        default : return null ;
     }
@@ -204,31 +252,43 @@ public class ST2AST{
   // tree symbol is <element suffixe>
 
     int r = tree.getRule() ;
-    switch (r)
+  	switch (r)
     {
        case 0 : // <element suffixe> --> <element access> <element suffixe> 
                { 
                  ElementSuffixe x0 = trad52(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if (x1 == null)
+                	 x1 = new LinkedList<ElementSuffixe>();
+                 x1.push(x0);
+                 return x1 ; // a modifier
                }
        case 1 : // <element suffixe> --> <operation suffixe> <element suffixe> 
                { 
                  ElementSuffixe x0 = trad53(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if (x1 == null)
+                	 x1 = new LinkedList<ElementSuffixe>();
+                 x1.push(x0);
+                 return x1; // a modifier
                }
        case 2 : // <element suffixe> --> <message sending suffixe> <element suffixe> 
                { 
                  ElementSuffixe x0 = trad43(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if (x1 == null)
+                	 x1 = new LinkedList<ElementSuffixe>();
+                 x1.push(x0);
+                 return x1;
                }
        case 3 : // <element suffixe> --> <assignment expression suffixe> <element suffixe> 
                { 
                  ElementSuffixe x0 = trad57(tree.getChild(0)) ;
                  LinkedList<ElementSuffixe> x1 = trad49(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if (x1 == null)
+                	 x1 = new LinkedList<ElementSuffixe>();
+                 x1.push(x0);
+                 return x1;
                }
        case 4 : // <element suffixe> --> <lambda>
                { 
@@ -237,7 +297,7 @@ public class ST2AST{
        default : return null ;
     }
   }
-  private static ElementNode trad50(TreeNode tree){
+  private static ElementPrefixe trad50(TreeNode tree){
   // tree symbol is <element prefixe>
 
     int r = tree.getRule() ;
@@ -246,54 +306,54 @@ public class ST2AST{
        case 0 : // <element prefixe> --> IDENTIFIER 
                { 
                  String x0 = trad3(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0);
                }
        case 1 : // <element prefixe> --> INTEGER 
                { 
                  ElementNode x0 = trad11(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0);
                }
        case 2 : // <element prefixe> --> # 
                { 
-                 return null ; // a modifier
+            	   return new ElementPrefixe(new VariableNode("#"));
                }
        case 3 : // <element prefixe> --> self 
                { 
-                 return null ; // a modifier
+            	   return new ElementPrefixe(new VariableNode("self"));
                }
        case 4 : // <element prefixe> --> super 
                { 
-                 return null ; // a modifier
+            	   return new ElementPrefixe(new VariableNode("super"));
                }
        case 5 : // <element prefixe> --> <instantiation> 
                { 
                  InstantiateClassNode x0 = trad56(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0); 
                }
        case 6 : // <element prefixe> --> <boolean value> 
                { 
                  ElementNode x0 = trad46(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 7 : // <element prefixe> --> <message> 
                { 
                  ElementNode x0 = trad42(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 8 : // <element prefixe> --> <tuple> 
                { 
                  ElementNode x0 = trad47(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 9 : // <element prefixe> --> <unary operation> 
                { 
                  ElementNode x0 = trad51(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x0) ; // a modifier
                }
        case 10 : // <element prefixe> --> ( <element> ) 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return new ElementPrefixe(x1) ; // a modifier
                }
        default : return null ;
     }
@@ -308,7 +368,8 @@ public class ST2AST{
                { 
                  String x0 = trad55(tree.getChild(0)) ;
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 MessageObject m = new MessageObject(x0);
+                 return new SendNode(x1, m) ; 
                }
        default : return null ;
     }
@@ -322,7 +383,7 @@ public class ST2AST{
        case 0 : // <element access> --> . IDENTIFIER 
                { 
                  String x1 = trad3(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return new ElementSuffixe(ElementSuffixe.ACCESS,x1);
                }
        default : return null ;
     }
@@ -337,7 +398,7 @@ public class ST2AST{
                { 
                  String x0 = trad54(tree.getChild(0)) ;
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return new ElementSuffixe(ElementSuffixe.OPERATION,x0,x1) ; 
                }
        default : return null ;
     }
@@ -350,55 +411,55 @@ public class ST2AST{
     {
        case 0 : // <binary operator> --> + 
                { 
-                 return null ; // a modifier
+                 return "sum" ; // a modifier
                }
        case 1 : // <binary operator> --> - 
                { 
-                 return null ; // a modifier
+                 return "difference" ; // a modifier
                }
        case 2 : // <binary operator> --> * 
                { 
-                 return null ; // a modifier
+                 return "multiplication" ; // a modifier
                }
        case 3 : // <binary operator> --> / 
                { 
-                 return null ; // a modifier
+                 return "division" ; // a modifier
                }
        case 4 : // <binary operator> --> % 
                { 
-                 return null ; // a modifier
+                 return "mod" ; // a modifier
                }
        case 5 : // <binary operator> --> <= 
                { 
-                 return null ; // a modifier
+                 return "leq" ; // a modifier
                }
        case 6 : // <binary operator> --> => 
                { 
-                 return null ; // a modifier
+                 return "geq" ; // a modifier
                }
        case 7 : // <binary operator> --> < 
                { 
-                 return null ; // a modifier
+                 return "lt" ; // a modifier
                }
        case 8 : // <binary operator> --> > 
                { 
-                 return null ; // a modifier
+                 return "gt" ; // a modifier
                }
        case 9 : // <binary operator> --> == 
                { 
-                 return null ; // a modifier
+                 return "eq" ; // a modifier
                }
        case 10 : // <binary operator> --> != 
                { 
-                 return null ; // a modifier
+                 return "ne" ; // a modifier
                }
        case 11 : // <binary operator> --> and 
                { 
-                 return null ; // a modifier
+                 return "and" ; // a modifier
                }
        case 12 : // <binary operator> --> or 
                { 
-                 return null ; // a modifier
+                 return "or" ; // a modifier
                }
        default : return null ;
     }
@@ -411,11 +472,11 @@ public class ST2AST{
     {
        case 0 : // <unary operator> --> ! 
                { 
-                 return null ; // a modifier
+                 return "not" ; // a modifier
                }
        case 1 : // <unary operator> --> - 
                { 
-                 return null ; // a modifier
+                 return "minus" ; // a modifier
                }
        default : return null ;
     }
@@ -430,7 +491,9 @@ public class ST2AST{
                { 
                  String x0 = trad32(tree.getChild(0)) ;
                  LinkedList<ElementNode> x4 = trad45(tree.getChild(4)) ;
-                 return null ; // a modifier
+                 MessageObject m = new MessageObject("new");
+                 m.setParameters(x4);
+                 return new InstantiateClassNode(x0, m) ; // a modifier
                }
        default : return null ;
     }
@@ -444,7 +507,7 @@ public class ST2AST{
        case 0 : // <assignment expression suffixe> --> = <element> 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return new ElementSuffixe(ElementSuffixe.ASSIGNMENT,x1) ; // a modifier
                }
        default : return null ;
     }
@@ -458,13 +521,16 @@ public class ST2AST{
        case 0 : // <block code> --> <statement> <statements> 
                { 
                  PostalNode x0 = trad41(tree.getChild(0)) ;
-                 PostalNode x1 = trad59(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 LinkedList<PostalNode> x1 = trad59(tree.getChild(1)) ;
+                 if(x1 == null)
+                	 x1 = new LinkedList<PostalNode>();
+                 x1.push(x0);
+                 return new SequenceNode(x1) ;
                }
        default : return null ;
     }
   }
-  private static PostalNode trad59(TreeNode tree){
+  private static LinkedList<PostalNode> trad59(TreeNode tree){
   // tree symbol is <statements>
 
     int r = tree.getRule() ;
@@ -477,8 +543,14 @@ public class ST2AST{
        case 1 : // <statements> --> <statement> <statements> 
                { 
                  PostalNode x0 = trad41(tree.getChild(0)) ;
-                 PostalNode x1 = trad59(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 LinkedList<PostalNode> x1 = trad59(tree.getChild(1)) ;
+                 if(x1==null)
+                	 x1 = new LinkedList<PostalNode>();
+                 if(x0 == null)
+                	 //TODO remove
+                	 System.out.println("the error is here");
+                 x1.push(x0);
+                 return x1 ;
                }
        default : return null ;
     }
@@ -493,7 +565,7 @@ public class ST2AST{
                { 
                  ElementNode x2 = trad48(tree.getChild(2)) ;
                  SequenceNode x5 = trad58(tree.getChild(5)) ;
-                 return null ; // a modifier
+                 return new WhileNode(x2, x5) ; 
                }
        default : return null ;
     }
@@ -508,7 +580,7 @@ public class ST2AST{
                { 
                  ElementNode x2 = trad48(tree.getChild(2)) ;
                  SequenceNode x5 = trad58(tree.getChild(5)) ;
-                 return null ; // a modifier
+                 return new IfNode(x2, x5);
                }
        default : return null ;
     }
@@ -524,7 +596,9 @@ public class ST2AST{
                  String x1 = trad32(tree.getChild(1)) ;
                  String x2 = trad63(tree.getChild(2)) ;
                  ClassDeclarationNode x4 = trad64(tree.getChild(4)) ;
-                 return null ; // a modifier
+                 x4.setName(x1);
+                 x4.setExtends(x2);
+                 return x4 ;
                }
        default : return null ;
     }
@@ -542,7 +616,7 @@ public class ST2AST{
        case 1 : // <extends> --> identifier CLASSIDENTIFIER 
                { 
                  String x1 = trad32(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 return x1 ; // a modifier
                }
        default : return null ;
     }
@@ -557,7 +631,7 @@ public class ST2AST{
                { 
                  LinkedList<String> x1 = trad65(tree.getChild(1)) ;
                  Hashtable<String,MessageImplementation> x4 = trad66(tree.getChild(4)) ;
-                 return null ; // a modifier
+                 return new ClassDeclarationNode(x1,x4) ; // a modifier
                }
        default : return null ;
     }
@@ -576,7 +650,11 @@ public class ST2AST{
                { 
                  String x0 = trad68(tree.getChild(0)) ;
                  LinkedList<String> x1 = trad65(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if (x1==null)
+                	 x1 = new LinkedList<String>();
+                 x1.push(x0);
+                 
+                 return x1 ; 
                }
        default : return null ;
     }
@@ -595,7 +673,10 @@ public class ST2AST{
                { 
                  MessageImplementation x0 = trad67(tree.getChild(0)) ;
                  Hashtable<String,MessageImplementation> x1 = trad66(tree.getChild(1)) ;
-                 return null ; // a modifier
+                 if(x1 == null)
+                	x1 = new Hashtable<String,MessageImplementation>(); 
+                 x1.put(x0.getName(), x0);
+                 return x1 ; // a modifier
                }
        default : return null ;
     }
@@ -611,7 +692,8 @@ public class ST2AST{
                  String x2 = trad3(tree.getChild(2)) ;
                  LinkedList<ElementNode> x3 = trad45(tree.getChild(3)) ;
                  SequenceNode x6 = trad58(tree.getChild(6)) ;
-                 return null ; // a modifier
+                 //return new MessageImplementation(x2, x3, x6) ;
+                 //TODO :'( grammaire foireuse ça marche pas avec comma first element list
                }
        default : return null ;
     }
@@ -625,7 +707,7 @@ public class ST2AST{
        case 0 : // <attribute declaration> --> IDENTIFIER ; 
                { 
                  String x0 = trad3(tree.getChild(0)) ;
-                 return null ; // a modifier
+                 return x0 ;
                }
        default : return null ;
     }

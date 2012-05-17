@@ -23,7 +23,7 @@ public class PostalLexer implements ILexer {
 		//todo make sure that 1:this list is complete; 2:gt.terminal cannot be used
 		//todo extend not in grammar as word ?? 
 		String termAlpha = "true|false|super|self|def|and|or|while|if|class";
-		String termNonAlpha = ";|{|}+|-|*|/|%|<=|=>|<|>|==|!=|!|#";
+		String termNonAlpha = ";|\\{|\\}|\\+|-|\\*|/|%|<=|=>|<|>|==|!=|!|#|=|,|\\(|\\)";
 
 		Boolean completeToken = false;
 		String candidateToken="";
@@ -32,17 +32,18 @@ public class PostalLexer implements ILexer {
 			candidateToken = candidateToken+line.substring(0,1);
 			line = line.substring(1);
 			
+			if(candidateToken.equals("<") && line.substring(0,1).equals("-"))
+			{
+				line = line.substring(1);
+				symbol = "<-";
+				terminal = gt.terminal("MSA");
+				completeToken = true;
+			}
 			//first if is a dirty way to check if the current token is a terminal but how else ?
-			if(candidateToken.matches(termNonAlpha) || (candidateToken.matches(termAlpha) && (line.length()==0 || !line.substring(0,1).matches("[a-zA-Z]")))) //detect if it is a terminal symbol composed of letters
+			else if(candidateToken.matches(termNonAlpha) || (candidateToken.matches(termAlpha) && (line.length()==0 || !line.substring(0,1).matches("[a-zA-Z]")))) //detect if it is a terminal symbol composed of letters
 			{
 				symbol = candidateToken;
 				terminal = gt.terminal(symbol); 
-				completeToken = true;
-			}
-			else if(candidateToken=="<-")
-			{
-				symbol = candidateToken;
-				terminal = gt.terminal("MSA");
 				completeToken = true;
 			}
 			else if(candidateToken.matches("[a-z][a-zA-Z]*") && (line.length()==0 || !line.substring(0,1).matches("[a-zA-Z]"))) //is an identifier and is finished

@@ -14,6 +14,10 @@ public class SequenceNode extends PostalNode
     {
         statements = new LinkedList<PostalNode>();
     }
+    public SequenceNode(LinkedList<PostalNode> s)
+    {
+        statements = s;
+    }
     public void addStatement(PostalNode statement)
     {
         statements.add(statement);
@@ -25,7 +29,22 @@ public class SequenceNode extends PostalNode
     {
         ListIterator<PostalNode> itr = statements.listIterator();
         while(itr.hasNext())
-            itr.next().execute(e);
+        {
+        	itr.next().execute(e);
+        }
         return null;
+    }
+    
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Sequence Node) : ";
+    	ListIterator<PostalNode> itr = statements.listIterator();
+        while(itr.hasNext())
+        {
+        	s+=itr.next().toString();
+        }
+        s+="]";
+    	return s;
     }
 }

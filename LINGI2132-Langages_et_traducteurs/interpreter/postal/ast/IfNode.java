@@ -38,7 +38,7 @@ public class IfNode extends PostalNode
      * Execute either the body block or the else block
      * depending on the evaluation of the condition in environment e
      */
-    public PostalObject execute(PostalEnvironment e)
+    public ElementNode execute(PostalEnvironment e)
     {
         PostalObject o = condition.resolve(e);
         if(!(o instanceof BooleanObject))

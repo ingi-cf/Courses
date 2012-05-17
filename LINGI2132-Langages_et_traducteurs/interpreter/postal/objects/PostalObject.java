@@ -1,12 +1,13 @@
 package postal.objects;
 import postal.ast.ElementNode;
+import postal.ast.PostalNode;
 import postal.classes.PostalClass;
 import postal.environment.PostalEnvironment;
 
 /*
  * represents any postal object
  */
-public class PostalObject implements ElementNode
+public class PostalObject extends ElementNode
 {
 	//associated class
     private PostalClass postalClass;
@@ -44,6 +45,11 @@ public class PostalObject implements ElementNode
 	}
 
 	public PostalObject getSuperObject() {
+		return null;
+	}
+
+	@Override
+	public PostalNode execute(PostalEnvironment e) {
 		return null;
 	}
     

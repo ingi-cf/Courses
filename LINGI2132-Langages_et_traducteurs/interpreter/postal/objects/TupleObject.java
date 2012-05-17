@@ -51,10 +51,6 @@ public class TupleObject extends PostalObject
         while(itr.hasNext())
         	ret = ret+" , "+itr.next().toString();
         return ret;
-	}
-
-	public void setElements(LinkedList<PostalObject> x1) {
-		elements = x1;
 		
 	}
 }

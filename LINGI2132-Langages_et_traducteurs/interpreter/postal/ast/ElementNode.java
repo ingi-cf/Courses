@@ -5,12 +5,13 @@ import postal.objects.PostalObject;
 /*
  * Nodes representing elements from the syntax
  */
-public interface ElementNode 
+
+public abstract class ElementNode extends PostalNode
 {
 	/*
 	 * returns the PostalObject obtained after evaluation of the element 
 	 * with the environment e
 	 */
-    public PostalObject resolve(PostalEnvironment e);
+    public abstract PostalObject resolve(PostalEnvironment e);
     
 }

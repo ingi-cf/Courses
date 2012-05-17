@@ -2,6 +2,7 @@ package postal.environment;
 
 import java.util.LinkedList;
 
+import postal.ast.ElementNode;
 import postal.ast.SequenceNode;
 
 /*
@@ -19,6 +20,13 @@ public class MessageImplementation {
 		parametersIdentifier = new LinkedList<String>();
 	}
 	
+	public MessageImplementation(String name, LinkedList<String> parametersIdentifiers,
+			SequenceNode body) {
+		this.body = body;
+		this.messageName = name;
+		this.parametersIdentifier = parametersIdentifiers;
+	}
+
 	public void addParameter(String identifier)
 	{
 		parametersIdentifier.add(identifier);
