@@ -23,7 +23,7 @@ public class Executer {
 		//System.out.println("ST created");
 		PostalNode ast = (PostalNode) ST2AST.tradProgram(st);
 		//System.out.println("AST created");
-		
+		//System.out.println(ast);
 		PostalEnvironment e = new PostalEnvironment();
 		ast.execute(e);
 		//System.out.println("Execution done");

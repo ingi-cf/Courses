@@ -1,6 +1,9 @@
 package postal.environment;
 
+import java.util.AbstractList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import postal.ast.ElementNode;
 import postal.ast.SequenceNode;
@@ -50,5 +53,18 @@ public class MessageImplementation {
 		return parametersIdentifier;
 	}
 	
+	public String toString()
+    {
+    	String s="";
+    	s+="[(Message Implementation) : ";
+    	s+="{"+messageName ;
+		ListIterator<String> itr = parametersIdentifier.listIterator();
+        while(itr.hasNext())
+        	s += "," + itr.next();
+        s+="}";
+        s+= body.toString();
+        s+="]";
+    	return s;
+    }
 	
 }

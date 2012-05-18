@@ -1,7 +1,9 @@
 package postal.ast;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import postal.classes.UserDefinedClass;
 import postal.environment.MessageImplementation;
@@ -66,4 +68,24 @@ public class ClassDeclarationNode extends PostalNode {
 		
 	}
 
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Class Declaratoin Node) : ";
+    	s+=className;
+    	s+=" extends \"" + superClassName +"\" ";
+    	s+="attributes : ";
+    	ListIterator<String> itr = attributes.listIterator();
+        while(itr.hasNext())
+        	s += itr.next() + " ";
+        s+="messages : ";
+        Iterator<String> itr2 = messagesImplementations.keySet().iterator();
+		while(itr2.hasNext())
+		{
+			s+=messagesImplementations.get(itr2.next()).toString();
+		}
+
+        s+="]";
+    	return s;
+    }
 }

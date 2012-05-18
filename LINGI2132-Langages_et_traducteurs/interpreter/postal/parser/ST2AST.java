@@ -10,6 +10,7 @@ import postal.ast.ElementNode;
 import postal.ast.IfNode;
 import postal.ast.InstantiateClassNode;
 import postal.ast.PostalNode;
+import postal.ast.ReturnNode;
 import postal.ast.SendNode;
 import postal.ast.SequenceNode;
 import postal.ast.VariableNode;
@@ -76,7 +77,7 @@ public class ST2AST{
        case 2 : // <statement> --> return <element> ; 
                { 
                  ElementNode x1 = trad48(tree.getChild(1)) ;
-                 return (PostalNode) x1 ; 
+                 return  new ReturnNode(x1) ; 
                }
        case 3 : // <statement> --> <while statement> 
                { 

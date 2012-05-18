@@ -19,13 +19,12 @@ public class ReturnNode extends ElementNode {
 	
 	public ElementNode execute(PostalEnvironment e) {
 		ElementNode en = elem.resolve(e);
-		System.out.println("Return (execute) : " + en);
+		
 		return en;
 	}
 
 	public PostalObject resolve(PostalEnvironment e) {
 		PostalObject po = elem.resolve(e);
-		System.out.println("Return (resolve) : " + po);
 		return (PostalObject) po;
 	}
 

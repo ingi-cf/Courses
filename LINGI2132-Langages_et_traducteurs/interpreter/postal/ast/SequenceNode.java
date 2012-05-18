@@ -7,7 +7,7 @@ import java.util.ListIterator;
 /*
  * Node representing a sequence of nodes
  */
-public class SequenceNode extends PostalNode
+public class SequenceNode extends ElementNode
 {
     LinkedList<PostalNode>    statements;
     public SequenceNode()
@@ -47,4 +47,16 @@ public class SequenceNode extends PostalNode
         s+="]";
     	return s;
     }
+	public PostalObject resolve(PostalEnvironment e) {
+        ListIterator<PostalNode> itr = statements.listIterator();
+        PostalNode ret = null;
+        while(itr.hasNext())
+        {
+        	ret = itr.next().execute(e);
+        }
+        if(ret != null )
+        	return ((PostalObject) ret).resolve(e);
+        else
+        	return null;
+	}
 }

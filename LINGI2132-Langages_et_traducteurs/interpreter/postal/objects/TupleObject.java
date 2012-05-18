@@ -57,18 +57,28 @@ public class TupleObject extends PostalObject
     }
     
 
-	public String toString()
-	{
-		String ret = "";
-		ListIterator<ElementNode> itr = elements.listIterator();
-        while(itr.hasNext())
-        	ret = ret+" , "+itr.next().toString();
-        return ret;
-		
-	}
+
 
 	public void setElements(LinkedList<ElementNode> x1) {
 		elements = x1;
 		
 	}
+	
+    public String toString()
+    {
+    	String s="";
+    	s+="[(Tuple Object) : ";
+    	ListIterator<ElementNode> itr = elements.listIterator();
+    	boolean first = true;
+        while(itr.hasNext())
+        {
+        	if(!first)
+        		s += " , ";
+        	else 
+        		first = false;
+        	s +=itr.next().toString();
+        }		
+        s+="]";
+    	return s;
+    }
 }

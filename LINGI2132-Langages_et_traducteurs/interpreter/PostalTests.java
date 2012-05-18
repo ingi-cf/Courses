@@ -4,7 +4,7 @@ import postal.parser.Executer;
 public class PostalTests
 {
 
-	static int numberOfTests = 9;
+	static int numberOfTests = 10;
 	/**
 	 * Used to run a battery of tests
 	 */
@@ -61,7 +61,9 @@ public class PostalTests
 			case 9:
 				Executer.execute("class Counter {{n;}{def{count, i}{stdio<-{print,i};if(i<self.n){self<-{count, i+1};}}def{set, i}{self.n=i;}}}c=Counter<-{new};c<-{set, 5};c<-{count,0};");
 				break;
-				
+			case 10:
+				Executer.execute("class Point {{p;}{def{get}{stdio<-{print,self . p};return self . p;}def{set,a}{self . p=a;}}}a = Point<-{new};a<-{set,9};stdio<-{print,a<-{get}};");
+				break;
 		}
 	}
 
