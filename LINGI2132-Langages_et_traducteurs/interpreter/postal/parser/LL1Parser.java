@@ -1,4 +1,6 @@
 package postal.parser;
+import javax.swing.text.html.parser.Element;
+
 import postal.interpreter.CParams;
 import postal.lexer.IToken;
 import postal.lexer.PostalLexer;
@@ -32,9 +34,13 @@ public class LL1Parser{
 		//for(int i=0; i<productionRule.length ; i++)
 		//	System.out.print(productionRule[i]+ " ");
 		//System.out.println();
+		if(productionRule == null)
+		{
+			throw new Exception("syntax error : \""+t.getSymbol()+"\" cannot begin an element of type" + Elements.element(nt));
+		}
 		int productionRuleNr = gt.ruleNumber(nt,productionRule);
 		TreeNode tn = new TreeNode(nt,productionRuleNr);
-			
+		
 		TreeNode[] childs = new TreeNode[productionRule.length];
 		for(int i=0; i<productionRule.length ; i++)
 		{
@@ -45,7 +51,7 @@ public class LL1Parser{
 					childs[i] = new TreeNode(t.getTerminal(),t.getSymbol());
 
 				} else {
-					throw new Exception("error : \""+t.getSymbol()+"\" not expected");
+					throw new Exception("syntax error : expected \""+Elements.terminal(productionRule[i]) +" \" but \""+t.getSymbol()+"\" found");
 				}
 				t = lex.getNextSymbol();
 

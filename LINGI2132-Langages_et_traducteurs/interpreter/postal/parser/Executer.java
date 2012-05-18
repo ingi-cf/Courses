@@ -23,45 +23,11 @@ public class Executer {
 		//System.out.println("ST created");
 		PostalNode ast = (PostalNode) ST2AST.tradProgram(st);
 		//System.out.println("AST created");
-		
+		//System.out.println(ast);
 		PostalEnvironment e = new PostalEnvironment();
 		ast.execute(e);
 		//System.out.println("Execution done");
-		
-/*	try {
-	// Construire l’arbre syntaxique st
-	TreeNode st = LL1Parsers.parse(new CLexer(line), gt) ;
-	// st.print(g); // Imprimer l’arbre syntaxique
-	21
-	// Construire l’arbre syntaxique abstrait expr
-	Expr expr = ST2AST.tradProgram(st) ;
-	// Demander les valeurs des variables
-	Expr.var = makeVarTable(ST2AST.getTable()) ;
-	// Calculer le résultat et l’afficher
-	System.out.println("valeur == " + expr.value()) ;
-	}
-	catch(Exception e)
-	{
-	if (e instanceof LL1ParsingException)
-	{
-	// Erreur syntaxique
-	LL1ParsingException e1 = (LL1ParsingException)e ;
-	int xORX = e1.getTop() ;
-	TokenWithContext tok = (TokenWithContext)e1.getTok() ;
-	System.out.println(tok.getPointer() + " " + errMsg(xORX)) ;
-	}else
-	if (e instanceof LexicalException)
-	{
-	// Erreur lexicale
-	LexicalException e2 = (LexicalException)e ;
-	TokenWithContext tok = (TokenWithContext)e2.getToken() ;
-	System.out.println(tok.getPointer() + " symbole invalide.") ;
-	} else System.out.println(e) ; // Software or hardware error (waf !)
-	}
-	System.out.println("Expression ?") ;
-	line = clavier.lireUnString() ;
-	}
-	*/
+			
 	}
 
 }

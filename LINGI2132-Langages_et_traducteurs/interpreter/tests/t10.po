@@ -1,0 +1,20 @@
+class Point 
+{
+    {
+        p;
+    }
+    {
+        def{get}
+        {
+            stdio<-{print,self . p};
+            return self . p;
+        }
+        def{set,a}
+        {
+            self . p=a;
+        }
+    }
+}
+a = Point<-{new};
+a<-{set,9};
+stdio<-{print,a<-{get}};

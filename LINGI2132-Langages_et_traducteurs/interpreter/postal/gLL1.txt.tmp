@@ -1,0 +1,83 @@
+//Postal grammar
+<S> ::= <block code>
+
+<statement> ::= <class>
+| <element> ;
+| return <element> ;
+| <while statement>
+| <if statement>
+
+<message> ::= { IDENTIFIER <comma first element list>}
+<message sending suffixe> ::= MSA <element> //MSA = message send arrow
+<element list> ::= <element> <comma first element list> | 
+<comma first element list> ::= | ,<element> <comma first element list>
+
+<boolean value> ::= true | false
+
+<tuple> ::= [<element list>]
+
+<element> ::= <element prefixe> <element suffixe>
+//TODO remove EOE
+<element suffixe> ::= <element access> <element suffixe>
+| <operation suffixe> <element suffixe>
+| <message sending suffixe> <element suffixe>
+| <assignment expression suffixe> <element suffixe>
+| 
+
+
+<element prefixe> ::= IDENTIFIER
+| INTEGER
+| # | self | super
+| <instantiation>
+| <boolean value>
+| <message>
+| <tuple>
+| <unary operation>
+| ( <element> )
+//TODO add message sending
+//|<message sending>
+//| <operation>
+
+<unary operation> ::= <unary operator> <element>
+
+<element access> ::= . IDENTIFIER
+
+
+<operation suffixe> ::= <binary operator> <element>
+
+<binary operator> ::= + | - | * | / | % 
+| <= | => | < | > | == | != 
+| and | or
+
+<unary operator> ::= ! | - 
+
+<instantiation> ::= CLASSIDENTIFIER MSA { new <comma first element list> }
+
+
+<assignment expression suffixe> ::= = <element>
+
+//here is wrong don't know how to represent comment
+//<comment> ::= // .. suite de caracteres ASCII .. \textbackslash n
+
+<block code> ::= <statement> <statements>
+<statements> ::= | <statement> <statements> //| <comment> <block code>
+
+<while statement> ::= while ( <element> )  {<block code>}
+
+<if statement> ::= if ( <element> )  {<block code>}
+
+
+
+
+<class> ::= class CLASSIDENTIFIER <extends> { <class body> }
+<extends> ::= | extends CLASSIDENTIFIER
+
+
+<class body> ::= { <attributes declaration> } { <messages declaration> }
+<attributes declaration> ::= | <attribute declaration> <attributes declaration>
+<messages declaration> ::= | <message declaration> <messages declaration>
+
+<message declaration> ::= def  { IDENTIFIER <comma first identifier list> } { <block code> }
+<comma first identifier list> ::= | ,IDENTIFIER <comma first identifier list>
+
+<attribute declaration> ::= IDENTIFIER ;

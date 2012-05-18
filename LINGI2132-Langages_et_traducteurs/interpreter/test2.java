@@ -3,7 +3,11 @@ import postal.parser.Executer;
 public class test2 {
 	public static void main(String[] args) throws Exception
 	{
-		t8();
+		t9();
+	}
+	static void t0() throws Exception//OK
+	{
+		Executer.execute("a=4");
 	}
 	static void t1() throws Exception//OK
 	{
@@ -31,7 +35,7 @@ public class test2 {
 	}
 	static void t7() throws Exception //OK
 	{
-		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,self . p};}def{set}{self . p=4;}}}a = Point<-{new};a<-{set};a<-{show};");
+		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,self . p};}def{set,a}{self . p=a;}}}a = Point<-{new};a<-{set,8};a<-{show};");
 		//
 	}
 
@@ -40,5 +44,15 @@ public class test2 {
 		Executer.execute("a=[3,4,5];stdio<-{print,a};");
 		
 	}	
-	
+	static void t9() throws Exception //NOT ok return is failing
+	{
+		Executer.execute("class Point {{p;}{def{get}{stdio<-{print,self . p};return self . p;}def{set,a}{self . p=a;}}}a = Point<-{new};a<-{set,9};stdio<-{print,a<-{get}};");
+		//
+		
+	}	
+	static void t10() throws Exception //not OK
+	{
+		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,self . p};}def{set}{self . p=a;}}}class Pointb {{d;}{def{show}{stdio<-{print,super . p};}}}a = Pointb<-{new};a<-{set 8};a<-{show};");
+		//
+	}
 }

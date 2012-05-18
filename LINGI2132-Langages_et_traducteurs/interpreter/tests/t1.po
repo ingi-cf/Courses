@@ -1,0 +1,2 @@
+stdio<-{print,(4/2)+4};
+stdio<-{print,(4/2)+14};

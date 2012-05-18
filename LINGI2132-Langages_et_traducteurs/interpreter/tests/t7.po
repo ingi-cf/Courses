@@ -1,0 +1,17 @@
+class Point {
+    {
+        p;
+    }
+    {
+        def{show}
+        {
+            stdio<-{print,self.p};
+        }
+        def{set}
+        {
+            self . p=4;
+        }
+    }
+}
+a = Point<-{new};
+a<-{set};a<-{show};

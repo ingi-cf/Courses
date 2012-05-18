@@ -88,7 +88,7 @@ public class UserDefinedClass extends PostalClass {
 				return o;
 			} else
 			{
-				return impl.getBody().execute(e);
+				return impl.getBody().resolve(e);
 			}
 		}	
 		

@@ -37,7 +37,9 @@ public class SendNode extends ElementNode
 	 */
 	public PostalObject resolve(PostalEnvironment e) {
 		PostalObject resolvedDst = dst.resolve(e);
-		return resolvedDst.getPostalClass().messageReceived(resolvedDst,message.resolve(e));
+		PostalObject ret = resolvedDst.getPostalClass().messageReceived(resolvedDst,message.resolve(e));
+		//System.out.println("Send message " + message.toString() + " received " + ret);
+		return ret;
 	}
 	
     public String toString()

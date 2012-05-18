@@ -1,0 +1,21 @@
+class Counter{
+    {
+        n;
+    }
+    {
+        def{count, i}
+        {
+            stdio<-{print,i};
+            if(i<self.n){self<-{count, i+1};}
+        }
+        def{set, i}
+        {
+            self.n=i;
+        }
+            
+    }
+}
+
+c=Counter<-{new};
+c<-{set, 5};
+c<-{count,0};
