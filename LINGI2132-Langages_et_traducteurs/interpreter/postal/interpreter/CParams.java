@@ -10,8 +10,8 @@ import java.io.OutputStream;
 public class CParams 
 {
 	//public final static String PATHDIR = "D:\\INFO21\\git\\courses\\LINGI2132-Langages_et_traducteurs\\interpreter\\";
-	public final static String PATHDIR = "/home/frol/Documents/Ucl/Cours/projects/LINGI2132-Langages_et_traducteurs/interpreter/postal/";
-	//public final static String PATHDIR = "";
+	//public final static String PATHDIR = "/home/frol/Documents/Ucl/Cours/projects/LINGI2132-Langages_et_traducteurs/interpreter/postal/";
+	public final static String PATHDIR = "";
 	public final static String PATH = PATHDIR + "gLL1.txt";
 		
 	public static gtools.GTools gt = null;
