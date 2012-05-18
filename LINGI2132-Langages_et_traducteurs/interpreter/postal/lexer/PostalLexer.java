@@ -42,6 +42,34 @@ public class PostalLexer implements ILexer {
 				terminal = gt.terminal("MSA");
 				completeToken = true;
 			}
+			else if(candidateToken.equals("!") && line.substring(0,1).equals("="))
+			{
+				line = line.substring(1);
+				symbol = "!=";
+				terminal = gt.terminal("!=");
+				completeToken = true;
+			}
+			else if(candidateToken.equals("=") && line.substring(0,1).equals("="))
+			{
+				line = line.substring(1);
+				symbol = "==";
+				terminal = gt.terminal("==");
+				completeToken = true;
+			}
+			else if(candidateToken.equals("<") && line.substring(0,1).equals("="))
+			{
+				line = line.substring(1);
+				symbol = "<=";
+				terminal = gt.terminal("<=");
+				completeToken = true;
+			}
+			else if(candidateToken.equals("=") && line.substring(0,1).equals(">"))
+			{
+				line = line.substring(1);
+				symbol = "=>";
+				terminal = gt.terminal("=>");
+				completeToken = true;
+			}
 			//first if is a dirty way to check if the current token is a terminal but how else ?
 			else if(candidateToken.matches(termNonAlpha) || (candidateToken.matches(termAlpha) && (line.length()==0 || !line.substring(0,1).matches("[a-zA-Z]")))) //detect if it is a terminal symbol composed of letters
 			{
