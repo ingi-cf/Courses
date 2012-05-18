@@ -13,8 +13,8 @@
 \newpage
 
 \section{LL1 Grammar}
-The first thing to do is make our grammar LL1. \\
-Here is our not LL1 grammar : 
+The first thing to do is to make our grammar LL1. \\
+Here is our initial grammar before that : 
 \begin{lstlisting}
     
 //Postal grammar
@@ -81,12 +81,12 @@ Here is our not LL1 grammar :
 <attribute declaration> ::= IDENTIFIER ;
 \end{lstlisting}
 
-The first change we made is removing the lambda production from block code because we don't want the empty string to be derivable.  This is really the only restriction we add to turn the grammar LL1.
+The first change we made is removing the lambda production from block code because we don't want the empty string to be derivable.  This was initially the only we thought we would have to add to turn the grammar LL1.
 \\
-Then the major problems were loops for instance the elements resulting of the senging of a message to another element can be used too to be the recipient of a message. \\
+Then the major problems were loops in the rules. For instance the elements resulting of the sending of a message to another element can be used too to be the recipient of a message. \\
 To handle that we worked with prefixes and suffixes.\\
 The others modifications are due to previous mistakes.\\
-Here is the resulting grammar : 
+Here is our resulting grammar : 
 \begin{lstlisting}
     
 //Postal grammar
@@ -171,13 +171,13 @@ Conflit LL(1) entre les deux regles
 <element suffixe> --> <lambda>
 la chaine problematique est ">".
 \end{lstlisting}
-Wich we didn't really understand because <lambda> is empty and can't then begin by ">" and nothing else can begin by that but <operation sffixe>.\\
-We then decided to generate the table and we checked that it was correct and that was. So we leaved that like it was.
+Which we didn't really understand because <lambda> is empty and can't then begin by ">" and nothing else can begin by that but <operation sffixe>.\\
+We then decided to generate the table and we checked that it was correct and that was. So we left it that way.
 
 
 \section{Parsing}
 
-For parsing we used a recursive approach.
+For parsing we used a recursive approach : 
 \begin{lstlisting}
     
 public class LL1Parser{
@@ -239,7 +239,7 @@ public class LL1Parser{
 
 \section{Transforming syntax tree}
 The next step is to transform the syntax tree to an abstract syntax tree that can be executed.
-This is done by using the automatic skeleton generation from GTools and then to fill the blanks.\\
+This is done by using the automatic skeleton generation from GTools and then filling the blanks.\\
 We used a class to improve the result by associating non-terminals with objects types.
 \begin{lstlisting}
     
@@ -305,10 +305,10 @@ ASTname[gt.terminal("INTEGER")] = "ElementNode" ;
 
 
 \section{Testing}
-We tested easy and complex program.  We built a jar which take an argument at execution.  If the argument is a path to a file the content of the file is executed else the argument is directly executed.\\
-We also created some wrong sources to see how errors are managed.
+We tested some easy and complex programs.  We built a jar which take an argument at execution and acts as the full interreter for our language.  If the argument is a path to a file the content of the file is executed, else the argument is directly executed as program.\\
+We also created some wrong sources files to see how errors are managed.
 \subsection{correct sources}
-All tests are available in the tests directory and can be executed by java -jar postal.jar path/to/test/file
+All tests are available in the tests directory and can be executed by typing : java -jar postal.jar "path/to/test/file"
 \subsubsection{t1.po operations}
 \begin{lstlisting}
     
