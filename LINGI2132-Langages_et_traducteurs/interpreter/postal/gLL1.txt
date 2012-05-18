@@ -70,13 +70,14 @@
 
 
 <class> ::= class CLASSIDENTIFIER <extends> { <class body> }
-<extends> ::= | identifier CLASSIDENTIFIER
+<extends> ::= | extends CLASSIDENTIFIER
 
 
 <class body> ::= { <attributes declaration> } { <messages declaration> }
 <attributes declaration> ::= | <attribute declaration> <attributes declaration>
 <messages declaration> ::= | <message declaration> <messages declaration>
 
-<message declaration> ::= def  { IDENTIFIER <comma first element list> } { <block code> }
+<message declaration> ::= def  { IDENTIFIER <comma first identifier list> } { <block code> }
+<comma first identifier list> ::= | ,IDENTIFIER <comma first identifier list>
 
 <attribute declaration> ::= IDENTIFIER ;

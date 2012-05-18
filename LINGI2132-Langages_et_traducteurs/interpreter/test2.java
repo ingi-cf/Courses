@@ -4,7 +4,7 @@ import postal.parser.Executer;
 public class test2 {
 	public static void main(String[] args) throws Exception
 	{
-		t6();
+		t5();
 	}
 	static void t1() throws Exception//OK
 	{
