@@ -4,7 +4,7 @@ import postal.parser.Executer;
 public class test2 {
 	public static void main(String[] args) throws Exception
 	{
-		t9();
+		t7();
 	}
 	static void t1() throws Exception//OK
 	{
@@ -30,17 +30,13 @@ public class test2 {
 	{
 		Executer.execute("a=5;b=6;stdio<-{print,a+b};");
 	}
-	static void t7() throws Exception //Parse ok but error in exec
+	static void t7() throws Exception //OK
 	{
-		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,p};}def{set}{p=4; }}}a = Point<-{new};");
+		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,self . p};}def{set}{self . p=4;}}}a = Point<-{new};a<-{set};a<-{show};");
 		//
 	}
-	static void t8() throws Exception //not working
-	{
-		Executer.execute("class Point {{p;}{def{show}{stdio<-{print,p};}def{set}{p=4; return p;}}}");
-		
-	}
-	static void t9() throws Exception //not working
+
+	static void t8() throws Exception //OK
 	{
 		Executer.execute("a=[3,4,5];stdio<-{print,a};");
 		

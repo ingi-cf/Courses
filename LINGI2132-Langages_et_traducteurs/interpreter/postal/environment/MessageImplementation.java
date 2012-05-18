@@ -24,7 +24,12 @@ public class MessageImplementation {
 			SequenceNode body) {
 		this.body = body;
 		this.messageName = name;
-		this.parametersIdentifier = parametersIdentifiers;
+		if (parametersIdentifiers != null)
+			this.parametersIdentifier = parametersIdentifiers;
+		else
+			this.parametersIdentifier = new LinkedList<String>();
+			
+			
 	}
 
 	public void addParameter(String identifier)

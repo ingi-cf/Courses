@@ -36,7 +36,7 @@ public class PostalEnvironment {
 	
 	public void setVariable(String identifier, PostalObject element) 
 	{
-		
+		System.out.println("setVariable : "+identifier+" to "+element);
 		vc.put(identifier, element);
 	}
 	
