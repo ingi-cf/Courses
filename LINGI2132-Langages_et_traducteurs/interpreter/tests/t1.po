@@ -1,2 +1,2 @@
-stdio<-{print,(4/2)+4};
+/bin/bash: :q: command not found
 stdio<-{print,(4/2)+14};
