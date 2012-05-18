@@ -30,8 +30,6 @@ import slip.grammars.Grammar ;
        (donc child.length == pRonde[X - NT][r].length),
      - le champ v est ind�fini (inutilis�),
      - le champ s est ind�fini (inutilis�).
-     
-
 */
 public class TreeNode{
 
