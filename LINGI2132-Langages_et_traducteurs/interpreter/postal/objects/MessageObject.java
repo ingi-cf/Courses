@@ -96,7 +96,9 @@ public class MessageObject extends PostalObject
 		return parameters;
 	}
 	public void setParameters(LinkedList<ElementNode> p) {
-		parameters = p;
+		
+		if (p != null)
+			parameters = p;
 		
 	}
 }

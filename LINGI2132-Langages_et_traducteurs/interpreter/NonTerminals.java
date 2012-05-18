@@ -6,7 +6,7 @@ public class NonTerminals {
 	{
 		gtools.GTools gt = CParams.GT;
 		String[] nonTerminals = {"<lambda>","<S>","<statement>","<message>","<message sending suffixe>","<element list>","<comma first element list>","<boolean value>","<tuple>","<element>","<element suffixe>","<element prefixe>","<unary operation>","<element access>","<operation suffixe>","<binary operator>","<unary operator>","<instantiation>","<assignment expression suffixe>","<block code>","<statements>","<while statement>","<if statement>","<class>","<extends>","<class body>","<attributes declaration>","<messages declaration>","<message declaration>","<attribute declaration>"
-};
+,"<comma first identifier list>"};
 		
 		for (int i=0; i< nonTerminals.length; i++)
 		{

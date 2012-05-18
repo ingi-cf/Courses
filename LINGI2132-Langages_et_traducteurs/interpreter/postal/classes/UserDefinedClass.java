@@ -37,9 +37,10 @@ public class UserDefinedClass extends PostalClass {
 		//if the message is new
 		if(o == null && m.getName().equals("new"))
 		{
-			return messageReceived(postalNew(), m);
+			//return messageReceived(postalNew(), m);
+			//TODO because of that cannot add a special new
+			return postalNew();
 		}
-
 		
 		//find the message implementation 
 		MessageImplementation impl= getMessageImplementation(m.getName());
@@ -56,8 +57,9 @@ public class UserDefinedClass extends PostalClass {
 			}
 				
 			if(impl == null && (superClass == null || !(superClass instanceof UserDefinedClass)))
+			{
 				throw new MessageDefinitionException("Cannot find message implementation : " + m.getName() + " in class " + this.name); 
-
+			}
 		} else
 		{
 			//create the environment
@@ -85,7 +87,9 @@ public class UserDefinedClass extends PostalClass {
 				impl.getBody().execute(e);
 				return o;
 			} else
+			{
 				return impl.getBody().execute(e);
+			}
 		}	
 		
 		
@@ -134,3 +138,4 @@ public class UserDefinedClass extends PostalClass {
 	}
 
 }
+ 

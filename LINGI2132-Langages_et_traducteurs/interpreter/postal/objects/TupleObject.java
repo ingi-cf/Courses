@@ -4,20 +4,21 @@ import java.util.ListIterator;
 
 import postal.ast.ElementNode;
 import postal.classes.*;
+import postal.environment.PostalEnvironment;
 /*
  * tuple representation for collections of data
  */
 public class TupleObject extends PostalObject
 {
-    LinkedList<PostalObject>    elements;
+    LinkedList<ElementNode>    elements;
     
     public TupleObject()
     {
     	super(new TupleClass());
-        elements = new LinkedList<PostalObject>();
+        elements = new LinkedList<ElementNode>();
     }
     
-    public void addElement(PostalObject e)
+    public void addElement(ElementNode e)
     {
         elements.add(e);
     }
@@ -27,7 +28,7 @@ public class TupleObject extends PostalObject
     	elements.remove(i);
     }
     
-    public PostalObject getElement(int i) {
+    public ElementNode getElement(int i) {
     	return elements.get(i);
     }
     
@@ -39,18 +40,35 @@ public class TupleObject extends PostalObject
     	return elements.size();
     }
     
-    public LinkedList<PostalObject> elements()
+    public LinkedList<ElementNode> elements()
     {
     	return elements;
     }
+	/*
+	 * resolve the elements to objects in the environment e
+	 */
+	public PostalObject resolve(PostalEnvironment e)
+    {
+		TupleObject resolvedtuple = new TupleObject();
+		ListIterator<ElementNode> itr = elements.listIterator();
+        while(itr.hasNext())
+        	resolvedtuple.addElement(itr.next().resolve(e));
+        return resolvedtuple;
+    }
     
+
 	public String toString()
 	{
 		String ret = "";
-		ListIterator<PostalObject> itr = elements.listIterator();
+		ListIterator<ElementNode> itr = elements.listIterator();
         while(itr.hasNext())
         	ret = ret+" , "+itr.next().toString();
         return ret;
+		
+	}
+
+	public void setElements(LinkedList<ElementNode> x1) {
+		elements = x1;
 		
 	}
 }

@@ -36,7 +36,6 @@ public class PostalEnvironment {
 	
 	public void setVariable(String identifier, PostalObject element) 
 	{
-		
 		vc.put(identifier, element);
 	}
 	

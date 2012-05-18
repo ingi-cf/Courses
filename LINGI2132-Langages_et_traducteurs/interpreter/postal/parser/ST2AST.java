@@ -193,12 +193,9 @@ public class ST2AST{
                  LinkedList<ElementNode> x1 = trad44(tree.getChild(1)) ;
                  if (x1 != null)
                  {
-
-                	 //TODO here there is something to do
-                	 //to.setElements(x1);
-
+                	 to.setElements(x1);
                  }
-                 return null ; // a modifier
+                 return to ; // a modifier
                }
        default : return null ;
     }
@@ -648,7 +645,7 @@ public class ST2AST{
                }
        case 1 : // <attributes declaration> --> <attribute declaration> <attributes declaration> 
                { 
-                 String x0 = trad68(tree.getChild(0)) ;
+                 String x0 = trad69(tree.getChild(0)) ;
                  LinkedList<String> x1 = trad65(tree.getChild(1)) ;
                  if (x1==null)
                 	 x1 = new LinkedList<String>();
@@ -690,15 +687,37 @@ public class ST2AST{
        case 0 : // <message declaration> --> def { IDENTIFIER <comma first element list> } { <block code> } 
                { 
                  String x2 = trad3(tree.getChild(2)) ;
-                 LinkedList<ElementNode> x3 = trad45(tree.getChild(3)) ;
+                 LinkedList<String> x3 = trad68(tree.getChild(3)) ;
                  SequenceNode x6 = trad58(tree.getChild(6)) ;
-                 //return new MessageImplementation(x2, x3, x6) ;
-                 //TODO :'( grammaire foireuse ça marche pas avec comma first element list
+                 return new MessageImplementation(x2, x3, x6) ;
+                 
                }
        default : return null ;
     }
   }
-  private static String trad68(TreeNode tree){
+  private static LinkedList<String> trad68(TreeNode tree){
+  // tree symbol is <comma first identifier list>
+
+    int r = tree.getRule() ;
+    switch (r)
+    {
+       case 0 : // <comma first identifier list> --> <lambda>
+               { 
+                 return null ; // a modifier
+               }
+       case 1 : // <comma first identifier list> --> , IDENTIFIER <comma first identifier list> 
+               { 
+                 String x1 = trad3(tree.getChild(1)) ;
+                 LinkedList<String> x2 = trad68(tree.getChild(2)) ;
+                 if(x2 == null)
+                	 x2 = new LinkedList<String>();
+                 x2.push(x1);
+                 return x2 ; // a modifier
+               }
+       default : return null ;
+    }
+  }
+  private static String trad69(TreeNode tree){
   // tree symbol is <attribute declaration>
 
     int r = tree.getRule() ;

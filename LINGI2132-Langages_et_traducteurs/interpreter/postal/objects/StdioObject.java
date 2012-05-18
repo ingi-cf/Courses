@@ -15,7 +15,7 @@ public class StdioObject extends PostalObject
 
 	public void postalPrint(PostalObject toPrint) {
 		// TODO Auto-generated method stub
-		System.out.println(toPrint.toString());
+		System.out.println("PostalSTDIO : " + toPrint.toString());
 	}
 	
 }

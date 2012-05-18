@@ -22,8 +22,8 @@ public class PostalLexer implements ILexer {
 		
 		//todo make sure that 1:this list is complete; 2:gt.terminal cannot be used
 		//todo extend not in grammar as word ?? 
-		String termAlpha = "true|false|super|self|def|and|or|while|if|class";
-		String termNonAlpha = ";|\\{|\\}|\\+|-|\\*|/|%|<=|=>|<|>|==|!=|!|#|=|,|\\(|\\)";
+		String termAlpha = "true|false|super|self|def|and|or|while|if|class|extends|new";
+		String termNonAlpha = ";|\\{|\\}|\\+|-|\\*|/|%|<=|=>|<|>|==|!=|!|#|=|,|\\(|\\)|\\[|\\]|\\.";
 
 		Boolean completeToken = false;
 		String candidateToken="";
