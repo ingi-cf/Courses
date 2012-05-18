@@ -12,7 +12,444 @@
 \maketitle
 \newpage
 
-\section{}
+\section{LL1 Grammar}
+The first thing to do is make our grammar LL1. \\
+Here is our not LL1 grammar : 
+\begin{lstlisting}
+    
+//Postal grammar
+<S> ::= <block code>
+
+<statement> ::= <message sending> ;
+| <assignment expression> ;
+| return <element> ;
+| <while statement>
+| <if statement>
+| <class>
+
+<message> ::= { IDENTIFIER <comma first element list>}
+<message sending> ::= <element> MSA <element> //MSA = message send arrow
+
+<element list> ::= <element> <comma first element list>
+<comma first element list> ::= | ,<element> <comma first element list>
+
+<boolean value> ::= true | false
+
+<tuple> ::= [ ] | [<element list>]
+    
+<element> ::= IDENTIFIER
+|<message sending>
+|<instantiation>
+| INTEGER
+| <boolean value>
+| <operation>
+| <message>
+| <tuple>
+| # | self | super
+| <element> . IDENTIFIER
 
 
+<operation> ::= <element> <binary operator> <element>
+| <unary operator> <element>
+| (<operation>)
+
+<binary operator> ::= + | - | * | / | % 
+| <= | => | < | > | == | != 
+| and | or
+
+<unary operator> ::= ! | - 
+
+<instantiation> ::= CLASSIDENTIFIER MSA { new <comma first element list> }
+
+<assignment expression> ::= IDENTIFIER = <element>
+
+<block code> ::= <statement> <block code> | <comment> <block code>
+
+<while statement> ::= while ( <element> )  { <block code> }
+
+<if statement> ::= if ( <element> )  { <block code> }
+
+<class> ::= class CLASSIDENTIFIER <extends> { <class body> }
+<extends> ::= | extends CLASSIDENTIFIER
+
+<class body> ::= { <attributes declaration> } { <messages declaration> }
+<attributes declaration> ::= | <attribute declaration> <attributes declaration>
+<messages declaration> ::= | <message declaration> <messages declaration>
+
+<message declaration> ::= def  { IDENTIFIER <comma first identifier list> } { <block code> }
+<comma first identifier list> ::= IDENTIFIER <comma first identifier list>
+<attribute declaration> ::= IDENTIFIER ;
+\end{lstlisting}
+
+The first change we made is removing the lambda production from block code because we don't want the empty string to be derivable.  This is really the only restriction we add to turn the grammar LL1.
+\\
+Then the major problems were loops for instance the elements resulting of the senging of a message to another element can be used too to be the recipient of a message. \\
+To handle that we worked with prefixes and suffixes.\\
+The others modifications are due to previous mistakes.\\
+Here is the resulting grammar : 
+\begin{lstlisting}
+    
+//Postal grammar
+<S> ::= <block code>
+
+<statement> ::= <class>
+| <element> ;
+| return <element> ;
+| <while statement>
+| <if statement>
+
+<message> ::= { IDENTIFIER <comma first element list>}
+<message sending suffixe> ::= MSA <element> //MSA = message send arrow
+<element list> ::= <element> <comma first element list> | 
+<comma first element list> ::= | ,<element> <comma first element list>
+
+<boolean value> ::= true | false
+
+<tuple> ::= [<element list>]
+
+<element> ::= <element prefixe> <element suffixe>
+
+<element suffixe> ::= <element access> <element suffixe>
+| <operation suffixe> <element suffixe>
+| <message sending suffixe> <element suffixe>
+| <assignment expression suffixe> <element suffixe>
+| 
+
+
+<element prefixe> ::= IDENTIFIER
+| INTEGER
+| # | self | super
+| <instantiation>
+| <boolean value>
+| <message>
+| <tuple>
+| <unary operation>
+| ( <element> )
+
+<unary operation> ::= <unary operator> <element>
+
+<element access> ::= . IDENTIFIER
+
+
+<operation suffixe> ::= <binary operator> <element>
+
+<binary operator> ::= + | - | * | / | % 
+| <= | => | < | > | == | != 
+| and | or
+
+<unary operator> ::= ! | - 
+
+<instantiation> ::= CLASSIDENTIFIER MSA { new <comma first element list> }
+
+<assignment expression suffixe> ::= = <element>
+
+<block code> ::= <statement> <statements>
+<statements> ::= | <statement> <statements> //| <comment> <block code>
+
+<while statement> ::= while ( <element> )  {<block code>}
+
+<if statement> ::= if ( <element> )  {<block code>}
+
+<class> ::= class CLASSIDENTIFIER <extends> { <class body> }
+<extends> ::= | extends CLASSIDENTIFIER
+
+
+<class body> ::= { <attributes declaration> } { <messages declaration> }
+<attributes declaration> ::= | <attribute declaration> <attributes declaration>
+<messages declaration> ::= | <message declaration> <messages declaration>
+
+<message declaration> ::= def  { IDENTIFIER <comma first identifier list> } { <block code> }
+<comma first identifier list> ::= | , IDENTIFIER <comma first identifier list>
+
+<attribute declaration> ::= IDENTIFIER ;
+\end{lstlisting}
+
+This grammar is not totally LL1.  When we check it we receive errors like:
+\begin{lstlisting}
+Conflit LL(1) entre les deux regles 
+<element suffixe> --> <operation suffixe> <element suffixe> 
+<element suffixe> --> <lambda>
+la chaine problematique est ">".
+\end{lstlisting}
+Wich we didn't really understand because <lambda> is empty and can't then begin by ">" and nothing else can begin by that but <operation sffixe>.\\
+We then decided to generate the table and we checked that it was correct and that was. So we leaved that like it was.
+
+
+\section{Parsing}
+
+For parsing we used a recursive approach.
+\begin{lstlisting}
+    
+public class LL1Parser{
+	static IToken t;
+
+	public static TreeNode parse(PostalLexer lex, GTools gt) throws Exception
+	{ 
+		t = lex.getNextSymbol();
+		return parse(lex, gt,gt.nonTerminal("<S>"));
+	}
+	/**
+	 * parse knowing that the current non terminal is nt and the first token is t
+	 */
+	public static TreeNode parse(PostalLexer lex, GTools gt, int nt) throws Exception
+	{ 
+		//create a node with nt?
+		int[] productionRule = gt.parseTable()[nt-gt.numberOfTerminals()]
+                                                [t.getTerminal()];
+		
+		if(productionRule == null)
+		{
+			throw new Exception("syntax error : \""+t.getSymbol()+
+                "\" cannot begin an element of type" + Elements.element(nt));
+		}
+		int productionRuleNr = gt.ruleNumber(nt,productionRule);
+		TreeNode tn = new TreeNode(nt,productionRuleNr);
+		
+		TreeNode[] childs = new TreeNode[productionRule.length];
+		for(int i=0; i<productionRule.length ; i++)
+		{
+			if(productionRule[i] < gt.numberOfTerminals())
+				//this is a terminal
+			{
+				if(productionRule[i] == t.getTerminal()){
+					childs[i] = new TreeNode(t.getTerminal(),
+                        t.getSymbol());
+
+				} else {
+					throw new Exception("syntax error : expected \""
+                        +Elements.terminal(productionRule[i]) 
+                        +" \" but \""+t.getSymbol()+"\" found");
+				}
+				t = lex.getNextSymbol();
+
+			} else {
+				//this is not a terminal
+				childs[i] = parse(lex,gt,productionRule[i]);
+				
+			}
+			
+		}
+		tn.putChilds(childs);
+		return tn;
+	}
+	
+    
+}
+\end{lstlisting}
+
+\section{Transforming syntax tree}
+The next step is to transform the syntax tree to an abstract syntax tree that can be executed.
+This is done by using the automatic skeleton generation from GTools and then to fill the blanks.\\
+We used a class to improve the result by associating non-terminals with objects types.
+\begin{lstlisting}
+    
+
+
+import java.util.Hashtable;
+
+import postal.environment.MessageImplementation;
+import postal.interpreter.CParams;
+import slip.trees.genST2AST;
+
+class makeST2AST{
+	static public void main(String[] arg) throws Exception
+	{
+		gtools.GTools gt = CParams.GT ;
+		int NT = gt.numberOfTerminals() ;
+		int NNT = gt.numberOfNonTerminals() ;
+		String[] ASTname = new String[NT + NNT];
+		{	int i = 0 ;
+			while (i != ASTname.length)
+			{ASTname[i ++] = "" ; }	
+		}
+		
+ASTname[gt.nonTerminal("<statement>")]	="PostalNode";
+ASTname[gt.nonTerminal("<message>")] 	="ElementNode";
+ASTname[gt.nonTerminal("<message sending suffixe>")] ="ElementSuffixe";
+ASTname[gt.nonTerminal("<element list>")] ="LinkedList<ElementNode>";
+ASTname[gt.nonTerminal("<comma first element list>")] ="LinkedList<ElementNode>";
+ASTname[gt.nonTerminal("<boolean value>")] 	="ElementNode";
+ASTname[gt.nonTerminal("<tuple>")] ="ElementNode";
+ASTname[gt.nonTerminal("<element>")] ="ElementNode";
+ASTname[gt.nonTerminal("<element suffixe>")] ="LinkedList<ElementSuffixe>";  
+ASTname[gt.nonTerminal("<element prefixe>")] ="ElementPrefixe";
+ASTname[gt.nonTerminal("<unary operation>")] ="ElementNode";
+ASTname[gt.nonTerminal("<element access>")] ="ElementSuffixe";
+ASTname[gt.nonTerminal("<operation suffixe>")]     ="ElementSuffixe";
+ASTname[gt.nonTerminal("<binary operator>")] ="String";
+ASTname[gt.nonTerminal("<unary operator>")] ="String";
+ASTname[gt.nonTerminal("<instantiation>")]     ="InstantiateClassNode";
+ASTname[gt.nonTerminal("<assignment expression suffixe>")]  ="ElementSuffixe";
+ASTname[gt.nonTerminal("<block code>")] ="SequenceNode";
+ASTname[gt.nonTerminal("<statements>")] ="PostalNode";
+ASTname[gt.nonTerminal("<while statement>")] ="WhileNode";
+ASTname[gt.nonTerminal("<if statement>")] ="IfNode";
+ASTname[gt.nonTerminal("<class>")]     ="ClassDeclarationNode";
+ASTname[gt.nonTerminal("<extends>")] ="String";
+ASTname[gt.nonTerminal("<class body>")] ="ClassDeclarationNode";
+ASTname[gt.nonTerminal("<attributes declaration>")] ="LinkedList<String>";
+ASTname[gt.nonTerminal("<messages declaration>")] ="Hashtable<String,MessageImplementation>";
+ASTname[gt.nonTerminal("<message declaration>")] ="MessageImplementation";
+ASTname[gt.nonTerminal("<attribute declaration>")]     ="String";
+ASTname[gt.nonTerminal("<comma first identifier list>")] ="LinkedList<ElementNode>";
+
+ASTname[gt.terminal("IDENTIFIER")] = "String" ;
+ASTname[gt.terminal("CLASSIDENTIFIER")] = "String" ;
+ASTname[gt.terminal("INTEGER")] = "ElementNode" ;
+		
+		genST2AST gen = new genST2AST(CParams.PATH, ASTname) ;
+		gen.genTrad() ;
+	}
+}
+\end{lstlisting}
+
+
+\section{Testing}
+We tested easy and complex program.  We built a jar which take an argument at execution.  If the argument is a path to a file the content of the file is executed else the argument is directly executed.\\
+We also created some wrong sources to see how errors are managed.
+\subsection{correct sources}
+All tests are available in the tests directory and can be executed by java -jar postal.jar path/to/test/file
+\subsubsection{t1.po operations}
+\begin{lstlisting}
+    
+stdio<-{print,(4/2)+4};
+stdio<-{print,(4/2)+14};
+\end{lstlisting}
+result:
+\begin{lstlisting}
+    
+PostalSTDIO : [(Integer Object) : 6]
+PostalSTDIO : [(Integer Object) : 16]
+\end{lstlisting}
+
+\subsubsection{t4.po loop}
+\begin{lstlisting}
+    
+a=10;
+while(a>1)
+{
+    stdio<-{print,a};
+    a=a-1;
+}
+\end{lstlisting}
+result:
+\begin{lstlisting}
+    
+PostalSTDIO : [(Integer Object) : 10]
+PostalSTDIO : [(Integer Object) : 9]
+PostalSTDIO : [(Integer Object) : 8]
+PostalSTDIO : [(Integer Object) : 7]
+PostalSTDIO : [(Integer Object) : 6]
+PostalSTDIO : [(Integer Object) : 5]
+PostalSTDIO : [(Integer Object) : 4]
+PostalSTDIO : [(Integer Object) : 3]
+PostalSTDIO : [(Integer Object) : 2]
+\end{lstlisting}
+\subsubsection{t9.po recursivity}
+\begin{lstlisting}
+    
+class Counter{
+    {
+        n;
+    }
+    {
+        def{count, i}
+        {
+            stdio<-{print,i};
+            if(i<self.n){self<-{count, i+1};}
+        }
+        def{set, i}
+        {
+            self.n=i;
+        }
+            
+    }
+}
+
+c=Counter<-{new};
+c<-{set, 5};
+c<-{count,0};
+\end{lstlisting}
+result:
+\begin{lstlisting}
+    
+PostalSTDIO : [(Integer Object) : 0]
+PostalSTDIO : [(Integer Object) : 1]
+PostalSTDIO : [(Integer Object) : 2]
+PostalSTDIO : [(Integer Object) : 3]
+PostalSTDIO : [(Integer Object) : 4]
+PostalSTDIO : [(Integer Object) : 5]
+\end{lstlisting}
+
+\subsubsection{t11.po inherirance}
+\begin{lstlisting}
+class A 
+{
+    {
+        a;    
+    }
+    {
+        def{showa}
+        {
+            stdio<-{print,6};
+        }       
+    }
+}
+class B extends A
+{
+    {
+        b;
+    }
+    {
+        def{showb}
+        {
+            stdio<-{print,4};
+        }       
+    }
+}
+ob = B<-{new};
+ob<-{showb};
+ob<-{showa};
+    
+\end{lstlisting}
+result:
+\begin{lstlisting}
+PostalSTDIO : [(Integer Object) : 4]
+PostalSTDIO : [(Integer Object) : 6]
+\end{lstlisting}
+\subsection{wrong sources}
+\subsubsection{sntax error}
+\begin{lstlisting}
+    a=4
+\end{lstlisting}
+(we omit the ;)\\
+result:
+\begin{lstlisting}
+Error executing code : syntax error : "" cannot begin an element of type<element suffixe>
+\end{lstlisting}
+\subsubsection{sntax error}
+\begin{lstlisting}
+m. = 4;   
+\end{lstlisting}
+(Correct sentence m.a = 4; for instance) \\
+result:
+\begin{lstlisting}
+Error executing code : syntax error : expected "IDENTIFIER " but "=" found
+\end{lstlisting}
+\subsubsection{execution error b not bound}
+\begin{lstlisting}
+    a = 4 + b;
+\end{lstlisting}
+result:
+\begin{lstlisting}
+    Error executing code : trying to access b but not found
+\end{lstlisting}
+\subsubsection{execution error addition of Integer and Boolean}
+\begin{lstlisting}
+    a = 4 + true;
+\end{lstlisting}
+result:
+\begin{lstlisting}
+    Error executing code : Trying to add a non integer to an integer.
+\end{lstlisting}
 \end{document}
