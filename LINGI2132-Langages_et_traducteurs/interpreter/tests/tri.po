@@ -1,0 +1,41 @@
+a = [1,14,28,98,0];
+b = [];
+max = a<-{itemAt,1};
+min = a<-{itemAt,1};
+stdio<-{print,min};
+i=0;
+while(i<a<-{size})
+{
+    t =a<-{itemAt,i};
+    if (max < t)
+    {
+        max=t;
+    }
+    if (min > t)
+    {
+        min=t;
+    }
+    i=i+1;
+}
+stdio<-{print,min};
+stdio<-{print,max};
+j=0;
+last = min-1;
+while(j<a<-{size})
+{
+    k=0;
+    mink = max;
+    while(k<a<-{size})
+    {
+        t =a<-{itemAt,k};
+        if((t<mink) and (t>last))
+        {
+            mink = t;
+        }
+        k=k+1;
+    }
+    b<-{add,mink};
+    last = mink;
+    j=j+1;
+}
+stdio<-{print,b};
