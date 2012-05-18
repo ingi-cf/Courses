@@ -13,6 +13,7 @@ n = length(A);
 di = Y*ones(size(Y,2),1);
 gamma = diag(di);
 
+
 %init U
 U = zeros(n,m);
 
