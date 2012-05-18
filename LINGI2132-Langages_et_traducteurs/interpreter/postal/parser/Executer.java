@@ -24,8 +24,10 @@ public class Executer {
 		PostalNode ast = (PostalNode) ST2AST.tradProgram(st);
 		System.out.println("AST created");
 		System.out.println(ast);
-		ast.execute(new PostalEnvironment());
+		PostalEnvironment e = new PostalEnvironment();
+		ast.execute(e);
 		System.out.println("Execution done");
+		System.out.println(e);
 /*	try {
 	// Construire l’arbre syntaxique st
 	TreeNode st = LL1Parsers.parse(new CLexer(line), gt) ;

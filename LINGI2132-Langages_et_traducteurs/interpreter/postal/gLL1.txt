@@ -78,6 +78,6 @@
 <messages declaration> ::= | <message declaration> <messages declaration>
 
 <message declaration> ::= def  { IDENTIFIER <comma first identifier list> } { <block code> }
-<comma first identifier list> ::= | ,IDENTIFIER <comma first identifier list>
+<comma first identifier list> ::= | , IDENTIFIER <comma first identifier list>
 
 <attribute declaration> ::= IDENTIFIER ;
