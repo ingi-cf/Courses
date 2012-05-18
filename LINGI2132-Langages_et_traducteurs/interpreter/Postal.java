@@ -48,8 +48,8 @@ public class Postal {
 		} 
 		catch (Exception e) 
 		{
-			System.err.println("Error executing code.");
-			e.printStackTrace();
+			System.err.println("Error executing code : "+ e.getMessage());
+			//e.printStackTrace();
 		}
 
 	}

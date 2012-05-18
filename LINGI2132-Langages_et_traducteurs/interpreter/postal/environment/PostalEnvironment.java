@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import postal.classes.PostalClass;
+import postal.exceptions.AccessException;
 import postal.objects.PostalObject;
 import postal.objects.StdioObject;
 
@@ -31,6 +32,8 @@ public class PostalEnvironment {
 
 	public PostalObject getVariable(String identifier) 
 	{
+		if (vc.get(identifier) == null)
+			throw new AccessException("trying to access " + identifier + " but not found");
 		return vc.get(identifier);
 	}
 	
