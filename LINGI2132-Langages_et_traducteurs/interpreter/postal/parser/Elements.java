@@ -20,8 +20,7 @@ public class Elements {
 		{
 			elements[gt.nonTerminal(unorderedNonTerminals[i])] = unorderedNonTerminals[i];
 		}
-		for(int i = 0 ; i< elements.length; i++)
-			System.out.println(i + " - " + elements[i]);
+		
 	}
 	
 	public static String terminal(int i)
