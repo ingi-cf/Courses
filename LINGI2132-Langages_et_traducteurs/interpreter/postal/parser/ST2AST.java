@@ -449,7 +449,7 @@ public class ST2AST{
                }
        case 10 : // <binary operator> --> != 
                { 
-                 return "ne" ; // a modifier
+                 return "neq" ; // a modifier
                }
        case 11 : // <binary operator> --> and 
                { 

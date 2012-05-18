@@ -2,8 +2,8 @@ a = [1,14,28,98,0];
 b = [];
 max = a<-{itemAt,1};
 min = a<-{itemAt,1};
-stdio<-{print,min};
 i=0;
+stdio<-{print,a};
 while(i<a<-{size})
 {
     t =a<-{itemAt,i};
@@ -17,8 +17,6 @@ while(i<a<-{size})
     }
     i=i+1;
 }
-stdio<-{print,min};
-stdio<-{print,max};
 j=0;
 last = min-1;
 while(j<a<-{size})
