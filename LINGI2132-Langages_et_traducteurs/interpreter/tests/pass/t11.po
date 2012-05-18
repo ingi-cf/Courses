@@ -1,0 +1,27 @@
+class A 
+{
+    {
+        a;    
+    }
+    {
+        def{showa}
+        {
+            stdio<-{print,6};
+        }       
+    }
+}
+class B extends A
+{
+    {
+        b;
+    }
+    {
+        def{showb}
+        {
+            stdio<-{print,4};
+        }       
+    }
+}
+ob = B<-{new};
+ob<-{showb};
+ob<-{showa};
