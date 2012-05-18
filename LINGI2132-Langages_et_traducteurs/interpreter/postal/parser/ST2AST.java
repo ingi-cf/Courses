@@ -193,12 +193,9 @@ public class ST2AST{
                  LinkedList<ElementNode> x1 = trad44(tree.getChild(1)) ;
                  if (x1 != null)
                  {
-
-                	 //TODO here there is something to do
-                	 //to.setElements(x1);
-
+                	 to.setElements(x1);
                  }
-                 return null ; // a modifier
+                 return to ; // a modifier
                }
        default : return null ;
     }

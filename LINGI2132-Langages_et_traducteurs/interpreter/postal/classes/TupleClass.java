@@ -32,14 +32,14 @@ public class TupleClass extends PostalClass
         else if(m.getName().equals("remove"))
         {
             int index = ((IntegerObject) m.param(0)).value();
-            PostalObject temp = o1.getElement(index);
+            PostalObject temp = (PostalObject) o1.getElement(index);
         	o1.removeElement(index);
         	return temp;
         }
         else if(m.getName().equals("itemAt"))
         {
             int index = ((IntegerObject) m.param(0)).value();
-        	return o1.getElement(index);
+        	return (PostalObject) o1.getElement(index);
         }
         else if(m.getName().equals("size"))
         {
