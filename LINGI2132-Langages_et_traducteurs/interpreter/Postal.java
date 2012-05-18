@@ -43,7 +43,7 @@ public class Postal {
 		
 		try 
 		{
-			System.out.println(code);
+			//System.out.println(code);
 			Executer.execute(code);
 		} 
 		catch (Exception e) 
