@@ -3,26 +3,29 @@ package postal.lexer;
 import postal.interpreter.CParams;
 
 public class PostalLexer implements ILexer {
-
-	String line;
 	
+	String terminals[];
+	String line;
+	gtools.GTools gt;
 	public PostalLexer(String line)
 	{
 		this.line = line;
+		gt = CParams.GT;
+
 	}
 	
 	
 	public IToken getNextSymbol()
 	{
 		line = line.trim(); //remove spaces from start or end of line
-		gtools.GTools gt = CParams.GT;
+		
 		
 		String symbol = "";
 		int terminal=gt.numberOfTerminals();
 		
 		//todo make sure that 1:this list is complete; 2:gt.terminal cannot be used
 		//todo extend not in grammar as word ?? 
-		String termAlpha = "true|false|super|self|def|and|or|while|if|class|extends|new";
+		String termAlpha = "true|false|super|self|def|and|or|while|if|class|extends|new|return";
 		String termNonAlpha = ";|\\{|\\}|\\+|-|\\*|/|%|<=|=>|<|>|==|!=|!|#|=|,|\\(|\\)|\\[|\\]|\\.";
 
 		Boolean completeToken = false;
@@ -75,5 +78,5 @@ public class PostalLexer implements ILexer {
 		
 		return new PostalToken(terminal, symbol);
 	}
-
+	
 }

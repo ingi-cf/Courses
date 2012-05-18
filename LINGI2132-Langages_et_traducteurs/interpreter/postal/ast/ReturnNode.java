@@ -1,11 +1,12 @@
 package postal.ast;
 
 import postal.environment.PostalEnvironment;
+import postal.objects.PostalObject;
 
 /*
  * node used to return a element at the end of a message implementation
  */
-public class ReturnNode extends PostalNode {
+public class ReturnNode extends ElementNode {
 	ElementNode elem;
 	
 	/*
@@ -17,7 +18,15 @@ public class ReturnNode extends PostalNode {
 	}
 	
 	public ElementNode execute(PostalEnvironment e) {
-		return elem.resolve(e);
+		ElementNode en = elem.resolve(e);
+		System.out.println("Return (execute) : " + en);
+		return en;
+	}
+
+	public PostalObject resolve(PostalEnvironment e) {
+		PostalObject po = elem.resolve(e);
+		System.out.println("Return (resolve) : " + po);
+		return (PostalObject) po;
 	}
 
 }
